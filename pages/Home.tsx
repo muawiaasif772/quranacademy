@@ -290,6 +290,10 @@ const Home: React.FC = () => {
             overflow: "hidden",
           }}
         >
+          {console.log(
+            "Rendering Home with tutors:",
+            process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+          )}
           {/* Large decorative Arabic calligraphy overlay */}
           <div
             style={{
@@ -933,7 +937,7 @@ const Home: React.FC = () => {
         </section>
 
         {/* ═══════════════════════════════════════════════════════ WHY US */}
-      <WhyUsSection />
+        <WhyUsSection />
 
         {/* ═══════════════════════════════════════════════════════ TUTORS */}
         <section
