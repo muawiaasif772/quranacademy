@@ -597,7 +597,7 @@ const Home: React.FC = () => {
                   }}
                 >
                   <img
-                    src="/assets/images/images.jfif"
+                    src="/assets\images\images.png"
                     alt="Student learning Quran"
                     style={{
                       width: "100%",
