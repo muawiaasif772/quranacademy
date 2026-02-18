@@ -3,32 +3,25 @@ import { submitLead } from "../services/api";
 import {
   CheckCircle2,
   Loader2,
-  Calendar,
   Clock,
   User,
   Mail,
   Phone,
   Globe,
-  MessageSquare,
   ArrowRight,
   Star,
   Shield,
   Award,
   Video,
-  BookOpen,
-  Users,
   Zap,
-  Heart,
   CheckCircle,
-  ChevronRight,
-  Sparkles,
-  GraduationCap,
   UserCheck,
+  Sparkles,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STYLES  (identical CSS vars / fonts / animations as HowItWorks / Pricing)
+// STYLES  (Responsive + Lucide icon animations)
 // ─────────────────────────────────────────────────────────────────────────────
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
@@ -41,6 +34,10 @@ const pageStyles = `
     --gold-m:  #e4b558;
     --gold-lt: #f5d98e;
   }
+
+  * { box-sizing:border-box; }
+  html, body { max-width:100%; overflow-x:hidden; }
+  img, svg, video, iframe { max-width:100%; }
 
   .hex-bg {
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
@@ -57,6 +54,15 @@ const pageStyles = `
   @keyframes float     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
   @keyframes pulse2    { 0%,100%{transform:scale(1);opacity:.7} 50%{transform:scale(1.6);opacity:0} }
   @keyframes checkPop  { 0%{transform:scale(0) rotate(-20deg)} 70%{transform:scale(1.15) rotate(4deg)} 100%{transform:scale(1) rotate(0deg)} }
+  @keyframes spin      { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  @keyframes wiggle    { 0%,100%{transform:rotate(0deg)} 25%{transform:rotate(6deg)} 75%{transform:rotate(-6deg)} }
+
+  /* Lucide icon animations */
+  .icon-spin { animation:spin 7s linear infinite; transform-origin:center; }
+  .icon-wiggle { animation:wiggle 3.5s ease-in-out infinite; transform-origin:center; }
+  .icon-float { animation:float 5s ease-in-out infinite; transform-origin:center; }
+  .icon-soft { transition: transform .25s ease, opacity .25s ease; }
+  .hover-icon:hover .icon-soft { transform: translateY(-2px) scale(1.06); opacity: .95; }
 
   .gold-shimmer {
     background:linear-gradient(90deg,var(--gold) 0%,var(--gold-lt) 35%,#fff8e0 50%,var(--gold-lt) 65%,var(--gold) 100%);
@@ -169,7 +175,19 @@ const pageStyles = `
     letter-spacing:.22em;text-transform:uppercase;
     color:rgba(255,255,255,.3);margin-bottom:14px;display:block;
   }
+.steps-desktop { display: grid; }
+  .steps-mobile  { display: none; }
 
+  /* Switch at your preferred breakpoint */
+  @media (max-width: 900px){
+    .steps-desktop { display: none !important; }
+    .steps-mobile  { display: grid !important; }
+  }
+
+  /* Optional: reduce hover lift on touch devices */
+  @media (hover: none){
+    .step-card:hover{ transform:none !important; box-shadow:none !important; }
+  }
   /* submit button */
   .submit-btn {
     width:100%;padding:18px;border-radius:16px;border:none;cursor:pointer;
@@ -187,17 +205,10 @@ const pageStyles = `
   .why-card {
     background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);
     border-radius:20px;padding:28px 24px;
-    transition:transform .35s ease,box-shadow .35s ease;
+    transition:transform .35s ease,box-shadow .35s ease, border-color .35s ease;
     position:relative;overflow:hidden;
   }
   .why-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.4);}
-
-  /* step timeline */
-  .step-dot {
-    width:44px;height:44px;border-radius:50%;flex-shrink:0;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Cinzel',serif;font-size:13px;font-weight:700;
-  }
 
   /* success icon pop */
   .success-icon { animation:checkPop .5s cubic-bezier(.16,1,.3,1) both; }
@@ -207,6 +218,40 @@ const pageStyles = `
     content:'';position:absolute;inset:0;border-radius:50%;
     background:var(--em-lt);
     animation:pulse2 2s ease-out infinite;
+  }
+
+  /* Responsive helpers */
+  .container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .wrap { padding-left: 24px; padding-right: 24px; }
+
+  @media (max-width: 1100px){
+    .form-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+  }
+  @media (max-width: 980px){
+    .testi-grid { grid-template-columns: 1fr 1fr !important; }
+  }
+  @media (max-width: 720px){
+    .testi-grid { grid-template-columns: 1fr !important; }
+    .hero-pills { gap: 10px !important; margin-bottom: 34px !important; }
+    .hero-stats { gap: 22px !important; }
+  }
+  @media (max-width: 640px){
+    .hero-sec { padding: 92px 16px 74px !important; }
+    .sec-pad { padding: 64px 16px 76px !important; }
+    .form-pad { padding: 64px 16px 96px !important; }
+    .form-inner { padding: 24px 18px 26px !important; }
+    .form-head { padding: 18px 18px !important; }
+    .field-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+  }
+  @media (max-width: 420px){
+    .hero-stats { gap: 16px !important; }
+    .pill { padding: 8px 12px !important; }
+  }
+
+  /* Reduce hover lift on touch devices */
+  @media (hover: none){
+    .why-card:hover{ transform:none !important; }
+    .submit-btn:hover:not(:disabled){ transform:none !important; }
   }
 `;
 
@@ -219,36 +264,42 @@ const whyTrial = [
     color: "#c9973a",
     title: "Al-Azhar Certified Tutors",
     desc: "Every tutor holds an Ijazah from Al-Azhar — the world's most prestigious Islamic institution.",
+    anim: "icon-wiggle",
   },
   {
     icon: Video,
     color: "#2fcf87",
     title: "HD 1-on-1 Live Sessions",
     desc: "Crystal-clear video with a digital whiteboard, screen sharing, and real-time Tajweed feedback.",
+    anim: "icon-float",
   },
   {
     icon: Clock,
     color: "#7eb8ff",
     title: "Completely Free, No Card",
     desc: "30 minutes, completely free. No credit card, no contract, no obligation to continue.",
+    anim: "icon-spin",
   },
   {
     icon: Globe,
     color: "#ff8fa3",
     title: "Learn in Your Language",
     desc: "Arabic, English, Urdu, French and 15+ more. Your tutor speaks your language.",
+    anim: "icon-float",
   },
   {
     icon: Shield,
     color: "#b58cff",
     title: "30-Day Money-Back Guarantee",
     desc: "If you subscribe and aren't satisfied within 30 days, we refund every penny — no questions.",
+    anim: "icon-spin",
   },
   {
     icon: UserCheck,
     color: "#ffd166",
     title: "Personalised Tutor Matching",
     desc: "We match you based on age, level, gender preference, and language for the best fit.",
+    anim: "icon-wiggle",
   },
 ];
 
@@ -362,6 +413,7 @@ const Field = ({
   <div style={{ position: "relative" }}>
     <Icon
       size={16}
+      className="icon-soft"
       style={{
         position: "absolute",
         left: 15,
@@ -370,6 +422,7 @@ const Field = ({
         color,
         pointerEvents: "none",
         zIndex: 1,
+        opacity: 0.9,
       }}
     />
     {children}
@@ -412,6 +465,7 @@ const SuccessScreen = () => (
         pointerEvents: "none",
       }}
     />
+
     <div
       style={{
         textAlign: "center",
@@ -420,7 +474,6 @@ const SuccessScreen = () => (
         maxWidth: 520,
       }}
     >
-      {/* animated check */}
       <div
         className="success-icon"
         style={{
@@ -481,6 +534,7 @@ const SuccessScreen = () => (
         Your Trial is <br />
         <span className="gold-text">Booked!</span>
       </h1>
+
       <p
         style={{
           color: "rgba(255,255,255,.45)",
@@ -494,7 +548,6 @@ const SuccessScreen = () => (
         Check your email for confirmation details.
       </p>
 
-      {/* next steps */}
       <div
         style={{
           background: "rgba(255,255,255,.03)",
@@ -595,6 +648,7 @@ const BookTrial: React.FC = () => {
     setLoading(true);
     setError("");
     const formData = new FormData(e.currentTarget);
+
     const data = {
       type: "trial" as const,
       name: formData.get("name") as string,
@@ -611,6 +665,7 @@ const BookTrial: React.FC = () => {
         | "Any",
       message: formData.get("notes") as string,
     };
+
     const result = await submitLead(data);
     setLoading(false);
     if (result.success) setSubmitted(true);
@@ -628,6 +683,7 @@ const BookTrial: React.FC = () => {
   return (
     <>
       <style>{pageStyles}</style>
+
       <div
         style={{
           fontFamily: "'Nunito',sans-serif",
@@ -638,6 +694,7 @@ const BookTrial: React.FC = () => {
       >
         {/* ══════════════════════════════ HERO */}
         <section
+          className="hero-sec"
           style={{
             background:
               "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
@@ -667,6 +724,7 @@ const BookTrial: React.FC = () => {
           >
             تجربة
           </div>
+
           <div
             className="glow-pulse"
             style={{
@@ -681,6 +739,7 @@ const BookTrial: React.FC = () => {
               pointerEvents: "none",
             }}
           />
+
           <div
             style={{
               position: "absolute",
@@ -710,6 +769,7 @@ const BookTrial: React.FC = () => {
                 justifyContent: "center",
                 gap: 14,
                 marginBottom: 20,
+                flexWrap: "wrap",
               }}
             >
               <div
@@ -765,9 +825,9 @@ const BookTrial: React.FC = () => {
               Al-Azhar scholar — completely free, no credit card, no commitment.
             </p>
 
-            {/* trust pills */}
+            {/* trust pills (with Lucide animations) */}
             <div
-              className="h4"
+              className="h4 hero-pills"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -778,13 +838,34 @@ const BookTrial: React.FC = () => {
               }}
             >
               {[
-                { icon: Shield, label: "No Credit Card", color: "#2fcf87" },
-                { icon: Clock, label: "30 Min Session", color: "#c9973a" },
-                { icon: Award, label: "Certified Tutors", color: "#7eb8ff" },
-                { icon: Zap, label: "Matched in 24h", color: "#ff8fa3" },
+                {
+                  icon: Shield,
+                  label: "No Credit Card",
+                  color: "#2fcf87",
+                  anim: "icon-wiggle",
+                },
+                {
+                  icon: Clock,
+                  label: "30 Min Session",
+                  color: "#c9973a",
+                  anim: "icon-spin",
+                },
+                {
+                  icon: Award,
+                  label: "Certified Tutors",
+                  color: "#7eb8ff",
+                  anim: "icon-float",
+                },
+                {
+                  icon: Zap,
+                  label: "Matched in 24h",
+                  color: "#ff8fa3",
+                  anim: "icon-wiggle",
+                },
               ].map((p, i) => (
                 <div
                   key={i}
+                  className="hover-icon pill"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -796,7 +877,7 @@ const BookTrial: React.FC = () => {
                     color: p.color,
                   }}
                 >
-                  <p.icon size={13} />
+                  <p.icon size={13} className={`${p.anim} icon-soft`} />
                   <span
                     style={{
                       fontFamily: "'Cinzel',serif",
@@ -813,7 +894,7 @@ const BookTrial: React.FC = () => {
 
             {/* stats */}
             <div
-              className="h5"
+              className="h5 hero-stats"
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -857,6 +938,7 @@ const BookTrial: React.FC = () => {
 
         {/* ══════════════════════════════ WHY CHOOSE US */}
         <section
+          className="sec-pad"
           style={{
             background:
               "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
@@ -888,6 +970,7 @@ const BookTrial: React.FC = () => {
                   justifyContent: "center",
                   gap: 14,
                   marginBottom: 16,
+                  flexWrap: "wrap",
                 }}
               >
                 <div
@@ -933,7 +1016,7 @@ const BookTrial: React.FC = () => {
               {whyTrial.map((w, i) => (
                 <div
                   key={i}
-                  className="why-card shb"
+                  className="why-card shb hover-icon"
                   onMouseEnter={(e) =>
                     ((e.currentTarget as HTMLElement).style.boxShadow =
                       `0 24px 56px rgba(0,0,0,.4),0 0 0 1px ${w.color}28`)
@@ -967,7 +1050,7 @@ const BookTrial: React.FC = () => {
                       boxShadow: `0 0 20px ${w.color}18`,
                     }}
                   >
-                    <w.icon size={22} />
+                    <w.icon size={22} className={`${w.anim} icon-soft`} />
                   </div>
                   <h4
                     style={{
@@ -997,6 +1080,7 @@ const BookTrial: React.FC = () => {
 
         {/* ══════════════════════════════ HOW IT WORKS — 4 steps */}
         <section
+          className="sec-pad"
           style={{
             background: "var(--deep)",
             padding: "80px 24px 100px",
@@ -1035,91 +1119,253 @@ const BookTrial: React.FC = () => {
                   color: "#fff",
                 }}
               >
-                From Form to <span className="gold-text">First Class</span> in 4
+                 Form to <span className="gold-text">First Class</span> in 4
                 Steps
               </h2>
             </div>
 
+   
+<>
+  {/* ───────── DESKTOP / LARGE DEVICES (timeline) ───────── */}
+  <div
+    className="steps-desktop"
+    style={{
+      gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+      gap: "clamp(10px, 3vw, 16px)",
+      position: "relative",
+    }}
+  >
+    <div
+      style={{
+        position: "absolute",
+        top: 22,
+        left: "12.5%",
+        right: "12.5%",
+        height: 2,
+        background: "linear-gradient(90deg,var(--gold)40,var(--gold)40)",
+        zIndex: 0,
+      }}
+    />
+
+    {steps.map((s, i) => (
+      <div
+        key={i}
+        style={{
+          textAlign: "center",
+          padding: "0 10px",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        <div
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: "50%",
+            margin: "0 auto 20px",
+            background: `linear-gradient(135deg,${s.accent}cc,${s.accent}88)`,
+            border: `2px solid ${s.accent}`,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "'Cinzel',serif",
+            fontSize: 13,
+            fontWeight: 700,
+            color: "#020b06",
+            boxShadow: `0 4px 20px ${s.accent}40`,
+          }}
+        >
+          {s.number}
+        </div>
+        <h4
+          style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: 17,
+            fontWeight: 700,
+            color: "#fff",
+            marginBottom: 8,
+          }}
+        >
+          {s.title}
+        </h4>
+        <p
+          style={{
+            color: "rgba(255,255,255,.38)",
+            fontSize: 12,
+            lineHeight: 1.7,
+          }}
+        >
+          {s.desc}
+        </p>
+      </div>
+    ))}
+  </div>
+
+  {/* ───────── MOBILE / SMALL DEVICES (cards) ───────── */}
+  <div
+    className="steps-mobile"
+    style={{
+      gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+      gap: "clamp(12px, 3vw, 18px)",
+    }}
+  >
+    {steps.map((s, i) => (
+      <div
+        key={i}
+        className="step-card shb"
+        style={{
+          border: `1px solid ${s.accent}22`,
+          background: "rgba(255,255,255,.025)",
+          borderRadius: 22,
+          padding: "22px 18px",
+          position: "relative",
+          overflow: "hidden",
+          transition:
+            "transform .35s ease, box-shadow .35s ease, border-color .35s ease",
+          animation: "fadeUp .7s cubic-bezier(.16,1,.3,1) both",
+          animationDelay: `${i * 0.06}s`,
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = "translateY(-6px)";
+          (e.currentTarget as HTMLElement).style.boxShadow = `0 26px 54px rgba(0,0,0,.45), 0 0 0 1px ${s.accent}30`;
+          (e.currentTarget as HTMLElement).style.borderColor = `${s.accent}55`;
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = "";
+          (e.currentTarget as HTMLElement).style.boxShadow = "";
+          (e.currentTarget as HTMLElement).style.borderColor = `${s.accent}22`;
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 3,
+            background: `linear-gradient(90deg,transparent,${s.accent},transparent)`,
+            opacity: 0.85,
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: -80,
+            right: -70,
+            width: 180,
+            height: 180,
+            borderRadius: "50%",
+            background: `radial-gradient(circle,${s.accent}22 0%, transparent 60%)`,
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 12,
+            marginBottom: 14,
+          }}
+        >
+          <div
+            style={{
+              width: 46,
+              height: 46,
+              borderRadius: 16,
+              background: `${s.accent}18`,
+              border: `1px solid ${s.accent}30`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              boxShadow: `0 0 18px ${s.accent}18`,
+            }}
+          >
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-                gap: "clamp(8px, 3vw, 16px)",
-                position: "relative",
+                width: 34,
+                height: 34,
+                borderRadius: "50%",
+                background: `linear-gradient(135deg,${s.accent}cc,${s.accent}88)`,
+                border: `2px solid ${s.accent}`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontFamily: "'Cinzel',serif",
+                fontSize: 11,
+                fontWeight: 800,
+                color: "#020b06",
+                boxShadow: `0 4px 18px ${s.accent}40`,
               }}
             >
-              {/* connector line */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 22,
-                  left: "12.5%",
-                  right: "12.5%",
-                  height: 2,
-                  background:
-                    "linear-gradient(90deg,var(--gold)40,var(--gold)40)",
-                  zIndex: 0,
-                }}
-              />
-
-              {steps.map((s, i) => (
-                <div
-                  key={i}
-                  style={{
-                    textAlign: "center",
-                    padding: "0 12px",
-                    position: "relative",
-                    zIndex: 1,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 44,
-                      height: 44,
-                      borderRadius: "50%",
-                      margin: "0 auto 20px",
-                      background: `linear-gradient(135deg,${s.accent}cc,${s.accent}88)`,
-                      border: `2px solid ${s.accent}`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontFamily: "'Cinzel',serif",
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: "#020b06",
-                      boxShadow: `0 4px 20px ${s.accent}40`,
-                    }}
-                  >
-                    {s.number}
-                  </div>
-                  <h4
-                    style={{
-                      fontFamily: "'Cormorant Garamond',serif",
-                      fontSize: 17,
-                      fontWeight: 700,
-                      color: "#fff",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {s.title}
-                  </h4>
-                  <p
-                    style={{
-                      color: "rgba(255,255,255,.38)",
-                      fontSize: 12,
-                      lineHeight: 1.7,
-                    }}
-                  >
-                    {s.desc}
-                  </p>
-                </div>
-              ))}
+              {s.number}
             </div>
+          </div>
+
+          <div
+            style={{
+              padding: "7px 12px",
+              borderRadius: 999,
+              background: `${s.accent}12`,
+              border: `1px solid ${s.accent}26`,
+              color: s.accent,
+              fontFamily: "'Cinzel',serif",
+              fontSize: 9,
+              fontWeight: 800,
+              letterSpacing: ".14em",
+              textTransform: "uppercase",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Step {i + 1}
+          </div>
+        </div>
+
+        <h4
+          style={{
+            fontFamily: "'Cormorant Garamond',serif",
+            fontSize: 18,
+            fontWeight: 800,
+            color: "#fff",
+            marginBottom: 10,
+            lineHeight: 1.2,
+          }}
+        >
+          {s.title}
+        </h4>
+
+        <p
+          style={{
+            color: "rgba(255,255,255,.42)",
+            fontSize: 13,
+            lineHeight: 1.75,
+            margin: 0,
+          }}
+        >
+          {s.desc}
+        </p>
+
+        <div
+          style={{
+            marginTop: 18,
+            height: 1,
+            background: `linear-gradient(90deg,transparent,${s.accent}55,transparent)`,
+            opacity: 0.55,
+          }}
+        />
+      </div>
+    ))}
+  </div>
+</>
+
           </div>
         </section>
 
         {/* ══════════════════════════════ TESTIMONIALS */}
         <section
+          className="sec-pad"
           style={{
             background:
               "linear-gradient(180deg,var(--deep) 0%,var(--forest) 100%)",
@@ -1158,7 +1404,9 @@ const BookTrial: React.FC = () => {
                 <span className="gold-text">Free Trial</span>
               </h2>
             </div>
+
             <div
+              className="testi-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(3,1fr)",
@@ -1238,6 +1486,7 @@ const BookTrial: React.FC = () => {
 
         {/* ══════════════════════════════ FORM */}
         <section
+          className="form-pad"
           style={{
             background: "var(--forest)",
             padding: "80px 24px 120px",
@@ -1265,6 +1514,7 @@ const BookTrial: React.FC = () => {
 
           <div
             ref={formReveal.ref}
+            className="form-grid"
             style={{
               maxWidth: 1100,
               margin: "0 auto",
@@ -1279,7 +1529,7 @@ const BookTrial: React.FC = () => {
               transition: "opacity .7s ease, transform .7s ease",
             }}
           >
-            {/* ── LEFT SIDEBAR ── */}
+            {/* LEFT SIDEBAR */}
             <div>
               <div
                 style={{
@@ -1299,6 +1549,7 @@ const BookTrial: React.FC = () => {
                 />
                 <span className="sec-label">Registration</span>
               </div>
+
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond',serif",
@@ -1313,6 +1564,7 @@ const BookTrial: React.FC = () => {
                 <br />
                 <span className="gold-text">Free Trial</span>
               </h2>
+
               <p
                 style={{
                   color: "rgba(255,255,255,.4)",
@@ -1325,7 +1577,6 @@ const BookTrial: React.FC = () => {
                 scholar within 24 hours.
               </p>
 
-              {/* sidebar checklist */}
               <div
                 style={{
                   display: "flex",
@@ -1373,7 +1624,6 @@ const BookTrial: React.FC = () => {
                 ))}
               </div>
 
-              {/* online indicator */}
               <div
                 style={{
                   display: "flex",
@@ -1411,7 +1661,7 @@ const BookTrial: React.FC = () => {
               </div>
             </div>
 
-            {/* ── FORM CARD ── */}
+            {/* FORM CARD */}
             <div
               className="shb"
               style={{
@@ -1422,8 +1672,8 @@ const BookTrial: React.FC = () => {
                 boxShadow: "0 32px 80px rgba(0,0,0,.5)",
               }}
             >
-              {/* form header */}
               <div
+                className="form-head"
                 style={{
                   background:
                     "linear-gradient(135deg,rgba(201,151,58,.18),rgba(201,151,58,.06))",
@@ -1432,6 +1682,8 @@ const BookTrial: React.FC = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
+                  gap: 16,
+                  flexWrap: "wrap",
                 }}
               >
                 <div>
@@ -1449,24 +1701,23 @@ const BookTrial: React.FC = () => {
                     Trial Registration Form
                   </h3>
                 </div>
+
                 <div
+                  className="hover-icon"
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: 6,
+                    gap: 8,
                     background: "rgba(47,207,135,.12)",
                     border: "1px solid rgba(47,207,135,.25)",
                     borderRadius: 100,
                     padding: "6px 14px",
                   }}
                 >
-                  <div
-                    style={{
-                      width: 7,
-                      height: 7,
-                      borderRadius: "50%",
-                      background: "#2fcf87",
-                    }}
+                  <Sparkles
+                    size={14}
+                    className="icon-wiggle icon-soft"
+                    color="#2fcf87"
                   />
                   <span
                     style={{
@@ -1484,11 +1735,13 @@ const BookTrial: React.FC = () => {
 
               <form
                 onSubmit={handleSubmit}
+                className="form-inner"
                 style={{ padding: "32px 32px 36px" }}
               >
-                {/* ── Personal Info ── */}
                 <span className="f-section-label">Personal Information</span>
+
                 <div
+                  className="field-grid"
                   style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
@@ -1534,7 +1787,6 @@ const BookTrial: React.FC = () => {
                   </Field>
                 </div>
 
-                {/* divider */}
                 <div
                   style={{
                     height: 1,
@@ -1544,11 +1796,12 @@ const BookTrial: React.FC = () => {
                   }}
                 />
 
-                {/* ── Course ── */}
                 <span className="f-section-label">
                   Course & Student Details
                 </span>
+
                 <div
+                  className="field-grid"
                   style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
@@ -1578,7 +1831,6 @@ const BookTrial: React.FC = () => {
                   </div>
                 </div>
 
-                {/* divider */}
                 <div
                   style={{
                     height: 1,
@@ -1588,8 +1840,8 @@ const BookTrial: React.FC = () => {
                   }}
                 />
 
-                {/* ── Schedule ── */}
                 <span className="f-section-label">Preferred Schedule</span>
+
                 <div style={{ marginBottom: 20 }}>
                   <p
                     style={{
@@ -1614,6 +1866,7 @@ const BookTrial: React.FC = () => {
                     ))}
                   </div>
                 </div>
+
                 <div style={{ marginBottom: 24 }}>
                   <select name="time" className="f-select">
                     <option value="">Preferred Time Slot</option>
@@ -1625,7 +1878,6 @@ const BookTrial: React.FC = () => {
                   </select>
                 </div>
 
-                {/* divider */}
                 <div
                   style={{
                     height: 1,
@@ -1635,8 +1887,8 @@ const BookTrial: React.FC = () => {
                   }}
                 />
 
-                {/* ── Teacher preference ── */}
                 <span className="f-section-label">Teacher Preference</span>
+
                 <div
                   style={{
                     display: "flex",
@@ -1655,14 +1907,13 @@ const BookTrial: React.FC = () => {
                         defaultChecked={i === 2}
                       />
                       <label htmlFor={`pref-${p}`}>
-                        <User size={11} />
+                        <User size={11} className="icon-soft" />
                         {p} Teacher
                       </label>
                     </div>
                   ))}
                 </div>
 
-                {/* divider */}
                 <div
                   style={{
                     height: 1,
@@ -1672,10 +1923,10 @@ const BookTrial: React.FC = () => {
                   }}
                 />
 
-                {/* ── Notes ── */}
                 <span className="f-section-label">
                   Additional Notes (Optional)
                 </span>
+
                 <div style={{ marginBottom: 28 }}>
                   <textarea
                     name="notes"
@@ -1686,7 +1937,6 @@ const BookTrial: React.FC = () => {
                   />
                 </div>
 
-                {/* error */}
                 {error && (
                   <div
                     style={{
@@ -1704,7 +1954,6 @@ const BookTrial: React.FC = () => {
                   </div>
                 )}
 
-                {/* submit */}
                 <button type="submit" disabled={loading} className="submit-btn">
                   {loading ? (
                     <>
@@ -1777,6 +2026,7 @@ const BookTrial: React.FC = () => {
                 "linear-gradient(90deg,transparent,var(--gold),transparent)",
             }}
           />
+
           <div style={{ position: "relative", zIndex: 1 }}>
             <p
               style={{
@@ -1787,6 +2037,7 @@ const BookTrial: React.FC = () => {
             >
               Have questions first?
             </p>
+
             <div
               style={{
                 display: "flex",
@@ -1815,6 +2066,7 @@ const BookTrial: React.FC = () => {
               >
                 View Pricing
               </Link>
+
               <Link
                 to="/faq"
                 style={{
@@ -1835,8 +2087,10 @@ const BookTrial: React.FC = () => {
               >
                 Browse FAQ
               </Link>
+
               <Link
                 to="/contact"
+                className="hover-icon"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1854,10 +2108,11 @@ const BookTrial: React.FC = () => {
                   boxShadow: "0 4px 20px rgba(201,151,58,.35)",
                 }}
               >
-                Contact Us <ArrowRight size={12} />
+                Contact Us <ArrowRight size={12} className="icon-soft" />
               </Link>
             </div>
           </div>
+
           <div
             style={{
               width: 140,
@@ -1869,10 +2124,6 @@ const BookTrial: React.FC = () => {
           />
         </section>
       </div>
-
-      <style>{`
-        @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-      `}</style>
     </>
   );
 };

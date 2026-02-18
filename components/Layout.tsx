@@ -907,7 +907,7 @@ export const Footer: React.FC = () => {
                 { label: "Help Center", path: "/faq" },
                 { label: "Contact Us", path: "/contact" },
                 { label: "Register Now", path: "/book-free-trial" },
-                { label: "Privacy Policy", path: "#" },
+                { label: "Privacy Policy", path: "/privacy-policy" },
               ].map((l) => (
                 <li key={l.path}>
                   <Link to={l.path} className="foot-link">

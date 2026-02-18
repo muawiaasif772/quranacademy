@@ -8,20 +8,12 @@ import {
   Award,
   BookOpen,
   Globe,
-  Clock,
   ArrowRight,
   CheckCircle,
   Play,
-  Mic2,
-  BookMarked,
-  Languages,
   Heart,
   Shield,
-  Sparkles,
-  ChevronRight,
   GraduationCap,
-  MessageCircle,
-  Video,
 } from "lucide-react";
 
 // ── Styles ────────────────────────────────────────────────────────────────────
@@ -40,6 +32,15 @@ const pageStyles = `
     --gold-lt: #f5d98e;
   }
 
+  /* ✅ GLOBAL RESPONSIVE + FIX HORIZONTAL SCROLL */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  img, svg { max-width: 100%; height: auto; }
+
+  .page-wrap { width: 100%; max-width: 100%; overflow-x: clip; }
+  .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 640px) { .container { padding: 0 16px; } }
+
   .hex-bg {
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
   }
@@ -51,11 +52,8 @@ const pageStyles = `
   @keyframes fadeUp   { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
   @keyframes shimText { 0%{background-position:-500px 0} 100%{background-position:500px 0} }
   @keyframes glowPulse{ 0%,100%{opacity:.35;transform:scale(1)} 50%{opacity:.75;transform:scale(1.06)} }
-  @keyframes rotateCW { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-  @keyframes rotateCCW{ from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
-  @keyframes dotOrbit { from{transform:rotate(0deg) translateX(38px) rotate(0deg)} to{transform:rotate(360deg) translateX(38px) rotate(-360deg)} }
+  @keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   @keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  @keyframes popIn    { 0%{transform:scale(.85) translateY(10px);opacity:0} 100%{transform:scale(1) translateY(0);opacity:1} }
   @keyframes shimBar  { 0%{left:-100%} 100%{left:200%} }
   @keyframes cardIn   { from{opacity:0;transform:translateY(28px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
   @keyframes borderSpin{ from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
@@ -98,15 +96,20 @@ const pageStyles = `
     box-shadow:0 4px 16px rgba(201,151,58,.15)!important;
   }
 
-  /* search */
+  /* ✅ search input responsive (no fixed width expansion overflow) */
   .srch{
     background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
     border-radius:14px;padding:11px 16px 11px 44px;
     color:#fff;font-family:'Nunito',sans-serif;font-size:14px;
-    outline:none;width:260px;transition:all .3s;
+    outline:none;transition:all .3s;
+
+    width: 100%;
+    max-width: 360px;
+    min-width: 0;
   }
   .srch::placeholder{color:rgba(255,255,255,.22);}
-  .srch:focus{border-color:rgba(201,151,58,.4);background:rgba(255,255,255,.06);width:300px;}
+  .srch:focus{border-color:rgba(201,151,58,.4);background:rgba(255,255,255,.06);}
+  @media (max-width: 640px){ .srch{max-width:100%;} }
 
   /* tutor card */
   .t-card{
@@ -115,6 +118,7 @@ const pageStyles = `
     will-change:transform;
     position:relative;
     cursor:pointer;
+    min-width:0; /* ✅ prevent overflow */
   }
   .t-card:hover{
     transform:translateY(-14px) scale(1.02);
@@ -126,21 +130,6 @@ const pageStyles = `
   .t-card:hover .t-cta{
     background:linear-gradient(135deg,var(--gold-m),var(--gold))!important;
     color:var(--deep)!important;border-color:transparent!important;
-  }
-
-  /* avatar halo spin */
-  .avatar-halo{position:relative;display:inline-block;}
-  .avatar-halo::before{
-    content:'';position:absolute;inset:-4px;border-radius:50%;
-    background:conic-gradient(var(--gold) 0deg,var(--em-lt) 120deg,var(--gold-m) 240deg,var(--gold) 360deg);
-    animation:borderSpin 6s linear infinite;z-index:-1;
-  }
-
-  /* online pulse dot */
-  .online-dot::after{
-    content:'';position:absolute;inset:0;border-radius:50%;
-    background:var(--em-lt);
-    animation:pulse2 2s ease-out infinite;
   }
 
   /* featured card shimmer */
@@ -157,12 +146,18 @@ const pageStyles = `
     padding:3px 10px;border-radius:100px;
     font-family:'Cinzel',serif;font-size:8px;font-weight:700;letter-spacing:.14em;
     text-transform:uppercase;
+    max-width: 100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
   }
 
-  /* trust stat row */
-  .trust-item{display:flex;flex-direction:column;align-items:center;gap:4px;}
-
-  @keyframes rotateSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  /* online pulse dot */
+  .online-dot::after{
+    content:'';position:absolute;inset:0;border-radius:50%;
+    background:var(--em-lt);
+    animation:pulse2 2s ease-out infinite;
+  }
 
   /* view toggle */
   .v-btn{
@@ -171,6 +166,7 @@ const pageStyles = `
     border:1px solid rgba(255,255,255,.08);
     background:rgba(255,255,255,.03);color:rgba(255,255,255,.35);
     transition:all .25s;
+    flex: 0 0 auto;
   }
   .v-btn-active{background:rgba(201,151,58,.12)!important;border-color:rgba(201,151,58,.3)!important;color:var(--gold-lt)!important;}
   .v-btn:hover{color:var(--gold-lt);border-color:rgba(201,151,58,.2);}
@@ -179,12 +175,51 @@ const pageStyles = `
   .t-list-card{
     animation:cardIn .5s cubic-bezier(.16,1,.3,1) both;
     transition:transform .35s ease,box-shadow .35s ease;
+    min-width:0;
   }
   .t-list-card:hover{
     transform:translateX(6px);
     box-shadow:0 16px 48px rgba(0,0,0,.35),0 0 0 1px rgba(201,151,58,.2)!important;
   }
   .t-list-card:hover .t-list-cta{background:linear-gradient(135deg,var(--gold-m),var(--gold))!important;color:var(--deep)!important;border-color:transparent!important;}
+
+  /* ✅ Featured spotlight responsive grid */
+  .spotlight {
+    display:grid;
+    grid-template-columns: 1fr 1.6fr;
+  }
+  @media (max-width: 920px){
+    .spotlight { grid-template-columns: 1fr; }
+  }
+
+  /* ✅ List card responsive: collapse to stacked layout */
+  .list-grid {
+    display:grid;
+    grid-template-columns: 80px 1fr auto;
+    gap: 28px;
+    align-items:center;
+  }
+  @media (max-width: 860px){
+    .list-grid { grid-template-columns: 72px 1fr; }
+    .list-cta-wrap { grid-column: 1 / -1; display:flex; justify-content:flex-start; }
+  }
+  @media (max-width: 520px){
+    .list-grid { grid-template-columns: 64px 1fr; gap: 16px; }
+  }
+
+  /* ✅ Watermark responsiveness */
+  @media (max-width: 640px){
+    .arabic-watermark {
+      right: -22% !important;
+      font-size: clamp(120px, 40vw, 220px) !important;
+      white-space: nowrap;
+    }
+  }
+
+  /* ✅ Sticky top offset: prevent weird cut on small screens (optional) */
+  @media (max-width: 640px){
+    .sticky-bar { top: 0; }
+  }
 `;
 
 // ── Fallback tutor data ───────────────────────────────────────────────────────
@@ -358,6 +393,7 @@ const Tutors: React.FC = () => {
   const allTutors = (TUTORS && TUTORS.length ? TUTORS : TUTOR_FB) as any[];
 
   const filtered = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
     return allTutors.filter((t: any) => {
       const matchFilter = (() => {
         if (activeFilter === "All") return true;
@@ -371,12 +407,12 @@ const Tutors: React.FC = () => {
           s.toLowerCase().includes(activeFilter.toLowerCase()),
         );
       })();
+
       const matchSearch =
-        !searchQuery ||
-        t.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (t.specialties || []).some((s: string) =>
-          s.toLowerCase().includes(searchQuery.toLowerCase()),
-        );
+        !q ||
+        t.name?.toLowerCase().includes(q) ||
+        (t.specialties || []).some((s: string) => s.toLowerCase().includes(q));
+
       return matchFilter && matchSearch;
     });
   }, [activeFilter, searchQuery, allTutors]);
@@ -386,7 +422,9 @@ const Tutors: React.FC = () => {
   return (
     <>
       <style>{pageStyles}</style>
+
       <div
+        className="page-wrap"
         style={{
           fontFamily: "'Nunito',sans-serif",
           background: "var(--deep)",
@@ -398,7 +436,7 @@ const Tutors: React.FC = () => {
           style={{
             background:
               "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),radial-gradient(100% 100% at 50% 50%,#020b06 0%,#030f07 100%)",
-            padding: "100px 24px 80px",
+            padding: "100px 0 80px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -407,7 +445,9 @@ const Tutors: React.FC = () => {
             className="hex-bg"
             style={{ position: "absolute", inset: 0, opacity: 0.6 }}
           />
+
           <div
+            className="arabic-watermark"
             style={{
               position: "absolute",
               top: "50%",
@@ -420,10 +460,12 @@ const Tutors: React.FC = () => {
               userSelect: "none",
               pointerEvents: "none",
               lineHeight: 1,
+              whiteSpace: "nowrap",
             }}
           >
             شيخ
           </div>
+
           <div
             className="glow-pulse"
             style={{
@@ -438,6 +480,7 @@ const Tutors: React.FC = () => {
               pointerEvents: "none",
             }}
           />
+
           <div
             style={{
               position: "absolute",
@@ -451,13 +494,8 @@ const Tutors: React.FC = () => {
           />
 
           <div
-            style={{
-              maxWidth: 1320,
-              margin: "0 auto",
-              position: "relative",
-              zIndex: 1,
-              textAlign: "center",
-            }}
+            className="container"
+            style={{ position: "relative", zIndex: 1, textAlign: "center" }}
           >
             <div
               className="h1"
@@ -467,6 +505,7 @@ const Tutors: React.FC = () => {
                 justifyContent: "center",
                 gap: 14,
                 marginBottom: 20,
+                flexWrap: "wrap",
               }}
             >
               <div
@@ -489,6 +528,7 @@ const Tutors: React.FC = () => {
                 }}
               />
             </div>
+
             <h1
               className="h2"
               style={{
@@ -506,6 +546,7 @@ const Tutors: React.FC = () => {
                 Expert Tutors
               </span>
             </h1>
+
             <p
               className="h3"
               style={{
@@ -519,6 +560,7 @@ const Tutors: React.FC = () => {
               Every tutor is hand-selected, certified, and passionate about
               guiding you on your Quranic journey.
             </p>
+
             {/* stat pills */}
             <div
               className="h4"
@@ -598,10 +640,10 @@ const Tutors: React.FC = () => {
         <section
           style={{
             background: "linear-gradient(180deg,#020b06 0%,var(--forest) 100%)",
-            padding: "72px 24px",
+            padding: "72px 0",
           }}
         >
-          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+          <div className="container">
             <div
               style={{
                 display: "flex",
@@ -623,15 +665,13 @@ const Tutors: React.FC = () => {
             </div>
 
             <div
-              className="shim-bar"
+              className="shim-bar spotlight"
               style={{
                 background:
                   "linear-gradient(135deg,rgba(14,66,36,.65),rgba(10,46,24,.8))",
                 border: "1px solid rgba(201,151,58,.2)",
                 borderRadius: 28,
                 overflow: "hidden",
-                display: "grid",
-                gridTemplateColumns: "1fr 1.6fr",
                 boxShadow: "0 32px 80px rgba(0,0,0,.4)",
                 position: "relative",
               }}
@@ -645,8 +685,8 @@ const Tutors: React.FC = () => {
                 }}
               >
                 <img
-                  src={featured.photoUrl}
-                  alt={featured.name}
+                  src={featured?.photoUrl}
+                  alt={featured?.name}
                   style={{
                     width: "100%",
                     height: "100%",
@@ -663,23 +703,9 @@ const Tutors: React.FC = () => {
                       "linear-gradient(to right,rgba(2,11,6,.1),rgba(2,11,6,.7))",
                   }}
                 />
-                {/* rotating ring overlay */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    right: 40,
-                    transform: "translateY(-50%)",
-                    width: 120,
-                    height: 120,
-                    borderRadius: "50%",
-                    border: "1px dashed rgba(201,151,58,.3)",
-                    animation: "rotateSlow 15s linear infinite",
-                    pointerEvents: "none",
-                  }}
-                />
+
                 {/* verified badge */}
-                {featured.verified && (
+                {featured?.verified && (
                   <div
                     style={{
                       position: "absolute",
@@ -719,7 +745,6 @@ const Tutors: React.FC = () => {
                   zIndex: 1,
                 }}
               >
-                {/* inner glow */}
                 <div
                   style={{
                     position: "absolute",
@@ -744,7 +769,7 @@ const Tutors: React.FC = () => {
                     gap: 12,
                   }}
                 >
-                  <div>
+                  <div style={{ minWidth: 0 }}>
                     <p className="sec-label" style={{ marginBottom: 8 }}>
                       ⭐ Top Rated Tutor
                     </p>
@@ -755,11 +780,13 @@ const Tutors: React.FC = () => {
                         fontWeight: 700,
                         color: "#fff",
                         lineHeight: 1.1,
+                        overflowWrap: "anywhere",
                       }}
                     >
-                      {featured.name}
+                      {featured?.name}
                     </h2>
                   </div>
+
                   <div
                     style={{
                       textAlign: "center",
@@ -767,6 +794,7 @@ const Tutors: React.FC = () => {
                       border: "1px solid rgba(201,151,58,.25)",
                       borderRadius: 16,
                       padding: "12px 20px",
+                      flex: "0 0 auto",
                     }}
                   >
                     <div
@@ -778,7 +806,7 @@ const Tutors: React.FC = () => {
                         lineHeight: 1,
                       }}
                     >
-                      {featured.rating}
+                      {featured?.rating}
                     </div>
                     <div
                       style={{
@@ -804,7 +832,7 @@ const Tutors: React.FC = () => {
                         marginTop: 4,
                       }}
                     >
-                      {featured.reviewCount || 427} reviews
+                      {featured?.reviewCount || 427} reviews
                     </div>
                   </div>
                 </div>
@@ -815,10 +843,10 @@ const Tutors: React.FC = () => {
                     fontSize: 15,
                     lineHeight: 1.8,
                     marginBottom: 28,
-                    maxWidth: 440,
+                    maxWidth: 520,
                   }}
                 >
-                  {featured.bio}
+                  {featured?.bio}
                 </p>
 
                 {/* badges */}
@@ -831,7 +859,7 @@ const Tutors: React.FC = () => {
                   }}
                 >
                   {(
-                    featured.badges || ["Al-Azhar Graduate", "Ijazah Holder"]
+                    featured?.badges || ["Al-Azhar Graduate", "Ijazah Holder"]
                   ).map((b: string, i: number) => (
                     <span
                       key={i}
@@ -841,12 +869,13 @@ const Tutors: React.FC = () => {
                         border: "1px solid rgba(201,151,58,.25)",
                         color: "var(--gold-lt)",
                       }}
+                      title={b}
                     >
                       <Award size={8} />
                       {b}
                     </span>
                   ))}
-                  {(featured.specialties || []).map((s: string, i: number) => (
+                  {(featured?.specialties || []).map((s: string, i: number) => (
                     <span
                       key={i}
                       className="badge"
@@ -855,6 +884,7 @@ const Tutors: React.FC = () => {
                         border: "1px solid rgba(47,207,135,.2)",
                         color: "#2fcf87",
                       }}
+                      title={s}
                     >
                       <BookOpen size={8} />
                       {s}
@@ -863,18 +893,28 @@ const Tutors: React.FC = () => {
                 </div>
 
                 {/* stats row */}
-                <div style={{ display: "flex", gap: 32, marginBottom: 32 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 28,
+                    marginBottom: 32,
+                    flexWrap: "wrap",
+                  }}
+                >
                   {[
-                    { v: `${featured.experienceYears}yr`, l: "Experience" },
-                    { v: `${featured.students || 480}+`, l: "Students" },
                     {
-                      v: (featured.languages || ["Arabic", "English"]).join(
+                      v: `${featured?.experienceYears || 0}yr`,
+                      l: "Experience",
+                    },
+                    { v: `${featured?.students || 0}+`, l: "Students" },
+                    {
+                      v: (featured?.languages || ["Arabic", "English"]).join(
                         " · ",
                       ),
                       l: "Languages",
                     },
                   ].map((s, i) => (
-                    <div key={i}>
+                    <div key={i} style={{ minWidth: 0 }}>
                       <div
                         style={{
                           fontFamily: "'Cormorant Garamond',serif",
@@ -882,6 +922,7 @@ const Tutors: React.FC = () => {
                           fontWeight: 700,
                           color: "var(--gold-m)",
                           lineHeight: 1,
+                          overflowWrap: "anywhere",
                         }}
                       >
                         {s.v}
@@ -919,10 +960,12 @@ const Tutors: React.FC = () => {
                       letterSpacing: ".1em",
                       textDecoration: "none",
                       boxShadow: "0 6px 24px rgba(201,151,58,.4)",
+                      maxWidth: "100%",
                     }}
                   >
                     ✦ Book Session
                   </Link>
+
                   <button
                     style={{
                       display: "inline-flex",
@@ -938,6 +981,7 @@ const Tutors: React.FC = () => {
                       fontSize: 11,
                       letterSpacing: ".1em",
                       cursor: "pointer",
+                      maxWidth: "100%",
                     }}
                   >
                     <Play size={14} /> View Intro
@@ -950,11 +994,12 @@ const Tutors: React.FC = () => {
 
         {/* ══════════════════════════ FILTER + SEARCH BAR */}
         <div
+          className="sticky-bar"
           style={{
             background: "rgba(2,11,6,.97)",
             borderTop: "1px solid rgba(255,255,255,.05)",
             borderBottom: "1px solid rgba(255,255,255,.05)",
-            padding: "18px 24px",
+            padding: "18px 0",
             position: "sticky",
             top: 76,
             zIndex: 40,
@@ -962,14 +1007,14 @@ const Tutors: React.FC = () => {
           }}
         >
           <div
+            className="container"
             style={{
-              maxWidth: 1320,
-              margin: "0 auto",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
               gap: 16,
               flexWrap: "wrap",
+              minWidth: 0,
             }}
           >
             {/* filters */}
@@ -979,6 +1024,7 @@ const Tutors: React.FC = () => {
                 alignItems: "center",
                 gap: 8,
                 flexWrap: "wrap",
+                minWidth: 0,
               }}
             >
               {FILTERS.map((f) => (
@@ -994,9 +1040,19 @@ const Tutors: React.FC = () => {
               ))}
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                flexWrap: "wrap",
+                minWidth: 0,
+              }}
+            >
               {/* search */}
-              <div style={{ position: "relative" }}>
+              <div
+                style={{ position: "relative", flex: "1 1 320px", minWidth: 0 }}
+              >
                 <Search
                   size={15}
                   style={{
@@ -1035,6 +1091,7 @@ const Tutors: React.FC = () => {
                     <rect x="8" y="8" width="6" height="6" rx="1" />
                   </svg>
                 </button>
+
                 <button
                   className={`v-btn${viewMode === "list" ? " v-btn-active" : ""}`}
                   onClick={() => setViewMode("list")}
@@ -1062,6 +1119,7 @@ const Tutors: React.FC = () => {
                   letterSpacing: ".15em",
                   color: "rgba(255,255,255,.28)",
                   whiteSpace: "nowrap",
+                  flex: "0 0 auto",
                 }}
               >
                 {filtered.length} Tutor{filtered.length !== 1 ? "s" : ""}
@@ -1073,7 +1131,7 @@ const Tutors: React.FC = () => {
         {/* ══════════════════════════ TUTORS GRID / LIST */}
         <section
           style={{
-            padding: "72px 24px 120px",
+            padding: "72px 0 120px",
             background:
               "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
             position: "relative",
@@ -1099,12 +1157,8 @@ const Tutors: React.FC = () => {
           />
 
           <div
-            style={{
-              maxWidth: 1320,
-              margin: "0 auto",
-              position: "relative",
-              zIndex: 1,
-            }}
+            className="container"
+            style={{ position: "relative", zIndex: 1 }}
           >
             {filtered.length === 0 ? (
               <div
@@ -1221,6 +1275,10 @@ const Tutors: React.FC = () => {
                             padding: "4px 10px",
                             borderRadius: 100,
                             textTransform: "uppercase",
+                            maxWidth: "calc(100% - 28px)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           {tutor.gender}
@@ -1258,7 +1316,7 @@ const Tutors: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "center",
                             gap: 12,
-                            opacity: 0,
+                            opacity: hoveredId === tutor.id ? 1 : 0,
                             transition: "opacity .3s",
                           }}
                         >
@@ -1310,6 +1368,7 @@ const Tutors: React.FC = () => {
                           flexDirection: "column",
                           flex: 1,
                           position: "relative",
+                          minWidth: 0,
                         }}
                       >
                         <div
@@ -1333,6 +1392,7 @@ const Tutors: React.FC = () => {
                             color: "#fff",
                             marginBottom: 4,
                             lineHeight: 1.2,
+                            overflowWrap: "anywhere",
                           }}
                         >
                           {tutor.name}
@@ -1346,6 +1406,9 @@ const Tutors: React.FC = () => {
                             fontWeight: 700,
                             letterSpacing: ".1em",
                             marginBottom: 12,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           {(tutor.specialties || ["Quran"])[0]} Specialist
@@ -1353,7 +1416,12 @@ const Tutors: React.FC = () => {
 
                         {/* mini stats */}
                         <div
-                          style={{ display: "flex", gap: 16, marginBottom: 14 }}
+                          style={{
+                            display: "flex",
+                            gap: 16,
+                            marginBottom: 14,
+                            flexWrap: "wrap",
+                          }}
                         >
                           <div
                             style={{
@@ -1382,6 +1450,7 @@ const Tutors: React.FC = () => {
                               {tutor.rating}
                             </span>
                           </div>
+
                           <div
                             style={{
                               color: "rgba(255,255,255,.3)",
@@ -1399,6 +1468,7 @@ const Tutors: React.FC = () => {
                             gap: 6,
                             flexWrap: "wrap",
                             marginBottom: 18,
+                            minWidth: 0,
                           }}
                         >
                           {(tutor.specialties || [])
@@ -1412,6 +1482,7 @@ const Tutors: React.FC = () => {
                                   border: `1px solid ${ac}30`,
                                   color: ac,
                                 }}
+                                title={s}
                               >
                                 {s}
                               </span>
@@ -1446,7 +1517,11 @@ const Tutors: React.FC = () => {
                               }}
                             />
                           </div>
-                          {tutor.availability || "Flexible schedule"}
+                          <span
+                            style={{ minWidth: 0, overflowWrap: "anywhere" }}
+                          >
+                            {tutor.availability || "Flexible schedule"}
+                          </span>
                         </div>
 
                         {/* divider */}
@@ -1496,12 +1571,8 @@ const Tutors: React.FC = () => {
                   return (
                     <div
                       key={tutor.id}
-                      className="t-list-card"
+                      className="t-list-card list-grid"
                       style={{
-                        display: "grid",
-                        gridTemplateColumns: "80px 1fr auto",
-                        gap: 28,
-                        alignItems: "center",
                         padding: "24px 28px",
                         borderRadius: 20,
                         border: "1px solid rgba(255,255,255,.06)",
@@ -1549,6 +1620,7 @@ const Tutors: React.FC = () => {
                               width: "100%",
                               height: "100%",
                               objectFit: "cover",
+                              display: "block",
                             }}
                           />
                         </div>
@@ -1574,13 +1646,14 @@ const Tutors: React.FC = () => {
                       </div>
 
                       {/* main info */}
-                      <div>
+                      <div style={{ minWidth: 0 }}>
                         <div
                           style={{
                             display: "flex",
                             alignItems: "center",
                             gap: 12,
                             marginBottom: 4,
+                            flexWrap: "wrap",
                           }}
                         >
                           <h3
@@ -1589,6 +1662,7 @@ const Tutors: React.FC = () => {
                               fontSize: 20,
                               fontWeight: 700,
                               color: "#fff",
+                              overflowWrap: "anywhere",
                             }}
                           >
                             {tutor.name}
@@ -1601,11 +1675,13 @@ const Tutors: React.FC = () => {
                                 border: `1px solid ${ac}30`,
                                 color: ac,
                               }}
+                              title={tutor.gender}
                             >
                               {tutor.gender}
                             </span>
                           )}
                         </div>
+
                         <p
                           style={{
                             color: ac,
@@ -1614,15 +1690,18 @@ const Tutors: React.FC = () => {
                             fontWeight: 700,
                             letterSpacing: ".1em",
                             marginBottom: 8,
+                            overflowWrap: "anywhere",
                           }}
                         >
                           {(tutor.specialties || []).join(" · ")}
                         </p>
+
                         <div
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: 20,
+                            gap: 16,
+                            flexWrap: "wrap",
                           }}
                         >
                           <div
@@ -1660,6 +1739,7 @@ const Tutors: React.FC = () => {
                               ({tutor.reviewCount || 200} reviews)
                             </span>
                           </div>
+
                           <span
                             style={{
                               color: "rgba(255,255,255,.25)",
@@ -1668,6 +1748,7 @@ const Tutors: React.FC = () => {
                           >
                             {tutor.experienceYears}yr experience
                           </span>
+
                           <span
                             style={{
                               color: "rgba(255,255,255,.25)",
@@ -1676,6 +1757,7 @@ const Tutors: React.FC = () => {
                           >
                             {tutor.students || 200}+ students
                           </span>
+
                           <div
                             style={{
                               display: "flex",
@@ -1693,35 +1775,40 @@ const Tutors: React.FC = () => {
                                 background: "var(--em-lt)",
                               }}
                             />
-                            {tutor.availability || "Flexible"}
+                            <span style={{ overflowWrap: "anywhere" }}>
+                              {tutor.availability || "Flexible"}
+                            </span>
                           </div>
                         </div>
                       </div>
 
                       {/* CTA */}
-                      <Link
-                        to="/book-free-trial"
-                        className="t-list-cta"
-                        style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: 8,
-                          border: `1px solid ${ac}40`,
-                          color: "var(--gold-lt)",
-                          padding: "12px 22px",
-                          borderRadius: 12,
-                          fontWeight: 700,
-                          fontSize: 11,
-                          textDecoration: "none",
-                          fontFamily: "'Cinzel',serif",
-                          letterSpacing: ".08em",
-                          background: `${ac}08`,
-                          transition: "all .3s",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        Book Session <ArrowRight size={13} />
-                      </Link>
+                      <div className="list-cta-wrap">
+                        <Link
+                          to="/book-free-trial"
+                          className="t-list-cta"
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            border: `1px solid ${ac}40`,
+                            color: "var(--gold-lt)",
+                            padding: "12px 22px",
+                            borderRadius: 12,
+                            fontWeight: 700,
+                            fontSize: 11,
+                            textDecoration: "none",
+                            fontFamily: "'Cinzel',serif",
+                            letterSpacing: ".08em",
+                            background: `${ac}08`,
+                            transition: "all .3s",
+                            whiteSpace: "nowrap",
+                            maxWidth: "100%",
+                          }}
+                        >
+                          Book Session <ArrowRight size={13} />
+                        </Link>
+                      </div>
                     </div>
                   );
                 })}
@@ -1734,7 +1821,7 @@ const Tutors: React.FC = () => {
         <section
           style={{
             background: "var(--deep)",
-            padding: "80px 24px 100px",
+            padding: "80px 0 100px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -1760,12 +1847,8 @@ const Tutors: React.FC = () => {
           />
 
           <div
-            style={{
-              maxWidth: 1320,
-              margin: "0 auto",
-              position: "relative",
-              zIndex: 1,
-            }}
+            className="container"
+            style={{ position: "relative", zIndex: 1 }}
           >
             <div style={{ textAlign: "center", marginBottom: 60 }}>
               <p className="sec-label" style={{ marginBottom: 16 }}>
@@ -1897,7 +1980,7 @@ const Tutors: React.FC = () => {
           style={{
             background:
               "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
-            padding: "100px 24px",
+            padding: "100px 0",
             position: "relative",
             overflow: "hidden",
             textAlign: "center",
@@ -1930,13 +2013,10 @@ const Tutors: React.FC = () => {
                 "linear-gradient(90deg,transparent,var(--gold),transparent)",
             }}
           />
+
           <div
-            style={{
-              position: "relative",
-              zIndex: 1,
-              maxWidth: 680,
-              margin: "0 auto",
-            }}
+            className="container"
+            style={{ position: "relative", zIndex: 1, maxWidth: 680 }}
           >
             <p
               className="sec-label"
@@ -1963,6 +2043,7 @@ const Tutors: React.FC = () => {
                 Let Us Match You
               </span>
             </h2>
+
             <p
               style={{
                 color: "rgba(255,255,255,.4)",
@@ -1976,6 +2057,7 @@ const Tutors: React.FC = () => {
               Book a free evaluation and our academic team will personally
               recommend the ideal tutor for your goals.
             </p>
+
             <Link
               to="/book-free-trial"
               style={{
@@ -1993,12 +2075,14 @@ const Tutors: React.FC = () => {
                 textDecoration: "none",
                 boxShadow:
                   "0 8px 32px rgba(201,151,58,.4),inset 0 1px 0 rgba(255,255,255,.25)",
+                maxWidth: "100%",
               }}
             >
               <span style={{ fontSize: 16 }}>✦</span> Book Free Evaluation{" "}
               <ArrowRight size={16} />
             </Link>
           </div>
+
           <div
             style={{
               width: 180,

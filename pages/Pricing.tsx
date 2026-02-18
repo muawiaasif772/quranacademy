@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   Check,
   X,
   Star,
   ArrowRight,
-  Shield,
-  Clock,
-  Globe,
-  Award,
-  Users,
-  Zap,
+  ShieldCheck,
+  BadgeCheck,
+  Lock,
+  Heart,
+  Gift,
   BookOpen,
   Video,
   MessageCircle,
@@ -20,17 +19,12 @@ import {
   Crown,
   Gem,
   Calculator,
-  HelpCircle,
-  CheckCircle,
-  Gift,
-  Lock,
   RefreshCw,
-  Heart,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STYLES  (same CSS variables / fonts / animations as HowItWorks & Tutors)
+// STYLES (Responsive + reduced section padding + animated trust icons)
 // ─────────────────────────────────────────────────────────────────────────────
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
@@ -46,6 +40,11 @@ const pageStyles = `
     --gold-lt: #f5d98e;
   }
 
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+  img, svg, video, iframe { max-width: 100%; }
+  a { color: inherit; }
+
   .hex-bg {
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
   }
@@ -53,14 +52,17 @@ const pageStyles = `
     background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 2L58 30L30 58L2 30Z' fill='none' stroke='%23c9973a' stroke-width='.4' opacity='.08'/%3E%3C/svg%3E");
   }
 
-  @keyframes fadeUp    { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes fadeUp    { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
   @keyframes shimText  { 0%{background-position:-500px 0} 100%{background-position:500px 0} }
   @keyframes glowPulse { 0%,100%{opacity:.35;transform:scale(1)} 50%{opacity:.75;transform:scale(1.06)} }
   @keyframes rotateSlow{ from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
   @keyframes shimBar   { 0%{left:-100%} 100%{left:200%} }
   @keyframes float     { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  @keyframes pulse2    { 0%,100%{transform:scale(1);opacity:.6} 50%{transform:scale(1.5);opacity:0} }
-  @keyframes countUp   { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+  /* trust icon animations */
+  @keyframes iconPop { 0%,100%{transform:scale(1)} 50%{transform:scale(1.12)} }
+  @keyframes iconSpin { 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+  @keyframes iconWiggle { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(8deg)} }
 
   .gold-shimmer {
     background:linear-gradient(90deg,var(--gold) 0%,var(--gold-lt) 35%,#fff8e0 50%,var(--gold-lt) 65%,var(--gold) 100%);
@@ -96,10 +98,11 @@ const pageStyles = `
 
   /* badge */
   .badge{
-    display:inline-flex;align-items:center;gap:5px;
-    padding:3px 10px;border-radius:100px;
-    font-family:'Cinzel',serif;font-size:8px;font-weight:700;letter-spacing:.14em;
+    display:inline-flex;align-items:center;gap:6px;
+    padding:4px 10px;border-radius:100px;
+    font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.12em;
     text-transform:uppercase;
+    white-space:nowrap;
   }
 
   /* plan card */
@@ -127,7 +130,7 @@ const pageStyles = `
 
   /* feature check row */
   .feat-row {
-    display:flex;align-items:center;gap:10px;
+    display:flex;align-items:flex-start;gap:10px;
     padding:9px 0;
     border-bottom:1px solid rgba(255,255,255,.04);
     transition:background .2s;
@@ -135,7 +138,7 @@ const pageStyles = `
   .feat-row:last-child{border-bottom:none;}
   .feat-row:hover{background:rgba(255,255,255,.02);border-radius:8px;padding-left:6px;}
 
-  /* faq item */
+  /* FAQ */
   .faq-item {
     border:1px solid rgba(255,255,255,.07);
     border-radius:18px;
@@ -145,10 +148,9 @@ const pageStyles = `
   }
   .faq-item:hover{border-color:rgba(201,151,58,.25);}
   .faq-item.open{border-color:rgba(201,151,58,.35);box-shadow:0 8px 32px rgba(0,0,0,.3);}
-
   .faq-trigger{
     width:100%;display:flex;align-items:center;justify-content:space-between;
-    padding:22px 28px;background:none;border:none;cursor:pointer;
+    padding:18px 22px;background:none;border:none;cursor:pointer;
     text-align:left;gap:16px;
   }
 
@@ -157,11 +159,13 @@ const pageStyles = `
     display:inline-flex;align-items:center;gap:0;
     background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
     border-radius:100px;padding:4px;
+    flex-wrap:wrap;
   }
   .toggle-btn{
-    padding:9px 24px;border-radius:100px;border:none;cursor:pointer;
+    padding:9px 22px;border-radius:100px;border:none;cursor:pointer;
     font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.12em;
     text-transform:uppercase;transition:all .3s;color:rgba(255,255,255,.4);background:transparent;
+    white-space:nowrap;
   }
   .toggle-btn-a{
     background:linear-gradient(135deg,var(--gold-m),var(--gold))!important;
@@ -171,7 +175,7 @@ const pageStyles = `
   /* included card */
   .inc-card{
     background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
-    border-radius:22px;padding:32px 28px;
+    border-radius:22px;padding:26px 22px;
     transition:transform .35s ease,box-shadow .35s ease;
     position:relative;overflow:hidden;
   }
@@ -180,15 +184,32 @@ const pageStyles = `
     box-shadow:0 32px 64px rgba(0,0,0,.4);
   }
 
-  /* trust badge row */
+  /* trust badges */
+  .trust-grid{
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap:14px;
+  }
   .trust-badge{
     display:flex;flex-direction:column;align-items:center;gap:6px;
-    padding:24px 16px;
+    padding:18px 14px;
     background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
     border-radius:18px;text-align:center;
     transition:border-color .3s, transform .3s;
+    min-width:0;
   }
   .trust-badge:hover{border-color:rgba(201,151,58,.25);transform:translateY(-4px);}
+  .trust-icon-wrap{
+    width:44px;height:44px;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(201,151,58,.12);
+    border:1px solid rgba(201,151,58,.22);
+    box-shadow:0 0 22px rgba(201,151,58,.08);
+    color:var(--gold);
+  }
+  .icon-pop{ animation:iconPop 2.6s ease-in-out infinite; transform-origin:center; }
+  .icon-spin{ animation:iconSpin 7s linear infinite; transform-origin:center; }
+  .icon-wiggle{ animation:iconWiggle 2.4s ease-in-out infinite; transform-origin:center; }
 
   /* calculator */
   .calc-range{
@@ -201,6 +222,34 @@ const pageStyles = `
     background:linear-gradient(135deg,var(--gold-m),var(--gold));
     box-shadow:0 4px 12px rgba(201,151,58,.5);cursor:pointer;
     border:2px solid #020b06;
+  }
+
+  /* Responsive */
+  @media (max-width: 1100px){
+    .trust-grid{ grid-template-columns: repeat(3, 1fr) !important; }
+  }
+  @media (max-width: 980px){
+    .calc-two-col{ grid-template-columns: 1fr !important; gap:22px !important; }
+  }
+  @media (max-width: 860px){
+    .faq-trigger{ padding:16px 16px !important; }
+  }
+  @media (max-width: 640px){
+    .trust-grid{ grid-template-columns: repeat(2, 1fr) !important; }
+    .inc-card{ padding:22px 16px !important; border-radius:18px !important; }
+    .badge{ font-size:8px !important; }
+  }
+  @media (max-width: 420px){
+    .trust-grid{ grid-template-columns: 1fr !important; }
+    .toggle-btn{ padding:9px 14px !important; }
+  }
+
+  /* Reduce hover lift on touch devices */
+  @media (hover: none){
+    .plan-card:hover{ transform:none !important; }
+    .plan-card-popular:hover{ transform:translateY(-8px) scale(1.02) !important; }
+    .inc-card:hover{ transform:none !important; }
+    .trust-badge:hover{ transform:none !important; }
   }
 `;
 
@@ -216,7 +265,7 @@ const plans = [
     monthlyPrice: 29,
     yearlyPrice: 23,
     subtitle: "Perfect for beginners",
-    badge: null,
+    badge: null as null | string,
     features: [
       { text: "2 Classes per week", included: true },
       { text: "1 Subject of choice", included: true },
@@ -296,19 +345,19 @@ const included = [
     color: "#7eb8ff",
   },
   {
-    icon: Award,
+    icon: BadgeCheck,
     title: "Official Certification",
     desc: "Globally recognised certificates upon completing each level.",
     color: "#ff8fa3",
   },
   {
-    icon: Clock,
+    icon: RefreshCw,
     title: "Flexible Rescheduling",
     desc: "Life happens — reschedule any session up to 2 hours before with no penalty.",
     color: "#b58cff",
   },
   {
-    icon: Users,
+    icon: Heart,
     title: "Progress Tracking",
     desc: "Detailed weekly reports and milestone tracking for parents and students.",
     color: "#ffd166",
@@ -346,13 +395,50 @@ const faqs = [
   },
 ];
 
-const trustBadges = [
-  { icon: Shield, value: "SSL Encrypted", sub: "Secure checkout" },
-  { icon: RefreshCw, value: "30-Day Refund", sub: "Money-back guarantee" },
-  { icon: Lock, value: "No Hidden Fees", sub: "Transparent pricing" },
-  { icon: Heart, value: "5,000+ Families", sub: "Trust us worldwide" },
-  { icon: Award, value: "Al-Azhar Certified", sub: "Verified scholars" },
-  { icon: Gift, value: "Free Trial", sub: "No card needed" },
+type TrustBadge = {
+  icon: React.ComponentType<any>;
+  value: string;
+  sub: string;
+  animClass: "icon-pop" | "icon-spin" | "icon-wiggle";
+};
+
+const trustBadges: TrustBadge[] = [
+  {
+    icon: ShieldCheck,
+    value: "SSL Encrypted",
+    sub: "Secure checkout",
+    animClass: "icon-pop",
+  },
+  {
+    icon: RefreshCw,
+    value: "30-Day Refund",
+    sub: "Money-back guarantee",
+    animClass: "icon-spin",
+  },
+  {
+    icon: Lock,
+    value: "No Hidden Fees",
+    sub: "Transparent pricing",
+    animClass: "icon-wiggle",
+  },
+  {
+    icon: Heart,
+    value: "5,000+ Families",
+    sub: "Trust us worldwide",
+    animClass: "icon-pop",
+  },
+  {
+    icon: BadgeCheck,
+    value: "Al-Azhar Certified",
+    sub: "Verified scholars",
+    animClass: "icon-wiggle",
+  },
+  {
+    icon: Gift,
+    value: "Free Trial",
+    sub: "No card needed",
+    animClass: "icon-pop",
+  },
 ];
 
 const testimonials = [
@@ -382,6 +468,7 @@ const testimonials = [
 const useReveal = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
+
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([e]) => {
@@ -395,6 +482,7 @@ const useReveal = () => {
     if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
   }, []);
+
   return { ref, vis };
 };
 
@@ -403,12 +491,17 @@ const useReveal = () => {
 // ─────────────────────────────────────────────────────────────────────────────
 const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
   const [open, setOpen] = useState(false);
+
   return (
     <div
       className={`faq-item${open ? " open" : ""}`}
       style={{ animationDelay: `${idx * 0.06}s` }}
     >
-      <button className="faq-trigger" onClick={() => setOpen(!open)}>
+      <button
+        className="faq-trigger"
+        onClick={() => setOpen((p) => !p)}
+        aria-expanded={open}
+      >
         <span
           style={{
             fontFamily: "'Cormorant Garamond',serif",
@@ -420,6 +513,7 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
         >
           {item.q}
         </span>
+
         <div
           style={{
             width: 36,
@@ -446,16 +540,17 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
           />
         </div>
       </button>
+
       <div
         style={{
-          maxHeight: open ? 300 : 0,
+          maxHeight: open ? 340 : 0,
           overflow: "hidden",
           transition: "max-height .4s cubic-bezier(.16,1,.3,1)",
         }}
       >
         <p
           style={{
-            padding: "0 28px 24px",
+            padding: "0 22px 18px",
             color: "rgba(255,255,255,.45)",
             fontSize: 15,
             lineHeight: 1.85,
@@ -474,8 +569,10 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
 const PlanCalc = () => {
   const [sessions, setSessions] = useState(3);
   const [siblings, setSiblings] = useState(1);
+
   const perSession = 18;
   const siblingDiscount = siblings > 1 ? 0.2 : 0;
+
   const weekly = sessions * perSession * siblings * (1 - siblingDiscount);
   const monthly = weekly * 4.33;
   const saved = sessions * perSession * siblings * 4.33 - monthly;
@@ -488,14 +585,13 @@ const PlanCalc = () => {
       style={{
         background: "rgba(255,255,255,.025)",
         border: "1px solid rgba(201,151,58,.2)",
-        borderRadius: 28,
-        padding: "40px 36px",
-        boxShadow: "0 24px 64px rgba(0,0,0,.4)",
+        borderRadius: 24,
+        padding: "32px 24px",
+        boxShadow: "0 20px 56px rgba(0,0,0,.38)",
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* top accent */}
       <div
         style={{
           position: "absolute",
@@ -513,7 +609,7 @@ const PlanCalc = () => {
           display: "flex",
           alignItems: "center",
           gap: 12,
-          marginBottom: 28,
+          marginBottom: 22,
         }}
       >
         <div
@@ -542,7 +638,7 @@ const PlanCalc = () => {
       </div>
 
       {/* Sessions slider */}
-      <div style={{ marginBottom: 28 }}>
+      <div style={{ marginBottom: 22 }}>
         <div
           style={{
             display: "flex",
@@ -570,6 +666,7 @@ const PlanCalc = () => {
             {sessions}
           </span>
         </div>
+
         <input
           type="range"
           min={1}
@@ -579,6 +676,7 @@ const PlanCalc = () => {
           style={{ "--pct": pct1 + "%" } as React.CSSProperties}
           onChange={(e) => setSessions(+e.target.value)}
         />
+
         <div
           style={{
             display: "flex",
@@ -592,7 +690,7 @@ const PlanCalc = () => {
       </div>
 
       {/* Siblings slider */}
-      <div style={{ marginBottom: 36 }}>
+      <div style={{ marginBottom: 26 }}>
         <div
           style={{
             display: "flex",
@@ -620,6 +718,7 @@ const PlanCalc = () => {
             {siblings}
           </span>
         </div>
+
         <input
           type="range"
           min={1}
@@ -629,6 +728,7 @@ const PlanCalc = () => {
           style={{ "--pct": pct2 + "%" } as React.CSSProperties}
           onChange={(e) => setSiblings(+e.target.value)}
         />
+
         <div
           style={{
             display: "flex",
@@ -648,7 +748,7 @@ const PlanCalc = () => {
             "linear-gradient(135deg,rgba(201,151,58,.12),rgba(201,151,58,.05))",
           border: "1px solid rgba(201,151,58,.2)",
           borderRadius: 18,
-          padding: "24px 24px",
+          padding: "18px 18px",
         }}
       >
         <div
@@ -656,7 +756,9 @@ const PlanCalc = () => {
             display: "flex",
             alignItems: "flex-end",
             justifyContent: "space-between",
-            marginBottom: 12,
+            marginBottom: 10,
+            gap: 14,
+            flexWrap: "wrap",
           }}
         >
           <div>
@@ -669,11 +771,18 @@ const PlanCalc = () => {
             >
               Estimated monthly
             </p>
-            <div style={{ display: "flex", alignItems: "flex-end", gap: 4 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                gap: 6,
+                flexWrap: "wrap",
+              }}
+            >
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond',serif",
-                  fontSize: 48,
+                  fontSize: 44,
                   fontWeight: 700,
                   color: "var(--gold-m)",
                   lineHeight: 1,
@@ -692,13 +801,14 @@ const PlanCalc = () => {
               </span>
             </div>
           </div>
+
           {siblings > 1 && (
             <div style={{ textAlign: "right" }}>
               <p
                 style={{
                   color: "rgba(255,255,255,.3)",
                   fontSize: 11,
-                  marginBottom: 2,
+                  marginBottom: 6,
                 }}
               >
                 Sibling discount
@@ -716,6 +826,7 @@ const PlanCalc = () => {
             </div>
           )}
         </div>
+
         <p
           style={{
             color: "rgba(255,255,255,.3)",
@@ -736,29 +847,41 @@ const PlanCalc = () => {
 // ─────────────────────────────────────────────────────────────────────────────
 const PricingPage: React.FC = () => {
   const [billing, setBilling] = useState<"monthly" | "yearly">("monthly");
+
   const plansReveal = useReveal();
   const includedReveal = useReveal();
   const calcReveal = useReveal();
   const faqReveal = useReveal();
   const trustReveal = useReveal();
 
+  const maxFeatures = 7;
+
+  const plansWithLimitedFeatures = useMemo(() => {
+    return plans.map((p) => ({
+      ...p,
+      features: p.features.slice(0, maxFeatures),
+    }));
+  }, []);
+
   return (
     <>
       <style>{pageStyles}</style>
+
       <div
         style={{
           fontFamily: "'Nunito',sans-serif",
           background: "var(--deep)",
           minHeight: "100vh",
           color: "#fff",
+          overflowX: "hidden",
         }}
       >
-        {/* ══════════════════════════════ HERO */}
+        {/* ══════════════════════════════ HERO (reduced padding) */}
         <section
           style={{
             background:
               "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
-            padding: "110px 24px 90px",
+            padding: "86px 18px 58px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -767,6 +890,7 @@ const PricingPage: React.FC = () => {
             className="hex-bg"
             style={{ position: "absolute", inset: 0, opacity: 0.6 }}
           />
+
           <div
             style={{
               position: "absolute",
@@ -774,7 +898,7 @@ const PricingPage: React.FC = () => {
               right: "-2%",
               transform: "translateY(-50%)",
               fontFamily: "serif",
-              fontSize: "clamp(140px,18vw,280px)",
+              fontSize: "clamp(120px,18vw,260px)",
               color: "rgba(255,255,255,.016)",
               fontWeight: 700,
               userSelect: "none",
@@ -784,20 +908,22 @@ const PricingPage: React.FC = () => {
           >
             سعر
           </div>
+
           <div
             className="glow-pulse"
             style={{
               position: "absolute",
-              top: "-8%",
+              top: "-12%",
               left: "8%",
-              width: 500,
-              height: 500,
+              width: 460,
+              height: 460,
               borderRadius: "50%",
               background:
                 "radial-gradient(circle,rgba(22,160,92,.1) 0%,transparent 70%)",
               pointerEvents: "none",
             }}
           />
+
           <div
             style={{
               position: "absolute",
@@ -825,14 +951,15 @@ const PricingPage: React.FC = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                gap: 14,
-                marginBottom: 20,
+                gap: 12,
+                marginBottom: 16,
+                flexWrap: "wrap",
               }}
             >
               <div
                 style={{
                   height: 1,
-                  width: 60,
+                  width: 54,
                   background:
                     "linear-gradient(90deg,transparent,rgba(201,151,58,.6))",
                 }}
@@ -843,7 +970,7 @@ const PricingPage: React.FC = () => {
               <div
                 style={{
                   height: 1,
-                  width: 60,
+                  width: 54,
                   background:
                     "linear-gradient(90deg,rgba(201,151,58,.6),transparent)",
                 }}
@@ -854,11 +981,11 @@ const PricingPage: React.FC = () => {
               className="h2"
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(44px,7vw,88px)",
+                fontSize: "clamp(40px,7vw,84px)",
                 fontWeight: 300,
                 color: "#fff",
                 lineHeight: 1.08,
-                marginBottom: 20,
+                marginBottom: 16,
               }}
             >
               Invest in Your
@@ -872,10 +999,10 @@ const PricingPage: React.FC = () => {
               className="h3"
               style={{
                 color: "rgba(255,255,255,.45)",
-                fontSize: 18,
+                fontSize: 17,
                 lineHeight: 1.85,
                 maxWidth: 560,
-                margin: "0 auto 44px",
+                margin: "0 auto 30px",
               }}
             >
               World-class Quranic education at a price that makes it accessible
@@ -888,7 +1015,7 @@ const PricingPage: React.FC = () => {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginBottom: 16,
+                marginBottom: 12,
               }}
             >
               <div className="toggle-wrap">
@@ -906,6 +1033,7 @@ const PricingPage: React.FC = () => {
                 </button>
               </div>
             </div>
+
             {billing === "yearly" && (
               <span
                 className="badge h5"
@@ -913,19 +1041,18 @@ const PricingPage: React.FC = () => {
                   background: "rgba(47,207,135,.15)",
                   border: "1px solid rgba(47,207,135,.3)",
                   color: "#2fcf87",
-                  fontSize: 10,
                 }}
               >
-                <Sparkles size={9} /> Save up to 20% with annual billing
+                <Sparkles size={10} /> Save up to 20% with annual billing
               </span>
             )}
           </div>
         </section>
 
-        {/* ══════════════════════════════ PLANS */}
+        {/* ══════════════════════════════ PLANS (reduced padding) */}
         <section
           style={{
-            padding: "80px 24px 100px",
+            padding: "56px 18px 64px",
             background:
               "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
             position: "relative",
@@ -935,6 +1062,7 @@ const PricingPage: React.FC = () => {
             className="hex-bg"
             style={{ position: "absolute", inset: 0, opacity: 0.4 }}
           />
+
           <div
             ref={plansReveal.ref}
             style={{
@@ -944,16 +1072,17 @@ const PricingPage: React.FC = () => {
               zIndex: 1,
               display: "grid",
               gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-              gap: "clamp(16px, 4vw, 24px)",
+              gap: "clamp(14px, 4vw, 22px)",
               opacity: plansReveal.vis ? 1 : 0,
-              transform: plansReveal.vis ? "translateY(0)" : "translateY(40px)",
+              transform: plansReveal.vis ? "translateY(0)" : "translateY(34px)",
               transition: "opacity .7s ease, transform .7s ease",
             }}
           >
-            {plans.map((plan, idx) => {
+            {plansWithLimitedFeatures.map((plan, idx) => {
               const price =
                 billing === "yearly" ? plan.yearlyPrice : plan.monthlyPrice;
               const isPopular = plan.badge === "Most Popular";
+
               return (
                 <div
                   key={plan.id}
@@ -961,11 +1090,10 @@ const PricingPage: React.FC = () => {
                   style={{
                     transitionDelay: `${idx * 0.1}s`,
                     boxShadow: isPopular
-                      ? "0 24px 64px rgba(0,0,0,.4),0 0 0 1px rgba(201,151,58,.2)"
-                      : "0 8px 32px rgba(0,0,0,.3)",
+                      ? "0 22px 58px rgba(0,0,0,.4),0 0 0 1px rgba(201,151,58,.2)"
+                      : "0 8px 30px rgba(0,0,0,.3)",
                   }}
                 >
-                  {/* top accent bar */}
                   <div
                     style={{
                       position: "absolute",
@@ -977,14 +1105,13 @@ const PricingPage: React.FC = () => {
                     }}
                   />
 
-                  {/* popular banner */}
                   {plan.badge && (
                     <div
                       style={{
                         background: isPopular
                           ? "linear-gradient(135deg,var(--gold-m),var(--gold))"
                           : `linear-gradient(135deg,${plan.accent}cc,${plan.accent}88)`,
-                        color: isPopular ? "#020b06" : "#020b06",
+                        color: "#020b06",
                         textAlign: "center",
                         padding: "7px 0",
                         fontFamily: "'Cinzel',serif",
@@ -999,14 +1126,13 @@ const PricingPage: React.FC = () => {
                     </div>
                   )}
 
-                  <div style={{ padding: "32px 28px" }}>
-                    {/* plan header */}
+                  <div style={{ padding: "26px 22px" }}>
                     <div
                       style={{
                         display: "flex",
                         alignItems: "center",
                         gap: 14,
-                        marginBottom: 20,
+                        marginBottom: 18,
                       }}
                     >
                       <div
@@ -1048,19 +1174,19 @@ const PricingPage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* price */}
                     <div
                       style={{
                         marginBottom: 8,
                         display: "flex",
                         alignItems: "flex-end",
-                        gap: 4,
+                        gap: 6,
+                        flexWrap: "wrap",
                       }}
                     >
                       <span
                         style={{
                           fontFamily: "'Cormorant Garamond',serif",
-                          fontSize: 56,
+                          fontSize: 52,
                           fontWeight: 700,
                           color: "#fff",
                           lineHeight: 1,
@@ -1078,12 +1204,13 @@ const PricingPage: React.FC = () => {
                         /month
                       </span>
                     </div>
+
                     {billing === "yearly" && (
                       <p
                         style={{
                           color: "rgba(255,255,255,.25)",
                           fontSize: 12,
-                          marginBottom: 24,
+                          marginBottom: 18,
                         }}
                       >
                         Billed ${price * 12}/year · Save $
@@ -1091,17 +1218,16 @@ const PricingPage: React.FC = () => {
                       </p>
                     )}
 
-                    {/* divider */}
                     <div
                       style={{
                         height: 1,
                         background: `linear-gradient(90deg,transparent,${plan.accent}40,transparent)`,
-                        margin: "20px 0",
+                        margin: "16px 0",
                       }}
                     />
 
-                    {/* features */}
-                    <div style={{ marginBottom: 32 }}>
+                    {/* Features: max 7, no bullet points */}
+                    <div style={{ marginBottom: 22 }}>
                       {plan.features.map((f, fi) => (
                         <div key={fi} className="feat-row">
                           <div
@@ -1117,6 +1243,7 @@ const PricingPage: React.FC = () => {
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
+                              marginTop: 1,
                             }}
                           >
                             {f.included ? (
@@ -1132,7 +1259,7 @@ const PricingPage: React.FC = () => {
                               color: f.included
                                 ? "rgba(255,255,255,.75)"
                                 : "rgba(255,255,255,.2)",
-                              textDecoration: f.included ? "none" : "none",
+                              lineHeight: 1.5,
                             }}
                           >
                             {f.text}
@@ -1141,7 +1268,6 @@ const PricingPage: React.FC = () => {
                       ))}
                     </div>
 
-                    {/* CTA */}
                     <Link
                       to="/book-free-trial"
                       style={{
@@ -1179,13 +1305,13 @@ const PricingPage: React.FC = () => {
             })}
           </div>
 
-          {/* free trial note */}
           <p
             style={{
               textAlign: "center",
               color: "rgba(255,255,255,.25)",
               fontSize: 13,
-              marginTop: 28,
+              marginTop: 22,
+              padding: "0 12px",
             }}
           >
             All plans include a{" "}
@@ -1196,63 +1322,58 @@ const PricingPage: React.FC = () => {
           </p>
         </section>
 
-        {/* ══════════════════════════════ TRUST BADGES */}
+        {/* ══════════════════════════════ TRUST BADGES (animated lucide icons) */}
         <section
           ref={trustReveal.ref}
           style={{
             background: "var(--deep)",
-            padding: "60px 24px",
+            padding: "40px 18px",
             opacity: trustReveal.vis ? 1 : 0,
-            transform: trustReveal.vis ? "translateY(0)" : "translateY(32px)",
+            transform: trustReveal.vis ? "translateY(0)" : "translateY(28px)",
             transition: "opacity .7s ease, transform .7s ease",
           }}
         >
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(6,1fr)",
-                gap: 16,
-              }}
-            >
-              {trustBadges.map((b, i) => (
-                <div
-                  key={i}
-                  className="trust-badge"
-                  style={{ animationDelay: `${i * 0.06}s` }}
-                >
-                  <b.icon
-                    size={22}
-                    color="var(--gold)"
-                    style={{ opacity: 0.85 }}
-                  />
-                  <p
-                    style={{
-                      fontFamily: "'Cinzel',serif",
-                      fontSize: 10,
-                      fontWeight: 700,
-                      color: "#fff",
-                      letterSpacing: ".08em",
-                      marginTop: 4,
-                    }}
+            <div className="trust-grid">
+              {trustBadges.map((b, i) => {
+                const Icon = b.icon;
+                return (
+                  <div
+                    key={i}
+                    className="trust-badge"
+                    style={{ animationDelay: `${i * 0.06}s` }}
                   >
-                    {b.value}
-                  </p>
-                  <p style={{ color: "rgba(255,255,255,.3)", fontSize: 11 }}>
-                    {b.sub}
-                  </p>
-                </div>
-              ))}
+                    <div className="trust-icon-wrap" aria-hidden="true">
+                      <Icon size={22} className={b.animClass} />
+                    </div>
+                    <p
+                      style={{
+                        fontFamily: "'Cinzel',serif",
+                        fontSize: 10,
+                        fontWeight: 700,
+                        color: "#fff",
+                        letterSpacing: ".08em",
+                        marginTop: 2,
+                      }}
+                    >
+                      {b.value}
+                    </p>
+                    <p style={{ color: "rgba(255,255,255,.3)", fontSize: 11 }}>
+                      {b.sub}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        {/* ══════════════════════════════ WHAT'S INCLUDED */}
+        {/* ══════════════════════════════ WHAT'S INCLUDED (reduced padding) */}
         <section
           style={{
             background:
               "linear-gradient(180deg,var(--deep) 0%,var(--forest) 100%)",
-            padding: "80px 24px 100px",
+            padding: "56px 18px 64px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -1261,6 +1382,7 @@ const PricingPage: React.FC = () => {
             className="diamond-bg"
             style={{ position: "absolute", inset: 0 }}
           />
+
           <div
             ref={includedReveal.ref}
             style={{
@@ -1271,24 +1393,25 @@ const PricingPage: React.FC = () => {
               opacity: includedReveal.vis ? 1 : 0,
               transform: includedReveal.vis
                 ? "translateY(0)"
-                : "translateY(32px)",
+                : "translateY(28px)",
               transition: "opacity .7s ease, transform .7s ease",
             }}
           >
-            <div style={{ textAlign: "center", marginBottom: 60 }}>
+            <div style={{ textAlign: "center", marginBottom: 34 }}>
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: 14,
-                  marginBottom: 16,
+                  gap: 12,
+                  marginBottom: 12,
+                  flexWrap: "wrap",
                 }}
               >
                 <div
                   style={{
                     height: 1,
-                    width: 60,
+                    width: 54,
                     background:
                       "linear-gradient(90deg,transparent,rgba(201,151,58,.6))",
                   }}
@@ -1299,16 +1422,17 @@ const PricingPage: React.FC = () => {
                 <div
                   style={{
                     height: 1,
-                    width: 60,
+                    width: 54,
                     background:
                       "linear-gradient(90deg,rgba(201,151,58,.6),transparent)",
                   }}
                 />
               </div>
+
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond',serif",
-                  fontSize: "clamp(28px,4vw,52px)",
+                  fontSize: "clamp(26px,4vw,48px)",
                   fontWeight: 600,
                   color: "#fff",
                 }}
@@ -1317,11 +1441,12 @@ const PricingPage: React.FC = () => {
                 <span className="gold-text">Succeed</span>
               </h2>
             </div>
+
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                gap: "clamp(16px, 4vw, 24px)",
+                gap: "clamp(14px, 4vw, 22px)",
               }}
             >
               {included.map((item, i) => (
@@ -1340,6 +1465,7 @@ const PricingPage: React.FC = () => {
                       background: `linear-gradient(90deg,transparent,${item.color},transparent)`,
                     }}
                   />
+
                   <div
                     style={{
                       width: 52,
@@ -1350,13 +1476,14 @@ const PricingPage: React.FC = () => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      marginBottom: 20,
+                      marginBottom: 16,
                       color: item.color,
                       boxShadow: `0 0 20px ${item.color}18`,
                     }}
                   >
                     <item.icon size={22} />
                   </div>
+
                   <h4
                     style={{
                       fontFamily: "'Cormorant Garamond',serif",
@@ -1368,6 +1495,7 @@ const PricingPage: React.FC = () => {
                   >
                     {item.title}
                   </h4>
+
                   <p
                     style={{
                       color: "rgba(255,255,255,.4)",
@@ -1383,11 +1511,11 @@ const PricingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* ══════════════════════════════ CALCULATOR + INVESTMENT SECTION */}
+        {/* ══════════════════════════════ CALCULATOR + INVESTMENT (reduced padding) */}
         <section
           style={{
             background: "var(--forest)",
-            padding: "80px 24px 100px",
+            padding: "56px 18px 68px",
             position: "relative",
           }}
         >
@@ -1395,22 +1523,25 @@ const PricingPage: React.FC = () => {
             className="hex-bg"
             style={{ position: "absolute", inset: 0, opacity: 0.5 }}
           />
+
           <div
             className="glow-pulse"
             style={{
               position: "absolute",
               bottom: "5%",
               right: "-5%",
-              width: 500,
-              height: 500,
+              width: 440,
+              height: 440,
               borderRadius: "50%",
               background:
                 "radial-gradient(circle,rgba(22,160,92,.06) 0%,transparent 70%)",
               pointerEvents: "none",
             }}
           />
+
           <div
             ref={calcReveal.ref}
+            className="calc-two-col"
             style={{
               maxWidth: 1200,
               margin: "0 auto",
@@ -1418,10 +1549,10 @@ const PricingPage: React.FC = () => {
               zIndex: 1,
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: 64,
+              gap: 44,
               alignItems: "center",
               opacity: calcReveal.vis ? 1 : 0,
-              transform: calcReveal.vis ? "translateY(0)" : "translateY(32px)",
+              transform: calcReveal.vis ? "translateY(0)" : "translateY(28px)",
               transition: "opacity .7s ease, transform .7s ease",
             }}
           >
@@ -1432,8 +1563,9 @@ const PricingPage: React.FC = () => {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 14,
-                  marginBottom: 24,
+                  gap: 12,
+                  marginBottom: 16,
+                  flexWrap: "wrap",
                 }}
               >
                 <div
@@ -1446,34 +1578,37 @@ const PricingPage: React.FC = () => {
                 />
                 <span className="sec-label">Why Choose Us</span>
               </div>
+
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond',serif",
-                  fontSize: "clamp(28px,3.5vw,52px)",
+                  fontSize: "clamp(26px,3.5vw,48px)",
                   fontWeight: 600,
                   color: "#fff",
                   lineHeight: 1.1,
-                  marginBottom: 20,
+                  marginBottom: 14,
                 }}
               >
                 Invest in Your
                 <br />
                 <span className="gold-text">Spiritual Future</span>
               </h2>
+
               <p
                 style={{
                   color: "rgba(255,255,255,.45)",
                   fontSize: 16,
                   lineHeight: 1.85,
-                  marginBottom: 32,
+                  marginBottom: 20,
                 }}
               >
                 We believe quality Quranic education should be accessible to
                 everyone. Our pricing sustains world-class scholars while
                 remaining affordable for families globally.
               </p>
+
               <div
-                style={{ display: "flex", flexDirection: "column", gap: 14 }}
+                style={{ display: "flex", flexDirection: "column", gap: 12 }}
               >
                 {[
                   "No Hidden Registration Fees",
@@ -1486,8 +1621,8 @@ const PricingPage: React.FC = () => {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 14,
-                      padding: "14px 18px",
+                      gap: 12,
+                      padding: "12px 14px",
                       background: "rgba(255,255,255,.03)",
                       border: "1px solid rgba(255,255,255,.06)",
                       borderRadius: 14,
@@ -1508,6 +1643,7 @@ const PricingPage: React.FC = () => {
                     >
                       <Check size={13} color="var(--gold)" />
                     </div>
+
                     <span
                       style={{
                         color: "rgba(255,255,255,.7)",
@@ -1524,27 +1660,27 @@ const PricingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* ══════════════════════════════ TESTIMONIALS */}
+        {/* ══════════════════════════════ TESTIMONIALS (reduced padding) */}
         <section
           style={{
             background:
               "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
-            padding: "80px 24px",
+            padding: "56px 18px",
             position: "relative",
           }}
         >
           <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: 52 }}>
+            <div style={{ textAlign: "center", marginBottom: 34 }}>
               <p
                 className="sec-label"
-                style={{ marginBottom: 14, display: "block" }}
+                style={{ marginBottom: 12, display: "block" }}
               >
                 What Families Say
               </p>
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond',serif",
-                  fontSize: "clamp(26px,3.5vw,46px)",
+                  fontSize: "clamp(24px,3.5vw,44px)",
                   fontWeight: 600,
                   color: "#fff",
                 }}
@@ -1553,11 +1689,12 @@ const PricingPage: React.FC = () => {
                 Worldwide
               </h2>
             </div>
+
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                gap: "clamp(16px, 4vw, 24px)",
+                gap: "clamp(14px, 4vw, 22px)",
               }}
             >
               {testimonials.map((t, i) => (
@@ -1569,7 +1706,7 @@ const PricingPage: React.FC = () => {
                     border: "1px solid rgba(255,255,255,.06)",
                   }}
                 >
-                  <div style={{ display: "flex", gap: 2, marginBottom: 16 }}>
+                  <div style={{ display: "flex", gap: 2, marginBottom: 14 }}>
                     {[1, 2, 3, 4, 5].map((s) => (
                       <Star
                         key={s}
@@ -1579,6 +1716,7 @@ const PricingPage: React.FC = () => {
                       />
                     ))}
                   </div>
+
                   <p
                     style={{
                       fontFamily: "'Cormorant Garamond',serif",
@@ -1587,11 +1725,12 @@ const PricingPage: React.FC = () => {
                       fontWeight: 600,
                       color: "rgba(255,255,255,.75)",
                       lineHeight: 1.7,
-                      marginBottom: 24,
+                      marginBottom: 20,
                     }}
                   >
                     "{t.text}"
                   </p>
+
                   <div
                     style={{ display: "flex", alignItems: "center", gap: 10 }}
                   >
@@ -1631,11 +1770,11 @@ const PricingPage: React.FC = () => {
           </div>
         </section>
 
-        {/* ══════════════════════════════ FAQ */}
+        {/* ══════════════════════════════ FAQ (reduced padding) */}
         <section
           style={{
             background: "var(--deep)",
-            padding: "80px 24px 100px",
+            padding: "56px 18px 64px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -1644,6 +1783,7 @@ const PricingPage: React.FC = () => {
             className="diamond-bg"
             style={{ position: "absolute", inset: 0 }}
           />
+
           <div
             ref={faqReveal.ref}
             style={{
@@ -1652,24 +1792,25 @@ const PricingPage: React.FC = () => {
               position: "relative",
               zIndex: 1,
               opacity: faqReveal.vis ? 1 : 0,
-              transform: faqReveal.vis ? "translateY(0)" : "translateY(32px)",
+              transform: faqReveal.vis ? "translateY(0)" : "translateY(28px)",
               transition: "opacity .7s ease, transform .7s ease",
             }}
           >
-            <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <div style={{ textAlign: "center", marginBottom: 34 }}>
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  gap: 14,
-                  marginBottom: 16,
+                  gap: 12,
+                  marginBottom: 12,
+                  flexWrap: "wrap",
                 }}
               >
                 <div
                   style={{
                     height: 1,
-                    width: 60,
+                    width: 54,
                     background:
                       "linear-gradient(90deg,transparent,rgba(201,151,58,.6))",
                   }}
@@ -1680,16 +1821,17 @@ const PricingPage: React.FC = () => {
                 <div
                   style={{
                     height: 1,
-                    width: 60,
+                    width: 54,
                     background:
                       "linear-gradient(90deg,rgba(201,151,58,.6),transparent)",
                   }}
                 />
               </div>
+
               <h2
                 style={{
                   fontFamily: "'Cormorant Garamond',serif",
-                  fontSize: "clamp(26px,3.5vw,48px)",
+                  fontSize: "clamp(24px,3.5vw,46px)",
                   fontWeight: 600,
                   color: "#fff",
                 }}
@@ -1697,18 +1839,19 @@ const PricingPage: React.FC = () => {
                 Frequently Asked <span className="gold-text">Questions</span>
               </h2>
             </div>
+
             {faqs.map((f, i) => (
               <FaqItem key={i} item={f} idx={i} />
             ))}
           </div>
         </section>
 
-        {/* ══════════════════════════════ CTA */}
+        {/* ══════════════════════════════ CTA (reduced padding) */}
         <section
           style={{
             background:
               "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
-            padding: "100px 24px",
+            padding: "70px 18px",
             position: "relative",
             overflow: "hidden",
             textAlign: "center",
@@ -1718,29 +1861,32 @@ const PricingPage: React.FC = () => {
             className="hex-bg"
             style={{ position: "absolute", inset: 0, opacity: 0.6 }}
           />
+
           <div
             style={{
               position: "absolute",
               top: "50%",
               left: "50%",
               transform: "translate(-50%,-50%)",
-              width: 600,
-              height: 600,
+              width: 560,
+              height: 560,
               borderRadius: "50%",
               border: "1px dashed rgba(201,151,58,.1)",
               animation: "rotateSlow 50s linear infinite",
               pointerEvents: "none",
             }}
           />
+
           <div
             style={{
-              width: 180,
+              width: 160,
               height: 1,
-              margin: "0 auto 52px",
+              margin: "0 auto 34px",
               background:
                 "linear-gradient(90deg,transparent,var(--gold),transparent)",
             }}
           />
+
           <div
             style={{
               position: "relative",
@@ -1751,18 +1897,19 @@ const PricingPage: React.FC = () => {
           >
             <p
               className="sec-label"
-              style={{ marginBottom: 20, display: "block" }}
+              style={{ marginBottom: 14, display: "block" }}
             >
               Start Today — It's Free
             </p>
+
             <h2
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(32px,5vw,68px)",
+                fontSize: "clamp(30px,5vw,62px)",
                 fontWeight: 300,
                 color: "#fff",
                 lineHeight: 1.1,
-                marginBottom: 24,
+                marginBottom: 18,
               }}
             >
               Begin Your
@@ -1774,22 +1921,24 @@ const PricingPage: React.FC = () => {
                 Quranic Journey
               </span>
             </h2>
+
             <p
               style={{
                 color: "rgba(255,255,255,.4)",
                 fontSize: 17,
                 lineHeight: 1.85,
-                maxWidth: 500,
-                margin: "0 auto 44px",
+                maxWidth: 520,
+                margin: "0 auto 30px",
               }}
             >
               Start with a free trial and choose a plan only when you're ready.
               No pressure, no hidden costs, just pure learning.
             </p>
+
             <div
               style={{
                 display: "flex",
-                gap: 16,
+                gap: 14,
                 justifyContent: "center",
                 flexWrap: "wrap",
               }}
@@ -1803,7 +1952,7 @@ const PricingPage: React.FC = () => {
                   background:
                     "linear-gradient(135deg,var(--gold-m),var(--gold))",
                   color: "#020b06",
-                  padding: "18px 48px",
+                  padding: "16px 42px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",
                   fontWeight: 700,
@@ -1817,6 +1966,7 @@ const PricingPage: React.FC = () => {
                 <span style={{ fontSize: 16 }}>✦</span> Book Free Trial{" "}
                 <ArrowRight size={16} />
               </Link>
+
               <Link
                 to="/courses"
                 style={{
@@ -1826,7 +1976,7 @@ const PricingPage: React.FC = () => {
                   background: "rgba(255,255,255,.04)",
                   border: "1px solid rgba(255,255,255,.12)",
                   color: "rgba(255,255,255,.7)",
-                  padding: "18px 36px",
+                  padding: "16px 32px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",
                   fontWeight: 700,
@@ -1839,11 +1989,12 @@ const PricingPage: React.FC = () => {
               </Link>
             </div>
           </div>
+
           <div
             style={{
-              width: 180,
+              width: 160,
               height: 1,
-              margin: "52px auto 0",
+              margin: "34px auto 0",
               background:
                 "linear-gradient(90deg,transparent,var(--gold),transparent)",
             }}

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { COURSES } from "../data";
 import {
   Clock,
-  BarChart,
   ArrowRight,
   CheckCircle,
   Users,
@@ -37,6 +36,15 @@ const pageStyles = `
     --ivory:   #f8f3e8;
   }
 
+  /* ✅ GLOBAL RESPONSIVE + FIX HORIZONTAL SCROLL */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  img, svg { max-width: 100%; height: auto; }
+
+  .page-wrap { width: 100%; max-width: 100%; overflow-x: clip; } /* clip prevents x-scroll */
+  .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 640px) { .container { padding: 0 16px; } }
+
   /* hex bg */
   .hex-bg {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
@@ -59,7 +67,6 @@ const pageStyles = `
     50%      { opacity:.8; transform:scale(1.05); }
   }
   @keyframes orbitSpin    { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-  @keyframes borderRotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
   @keyframes iconFloat {
     0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}
   }
@@ -94,6 +101,7 @@ const pageStyles = `
     animation:cardIn .6s cubic-bezier(.16,1,.3,1) both;
     transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease;
     will-change:transform;
+    min-width: 0; /* ✅ important for grid/flex overflow */
   }
   .course-card:hover {
     transform:translateY(-12px) scale(1.015);
@@ -126,21 +134,26 @@ const pageStyles = `
     box-shadow:0 4px 16px rgba(201,151,58,.15) !important;
   }
 
-  /* search bar */
+  /* ✅ search bar responsive (no fixed width growth on focus) */
   .search-bar {
     background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
     border-radius:14px; padding:12px 18px 12px 46px;
     color:#fff; font-family:'Nunito',sans-serif; font-size:14px;
-    outline:none; width:280px; transition:all .3s;
+    outline:none; transition:all .3s;
+
+    width: 100%;
+    max-width: 360px;  /* desktop */
+    min-width: 0;      /* ✅ prevents flex overflow */
   }
   .search-bar::placeholder { color:rgba(255,255,255,.25); }
-  .search-bar:focus { border-color:rgba(201,151,58,.4); background:rgba(255,255,255,.06); width:320px; }
+  .search-bar:focus { border-color:rgba(201,151,58,.4); background:rgba(255,255,255,.06); }
+  @media (max-width: 640px) { .search-bar { max-width: 100%; } }
 
   /* sec-label */
   .sec-label { font-family:'Cinzel',serif; font-size:11px; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
 
   /* feature check row */
-  .feat-row { display:flex; align-items:center; gap:10px; font-size:13px; color:rgba(255,255,255,.48); }
+  .feat-row { display:flex; align-items:center; gap:10px; font-size:13px; color:rgba(255,255,255,.48); min-width:0; }
 
   /* shimmer bar on card top */
   .shim-top { position:relative; overflow:hidden; }
@@ -151,7 +164,6 @@ const pageStyles = `
   }
 
   /* orbit icon */
-  .orb-ring { animation:orbitSpin 10s linear infinite; }
   .icon-f   { animation:iconFloat 3s ease-in-out infinite; }
 
   /* CTA band */
@@ -161,8 +173,17 @@ const pageStyles = `
     border-radius:28px; padding:60px 64px;
     position:relative; overflow:hidden;
   }
+  @media (max-width: 768px) { .cta-band { padding: 44px 24px; border-radius: 22px; } }
 
   @keyframes rotateSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  /* ✅ watermark responsiveness */
+  @media (max-width: 640px) {
+    .arabic-watermark {
+      right: -25% !important;
+      font-size: clamp(120px, 40vw, 220px) !important;
+    }
+  }
 `;
 
 // ── Course accent colors ──────────────────────────────────────────────────────
@@ -324,21 +345,29 @@ const Courses: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const courses = COURSES && COURSES.length ? COURSES : FALLBACK;
+  const courses = useMemo(
+    () => (COURSES && COURSES.length ? COURSES : FALLBACK),
+    [],
+  );
 
-  const filtered = courses.filter((c: any) => {
-    const matchLevel = activeFilter === "All" || c.level === activeFilter;
-    const matchSearch =
-      !searchQuery ||
-      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchLevel && matchSearch;
-  });
+  const filtered = useMemo(() => {
+    return courses.filter((c: any) => {
+      const matchLevel = activeFilter === "All" || c.level === activeFilter;
+      const q = searchQuery.trim().toLowerCase();
+      const matchSearch =
+        !q ||
+        c.title?.toLowerCase().includes(q) ||
+        c.description?.toLowerCase().includes(q);
+      return matchLevel && matchSearch;
+    });
+  }, [courses, activeFilter, searchQuery]);
 
   return (
     <>
       <style>{pageStyles}</style>
+
       <div
+        className="page-wrap"
         style={{
           fontFamily: "'Nunito',sans-serif",
           background: "var(--deep)",
@@ -350,7 +379,7 @@ const Courses: React.FC = () => {
           style={{
             background:
               "radial-gradient(ellipse 120% 80% at 20% 0%,#0d4a2a 0%,transparent 55%), radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%), radial-gradient(100% 100% at 50% 50%,#020b06 0%,#030f07 100%)",
-            padding: "100px 24px 80px",
+            padding: "100px 0 80px",
             position: "relative",
             overflow: "hidden",
           }}
@@ -362,6 +391,7 @@ const Courses: React.FC = () => {
 
           {/* arabic watermark */}
           <div
+            className="arabic-watermark"
             style={{
               position: "absolute",
               top: "50%",
@@ -374,6 +404,7 @@ const Courses: React.FC = () => {
               userSelect: "none",
               pointerEvents: "none",
               lineHeight: 1,
+              whiteSpace: "nowrap",
             }}
           >
             علم
@@ -424,9 +455,8 @@ const Courses: React.FC = () => {
           />
 
           <div
+            className="container"
             style={{
-              maxWidth: 1320,
-              margin: "0 auto",
               position: "relative",
               zIndex: 1,
               textAlign: "center",
@@ -441,6 +471,7 @@ const Courses: React.FC = () => {
                 justifyContent: "center",
                 gap: 14,
                 marginBottom: 20,
+                flexWrap: "wrap",
               }}
             >
               <div
@@ -551,7 +582,7 @@ const Courses: React.FC = () => {
           style={{
             background: "linear-gradient(180deg,#020b06 0%,var(--forest) 100%)",
             borderBottom: "1px solid rgba(255,255,255,.05)",
-            padding: "20px 24px",
+            padding: "20px 0",
             position: "sticky",
             top: 76,
             zIndex: 40,
@@ -559,14 +590,14 @@ const Courses: React.FC = () => {
           }}
         >
           <div
+            className="container"
             style={{
-              maxWidth: 1320,
-              margin: "0 auto",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
               gap: 20,
               flexWrap: "wrap",
+              minWidth: 0, // ✅ prevents flex overflow
             }}
           >
             {/* filters */}
@@ -576,6 +607,7 @@ const Courses: React.FC = () => {
                 alignItems: "center",
                 gap: 8,
                 flexWrap: "wrap",
+                minWidth: 0,
               }}
             >
               <Filter
@@ -587,7 +619,9 @@ const Courses: React.FC = () => {
                 <button
                   key={f}
                   onClick={() => setActiveFilter(f)}
-                  className={`filter-pill${activeFilter === f ? " filter-pill-active" : ""}`}
+                  className={`filter-pill${
+                    activeFilter === f ? " filter-pill-active" : ""
+                  }`}
                   style={{ border: "none", cursor: "pointer" }}
                 >
                   {f === "All" && <span style={{ fontSize: 9 }}>✦</span>}
@@ -597,7 +631,9 @@ const Courses: React.FC = () => {
             </div>
 
             {/* search */}
-            <div style={{ position: "relative" }}>
+            <div
+              style={{ position: "relative", flex: "1 1 320px", minWidth: 0 }}
+            >
               <Search
                 size={16}
                 style={{
@@ -622,7 +658,7 @@ const Courses: React.FC = () => {
         {/* ══════════════════════════════════════ COURSES GRID */}
         <section
           style={{
-            padding: "80px 24px 120px",
+            padding: "80px 0 120px",
             background:
               "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
             position: "relative",
@@ -648,12 +684,8 @@ const Courses: React.FC = () => {
           />
 
           <div
-            style={{
-              maxWidth: 1320,
-              margin: "0 auto",
-              position: "relative",
-              zIndex: 1,
-            }}
+            className="container"
+            style={{ position: "relative", zIndex: 1 }}
           >
             {/* results count */}
             <div
@@ -724,13 +756,15 @@ const Courses: React.FC = () => {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", // ✅ safer for tiny screens
                   gap: "clamp(16px, 4vw, 28px)",
+                  alignItems: "stretch",
                 }}
               >
                 {filtered.map((course: any, idx: number) => {
                   const acc = ACCENT[idx % ACCENT.length];
                   const Icon = acc.icon;
+
                   return (
                     <div
                       key={course.id}
@@ -751,7 +785,7 @@ const Courses: React.FC = () => {
                       <div
                         style={{
                           position: "relative",
-                          height: 230,
+                          height: 180,
                           overflow: "hidden",
                           flexShrink: 0,
                         }}
@@ -805,6 +839,10 @@ const Courses: React.FC = () => {
                             padding: "5px 13px",
                             borderRadius: 100,
                             fontFamily: "'Cinzel',serif",
+                            maxWidth: "calc(100% - 36px)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           {course.level}
@@ -853,6 +891,10 @@ const Courses: React.FC = () => {
                             color: "rgba(255,255,255,.6)",
                             fontSize: 11,
                             fontWeight: 600,
+                            maxWidth: "calc(100% - 32px)",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           <Clock size={11} color={acc.color} />
@@ -863,11 +905,12 @@ const Courses: React.FC = () => {
                       {/* ── Body ── */}
                       <div
                         style={{
-                          padding: "28px 28px 32px",
+                          padding: "12px",
                           display: "flex",
                           flexDirection: "column",
                           flex: 1,
                           position: "relative",
+                          minWidth: 0,
                         }}
                       >
                         {/* inner corner glow */}
@@ -890,7 +933,7 @@ const Courses: React.FC = () => {
                             fontSize: 22,
                             fontWeight: 700,
                             color: "#fff",
-                            marginBottom: 10,
+                            marginBottom: 4,
                             lineHeight: 1.2,
                           }}
                         >
@@ -902,7 +945,7 @@ const Courses: React.FC = () => {
                             color: "rgba(255,255,255,.38)",
                             lineHeight: 1.75,
                             fontSize: 13.5,
-                            marginBottom: 22,
+                            marginBottom: 4,
                             flex: 1,
                           }}
                         >
@@ -915,7 +958,8 @@ const Courses: React.FC = () => {
                             display: "flex",
                             flexDirection: "column",
                             gap: 7,
-                            marginBottom: 24,
+                            marginBottom: 4,
+                            minWidth: 0,
                           }}
                         >
                           {(course.features || [])
@@ -928,7 +972,14 @@ const Courses: React.FC = () => {
                                   strokeWidth={2}
                                   style={{ flexShrink: 0 }}
                                 />
-                                {feat}
+                                <span
+                                  style={{
+                                    minWidth: 0,
+                                    overflowWrap: "anywhere",
+                                  }}
+                                >
+                                  {feat}
+                                </span>
                               </div>
                             ))}
                         </div>
@@ -949,6 +1000,8 @@ const Courses: React.FC = () => {
                             alignItems: "center",
                             justifyContent: "space-between",
                             marginBottom: 20,
+                            gap: 10,
+                            flexWrap: "wrap",
                           }}
                         >
                           <div
@@ -963,7 +1016,13 @@ const Courses: React.FC = () => {
                             <Users size={12} color={acc.color} />
                             <span>1-on-1 Sessions</span>
                           </div>
-                          <div style={{ display: "flex", gap: 2 }}>
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: 2,
+                              alignItems: "center",
+                            }}
+                          >
                             {[1, 2, 3, 4, 5].map((i) => (
                               <Star
                                 key={i}
@@ -1019,8 +1078,8 @@ const Courses: React.FC = () => {
         </section>
 
         {/* ══════════════════════════════════════ BOTTOM CTA */}
-        <section style={{ background: "var(--deep)", padding: "0 24px 100px" }}>
-          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+        <section style={{ background: "var(--deep)", padding: "0 0 100px" }}>
+          <div className="container">
             <div className="cta-band">
               {/* glow inside */}
               <div
@@ -1132,12 +1191,14 @@ const Courses: React.FC = () => {
                     the ideal learning path — completely free, no commitment.
                   </p>
                 </div>
+
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     gap: 14,
                     alignItems: "flex-start",
+                    minWidth: 0,
                   }}
                 >
                   <Link
@@ -1159,11 +1220,13 @@ const Courses: React.FC = () => {
                       boxShadow:
                         "0 8px 32px rgba(201,151,58,.4),inset 0 1px 0 rgba(255,255,255,.25)",
                       transition: "all .3s",
+                      maxWidth: "100%",
                     }}
                   >
                     ✦ Book Free Trial <ArrowRight size={16} />
                   </Link>
-                  <div style={{ display: "flex", gap: 20 }}>
+
+                  <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
                     {[
                       {
                         icon: <CheckCircle size={12} />,

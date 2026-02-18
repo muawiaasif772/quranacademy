@@ -607,56 +607,7 @@ export const FAQ: React.FC = () => {
             </p>
 
             {/* search bar */}
-            <div
-              className="h4"
-              style={{
-                position: "relative",
-                maxWidth: 560,
-                margin: "0 auto 36px",
-              }}
-            >
-              <Search
-                size={18}
-                style={{
-                  position: "absolute",
-                  left: 18,
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "rgba(255,255,255,.3)",
-                  pointerEvents: "none",
-                }}
-              />
-              <input
-                type="text"
-                placeholder="Search questions..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="faq-search"
-              />
-              {search && (
-                <button
-                  onClick={() => setSearch("")}
-                  style={{
-                    position: "absolute",
-                    right: 16,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    background: "rgba(255,255,255,.08)",
-                    border: "1px solid rgba(255,255,255,.1)",
-                    color: "rgba(255,255,255,.5)",
-                    borderRadius: 8,
-                    padding: "4px 10px",
-                    cursor: "pointer",
-                    fontFamily: "'Cinzel',serif",
-                    fontSize: 9,
-                    fontWeight: 700,
-                    letterSpacing: ".12em",
-                  }}
-                >
-                  CLEAR
-                </button>
-              )}
-            </div>
+           
 
             {/* stats strip */}
             <div
@@ -702,45 +653,7 @@ export const FAQ: React.FC = () => {
         </section>
 
         {/* ══════════════════════ CATEGORY FILTER */}
-        <div
-          style={{
-            background: "rgba(2,11,6,.97)",
-            borderTop: "1px solid rgba(255,255,255,.05)",
-            borderBottom: "1px solid rgba(255,255,255,.05)",
-            padding: "14px 24px",
-            position: "sticky",
-            top: 0,
-            zIndex: 50,
-            backdropFilter: "blur(24px)",
-          }}
-        >
-          <div
-            style={{
-              maxWidth: 1000,
-              margin: "0 auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-              flexWrap: "wrap",
-            }}
-          >
-            {CATEGORIES.map((cat) => {
-              const Icon = CAT_ICONS[cat] || HelpCircle;
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setCategory(cat)}
-                  className={`cat-pill${category === cat ? " cat-pill-a" : ""}`}
-                  style={{ border: "none", cursor: "pointer" }}
-                >
-                  <Icon size={11} />
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+       
 
         {/* ══════════════════════ FAQ LIST */}
         <section
