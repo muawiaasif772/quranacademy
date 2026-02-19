@@ -314,7 +314,7 @@ export const Navbar: React.FC = () => {
                       letterSpacing: "-.02em",
                     }}
                   >
-                    NQ
+                    ALM
                   </span>
                 </div>
               </div>
@@ -335,7 +335,7 @@ export const Navbar: React.FC = () => {
                     letterSpacing: ".12em",
                   }}
                 >
-                  NOOR AL-QURAN
+                  Alif LaAm Meem
                 </span>
                 <span
                   style={{
@@ -508,7 +508,7 @@ export const Navbar: React.FC = () => {
                   fontFamily: "'Nunito',sans-serif",
                 }}
               >
-                +1 (234) 567-890
+                +923006873200
               </span>
             </div>
           </div>
@@ -749,7 +749,7 @@ export const Footer: React.FC = () => {
                     letterSpacing: ".1em",
                   }}
                 >
-                  NOOR AL-QURAN
+                  ALIF LAAM MEEM
                 </div>
                 <div
                   style={{
@@ -947,13 +947,13 @@ export const Footer: React.FC = () => {
                 {
                   icon: <Phone size={15} />,
                   label: "Call Us",
-                  val: "+1 (234) 567-890",
+                  val: "+9203006873200",
                   color: "#c9973a",
                 },
                 {
                   icon: <Mail size={15} />,
                   label: "Email",
-                  val: "info@nooralquran.com",
+                  val: "info@aliflaameem.com",
                   color: "#2fcf87",
                 },
               ].map((c, i) => (
@@ -1069,24 +1069,26 @@ export const Footer: React.FC = () => {
               fontSize: 9,
               fontWeight: 700,
               letterSpacing: ".18em",
-              color: "rgba(255,255,255,.2)",
+              color: "#ffffffff",
               textTransform: "uppercase",
             }}
           >
-            © {new Date().getFullYear()} Noor Al-Quran Academy · Bridging Hearts
-            to the Revelation
+            © {new Date().getFullYear()} Alif Laam Meem Islamic Insitute
           </p>
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-            {["Privacy Policy", "Terms of Service", "Sitemap"].map((l, i) => (
+            {[
+              { label: "Privacy Policy", href: "/privacy-policy" },
+              { label: "Terms of Service", href: "/terms-of-service" },
+            ].map((l, i) => (
               <a
                 key={i}
-                href="#"
+                href={l.href}
                 style={{
                   fontFamily: "'Cinzel',serif",
                   fontSize: 9,
                   fontWeight: 700,
                   letterSpacing: ".16em",
-                  color: "rgba(255,255,255,.2)",
+                  color: "#ffffffff",
                   textTransform: "uppercase",
                   textDecoration: "none",
                   transition: "color .25s",
@@ -1095,10 +1097,10 @@ export const Footer: React.FC = () => {
                   (e.currentTarget.style.color = "var(--gold)")
                 }
                 onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "rgba(255,255,255,.2)")
+                  (e.currentTarget.style.color = "#ffffffff")
                 }
               >
-                {l}
+                {l.label}
               </a>
             ))}
           </div>

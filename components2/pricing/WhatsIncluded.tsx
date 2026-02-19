@@ -7,7 +7,7 @@ export const WhatsIncluded: React.FC = () => {
     { icon: UserCheck, title: 'Verified Tutors', desc: 'Background checked scholars and graduates from Al-Azhar University.' },
     { icon: Clock, title: 'Flexible Timings', desc: 'We work across all timezones. Schedule your classes when it suits you.' },
     { icon: BarChart3, title: 'Monthly Reports', desc: 'Detailed analytics of your progress, pronunciation, and memorization goals.' },
-    { icon: GraduationCap, title: 'Certificates', desc: 'Official Noor Al-Quran certification upon successful completion of each level.' }
+    { icon: GraduationCap, title: 'Certificates', desc: 'Official Alif Laam Meem certification upon successful completion of each level.' }
   ];
 
   return (

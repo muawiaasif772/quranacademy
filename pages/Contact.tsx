@@ -309,7 +309,7 @@ export const Contact: React.FC = () => {
     {
       icon: Phone,
       title: "Call / WhatsApp",
-      value: "+1 (234) 567-890",
+      value: "+9203006873200",
       sub: "Available 24 hours a day",
       color: "#2fcf87",
       bg: "rgba(47,207,135,.12)",
@@ -318,7 +318,7 @@ export const Contact: React.FC = () => {
     {
       icon: Mail,
       title: "Email Support",
-      value: "info@nooralquran.com",
+      value: "aliflaameem772@gmail.com",
       sub: "Reply within 2 hours",
       color: "#7eb8ff",
       bg: "rgba(127,178,255,.12)",

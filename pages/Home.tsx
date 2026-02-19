@@ -407,7 +407,7 @@ const Home: React.FC = () => {
                       textTransform: "uppercase",
                     }}
                   >
-                    Noor Al-Quran Academy
+                    Alif Laam Meem Academy
                   </span>
                 </div>
 

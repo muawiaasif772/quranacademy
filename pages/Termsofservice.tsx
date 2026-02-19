@@ -1,17 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
-  Shield,
-  Lock,
-  Eye,
-  Database,
+  FileText,
+  BookOpen,
+  CreditCard,
   UserCheck,
-  Bell,
-  Globe,
-  Trash2,
+  ShieldAlert,
+  AlertTriangle,
+  Scale,
+  RefreshCw,
   Mail,
   ArrowRight,
-  FileText,
-  RefreshCw,
+  CheckCircle,
+  XCircle,
+  Scroll,
+  Gavel,
+  Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -27,8 +30,8 @@ const pageStyles = `
   @keyframes rotateSlow{ from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
 
   .gold-shimmer { background:linear-gradient(90deg,var(--gold) 0%,var(--gold-lt) 35%,#fff8e0 50%,var(--gold-lt) 65%,var(--gold) 100%);background-size:500px 100%;animation:shimText 4s linear infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
-  .gold-text    { background:linear-gradient(135deg,var(--gold-lt),var(--gold-m),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
-  .glow-pulse   { animation:glowPulse 4s ease-in-out infinite; }
+  .gold-text { background:linear-gradient(135deg,var(--gold-lt),var(--gold-m),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text; }
+  .glow-pulse { animation:glowPulse 4s ease-in-out infinite; }
   .h1{animation:fadeUp .6s cubic-bezier(.16,1,.3,1) both}
   .h2{animation:fadeUp .6s .1s cubic-bezier(.16,1,.3,1) both}
   .h3{animation:fadeUp .6s .2s cubic-bezier(.16,1,.3,1) both}
@@ -37,7 +40,6 @@ const pageStyles = `
   .shb{position:relative;overflow:hidden;}
   .shb::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);animation:shimBar 3.5s ease-in-out infinite;}
 
-  /* TOC */
   .toc-link{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:rgba(255,255,255,.32);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;border:none;background:none;text-align:left;width:100%;}
   .toc-link:hover{color:var(--gold-lt);background:rgba(201,151,58,.06);}
   .toc-link.active{color:var(--gold-m);background:rgba(201,151,58,.1);border-left:2px solid var(--gold);}
@@ -47,34 +49,27 @@ const pageStyles = `
   .toc-sticky::-webkit-scrollbar{width:3px;}
   .toc-sticky::-webkit-scrollbar-thumb{background:rgba(201,151,58,.2);border-radius:4px;}
 
-  /* Section card */
   .ps{background:rgba(255,255,255,.022);border:1px solid rgba(255,255,255,.07);border-radius:22px;padding:clamp(22px,3.5vw,36px);position:relative;overflow:hidden;transition:border-color .3s;scroll-margin-top:96px;margin-bottom:16px;}
   .ps::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(201,151,58,0),transparent);transition:background .4s;}
   .ps:hover{border-color:rgba(201,151,58,.18);}
   .ps:hover::before{background:linear-gradient(90deg,transparent,rgba(201,151,58,.45),transparent);}
 
-  /* Boxes */
   .hi{background:rgba(201,151,58,.06);border:1px solid rgba(201,151,58,.15);border-left:3px solid var(--gold);border-radius:12px;padding:14px 16px;margin:14px 0;}
+  .wb{background:rgba(255,143,163,.05);border:1px solid rgba(255,143,163,.15);border-left:3px solid #ff8fa3;border-radius:12px;padding:14px 16px;margin:14px 0;}
+  .gb{background:rgba(47,207,135,.05);border:1px solid rgba(47,207,135,.15);border-left:3px solid #2fcf87;border-radius:12px;padding:14px 16px;margin:14px 0;}
 
-  /* Rows & items */
-  .ir{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
-  .ir:last-child{border-bottom:none;padding-bottom:0;}
   .ci{display:flex;gap:10px;align-items:flex-start;padding:5px 0;}
-
-  /* Mini card */
+  .ir{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.05);}
+  .ir:last-child{border-bottom:none;padding-bottom:0;}
   .mc{background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:16px;transition:all .28s;}
   .mc:hover{border-color:rgba(201,151,58,.18);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.3);}
 
-  /* Data pill */
-  .dp{display:inline-flex;align-items:center;padding:5px 12px;border-radius:100px;font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.38);margin:3px;transition:all .22s;}
-  .dp:hover{border-color:rgba(201,151,58,.3);color:var(--gold-lt);background:rgba(201,151,58,.06);}
-
   .updated-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:100px;background:rgba(47,207,135,.08);border:1px solid rgba(47,207,135,.2);color:#2fcf87;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;}
   .bt{color:rgba(255,255,255,.48);font-family:'Nunito',sans-serif;font-size:14px;line-height:1.85;}
-  .sub-label{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+  .sub-label{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.14em;text-transform:uppercase;margin:14px 0 7px;}
 
-  @media(max-width:1024px){.pp-layout{grid-template-columns:1fr!important;}.toc-sticky{position:static!important;max-height:none!important;}.toc-wrap{margin-bottom:28px;}.rg{grid-template-columns:1fr 1fr!important;}}
-  @media(max-width:600px){.rg{grid-template-columns:1fr!important;}.qs{grid-template-columns:1fr 1fr!important;}.two-col{grid-template-columns:1fr!important;}}
+  @media(max-width:1024px){.pp-layout{grid-template-columns:1fr!important;}.toc-sticky{position:static!important;max-height:none!important;}.toc-wrap{margin-bottom:28px;}}
+  @media(max-width:600px){.two-col{grid-template-columns:1fr!important;}.qs{grid-template-columns:1fr 1fr!important;}}
 `;
 
 const useReveal = () => {
@@ -97,16 +92,17 @@ const useReveal = () => {
 };
 
 const sections = [
-  { id: "information", num: "01", label: "What We Collect", icon: Database },
-  { id: "usage", num: "02", label: "How We Use It", icon: Eye },
-  { id: "sharing", num: "03", label: "Who We Share With", icon: Globe },
-  { id: "security", num: "04", label: "Data Security", icon: Lock },
-  { id: "rights", num: "05", label: "Your Rights", icon: UserCheck },
-  { id: "cookies", num: "06", label: "Cookies", icon: Bell },
-  { id: "retention", num: "07", label: "Data Retention", icon: Trash2 },
+  { id: "acceptance", num: "01", label: "Acceptance", icon: CheckCircle },
+  { id: "services", num: "02", label: "Our Services", icon: BookOpen },
+  { id: "accounts", num: "03", label: "Your Account", icon: UserCheck },
+  { id: "payments", num: "04", label: "Payments & Refunds", icon: CreditCard },
+  { id: "conduct", num: "05", label: "Conduct", icon: Scale },
+  { id: "ip", num: "06", label: "Intellectual Property", icon: Scroll },
+  { id: "liability", num: "07", label: "Liability", icon: ShieldAlert },
   { id: "contact", num: "08", label: "Contact & Updates", icon: Mail },
 ];
 
+// Section wrapper
 const Sec: React.FC<{
   id: string;
   num: string;
@@ -191,6 +187,20 @@ const Sec: React.FC<{
   );
 };
 
+// Helpers
+const Check = ({ ok = true }) =>
+  ok ? (
+    <CheckCircle
+      size={15}
+      style={{ color: "#2fcf87", flexShrink: 0, marginTop: 3 }}
+    />
+  ) : (
+    <XCircle
+      size={15}
+      style={{ color: "#ff8fa3", flexShrink: 0, marginTop: 3 }}
+    />
+  );
+
 const Tag = ({ label, color }: { label: string; color: string }) => (
   <span
     style={{
@@ -211,21 +221,9 @@ const Tag = ({ label, color }: { label: string; color: string }) => (
   </span>
 );
 
-const Dot = ({ color = "var(--gold)" }: { color?: string }) => (
-  <div
-    style={{
-      width: 6,
-      height: 6,
-      borderRadius: "50%",
-      background: color,
-      flexShrink: 0,
-      marginTop: 7,
-    }}
-  />
-);
-
-export const PrivacyPolicy: React.FC = () => {
-  const [active, setActive] = useState("information");
+// ── MAIN ──
+export const TermsOfService: React.FC = () => {
+  const [active, setActive] = useState("acceptance");
   const heroR = useReveal();
   const tocR = useReveal();
 
@@ -276,10 +274,10 @@ export const PrivacyPolicy: React.FC = () => {
             style={{
               position: "absolute",
               top: "50%",
-              right: "-3%",
+              right: "-2%",
               transform: "translateY(-50%)",
               fontFamily: "serif",
-              fontSize: "clamp(110px,17vw,250px)",
+              fontSize: "clamp(100px,16vw,230px)",
               color: "rgba(255,255,255,.016)",
               fontWeight: 700,
               userSelect: "none",
@@ -287,7 +285,7 @@ export const PrivacyPolicy: React.FC = () => {
               lineHeight: 1,
             }}
           >
-            خصوصية
+            شروط
           </div>
           <div
             className="glow-pulse"
@@ -306,13 +304,13 @@ export const PrivacyPolicy: React.FC = () => {
           <div
             style={{
               position: "absolute",
-              bottom: "-20%",
-              right: "-10%",
-              width: 580,
-              height: 580,
+              bottom: "-25%",
+              right: "-12%",
+              width: 600,
+              height: 600,
               borderRadius: "50%",
               border: "1px dashed rgba(201,151,58,.07)",
-              animation: "rotateSlow 70s linear infinite",
+              animation: "rotateSlow 80s linear infinite",
               pointerEvents: "none",
             }}
           />
@@ -330,6 +328,7 @@ export const PrivacyPolicy: React.FC = () => {
               transition: "opacity .8s ease,transform .8s ease",
             }}
           >
+            {/* label row */}
             <div
               className="h1"
               style={{
@@ -349,7 +348,7 @@ export const PrivacyPolicy: React.FC = () => {
                 }}
               />
               <span style={{ color: "var(--gold)", fontSize: 10 }}>✦</span>
-              <span className="sec-label">Legal & Transparency</span>
+              <span className="sec-label">Legal Agreement</span>
               <span style={{ color: "var(--gold)", fontSize: 10 }}>✦</span>
               <div
                 style={{
@@ -365,19 +364,19 @@ export const PrivacyPolicy: React.FC = () => {
               className="h2"
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(46px,9vw,100px)",
+                fontSize: "clamp(44px,9vw,98px)",
                 fontWeight: 300,
                 lineHeight: 1.0,
                 marginBottom: 18,
                 color: "#fff",
               }}
             >
-              Privacy{" "}
+              Terms of{" "}
               <span
                 className="gold-shimmer"
                 style={{ fontWeight: 700, fontStyle: "italic" }}
               >
-                Policy
+                Service
               </span>
             </h1>
 
@@ -391,8 +390,8 @@ export const PrivacyPolicy: React.FC = () => {
                 margin: "0 auto 30px",
               }}
             >
-              We collect only what we need, protect it rigorously, and never
-              sell it. Here's exactly what that means.
+              The key rules for using Noor Al-Quran Academy — written clearly,
+              without the legalese.
             </p>
 
             <div
@@ -424,7 +423,7 @@ export const PrivacyPolicy: React.FC = () => {
               </span>
             </div>
 
-            {/* Quick stats */}
+            {/* 4 quick pills */}
             <div
               className="qs"
               style={{
@@ -434,10 +433,10 @@ export const PrivacyPolicy: React.FC = () => {
               }}
             >
               {[
-                { v: "GDPR", l: "Compliant" },
-                { v: "256-bit", l: "Encryption" },
-                { v: "0", l: "Data Sold" },
-                { v: "72h", l: "Breach Notice" },
+                { v: "Free", l: "30-Min Trial" },
+                { v: "30-Day", l: "Money Back" },
+                { v: "Cancel", l: "Anytime" },
+                { v: "Plain", l: "Language" },
               ].map((s, i) => (
                 <div
                   key={i}
@@ -561,7 +560,7 @@ export const PrivacyPolicy: React.FC = () => {
                           color: "var(--gold)",
                         }}
                       >
-                        <FileText size={13} />
+                        <Scroll size={13} />
                       </div>
                       <span
                         style={{
@@ -628,7 +627,7 @@ export const PrivacyPolicy: React.FC = () => {
 
               {/* Sections */}
               <div>
-                {/* Commitment intro */}
+                {/* Intro note */}
                 <div
                   className="hi"
                   style={{ marginBottom: 18, borderRadius: 14 }}
@@ -640,7 +639,7 @@ export const PrivacyPolicy: React.FC = () => {
                       alignItems: "flex-start",
                     }}
                   >
-                    <Shield
+                    <Gavel
                       size={18}
                       style={{
                         color: "var(--gold-m)",
@@ -649,48 +648,424 @@ export const PrivacyPolicy: React.FC = () => {
                       }}
                     />
                     <p className="bt" style={{ margin: 0 }}>
-                      We collect only what we need, protect it with
-                      industry-leading security,{" "}
-                      <strong style={{ color: "var(--gold-lt)" }}>
-                        never sell it
-                      </strong>
-                      , and give you full control. This page explains everything
-                      plainly.
+                      By using our platform you agree to these terms. We've kept
+                      them short — only the points that actually matter to you
+                      as a student.
                     </p>
                   </div>
                 </div>
 
-                {/* 01 – What We Collect */}
+                {/* 01 */}
                 <Sec
-                  id="information"
+                  id="acceptance"
                   num="01"
-                  icon={Database}
-                  title="What We Collect"
+                  icon={CheckCircle}
+                  title="Acceptance of Terms"
+                  accent="#2fcf87"
+                >
+                  <p className="bt" style={{ marginBottom: 10 }}>
+                    Using our platform means you confirm:
+                  </p>
+                  {[
+                    "You're 18+ or have parental consent if you're a minor.",
+                    "You accept our Privacy Policy (incorporated here by reference).",
+                    "You have authority to agree for yourself or your family.",
+                  ].map((t, i) => (
+                    <div key={i} className="ci">
+                      <Check ok={true} />
+                      <p className="bt" style={{ margin: 0 }}>
+                        {t}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="wb" style={{ marginTop: 10 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <AlertTriangle
+                        size={15}
+                        style={{
+                          color: "#ff8fa3",
+                          flexShrink: 0,
+                          marginTop: 2,
+                        }}
+                      />
+                      <p className="bt" style={{ margin: 0 }}>
+                        If you disagree, please don't use the platform.
+                        Continued use after updates means you accept the
+                        changes.
+                      </p>
+                    </div>
+                  </div>
+                </Sec>
+
+                {/* 02 */}
+                <Sec
+                  id="services"
+                  num="02"
+                  icon={BookOpen}
+                  title="Our Services"
                   accent="#7eb8ff"
+                >
+                  <p className="bt" style={{ marginBottom: 12 }}>
+                    We offer certified online Islamic education:
+                  </p>
+                  <div
+                    className="two-col"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: 8,
+                      marginBottom: 12,
+                    }}
+                  >
+                    {[
+                      "Quran Recitation",
+                      "Tajweed",
+                      "Hifz (Memorisation)",
+                      "Arabic Language",
+                      "Islamic Studies",
+                      "Noorani Qaida",
+                    ].map((s, i) => (
+                      <div
+                        key={i}
+                        style={{
+                          display: "flex",
+                          gap: 9,
+                          alignItems: "center",
+                          padding: "9px 12px",
+                          background: "rgba(127,178,255,.05)",
+                          border: "1px solid rgba(127,178,255,.1)",
+                          borderRadius: 10,
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 5,
+                            height: 5,
+                            borderRadius: "50%",
+                            background: "#7eb8ff",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <p
+                          style={{
+                            margin: 0,
+                            color: "rgba(255,255,255,.65)",
+                            fontFamily: "'Nunito',sans-serif",
+                            fontSize: 13,
+                            fontWeight: 600,
+                          }}
+                        >
+                          {s}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="bt">
+                    We may modify services with reasonable notice to active
+                    subscribers.
+                  </p>
+                </Sec>
+
+                {/* 03 */}
+                <Sec
+                  id="accounts"
+                  num="03"
+                  icon={UserCheck}
+                  title="Your Account"
+                  accent="var(--gold-m)"
                 >
                   {[
                     {
-                      label: "Account",
-                      detail:
-                        "Name, email, phone, country — collected when you register or book a trial.",
-                      color: "#7eb8ff",
+                      ok: true,
+                      t: "Use accurate information when registering.",
+                    },
+                    { ok: true, t: "Keep your password confidential." },
+                    {
+                      ok: true,
+                      t: "Notify us immediately of any unauthorised access.",
                     },
                     {
-                      label: "Learning",
-                      detail:
-                        "Session history, tutor notes, and progress records.",
-                      color: "var(--gold-m)",
+                      ok: false,
+                      t: "Share your account or create duplicate accounts.",
                     },
                     {
-                      label: "Payment",
+                      ok: false,
+                      t: "Impersonate others or use bots to sign up.",
+                    },
+                  ].map((x, i) => (
+                    <div key={i} className="ci">
+                      <Check ok={x.ok} />
+                      <p className="bt" style={{ margin: 0 }}>
+                        {x.t}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="hi" style={{ marginTop: 10 }}>
+                    <p className="bt" style={{ margin: 0 }}>
+                      You're responsible for all activity on your account.
+                    </p>
+                  </div>
+                </Sec>
+
+                {/* 04 */}
+                <Sec
+                  id="payments"
+                  num="04"
+                  icon={CreditCard}
+                  title="Payments & Refunds"
+                  accent="#ff8fa3"
+                >
+                  {[
+                    {
+                      label: "Free Trial",
                       detail:
-                        "Billing reference only. Card numbers go directly to Stripe — we never see them.",
+                        "One free 30-min session per household — no card needed.",
                       color: "#2fcf87",
                     },
                     {
-                      label: "Technical",
+                      label: "Billing",
                       detail:
-                        "IP address, browser type, and anonymised usage analytics.",
+                        "Monthly or annual billing via Stripe (secure). Charged on signup date.",
+                      color: "#ff8fa3",
+                    },
+                    {
+                      label: "Money Back",
+                      detail:
+                        "Full refund within first 30 days — no questions asked.",
+                      color: "#2fcf87",
+                    },
+                    {
+                      label: "Cancellation",
+                      detail:
+                        "Cancel anytime from your dashboard. Access continues until period ends.",
+                      color: "var(--gold-m)",
+                    },
+                    {
+                      label: "Reschedule",
+                      detail:
+                        "Reschedule up to 2 hours before a session to avoid credit loss.",
+                      color: "#7eb8ff",
+                    },
+                    {
+                      label: "Price Changes",
+                      detail:
+                        "We give 30 days' written notice before any price increase.",
+                      color: "#ffd166",
+                    },
+                  ].map((x, i) => (
+                    <div key={i} className="ir">
+                      <Tag label={x.label} color={x.color} />
+                      <p className="bt" style={{ margin: 0 }}>
+                        {x.detail}
+                      </p>
+                    </div>
+                  ))}
+                  <div className="gb" style={{ marginTop: 10 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <CheckCircle
+                        size={15}
+                        style={{
+                          color: "#2fcf87",
+                          flexShrink: 0,
+                          marginTop: 2,
+                        }}
+                      />
+                      <p className="bt" style={{ margin: 0 }}>
+                        <strong style={{ color: "#2fcf87" }}>
+                          30-Day Money-Back Guarantee
+                        </strong>{" "}
+                        — Not satisfied in your first month? We'll refund you in
+                        full.
+                      </p>
+                    </div>
+                  </div>
+                </Sec>
+
+                {/* 05 */}
+                <Sec
+                  id="conduct"
+                  num="05"
+                  icon={Scale}
+                  title="Conduct"
+                  accent="#b58cff"
+                >
+                  <p className="sub-label">Allowed ✓</p>
+                  {[
+                    "Use the platform for personal, lawful learning.",
+                    "Share constructive feedback about tutors or sessions.",
+                  ].map((t, i) => (
+                    <div key={i} className="ci">
+                      <Check ok={true} />
+                      <p className="bt" style={{ margin: 0 }}>
+                        {t}
+                      </p>
+                    </div>
+                  ))}
+                  <p className="sub-label">Not Allowed ✗</p>
+                  {[
+                    "Harass, threaten, or disrespect tutors or students.",
+                    "Record or share session content without consent.",
+                    "Use the platform for anything other than personal education.",
+                    "Attempt to hack, scrape, or interfere with the platform.",
+                  ].map((t, i) => (
+                    <div key={i} className="ci">
+                      <Check ok={false} />
+                      <p className="bt" style={{ margin: 0 }}>
+                        {t}
+                      </p>
+                    </div>
+                  ))}
+                </Sec>
+
+                {/* 06 */}
+                <Sec
+                  id="ip"
+                  num="06"
+                  icon={Scroll}
+                  title="Intellectual Property"
+                  accent="#ffd166"
+                >
+                  <div
+                    className="two-col"
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: 12,
+                      marginBottom: 12,
+                    }}
+                  >
+                    {[
+                      {
+                        title: "Our Content",
+                        items: [
+                          "Curriculum & lessons",
+                          "Platform design & branding",
+                          "Video & audio recordings",
+                        ],
+                      },
+                      {
+                        title: "Your Content",
+                        items: [
+                          "You keep ownership of what you submit",
+                          "We use it only to deliver the service",
+                          "We never sell it — delete on request",
+                        ],
+                      },
+                    ].map((col, i) => (
+                      <div key={i} className="mc">
+                        <p
+                          style={{
+                            fontFamily: "'Cormorant Garamond',serif",
+                            fontSize: 16,
+                            fontWeight: 700,
+                            color: "#fff",
+                            marginBottom: 10,
+                          }}
+                        >
+                          {col.title}
+                        </p>
+                        {col.items.map((t, j) => (
+                          <div
+                            key={j}
+                            className="ci"
+                            style={{ paddingBottom: 2 }}
+                          >
+                            <div
+                              style={{
+                                width: 5,
+                                height: 5,
+                                borderRadius: "50%",
+                                background: "#ffd166",
+                                flexShrink: 0,
+                                marginTop: 7,
+                              }}
+                            />
+                            <p
+                              className="bt"
+                              style={{ margin: 0, fontSize: 13 }}
+                            >
+                              {t}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="bt">
+                    Personal use only. No redistribution without written
+                    permission.
+                  </p>
+                </Sec>
+
+                {/* 07 */}
+                <Sec
+                  id="liability"
+                  num="07"
+                  icon={ShieldAlert}
+                  title="Liability"
+                  accent="#ff8fa3"
+                >
+                  <div className="wb" style={{ margin: "0 0 14px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 10,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <AlertTriangle
+                        size={15}
+                        style={{
+                          color: "#ff8fa3",
+                          flexShrink: 0,
+                          marginTop: 2,
+                        }}
+                      />
+                      <p className="bt" style={{ margin: 0 }}>
+                        Platform is provided{" "}
+                        <strong style={{ color: "rgba(255,255,255,.7)" }}>
+                          "as is"
+                        </strong>
+                        . We cannot guarantee specific learning results or 100%
+                        uptime.
+                      </p>
+                    </div>
+                  </div>
+                  {[
+                    {
+                      label: "Outcomes",
+                      detail:
+                        "Results depend on student effort. We strive for quality but don't guarantee specific progress.",
+                      color: "#ff8fa3",
+                    },
+                    {
+                      label: "Uptime",
+                      detail:
+                        "We aim for 99.9% availability. Planned maintenance is announced in advance.",
+                      color: "#7eb8ff",
+                    },
+                    {
+                      label: "Our Limit",
+                      detail:
+                        "Max liability is capped at what you paid us in the last 3 months.",
+                      color: "var(--gold-m)",
+                    },
+                    {
+                      label: "3rd Parties",
+                      detail:
+                        "Not responsible for Stripe, Zoom, or your internet connection.",
                       color: "#b58cff",
                     },
                   ].map((x, i) => (
@@ -701,480 +1076,18 @@ export const PrivacyPolicy: React.FC = () => {
                       </p>
                     </div>
                   ))}
-                  <div
-                    style={{ display: "flex", flexWrap: "wrap", marginTop: 14 }}
-                  >
-                    {[
-                      "Full Name",
-                      "Email",
-                      "Phone",
-                      "Country",
-                      "Session History",
-                      "Payment Ref",
-                      "IP Address",
-                      "Browser Type",
-                    ].map((d) => (
-                      <span key={d} className="dp">
-                        {d}
-                      </span>
-                    ))}
-                  </div>
                 </Sec>
 
-                {/* 02 – How We Use It */}
-                <Sec
-                  id="usage"
-                  num="02"
-                  icon={Eye}
-                  title="How We Use It"
-                  accent="var(--gold-m)"
-                >
-                  {[
-                    {
-                      label: "Contract",
-                      detail:
-                        "Scheduling classes, processing payments, and running your student account.",
-                      color: "var(--gold-m)",
-                    },
-                    {
-                      label: "Improvement",
-                      detail:
-                        "Improving platform quality and preventing fraud.",
-                      color: "#7eb8ff",
-                    },
-                    {
-                      label: "Consent",
-                      detail:
-                        "Marketing emails only — opt out anytime via the unsubscribe link.",
-                      color: "#2fcf87",
-                    },
-                    {
-                      label: "Legal",
-                      detail:
-                        "Complying with financial and regulatory requirements.",
-                      color: "#ff8fa3",
-                    },
-                  ].map((x, i) => (
-                    <div key={i} className="ir">
-                      <Tag label={x.label} color={x.color} />
-                      <p className="bt" style={{ margin: 0 }}>
-                        {x.detail}
-                      </p>
-                    </div>
-                  ))}
-                  <div className="hi" style={{ marginTop: 12 }}>
-                    <p className="bt" style={{ margin: 0 }}>
-                      <strong style={{ color: "var(--gold-lt)" }}>
-                        We will never
-                      </strong>{" "}
-                      sell, rent, or trade your data to third parties for
-                      marketing. Full stop.
-                    </p>
-                  </div>
-                </Sec>
-
-                {/* 03 – Sharing */}
-                <Sec
-                  id="sharing"
-                  num="03"
-                  icon={Globe}
-                  title="Who We Share With"
-                  accent="#2fcf87"
-                >
-                  <p className="bt" style={{ marginBottom: 12 }}>
-                    We only share data with these trusted partners, each bound
-                    by strict confidentiality:
-                  </p>
-                  {[
-                    {
-                      party: "Stripe",
-                      role: "Payments",
-                      detail: "PCI-DSS Level 1 certified card processing.",
-                    },
-                    {
-                      party: "Video Platform",
-                      role: "Classes",
-                      detail: "Session hosting for live one-to-one lessons.",
-                    },
-                    {
-                      party: "Email Provider",
-                      role: "Comms",
-                      detail: "Booking confirmations and transactional emails.",
-                    },
-                    {
-                      party: "Analytics",
-                      role: "Improvement",
-                      detail:
-                        "Anonymised usage data only — no personal identifiers.",
-                    },
-                    {
-                      party: "Legal Authorities",
-                      role: "Compliance",
-                      detail: "Only when required by law or court order.",
-                    },
-                  ].map((x, i) => (
-                    <div
-                      key={i}
-                      className="ir"
-                      style={{ alignItems: "center" }}
-                    >
-                      <Dot color="#2fcf87" />
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: 10,
-                          flexWrap: "wrap",
-                          alignItems: "baseline",
-                          flex: 1,
-                        }}
-                      >
-                        <strong
-                          style={{
-                            color: "rgba(255,255,255,.75)",
-                            fontSize: 13,
-                            fontFamily: "'Nunito',sans-serif",
-                            minWidth: 110,
-                          }}
-                        >
-                          {x.party}
-                        </strong>
-                        <span
-                          style={{
-                            fontFamily: "'Cinzel',serif",
-                            fontSize: 9,
-                            color: "#2fcf87",
-                            letterSpacing: ".1em",
-                            opacity: 0.8,
-                          }}
-                        >
-                          {x.role}
-                        </span>
-                        <p
-                          className="bt"
-                          style={{ margin: 0, fontSize: 13, flex: "1 1 160px" }}
-                        >
-                          {x.detail}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </Sec>
-
-                {/* 04 – Security */}
-                <Sec
-                  id="security"
-                  num="04"
-                  icon={Lock}
-                  title="Data Security"
-                  accent="#b58cff"
-                >
-                  <div
-                    className="two-col"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "1fr 1fr",
-                      gap: 10,
-                      marginBottom: 14,
-                    }}
-                  >
-                    {[
-                      {
-                        icon: Lock,
-                        title: "AES-256 Encryption",
-                        desc: "All data encrypted at rest and in transit.",
-                      },
-                      {
-                        icon: Shield,
-                        title: "SSL / TLS",
-                        desc: "Secure HTTPS on every page and API call.",
-                      },
-                      {
-                        icon: UserCheck,
-                        title: "Access Controls",
-                        desc: "Only authorised staff can access your data.",
-                      },
-                      {
-                        icon: Eye,
-                        title: "Regular Audits",
-                        desc: "Periodic security reviews and penetration testing.",
-                      },
-                    ].map((x, i) => (
-                      <div
-                        key={i}
-                        className="mc"
-                        style={{ borderColor: "rgba(181,140,255,.1)" }}
-                      >
-                        <div
-                          style={{
-                            width: 34,
-                            height: 34,
-                            borderRadius: 10,
-                            marginBottom: 10,
-                            background: "rgba(181,140,255,.1)",
-                            border: "1px solid rgba(181,140,255,.2)",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: "#b58cff",
-                          }}
-                        >
-                          <x.icon size={15} />
-                        </div>
-                        <p
-                          style={{
-                            fontFamily: "'Cormorant Garamond',serif",
-                            fontSize: 15,
-                            fontWeight: 700,
-                            color: "#fff",
-                            marginBottom: 4,
-                          }}
-                        >
-                          {x.title}
-                        </p>
-                        <p className="bt" style={{ fontSize: 12 }}>
-                          {x.desc}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="hi">
-                    <p className="bt" style={{ margin: 0 }}>
-                      In the event of a data breach affecting you, we'll notify
-                      you and the relevant authority within{" "}
-                      <strong style={{ color: "var(--gold-lt)" }}>
-                        72 hours
-                      </strong>{" "}
-                      (GDPR requirement).
-                    </p>
-                  </div>
-                </Sec>
-
-                {/* 05 – Your Rights */}
-                <Sec
-                  id="rights"
-                  num="05"
-                  icon={UserCheck}
-                  title="Your Rights"
-                  accent="var(--gold)"
-                >
-                  <p className="bt" style={{ marginBottom: 14 }}>
-                    You can exercise these rights at any time — we respond
-                    within 30 days:
-                  </p>
-                  <div
-                    className="rg"
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "repeat(3,1fr)",
-                      gap: 10,
-                      marginBottom: 14,
-                    }}
-                  >
-                    {[
-                      {
-                        icon: Eye,
-                        title: "Access",
-                        desc: "Get a copy of all data we hold on you.",
-                        color: "#7eb8ff",
-                      },
-                      {
-                        icon: RefreshCw,
-                        title: "Rectify",
-                        desc: "Correct any inaccurate information.",
-                        color: "var(--gold-m)",
-                      },
-                      {
-                        icon: Trash2,
-                        title: "Erasure",
-                        desc: "Request deletion of your personal data.",
-                        color: "#ff8fa3",
-                      },
-                      {
-                        icon: Shield,
-                        title: "Restrict",
-                        desc: "Limit how we process your data.",
-                        color: "#2fcf87",
-                      },
-                      {
-                        icon: FileText,
-                        title: "Portability",
-                        desc: "Receive your data in a machine-readable format.",
-                        color: "#b58cff",
-                      },
-                      {
-                        icon: Bell,
-                        title: "Object",
-                        desc: "Opt out of direct marketing or profiling.",
-                        color: "#ffd166",
-                      },
-                    ].map((r, i) => (
-                      <div key={i} className="mc">
-                        <div
-                          style={{
-                            width: 32,
-                            height: 32,
-                            borderRadius: 10,
-                            marginBottom: 10,
-                            background: `${r.color}18`,
-                            border: `1px solid ${r.color}28`,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: r.color,
-                          }}
-                        >
-                          <r.icon size={14} />
-                        </div>
-                        <p
-                          style={{
-                            fontFamily: "'Cormorant Garamond',serif",
-                            fontSize: 15,
-                            fontWeight: 700,
-                            color: "#fff",
-                            marginBottom: 4,
-                          }}
-                        >
-                          {r.title}
-                        </p>
-                        <p className="bt" style={{ fontSize: 12 }}>
-                          {r.desc}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="bt">
-                    Email{" "}
-                    <a
-                      href="mailto:aliflaameem772@gmail.com"
-                      style={{ color: "var(--gold-m)", textDecoration: "none" }}
-                    >
-                      aliflaameem772@gmail.com
-                    </a>{" "}
-                    to exercise any right. We may verify your identity first.
-                  </p>
-                </Sec>
-
-                {/* 06 – Cookies */}
-                <Sec
-                  id="cookies"
-                  num="06"
-                  icon={Bell}
-                  title="Cookies"
-                  accent="#ffd166"
-                >
-                  {[
-                    {
-                      type: "Essential",
-                      color: "#2fcf87",
-                      desc: "Required for login & security. Cannot be disabled.",
-                    },
-                    {
-                      type: "Analytics",
-                      color: "#7eb8ff",
-                      desc: "Anonymised usage data to improve the platform. Opt-out available.",
-                    },
-                    {
-                      type: "Preference",
-                      color: "#ffd166",
-                      desc: "Saves your language and theme settings.",
-                    },
-                    {
-                      type: "Marketing",
-                      color: "#ff8fa3",
-                      desc: "Only with your explicit consent. Opt out anytime.",
-                    },
-                  ].map((c, i) => (
-                    <div key={i} className="ir">
-                      <Tag label={c.type} color={c.color} />
-                      <p className="bt" style={{ margin: 0 }}>
-                        {c.desc}
-                      </p>
-                    </div>
-                  ))}
-                  <p className="bt" style={{ marginTop: 12 }}>
-                    Manage preferences via your browser settings or our footer
-                    consent manager.
-                  </p>
-                </Sec>
-
-                {/* 07 – Retention */}
-                <Sec
-                  id="retention"
-                  num="07"
-                  icon={Trash2}
-                  title="Data Retention"
-                  accent="#ff8fa3"
-                >
-                  {[
-                    {
-                      category: "Account & Learning Data",
-                      period: "Account lifetime + 2 yrs",
-                      color: "#ff8fa3",
-                    },
-                    {
-                      category: "Payment & Financial Records",
-                      period: "7 years (legal requirement)",
-                      color: "var(--gold-m)",
-                    },
-                    {
-                      category: "Marketing Preferences",
-                      period: "Until you opt out",
-                      color: "#2fcf87",
-                    },
-                    {
-                      category: "Analytics Data",
-                      period: "26 months (anonymised at 6m)",
-                      color: "#7eb8ff",
-                    },
-                  ].map((x, i) => (
-                    <div
-                      key={i}
-                      className="ir"
-                      style={{ alignItems: "center" }}
-                    >
-                      <div style={{ flex: "1 1 160px" }}>
-                        <p
-                          style={{
-                            color: "rgba(255,255,255,.72)",
-                            fontWeight: 700,
-                            fontSize: 13,
-                            fontFamily: "'Nunito',sans-serif",
-                            marginBottom: 2,
-                          }}
-                        >
-                          {x.category}
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "'Cinzel',serif",
-                            fontSize: 9,
-                            color: x.color,
-                            letterSpacing: ".08em",
-                            fontWeight: 700,
-                          }}
-                        >
-                          {x.period}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                  <p className="bt" style={{ marginTop: 12 }}>
-                    Request deletion of your account data at any time by
-                    emailing us.
-                  </p>
-                </Sec>
-
-                {/* 08 – Contact */}
+                {/* 08 */}
                 <Sec
                   id="contact"
                   num="08"
                   icon={Mail}
                   title="Contact & Updates"
-                  accent="#2fcf87"
+                  accent="#7eb8ff"
                 >
                   <p className="bt" style={{ marginBottom: 14 }}>
-                    Got a privacy question or want to exercise a right? Reach us
-                    here:
+                    Questions about these terms? Reach us any time:
                   </p>
                   <div
                     className="two-col"
@@ -1187,22 +1100,28 @@ export const PrivacyPolicy: React.FC = () => {
                   >
                     {[
                       {
-                        label: "Privacy Officer",
-                        value: "aliflaameem772@gmail.com",
-                        icon: Shield,
-                        color: "#2fcf87",
+                        label: "Legal",
+                        value: "legal@nooralquran.com",
+                        icon: Gavel,
+                        color: "#7eb8ff",
                       },
                       {
-                        label: "General Support",
-                        value: "aliflaameem772@gmail.com",
+                        label: "Support",
+                        value: "support@nooralquran.com",
                         icon: Mail,
                         color: "var(--gold-m)",
+                      },
+                      {
+                        label: "WhatsApp",
+                        value: "+1 (234) 567-890",
+                        icon: Phone,
+                        color: "#2fcf87",
                       },
                     ].map((c, i) => (
                       <div
                         key={i}
                         style={{
-                          padding: "16px",
+                          padding: "14px",
                           borderRadius: 12,
                           display: "flex",
                           gap: 10,
@@ -1213,8 +1132,8 @@ export const PrivacyPolicy: React.FC = () => {
                       >
                         <div
                           style={{
-                            width: 34,
-                            height: 34,
+                            width: 32,
+                            height: 32,
                             borderRadius: 9,
                             flexShrink: 0,
                             background: `${c.color}16`,
@@ -1224,7 +1143,7 @@ export const PrivacyPolicy: React.FC = () => {
                             color: c.color,
                           }}
                         >
-                          <c.icon size={15} />
+                          <c.icon size={14} />
                         </div>
                         <div>
                           <p
@@ -1239,30 +1158,27 @@ export const PrivacyPolicy: React.FC = () => {
                           >
                             {c.label}
                           </p>
-                          <a
-                            href={`mailto:${c.value}`}
+                          <p
                             style={{
                               color: c.color,
                               fontSize: 13,
                               fontWeight: 700,
                               fontFamily: "'Nunito',sans-serif",
-                              textDecoration: "none",
                             }}
                           >
                             {c.value}
-                          </a>
+                          </p>
                         </div>
                       </div>
                     ))}
                   </div>
                   <div className="hi" style={{ margin: 0 }}>
                     <p className="bt" style={{ margin: 0 }}>
-                      Material policy changes will be emailed to you at least{" "}
+                      Material changes will be communicated at least{" "}
                       <strong style={{ color: "var(--gold-lt)" }}>
                         14 days
                       </strong>{" "}
-                      before they take effect. You can also lodge a complaint
-                      with your local data protection authority.
+                      in advance by email or site notice.
                     </p>
                   </div>
                 </Sec>
@@ -1321,7 +1237,7 @@ export const PrivacyPolicy: React.FC = () => {
               className="sec-label"
               style={{ marginBottom: 16, display: "block" }}
             >
-              Your Privacy Matters
+              Ready to Begin?
             </p>
             <h2
               style={{
@@ -1333,13 +1249,13 @@ export const PrivacyPolicy: React.FC = () => {
                 marginBottom: 16,
               }}
             >
-              Questions About
+              Start Your Free
               <br />
               <span
                 className="gold-shimmer"
                 style={{ fontWeight: 700, fontStyle: "italic" }}
               >
-                Your Data?
+                Trial Session
               </span>
             </h2>
             <p
@@ -1351,8 +1267,8 @@ export const PrivacyPolicy: React.FC = () => {
                 margin: "0 auto 34px",
               }}
             >
-              Our privacy team is happy to help you understand or exercise your
-              data rights.
+              No credit card. No commitment. Just 30 minutes with a certified
+              tutor.
             </p>
             <div
               style={{
@@ -1363,7 +1279,7 @@ export const PrivacyPolicy: React.FC = () => {
               }}
             >
               <Link
-                to="/contact"
+                to="/book-free-trial"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1382,10 +1298,10 @@ export const PrivacyPolicy: React.FC = () => {
                     "0 8px 28px rgba(201,151,58,.38),inset 0 1px 0 rgba(255,255,255,.22)",
                 }}
               >
-                <span>✦</span> Contact Privacy Team <ArrowRight size={14} />
+                <span>✦</span> Book Free Trial <ArrowRight size={14} />
               </Link>
               <Link
-                to="/faq"
+                to="/privacy-policy"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1402,7 +1318,27 @@ export const PrivacyPolicy: React.FC = () => {
                   textDecoration: "none",
                 }}
               >
-                View FAQ
+                Privacy Policy
+              </Link>
+              <Link
+                to="/contact"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  background: "rgba(255,255,255,.04)",
+                  border: "1px solid rgba(255,255,255,.1)",
+                  color: "rgba(255,255,255,.65)",
+                  padding: "15px 24px",
+                  borderRadius: 13,
+                  fontFamily: "'Cinzel',serif",
+                  fontWeight: 700,
+                  fontSize: 13,
+                  letterSpacing: ".1em",
+                  textDecoration: "none",
+                }}
+              >
+                Contact Us
               </Link>
             </div>
           </div>

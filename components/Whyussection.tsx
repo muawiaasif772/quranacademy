@@ -220,7 +220,7 @@ export default function WhyUsSection() {
               >
                 Why Thousands of Families
                 <br />
-                <em style={{ color: "#065f46" }}>Trust Noor Al-Quran</em>
+                <em style={{ color: "#065f46" }}>Trust Alif Laam Meem</em>
               </h2>
 
               <div

@@ -22,6 +22,7 @@ import { COURSES } from "./data";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import CourseDetail from "./pages/Coursedetail";
 import { PrivacyPolicy } from "./pages/Privacypolicy";
+import { TermsOfService } from "./pages/Termsofservice";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -51,6 +52,7 @@ const App: React.FC = () => {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/register" element={<BookTrial />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
         </Routes>
       </Layout>
     </Router>
