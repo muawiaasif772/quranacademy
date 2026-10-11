@@ -11,19 +11,41 @@ import { fileURLToPath } from "node:url";
 export type TemplateValue = string | { html: string };
 export type TemplateValues = Record<string, TemplateValue | undefined>;
 
-function resolveTemplatesDir(): string {
-  const fromModule = path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../../email-templates",
-  );
-  const candidates = [fromModule, path.join(process.cwd(), "email-templates")];
-  for (const dir of candidates) {
-    if (existsSync(path.join(dir, "admin-trial-notification.html"))) return dir;
+const MARKER = "admin-trial-notification.html";
+
+function moduleRelativeTemplatesDir(): string | null {
+  try {
+    const metaUrl = (import.meta as { url?: string }).url;
+    if (!metaUrl) return null;
+    return path.resolve(path.dirname(fileURLToPath(metaUrl)), "../../email-templates");
+  } catch {
+    return null;
   }
-  return fromModule;
 }
 
-const TEMPLATES_DIR = resolveTemplatesDir();
+function resolveTemplatesDir(): string {
+  const candidates: string[] = [
+    path.join(process.cwd(), "email-templates"),
+    path.join(process.cwd(), "..", "email-templates"),
+    path.join(process.cwd(), "netlify", "functions", "email-templates"),
+  ];
+
+  const fromModule = moduleRelativeTemplatesDir();
+  if (fromModule) candidates.unshift(fromModule);
+
+  for (const dir of candidates) {
+    if (existsSync(path.join(dir, MARKER))) return dir;
+  }
+
+  return candidates[0];
+}
+
+let templatesDir: string | undefined;
+
+function getTemplatesDir(): string {
+  if (!templatesDir) templatesDir = resolveTemplatesDir();
+  return templatesDir;
+}
 
 const templateCache = new Map<string, string>();
 
@@ -73,7 +95,7 @@ export async function loadTemplate(fileName: string): Promise<string> {
   const cached = templateCache.get(fileName);
   if (cached) return cached;
 
-  const html = await readFile(path.join(TEMPLATES_DIR, fileName), "utf8");
+  const html = await readFile(path.join(getTemplatesDir(), fileName), "utf8");
   // Cache in production only so template edits show up immediately during development.
   if (process.env.NODE_ENV === "production") templateCache.set(fileName, html);
   return html;
