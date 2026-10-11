@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import { Layout } from "./components/Layout";
+import { RouteSeo } from "./components/Seo";
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import Pricing from "./pages/Pricing";
@@ -38,6 +39,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop />
+      <RouteSeo />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

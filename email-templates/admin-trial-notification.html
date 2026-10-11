@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="supported-color-schemes" content="light dark" />
+  <title>New Trial Registration</title>
+  <style>
+    body { margin:0; padding:0; -webkit-text-size-adjust:100%; }
+    table { border-collapse:collapse; }
+    a { text-decoration:none; }
+    @media only screen and (max-width:620px) {
+      .container { width:100% !important; }
+      .px { padding-left:22px !important; padding-right:22px !important; }
+      .h1 { font-size:32px !important; }
+      .course { font-size:20px !important; }
+      .slot { display:block !important; margin:6px 0 !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#06120c;font-family:'Segoe UI',Helvetica,Arial,sans-serif;color:#e9f2ec;">
+
+  <!-- Preheader -->
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent;">
+    {{name}} from {{country}} requested a free {{course}} trial. Reply within 24 hours.
+  </div>
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#06120c" style="background:#06120c;">
+    <tr>
+      <td align="center" style="padding:36px 12px;">
+
+        <table role="presentation" class="container" width="600" cellspacing="0" cellpadding="0" style="width:600px;max-width:600px;">
+          <tr>
+            <td style="border-radius:28px;overflow:hidden;background:#0c1f16;border:1px solid #1d3b2c;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+
+                <!-- Gold accent bar -->
+                <tr>
+                  <td height="4" bgcolor="#d4a443" style="height:4px;line-height:4px;font-size:0;background:linear-gradient(90deg,#8a6420,#f3d58a,#c9973a,#f3d58a,#8a6420);">&nbsp;</td>
+                </tr>
+
+                <!-- HERO -->
+                <tr>
+                  <td align="center" class="px" bgcolor="#08291a" style="padding:46px 40px 42px;background:#08291a;background-image:linear-gradient(160deg,#0d4a31 0%,#082a1b 55%,#051a11 100%);">
+                    <table role="presentation" cellspacing="0" cellpadding="0" align="center">
+                      <tr>
+                        <td align="center" width="60" height="60" bgcolor="#d4a443" style="width:60px;height:60px;border-radius:18px;background:linear-gradient(135deg,#f6dc94,#c9973a 55%,#9a6f1f);color:#062b1b;font-family:Georgia,serif;font-size:20px;font-weight:800;letter-spacing:1px;border:3px solid #123d29;">ALM</td>
+                      </tr>
+                    </table>
+
+                    <p style="margin:22px 0 0;font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#d4a443;">&#9679;&nbsp; New free trial request</p>
+
+                    <h1 class="h1" style="margin:14px 0 8px;font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1.1;font-weight:700;color:#ffffff;">{{name}}</h1>
+                    <p style="margin:0 0 24px;font-size:15px;line-height:1.7;color:#a9c4b6;">from <strong style="color:#e9f2ec;">{{country}}</strong> would like to try a class in</p>
+
+                    <!-- Course banner -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" align="center">
+                      <tr>
+                        <td align="center" bgcolor="#1a1608" style="padding:16px 30px;border-radius:16px;border:1px solid #8a6a26;background:#1a1608;background-image:linear-gradient(135deg,#2e240c,#15110a);">
+                          <span class="course" style="font-family:Georgia,serif;font-size:24px;font-weight:700;color:#f6dc94;">{{course}}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- SCHEDULE -->
+                <tr>
+                  <td align="center" class="px" style="padding:34px 40px 0;">
+                    <p style="margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#6f8a7c;">Preferred schedule</p>
+                    <table role="presentation" cellspacing="0" cellpadding="0" align="center">
+                      <tr>
+                        <td align="center" style="padding:14px 26px;border-radius:999px;background:#0f2a1d;border:1px solid #2a5a42;font-size:16px;font-weight:700;color:#ffffff;">
+                          <span class="slot" style="display:inline-block;">&#128197;&nbsp; {{preferred_days}}</span>
+                          <span class="slot" style="display:inline-block;color:#4b7a62;padding:0 10px;">&bull;</span>
+                          <span class="slot" style="display:inline-block;">&#9200;&nbsp; {{preferred_time}}</span>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <!-- Chips -->
+                    <div style="padding-top:18px;line-height:2.4;">
+                      <span style="display:inline-block;margin:0 4px;padding:6px 16px;border-radius:999px;background:#12301f;border:1px solid #23462f;font-size:13px;color:#cfe3d7;"><span style="color:#d4a443;font-weight:700;">Age</span>&nbsp; {{age_group}}</span>
+                      <span style="display:inline-block;margin:0 4px;padding:6px 16px;border-radius:999px;background:#12301f;border:1px solid #23462f;font-size:13px;color:#cfe3d7;"><span style="color:#d4a443;font-weight:700;">Teacher</span>&nbsp; {{teacher_preference}}</span>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- MESSAGE BUBBLE (only rendered when the student left notes) -->
+                {{#if message}}
+                <tr>
+                  <td class="px" style="padding:30px 40px 0;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td style="padding:22px 24px;border-radius:20px 20px 20px 4px;background:#112b1e;border:1px solid #23462f;">
+                          <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:34px;line-height:20px;color:#d4a443;">&ldquo;</p>
+                          <p style="margin:0;font-size:15px;line-height:1.8;color:#d6e8dd;">{{message}}</p>
+                          <p style="margin:12px 0 0;font-size:12px;color:#6f8a7c;">&mdash; {{name}}</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                {{/if}}
+
+                <!-- CONTACT ACTIONS -->
+                <tr>
+                  <td class="px" style="padding:30px 40px 0;">
+                    <p style="margin:0 0 12px;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#6f8a7c;text-align:center;">Get in touch</p>
+
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#d4a443" style="border-radius:18px;background:#d4a443;background-image:linear-gradient(135deg,#f6dc94,#c9973a 60%,#a8791f);">
+                      <tr>
+                        <td style="padding:0;">
+                          <a href="mailto:{{email}}?subject=Your%20Alif%20Laam%20Meem%20free%20trial" style="display:block;padding:18px 24px;color:#062b1b;">
+                            <span style="display:block;font-size:16px;font-weight:800;">Reply by email &rarr;</span>
+                            <span style="display:block;margin-top:3px;font-size:13px;color:#3b2c08;">{{email}}</span>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" bgcolor="#0f2a1d" style="margin-top:12px;border-radius:18px;background:#0f2a1d;border:1px solid #2f6a4b;">
+                      <tr>
+                        <td style="padding:0;">
+                          <a href="https://wa.me/{{phone_digits}}" style="display:block;padding:17px 24px;color:#7fe0b0;">
+                            <span style="display:block;font-size:16px;font-weight:800;">Message on WhatsApp &rarr;</span>
+                            <span style="display:block;margin-top:3px;font-size:13px;color:#a9c4b6;">{{phone}}</span>
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+
+                <!-- TIP -->
+                <tr>
+                  <td align="center" class="px" style="padding:26px 40px 40px;">
+                    <p style="margin:0;font-size:12px;line-height:1.7;color:#6f8a7c;">&#9201; Students who hear back within 24 hours are far more likely to attend their trial.</p>
+                  </td>
+                </tr>
+
+              </table>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td align="center" style="padding:24px 12px 0;">
+              <p style="margin:0 0 6px;font-family:Georgia,serif;font-size:14px;color:#b88a2e;">Alif Laam Meem Academy</p>
+              <p style="margin:0;font-size:11px;letter-spacing:1px;color:#587064;">Trial Registration System &bull; Automated notification</p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

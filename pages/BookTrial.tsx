@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { submitLead } from "../services/api";
+import { submitTrial } from "../services/api";
 import {
   CheckCircle2,
   Loader2,
@@ -643,33 +643,40 @@ const BookTrial: React.FC = () => {
   const testiReveal = useReveal();
   const formReveal = useReveal();
 
+  useEffect(() => {
+    if (submitted) window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [submitted]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError("");
+
     const formData = new FormData(e.currentTarget);
+    const field = (key: string) => (formData.get(key) as string | null) ?? "";
 
-    const data = {
-      type: "trial" as const,
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      country: formData.get("country") as string,
-      ageGroup: formData.get("ageGroup") as string,
-      courseInterest: formData.get("courseInterest") as string,
-      preferredDays: formData.getAll("days") as string[],
-      preferredTime: formData.get("time") as string,
-      teacherPreference: formData.get("teacherPreference") as
-        | "Male"
-        | "Female"
-        | "Any",
-      message: formData.get("notes") as string,
-    };
-
-    const result = await submitLead(data);
+    const result = await submitTrial({
+      name: field("name"),
+      email: field("email"),
+      phone: field("phone"),
+      country: field("country"),
+      courseInterest: field("courseInterest"),
+      ageGroup: field("ageGroup"),
+      days: formData.getAll("days") as string[],
+      time: field("time"),
+      teacherPreference: field("teacherPreference"),
+      notes: field("notes"),
+    });
     setLoading(false);
-    if (result.success) setSubmitted(true);
-    else setError(result.message);
+
+    if (result.success) {
+      setSubmitted(true);
+      return;
+    }
+
+    // Surface server-side field errors (if any) under the generic message.
+    const fieldErrors = result.errors ? Object.values(result.errors) : [];
+    setError(fieldErrors.length ? `${result.message} ${fieldErrors.join(" ")}` : result.message);
   };
 
   if (submitted)
@@ -1939,6 +1946,7 @@ const BookTrial: React.FC = () => {
 
                 {error && (
                   <div
+                    role="alert"
                     style={{
                       background: "rgba(255,100,100,.1)",
                       border: "1px solid rgba(255,100,100,.25)",
