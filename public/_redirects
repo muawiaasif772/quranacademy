@@ -1,4 +1,4 @@
 # Netlify SPA fallback: serve index.html for every route so deep links
 # (/courses, /course/quran-tajweed, ...) work for visitors and Googlebot.
-# Real files (sitemap.xml, robots.txt, google*.html, /assets/*) are still served directly.
+# Real files (sitemap.xml, robots.txt, llms.txt, ai-catalog.json, .well-known/*, google*.html, /assets/*) are still served directly.
 /*    /index.html   200

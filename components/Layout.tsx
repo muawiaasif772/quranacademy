@@ -201,6 +201,18 @@ const layoutStyles = `
     transition: all .25s;
   }
   .news-btn:hover { filter: brightness(1.1); }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
 `;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -234,6 +246,7 @@ export const Navbar: React.FC = () => {
     <>
       <style>{layoutStyles}</style>
       <nav
+        aria-label="Primary"
         className={`nav-root${scrolled ? " nav-scrolled" : ""}`}
         style={{
           position: "sticky",
@@ -269,6 +282,7 @@ export const Navbar: React.FC = () => {
             {/* ── Logo ── */}
             <Link
               to="/"
+              aria-label="Alif Laam Meem Academy home"
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -370,24 +384,17 @@ export const Navbar: React.FC = () => {
 
             {/* ── CTA + Hamburger ── */}
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <Link
-                to="/book-free-trial"
-                className="nav-cta"
-                style={{ display: "none" }}
-              >
-                ✦ Free Trial
-              </Link>
-              <Link
-                to="/book-free-trial"
-                className="nav-cta desktop-cta"
-                style={{}}
-              >
+              <Link to="/book-free-trial" className="nav-cta desktop-cta">
                 ✦ Free Trial
               </Link>
 
               {/* mobile burger */}
               <button
+                type="button"
                 onClick={() => setIsOpen((o) => !o)}
+                aria-expanded={isOpen}
+                aria-controls="mobile-nav-panel"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
                 style={{
                   display: "none",
                   width: 42,
@@ -403,7 +410,7 @@ export const Navbar: React.FC = () => {
                 }}
                 id="mobile-burger"
               >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
+                {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
               </button>
             </div>
           </div>
@@ -412,6 +419,7 @@ export const Navbar: React.FC = () => {
         {/* ── Mobile Menu ── */}
         {isOpen && (
           <div
+            id="mobile-nav-panel"
             className="mobile-menu"
             style={{
               borderTop: "1px solid rgba(201,151,58,.1)",
@@ -484,14 +492,21 @@ export const Navbar: React.FC = () => {
                 marginTop: 20,
               }}
             >
-              {[Instagram, Facebook, Twitter].map((Icon, i) => (
+              {(
+                [
+                  { Icon: Instagram, label: "Instagram" },
+                  { Icon: Facebook, label: "Facebook" },
+                  { Icon: Twitter, label: "Twitter" },
+                ] as const
+              ).map(({ Icon, label }) => (
                 <a
-                  key={i}
+                  key={label}
                   href="#"
                   className="social-btn"
+                  aria-label={label}
                   style={{ width: 36, height: 36, borderRadius: 10 }}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} aria-hidden="true" />
                 </a>
               ))}
               <div
@@ -832,9 +847,15 @@ export const Footer: React.FC = () => {
 
             {/* socials */}
             <div style={{ display: "flex", gap: 10 }}>
-              {[Facebook, Instagram, Twitter].map((Icon, i) => (
-                <a key={i} href="#" className="social-btn">
-                  <Icon size={16} />
+              {(
+                [
+                  { Icon: Facebook, label: "Facebook" },
+                  { Icon: Instagram, label: "Instagram" },
+                  { Icon: Twitter, label: "Twitter" },
+                ] as const
+              ).map(({ Icon, label }) => (
+                <a key={label} href="#" className="social-btn" aria-label={label}>
+                  <Icon size={16} aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -1040,12 +1061,20 @@ export const Footer: React.FC = () => {
                 Get updates on new courses and free Islamic resources.
               </p>
               <div style={{ display: "flex" }}>
+                <label htmlFor="footer-newsletter-email" className="sr-only">
+                  Email for newsletter
+                </label>
                 <input
+                  id="footer-newsletter-email"
                   className="news-input"
                   type="email"
+                  name="email"
+                  autoComplete="email"
                   placeholder="your@email.com"
                 />
-                <button className="news-btn">✦</button>
+                <button type="button" className="news-btn" aria-label="Subscribe to newsletter">
+                  ✦
+                </button>
               </div>
             </div>
           </div>
@@ -1134,9 +1163,10 @@ export const Footer: React.FC = () => {
           transition: "transform .25s, box-shadow .25s",
         }}
       >
-        <MessageCircle size={26} />
+        <MessageCircle size={26} aria-hidden="true" />
         {/* tooltip */}
         <div
+          aria-hidden="true"
           style={{
             position: "absolute",
             right: 70,
@@ -1184,7 +1214,9 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
     >
       <Navbar />
-      <main style={{ flex: 1 }}>{children}</main>
+      <main id="main-content" aria-label="Main content" style={{ flex: 1 }}>
+        {children}
+      </main>
       <Footer />
     </div>
   );

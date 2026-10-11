@@ -1,0 +1,33 @@
+# Alif Laam Meem Academy
+
+> Online Quran academy (Alif Laam Meem Islamic Institute) offering live 1-on-1 classes for children and adults worldwide: Noorani Qaida, Tajweed, Hifz memorization, Arabic, Islamic Studies for kids, and Tafsir. Certified male and female tutors. Flexible scheduling. Book a free trial on the website; no credit card required.
+
+Contact: +92 300 6873200, info@aliflaameem.com. WhatsApp: https://wa.me/93006873200
+
+## Key pages
+
+- [Home](https://alif-laam-meem-islamic-insitute.netlify.app/): Academy overview and main call-to-action
+- [Courses](https://alif-laam-meem-islamic-insitute.netlify.app/courses): Full program catalog
+- [Book a free trial](https://alif-laam-meem-islamic-insitute.netlify.app/book-free-trial): Trial registration form
+- [Pricing](https://alif-laam-meem-islamic-insitute.netlify.app/pricing): Plans and family discounts
+- [Tutors](https://alif-laam-meem-islamic-insitute.netlify.app/tutors): Male and female teachers
+- [How it works](https://alif-laam-meem-islamic-insitute.netlify.app/how-it-works): Online lesson process
+- [FAQ](https://alif-laam-meem-islamic-insitute.netlify.app/faq): Common questions about classes
+- [Contact](https://alif-laam-meem-islamic-insitute.netlify.app/contact): Reach the support team
+- [Reviews](https://alif-laam-meem-islamic-insitute.netlify.app/reviews): Student testimonials
+
+## Courses
+
+- [Noorani Qaida for Beginners](https://alif-laam-meem-islamic-insitute.netlify.app/course/noorani-qaida): The foundation of Quran reading. Perfect for children and adults starting from scratch.
+- [Quran with Tajweed](https://alif-laam-meem-islamic-insitute.netlify.app/course/quran-tajweed): Learn to recite the Quran with beautiful melody and perfect grammatical accuracy.
+- [Hifz (Quran Memorization)](https://alif-laam-meem-islamic-insitute.netlify.app/course/hifz-memorization): Structured program to help you memorize the Holy Quran with proper revision techniques.
+- [Arabic for Communication](https://alif-laam-meem-islamic-insitute.netlify.app/course/arabic-communication): Master Modern Standard Arabic (MSA) for daily conversation and understanding Quranic text.
+- [Islamic Studies for Kids](https://alif-laam-meem-islamic-insitute.netlify.app/course/islamic-studies-kids): Comprehensive curriculum covering Seerah, Akhlaq, Fiqh, and Islamic History for children.
+- [Tafsir & Quranic Meaning](https://alif-laam-meem-islamic-insitute.netlify.app/course/tafsir-meaning): Deep dive into the context, history, and spiritual depth of the Quranic verses.
+
+## Optional
+
+- [Privacy policy](https://alif-laam-meem-islamic-insitute.netlify.app/privacy-policy)
+- [Terms of service](https://alif-laam-meem-islamic-insitute.netlify.app/terms-of-service)
+- [Sitemap](https://alif-laam-meem-islamic-insitute.netlify.app/sitemap.xml)
+- [AI catalog manifest](https://alif-laam-meem-islamic-insitute.netlify.app/.well-known/ai-catalog.json)
