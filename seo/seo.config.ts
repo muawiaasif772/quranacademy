@@ -107,6 +107,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     description:
       "Book your free 30-minute 1-on-1 online Quran trial class. Choose your course, preferred days and a male or female tutor. We match you with a certified teacher within 24 hours.",
     canonicalPath: "/book-free-trial",
+    noindex: true,
   },
   "/tutors": {
     title: "Our Quran Tutors | Certified Male & Female Teachers",

@@ -1,0 +1,6 @@
+[build]
+  command = "yarn build"
+  publish = "dist"
+
+# SPA fallback is also defined in public/_redirects (copied to dist/).
+# Static files (sitemap.xml, robots.txt, google*.html) are served as-is.
