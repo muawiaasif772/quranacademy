@@ -474,12 +474,14 @@ const Home: React.FC = () => {
                     maxWidth: 500,
                   }}
                 >
-                  1-on-1 personalized online classes for kids &amp; adults.
+                  <strong>Alif Laam Meem Islamic Institute</strong> offers live,
+                  one-to-one online Quran classes for kids and adults worldwide.
                   Learn from certified{" "}
                   <strong style={{ color: "var(--emerald-300)" }}>
                     Al-Azhar graduates
                   </strong>{" "}
-                  and native Arabic speakers — wherever you are.
+                  and experienced tutors — choose a male or female teacher and
+                  book a free trial lesson.
                 </p>
 
                 {/* CTAs */}
@@ -1139,6 +1141,64 @@ const Home: React.FC = () => {
                   </div>
                 ))}
             </div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════════════════ ABOUT / SEO CONTENT */}
+        <section
+          className="section-pad"
+          style={{
+            background: "var(--cream)",
+            color: "var(--ink)",
+          }}
+          aria-labelledby="about-online-quran-heading"
+        >
+          <div style={{ maxWidth: 920, margin: "0 auto", padding: "0 24px" }}>
+            <h2
+              id="about-online-quran-heading"
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(26px, 4vw, 40px)",
+                margin: "0 0 16px",
+                lineHeight: 1.2,
+              }}
+            >
+              Online Quran academy for families worldwide
+            </h2>
+            <p style={{ fontSize: 17, lineHeight: 1.75, margin: "0 0 16px", color: "#334155" }}>
+              Whether you are helping a child begin with{" "}
+              <Link to="/course/noorani-qaida" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>
+                Noorani Qaida
+              </Link>
+              , improving{" "}
+              <Link to="/course/quran-tajweed" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>
+                Tajweed
+              </Link>
+              , pursuing{" "}
+              <Link to="/course/hifz-memorization" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>
+                Hifz
+              </Link>
+              , or studying{" "}
+              <Link to="/course/arabic-communication" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>
+                Arabic
+              </Link>
+              , our tutors adapt each live lesson to your level and schedule. See all{" "}
+              <Link to="/courses" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>online Quran courses</Link>
+              , transparent{" "}
+              <Link to="/pricing" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>pricing</Link>
+              , or{" "}
+              <Link to="/how-it-works" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>
+                how enrollment works
+              </Link>
+              .
+            </p>
+            <p style={{ fontSize: 16, lineHeight: 1.7, margin: 0, color: "#475569" }}>
+              Questions? Read our{" "}
+              <Link to="/faq" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>FAQ</Link> or{" "}
+              <Link to="/contact" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>contact us</Link> on
+              WhatsApp — we reply quickly and can match you with a tutor within 24 hours after your{" "}
+              <Link to="/book-free-trial" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>free trial</Link> request.
+            </p>
           </div>
         </section>
 

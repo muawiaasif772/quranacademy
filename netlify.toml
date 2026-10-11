@@ -4,3 +4,14 @@
 
 # SPA fallback is also defined in public/_redirects (copied to dist/).
 # Static files (sitemap.xml, robots.txt, google*.html) are served as-is.
+
+[[headers]]
+  for = "/sitemap.xml"
+  [headers.values]
+    Content-Type = "application/xml; charset=utf-8"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/robots.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"

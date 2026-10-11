@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { buildBreadcrumbJsonLd } from "../seo/breadcrumbs";
 import {
   DEFAULT_OG_IMAGE,
   ORGANIZATION_JSON_LD,
@@ -45,7 +46,7 @@ function upsertJsonLd(id: string, data: unknown) {
   el.textContent = JSON.stringify(data);
 }
 
-export function applySeo(seo: PageSeo, pathname: string) {
+export function applySeo(seo: PageSeo, pathname: string): void {
   const canonical = `${SITE_URL}${seo.canonicalPath ?? pathname}`;
   const image = seo.image ?? DEFAULT_OG_IMAGE;
 
@@ -83,7 +84,9 @@ export function applySeo(seo: PageSeo, pathname: string) {
     about: { "@id": `${SITE_URL}/#organization` },
     inLanguage: "en",
   });
-  upsertJsonLd("ld-extra", seo.jsonLd ?? []);
+  const breadcrumb = buildBreadcrumbJsonLd(pathname);
+  const extraLd = [...(seo.jsonLd ?? []), ...(breadcrumb ? [breadcrumb] : [])];
+  upsertJsonLd("ld-extra", extraLd);
 }
 
 /**

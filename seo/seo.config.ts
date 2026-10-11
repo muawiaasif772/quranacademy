@@ -1,5 +1,6 @@
 import { COURSES, FAQS } from "../data";
 import type { Course } from "../types";
+import { coursePageMeta } from "./course-meta";
 
 export const SITE_URL = "https://alif-laam-meem-islamic-insitute.netlify.app";
 export const SITE_NAME = "Alif Laam Meem Academy";
@@ -70,14 +71,14 @@ export const WEBSITE_JSON_LD = {
 // ─────────────────────────────────────────────────────────────────────────────
 export const STATIC_PAGES: Record<string, PageSeo> = {
   "/": {
-    title: "Alif Laam Meem Academy | Online Quran Classes for Kids & Adults",
+    title: "Alif Laam Meem Islamic Institute | Online Quran Academy",
     description:
-      "Learn Quran online with certified male and female tutors. 1-on-1 Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies classes for kids and adults. Book a free trial today.",
+      "Learn Quran online with live 1-on-1 classes for kids and adults. Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies with male or female tutors. Book a free trial — no card required.",
   },
   "/courses": {
-    title: "Online Quran Courses | Qaida, Tajweed, Hifz, Arabic & More",
+    title: "Online Quran Courses | Noorani Qaida, Tajweed, Hifz & Arabic",
     description:
-      "Explore our online Quran courses: Noorani Qaida, Quran with Tajweed, Hifz memorization, Arabic for communication, Islamic Studies for kids and Tafsir. All taught live, 1-on-1.",
+      "Browse online Quran courses at Alif Laam Meem: Noorani Qaida, Tajweed, Hifz memorization, Arabic, Islamic Studies for kids, and Tafsir. Every program is taught live, one student per tutor.",
     jsonLd: [
       {
         "@context": "https://schema.org",
@@ -162,9 +163,10 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
 // ─────────────────────────────────────────────────────────────────────────────
 export function courseSeo(course: Course): PageSeo {
   const path = `/course/${course.slug}`;
+  const meta = coursePageMeta(course);
   return {
-    title: `${course.title} Online Course | ${SITE_NAME}`,
-    description: truncate(`${course.description} ${course.longDescription}`, 158),
+    title: meta.title,
+    description: meta.description,
     canonicalPath: path,
     image: absolute(course.image),
     type: "article",
@@ -194,13 +196,6 @@ export const NOT_FOUND_SEO: PageSeo = {
   description: "The page you are looking for does not exist.",
   noindex: true,
 };
-
-function truncate(text: string, max: number): string {
-  const clean = text.replace(/\s+/g, " ").trim();
-  if (clean.length <= max) return clean;
-  const cut = clean.slice(0, max - 1);
-  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
-}
 
 /** Resolve SEO config for a pathname. */
 export function resolveSeo(pathname: string): PageSeo {
