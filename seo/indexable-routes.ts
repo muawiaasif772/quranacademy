@@ -27,16 +27,3 @@ export function getIndexablePaths(): string[] {
   const coursePaths = COURSES.map((c) => `/course/${c.slug}`);
   return [...staticPaths, ...coursePaths].sort((a, b) => a.localeCompare(b));
 }
-
-/** Sitemap hints (optional per URL). */
-export function sitemapHints(path: string): { changefreq: string; priority: string } {
-  if (path === "/") return { changefreq: "weekly", priority: "1.0" };
-  if (path === "/courses" || path === "/pricing" || path === "/book-free-trial") {
-    return { changefreq: "monthly", priority: "0.9" };
-  }
-  if (path.startsWith("/course/")) return { changefreq: "monthly", priority: "0.8" };
-  if (path === "/tutors") return { changefreq: "monthly", priority: "0.8" };
-  if (path === "/how-it-works" || path === "/faq") return { changefreq: "monthly", priority: "0.7" };
-  if (path === "/reviews" || path === "/contact") return { changefreq: "yearly", priority: "0.6" };
-  return { changefreq: "yearly", priority: "0.3" };
-}
