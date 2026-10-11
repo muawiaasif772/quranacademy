@@ -2,7 +2,7 @@
 import { Lead } from '../types';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Free-trial form → our own Express/Nodemailer API (server/routes/trial.ts)
+// Free-trial form → POST /api/trial (Express in dev, Netlify Function in prod)
 // ─────────────────────────────────────────────────────────────────────────────
 export interface TrialFormPayload {
   name: string;
@@ -29,21 +29,30 @@ export interface TrialSubmitResult {
 const GENERIC_TRIAL_ERROR =
   'Something went wrong. Please try again or contact us via WhatsApp.';
 
-export const submitTrial = async (payload: TrialFormPayload): Promise<TrialSubmitResult> => {
+async function postJson<T>(url: string, payload: unknown): Promise<{ ok: boolean; status: number; data: T | null }> {
   const controller = new AbortController();
   const timeout = window.setTimeout(() => controller.abort(), 30000);
 
   try {
-    const response = await fetch('/api/trial', {
+    const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify(payload),
       signal: controller.signal,
     });
 
-    const result = (await response.json().catch(() => null)) as TrialSubmitResult | null;
+    const data = (await response.json().catch(() => null)) as T | null;
+    return { ok: response.ok, status: response.status, data };
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
 
-    if (!response.ok || !result?.success) {
+export const submitTrial = async (payload: TrialFormPayload): Promise<TrialSubmitResult> => {
+  try {
+    const { ok, data: result } = await postJson<TrialSubmitResult>('/api/trial', payload);
+
+    if (!ok || !result?.success) {
       return {
         success: false,
         message: result?.message || GENERIC_TRIAL_ERROR,
@@ -55,68 +64,58 @@ export const submitTrial = async (payload: TrialFormPayload): Promise<TrialSubmi
   } catch (error) {
     console.error('Trial submission error:', error);
     return { success: false, message: GENERIC_TRIAL_ERROR };
-  } finally {
-    window.clearTimeout(timeout);
   }
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Contact form → still uses FormSubmit (unchanged)
+// Contact form → POST /api/contact (same backend as trial)
 // ─────────────────────────────────────────────────────────────────────────────
-const FORM_RECIPIENT = 'muawiaasif772@gmail.com';
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${FORM_RECIPIENT}`;
+export interface ContactSubmitResult {
+  success: boolean;
+  message: string;
+  errors?: Record<string, string>;
+}
 
-export const submitLead = async (leadData: Omit<Lead, 'id' | 'createdAt'>): Promise<{ success: boolean; message: string }> => {
-  const controller = new AbortController();
-  const timeout = window.setTimeout(() => controller.abort(), 45000);
+const GENERIC_CONTACT_ERROR =
+  'Something went wrong. Please try again or contact us via WhatsApp.';
+
+export const submitLead = async (
+  leadData: Omit<Lead, 'id' | 'createdAt'>,
+): Promise<{ success: boolean; message: string }> => {
+  if (leadData.type !== 'contact') {
+    return submitTrial({
+      name: leadData.name,
+      email: leadData.email,
+      phone: leadData.phone,
+      country: leadData.country,
+      courseInterest: leadData.courseInterest || '',
+      ageGroup: leadData.ageGroup || '',
+      days: leadData.preferredDays || [],
+      time: leadData.preferredTime || '',
+      teacherPreference: leadData.teacherPreference || '',
+      notes: leadData.message || '',
+    });
+  }
 
   try {
-    const formData = new FormData();
-    const isTrial = leadData.type === 'trial';
-
-    formData.append('_subject', isTrial
-      ? `New free trial request from ${leadData.name}`
-      : `New website message from ${leadData.name}`);
-    formData.append('_template', 'box');
-    formData.append('_captcha', 'false');
-    formData.append('_replyto', leadData.email);
-    formData.append('Form type', isTrial ? 'Trial registration' : 'Contact message');
-    formData.append('Name', leadData.name);
-    formData.append('Email', leadData.email);
-    formData.append('WhatsApp number', leadData.phone);
-    formData.append('Country', leadData.country);
-
-    if (leadData.courseInterest) formData.append('Course', leadData.courseInterest);
-    if (leadData.ageGroup) formData.append('Age group', leadData.ageGroup);
-    if (leadData.preferredDays?.length) {
-      formData.append('Preferred days', leadData.preferredDays.join(', '));
-    }
-    if (leadData.preferredTime) formData.append('Preferred time', leadData.preferredTime);
-    if (leadData.teacherPreference) {
-      formData.append('Teacher preference', leadData.teacherPreference);
-    }
-    if (leadData.message) formData.append('Message / notes', leadData.message);
-
-    const response = await fetch(FORM_ENDPOINT, {
-      method: 'POST',
-      headers: { Accept: 'application/json' },
-      body: formData,
-      signal: controller.signal,
+    const { ok, data: result } = await postJson<ContactSubmitResult>('/api/contact', {
+      name: leadData.name,
+      email: leadData.email,
+      phone: leadData.phone,
+      country: leadData.country,
+      message: leadData.message || '',
     });
-    const result = await response.json().catch(() => null);
 
-    if (!response.ok || result?.success === false || result?.success === 'false') {
-      throw new Error(result?.message || `Form submission failed (${response.status})`);
+    if (!ok || !result?.success) {
+      return {
+        success: false,
+        message: result?.message || GENERIC_CONTACT_ERROR,
+      };
     }
 
-    return { 
-      success: true, 
-      message: 'Thank you! We have received your request and will contact you within 24 hours.' 
-    };
+    return { success: true, message: result.message };
   } catch (error) {
-    console.error('Submission error:', error);
-    return { success: false, message: 'Something went wrong. Please try again or contact us via WhatsApp.' };
-  } finally {
-    window.clearTimeout(timeout);
+    console.error('Contact submission error:', error);
+    return { success: false, message: GENERIC_CONTACT_ERROR };
   }
 };

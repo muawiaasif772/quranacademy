@@ -2,6 +2,27 @@
   command = "yarn build"
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["email-templates/**"]
+
+[functions.trial]
+  included_files = ["email-templates/**"]
+
+[functions.contact]
+  included_files = ["email-templates/**"]
+
+[[redirects]]
+  from = "/api/trial"
+  to = "/.netlify/functions/trial"
+  status = 200
+
+[[redirects]]
+  from = "/api/contact"
+  to = "/.netlify/functions/contact"
+  status = 200
+
 # SPA fallback is also defined in public/_redirects (copied to dist/).
 # Static files (sitemap.xml, robots.txt, google*.html) are served as-is.
 

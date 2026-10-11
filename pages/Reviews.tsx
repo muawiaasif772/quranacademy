@@ -291,6 +291,36 @@ const pageStyles = `
     animation:shimBar 3s ease-in-out infinite;
   }
 
+  /* Prevent horizontal page scroll from decorations / wide grids */
+  .reviews-page-root {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+  .reviews-section-clip {
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 0 8px;
+  }
+  .hero-rating-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    max-width: 100%;
+    text-align: center;
+  }
+  .reviews-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)) !important;
+  }
+
   /* ── Responsive ── */
   @media (max-width: 768px) {
     .reviews-grid { grid-template-columns: 1fr !important; }
@@ -299,10 +329,13 @@ const pageStyles = `
     .cta-inner    { flex-direction: column !important; text-align: center !important; align-items: center !important; }
     .trust-scroll { flex-wrap: wrap; justify-content: center !important; }
     .review-card  { padding: 24px !important; }
+    .sec-label    { letter-spacing: .16em !important; font-size: 10px !important; }
+    .trust-item   { white-space: normal; text-align: center; justify-content: center; }
   }
   @media (max-width: 480px) {
     .stats-grid { grid-template-columns: 1fr !important; }
     .slider-controls { flex-direction: column; gap: 12px !important; }
+    .hero-eyebrow .hero-eyebrow-line { display: none; }
   }
 `;
 
@@ -350,6 +383,7 @@ export const Reviews: React.FC = () => {
     <>
       <style>{pageStyles}</style>
       <div
+        className="reviews-page-root"
         style={{ fontFamily: "'Nunito',sans-serif", background: "var(--deep)" }}
       >
         {/* ══════════════════════════════════════ HERO BANNER */}
@@ -372,10 +406,10 @@ export const Reviews: React.FC = () => {
             style={{
               position: "absolute",
               top: "50%",
-              right: "-3%",
+              right: 0,
               transform: "translateY(-50%)",
               fontFamily: "'Amiri',serif",
-              fontSize: "clamp(140px,20vw,300px)",
+              fontSize: "clamp(80px,14vw,220px)",
               color: "rgba(255,255,255,.015)",
               fontWeight: 700,
               userSelect: "none",
@@ -441,16 +475,14 @@ export const Reviews: React.FC = () => {
           >
             {/* Eyebrow */}
             <div
+              className="hero-eyebrow"
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: 14,
                 marginBottom: 20,
                 animation: "fadeUp .7s cubic-bezier(.16,1,.3,1) both",
               }}
             >
               <div
+                className="hero-eyebrow-line"
                 style={{
                   height: 1,
                   width: 60,
@@ -462,6 +494,7 @@ export const Reviews: React.FC = () => {
               <span className="sec-label">Voices of Our Students</span>
               <span style={{ color: "var(--gold)", fontSize: 10 }}>✦</span>
               <div
+                className="hero-eyebrow-line"
                 style={{
                   height: 1,
                   width: 60,
@@ -506,14 +539,12 @@ export const Reviews: React.FC = () => {
 
             {/* Aggregate rating */}
             <div
+              className="hero-rating-pill"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 14,
                 background: "rgba(255,255,255,.04)",
                 border: "1px solid rgba(201,151,58,.2)",
                 borderRadius: 100,
-                padding: "14px 28px",
+                padding: "14px clamp(16px, 4vw, 28px)",
                 animation: "fadeUp .7s .3s cubic-bezier(.16,1,.3,1) both",
               }}
             >
@@ -859,6 +890,7 @@ export const Reviews: React.FC = () => {
 
         {/* ══════════════════════════════════════ GRID OF REVIEWS */}
         <section
+          className="reviews-section-clip"
           style={{
             padding: "80px 24px",
             background:
@@ -957,7 +989,6 @@ export const Reviews: React.FC = () => {
               className="reviews-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))",
                 gap: "clamp(14px,3vw,24px)",
               }}
             >
@@ -1166,6 +1197,7 @@ export const Reviews: React.FC = () => {
 
         {/* ══════════════════════════════════════ TRUST SIGNALS BAR */}
         <section
+          className="reviews-section-clip"
           style={{
             background: "var(--deep)",
             padding: "40px 24px",
@@ -1221,6 +1253,7 @@ export const Reviews: React.FC = () => {
 
         {/* ══════════════════════════════════════ BOTTOM CTA */}
         <section
+          className="reviews-section-clip"
           style={{ background: "var(--deep)", padding: "80px 24px 100px" }}
         >
           <div style={{ maxWidth: 1320, margin: "0 auto" }}>

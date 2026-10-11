@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,10 +11,19 @@ import { fileURLToPath } from "node:url";
 export type TemplateValue = string | { html: string };
 export type TemplateValues = Record<string, TemplateValue | undefined>;
 
-const TEMPLATES_DIR = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "../../email-templates",
-);
+function resolveTemplatesDir(): string {
+  const fromModule = path.resolve(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../email-templates",
+  );
+  const candidates = [fromModule, path.join(process.cwd(), "email-templates")];
+  for (const dir of candidates) {
+    if (existsSync(path.join(dir, "admin-trial-notification.html"))) return dir;
+  }
+  return fromModule;
+}
+
+const TEMPLATES_DIR = resolveTemplatesDir();
 
 const templateCache = new Map<string, string>();
 
