@@ -1,6 +1,8 @@
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { TUTORS } from "../data";
+import { TutorAvatar } from "../components/TutorAvatar";
+import { mapTutorForUI } from "../lib/tutor-ui";
 import {
   Search,
   Star,
@@ -124,8 +126,6 @@ const pageStyles = `
     transform:translateY(-14px) scale(1.02);
     box-shadow:0 50px 100px rgba(0,0,0,.5),0 0 0 1px rgba(201,151,58,.28)!important;
   }
-  .t-card:hover .t-img{transform:scale(1.07);}
-  .t-img{transition:transform .7s ease;}
   .t-card:hover .t-overlay{opacity:1!important;}
   .t-card:hover .t-cta{
     background:linear-gradient(135deg,var(--gold-m),var(--gold))!important;
@@ -222,146 +222,6 @@ const pageStyles = `
   }
 `;
 
-// ── Fallback tutor data ───────────────────────────────────────────────────────
-const TUTOR_FB = [
-  {
-    id: 1,
-    name: "Sheikh Ahmed Al-Rashid",
-    gender: "Male",
-    specialties: ["Tajweed", "Quran Recitation"],
-    badges: ["Al-Azhar Graduate", "Ijazah Holder"],
-    rating: 4.9,
-    reviewCount: 312,
-    experienceYears: 12,
-    students: 340,
-    photoUrl: "https://picsum.photos/seed/t101/300/300",
-    bio: "Certified Ijazah holder with 12 years of online teaching experience. Specializes in perfecting Tajweed for all levels.",
-    languages: ["Arabic", "English"],
-    availability: "Flexible",
-    verified: true,
-    color: "#c9973a",
-  },
-  {
-    id: 2,
-    name: "Ustadha Fatima Hassan",
-    gender: "Female",
-    specialties: ["Quran Memorization", "Hifz"],
-    badges: ["Hafiza", "Kids Specialist"],
-    rating: 4.8,
-    reviewCount: 198,
-    experienceYears: 8,
-    students: 210,
-    photoUrl: "https://picsum.photos/seed/t202/300/300",
-    bio: "Dedicated Hafiza with a passion for helping students memorize the Quran using proven revision techniques.",
-    languages: ["Arabic", "English", "Urdu"],
-    availability: "Mornings",
-    verified: true,
-    color: "#2fcf87",
-  },
-  {
-    id: 3,
-    name: "Sheikh Omar Abdullah",
-    gender: "Male",
-    specialties: ["Arabic Language", "Grammar"],
-    badges: ["Al-Azhar Graduate", "Native Speaker"],
-    rating: 5.0,
-    reviewCount: 427,
-    experienceYears: 15,
-    students: 480,
-    photoUrl: "https://picsum.photos/seed/t303/300/300",
-    bio: "Native Arabic speaker and Al-Azhar scholar bringing Classical Arabic to life for students worldwide.",
-    languages: ["Arabic", "English", "French"],
-    availability: "Evenings",
-    verified: true,
-    color: "#7eb8ff",
-  },
-  {
-    id: 4,
-    name: "Ustadha Maryam Yusuf",
-    gender: "Female",
-    specialties: ["Kids Quran", "Noorani Qaida"],
-    badges: ["Kids Specialist", "Tajweed Cert"],
-    rating: 4.9,
-    reviewCount: 156,
-    experienceYears: 6,
-    students: 175,
-    photoUrl: "https://picsum.photos/seed/t404/300/300",
-    bio: "Experienced in teaching young children Quran with fun and interactive methods that build a lifelong love for learning.",
-    languages: ["Arabic", "English"],
-    availability: "All day",
-    verified: true,
-    color: "#ff8fa3",
-  },
-  {
-    id: 5,
-    name: "Sheikh Bilal Karimi",
-    gender: "Male",
-    specialties: ["Tajweed", "Islamic Studies"],
-    badges: ["Ijazah Holder", "Hifz Master"],
-    rating: 4.7,
-    reviewCount: 89,
-    experienceYears: 9,
-    students: 130,
-    photoUrl: "https://picsum.photos/seed/t505/300/300",
-    bio: "Combines rigorous Tajweed training with Islamic studies, offering a holistic approach to Quranic education.",
-    languages: ["Arabic", "English", "Pashto"],
-    availability: "Flexible",
-    verified: false,
-    color: "#b58cff",
-  },
-  {
-    id: 6,
-    name: "Ustadha Zainab Malik",
-    gender: "Female",
-    specialties: ["Hifz", "Quran Recitation"],
-    badges: ["Hafiza", "Kids Specialist"],
-    rating: 4.8,
-    reviewCount: 203,
-    experienceYears: 7,
-    students: 220,
-    photoUrl: "https://picsum.photos/seed/t606/300/300",
-    bio: "Passionate about helping female students and children memorize the Quran in a comfortable, supportive environment.",
-    languages: ["Arabic", "English", "Urdu"],
-    availability: "Afternoons",
-    verified: true,
-    color: "#ffd166",
-  },
-  {
-    id: 7,
-    name: "Sheikh Hassan Nouri",
-    gender: "Male",
-    specialties: ["Arabic Language", "Tajweed"],
-    badges: ["Al-Azhar Graduate", "Native Speaker"],
-    rating: 4.9,
-    reviewCount: 267,
-    experienceYears: 11,
-    students: 310,
-    photoUrl: "https://picsum.photos/seed/t707/300/300",
-    bio: "Al-Azhar graduate specialising in both Arabic linguistics and Tajweed, helping students bridge the two disciplines.",
-    languages: ["Arabic", "English"],
-    availability: "Flexible",
-    verified: true,
-    color: "#2fcf87",
-  },
-  {
-    id: 8,
-    name: "Ustadha Aisha Rahman",
-    gender: "Female",
-    specialties: ["Quran Memorization", "Arabic"],
-    badges: ["Hafiza", "Al-Azhar Graduate"],
-    rating: 5.0,
-    reviewCount: 341,
-    experienceYears: 10,
-    students: 390,
-    photoUrl: "https://picsum.photos/seed/t808/300/300",
-    bio: "A rare combination of Hifz mastery and Arabic language expertise, guiding students to understand the Quran deeply.",
-    languages: ["Arabic", "English", "French"],
-    availability: "Mornings",
-    verified: true,
-    color: "#c9973a",
-  },
-];
-
 const FILTERS = [
   "All",
   "Male",
@@ -388,13 +248,13 @@ const Tutors: React.FC = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
-  const allTutors = (TUTORS && TUTORS.length ? TUTORS : TUTOR_FB) as any[];
+  const allTutors = useMemo(() => TUTORS.map(mapTutorForUI), []);
 
   const filtered = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
-    return allTutors.filter((t: any) => {
+    return allTutors.filter((t) => {
       const matchFilter = (() => {
         if (activeFilter === "All") return true;
         if (activeFilter === "Male" || activeFilter === "Female")
@@ -417,7 +277,7 @@ const Tutors: React.FC = () => {
     });
   }, [activeFilter, searchQuery, allTutors]);
 
-  const featured = allTutors.find((t: any) => t.rating >= 5.0) || allTutors[0];
+  const featured = allTutors.find((t) => t.rating >= 5.0) || allTutors[0];
 
   return (
     <>
@@ -682,25 +542,28 @@ const Tutors: React.FC = () => {
                   position: "relative",
                   overflow: "hidden",
                   minHeight: 340,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background:
+                    "linear-gradient(165deg, rgba(10,46,24,.5) 0%, rgba(2,11,6,.95) 100%)",
                 }}
               >
-                <img
-                  src={featured?.photoUrl}
-                  alt={featured?.name}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    filter: "grayscale(20%)",
-                  }}
-                />
+                {featured?.name ? (
+                  <TutorAvatar
+                    name={featured.name}
+                    gender={featured.gender}
+                    size={160}
+                    accent="var(--gold-m)"
+                  />
+                ) : null}
                 <div
                   style={{
                     position: "absolute",
                     inset: 0,
                     background:
-                      "linear-gradient(to right,rgba(2,11,6,.1),rgba(2,11,6,.7))",
+                      "linear-gradient(to right,rgba(2,11,6,.05),rgba(2,11,6,.55))",
+                    pointerEvents: "none",
                   }}
                 />
 
@@ -1224,26 +1087,26 @@ const Tutors: React.FC = () => {
                           height: 220,
                           overflow: "hidden",
                           flexShrink: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background:
+                            "linear-gradient(180deg, rgba(14,66,36,.35) 0%, rgba(2,11,6,.9) 100%)",
                         }}
                       >
-                        <img
-                          src={tutor.photoUrl}
-                          alt={tutor.name}
-                          className="t-img"
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "cover",
-                            display: "block",
-                            filter: "grayscale(15%)",
-                          }}
+                        <TutorAvatar
+                          name={tutor.name}
+                          gender={tutor.gender}
+                          size={96}
+                          accent={ac}
                         />
                         <div
                           style={{
                             position: "absolute",
                             inset: 0,
                             background:
-                              "linear-gradient(to top,rgba(2,11,6,.92) 0%,rgba(2,11,6,.15) 60%,transparent 100%)",
+                              "linear-gradient(to top,rgba(2,11,6,.75) 0%,transparent 55%)",
+                            pointerEvents: "none",
                           }}
                         />
 
@@ -1411,7 +1274,7 @@ const Tutors: React.FC = () => {
                             whiteSpace: "nowrap",
                           }}
                         >
-                          {(tutor.specialties || ["Quran"])[0]} Specialist
+                          {tutor.title}
                         </p>
 
                         {/* mini stats */}
@@ -1604,26 +1467,12 @@ const Tutors: React.FC = () => {
                           flexShrink: 0,
                         }}
                       >
-                        <div
-                          style={{
-                            width: 70,
-                            height: 70,
-                            borderRadius: "50%",
-                            overflow: "hidden",
-                            border: `2.5px solid ${ac}50`,
-                          }}
-                        >
-                          <img
-                            src={tutor.photoUrl}
-                            alt={tutor.name}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                              display: "block",
-                            }}
-                          />
-                        </div>
+                        <TutorAvatar
+                          name={tutor.name}
+                          gender={tutor.gender}
+                          size={70}
+                          accent={ac}
+                        />
                         {tutor.verified && (
                           <div
                             style={{

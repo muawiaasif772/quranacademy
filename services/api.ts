@@ -80,8 +80,8 @@ const GENERIC_CONTACT_ERROR =
   'Something went wrong. Please try again or contact us via WhatsApp.';
 
 export const submitLead = async (
-  leadData: Omit<Lead, 'id' | 'createdAt'>,
-): Promise<{ success: boolean; message: string }> => {
+  leadData: Omit<Lead, 'id' | 'createdAt'> & { subject?: string },
+): Promise<{ success: boolean; message: string; errors?: Record<string, string> }> => {
   if (leadData.type !== 'contact') {
     return submitTrial({
       name: leadData.name,
@@ -103,6 +103,7 @@ export const submitLead = async (
       email: leadData.email,
       phone: leadData.phone,
       country: leadData.country,
+      subject: leadData.subject || '',
       message: leadData.message || '',
     });
 
@@ -110,6 +111,7 @@ export const submitLead = async (
       return {
         success: false,
         message: result?.message || GENERIC_CONTACT_ERROR,
+        errors: result?.errors,
       };
     }
 

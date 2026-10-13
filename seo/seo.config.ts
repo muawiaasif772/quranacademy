@@ -1,12 +1,14 @@
 import { COURSES, FAQS } from "../data";
 import type { Course } from "../types";
+import { brandLogoAbsolute } from "./brand-assets";
 import { coursePageMeta } from "./course-meta";
+import { SITE_OG_IMAGE_PATH } from "./image-assets";
 
 export const SITE_URL = "https://alif-laam-meem-islamic-insitute.netlify.app";
 export const SITE_NAME = "Alif Laam Meem Academy";
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/assets/images/closeup-of-muslim-children-in-elegant-attire-reciting-the-quran-showcasing-their-devotion-and-cultural-heritage-generated-image-photo.jpg`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}${SITE_OG_IMAGE_PATH}`;
 export const CONTACT_PHONE = "+92 300 6873200";
-export const CONTACT_EMAIL = "info@aliflaameem.com";
+export const CONTACT_EMAIL = "infoaliflaameem@gmail.com";
 
 export interface PageSeo {
   /** Full <title>. Keep ≤ 60 chars where possible. */
@@ -38,7 +40,7 @@ export const ORGANIZATION_JSON_LD = {
   name: SITE_NAME,
   alternateName: "Alif Laam Meem Islamic Institute",
   url: SITE_URL,
-  logo: `${SITE_URL}/assets/images/images.png`,
+  logo: brandLogoAbsolute(SITE_URL),
   image: DEFAULT_OG_IMAGE,
   description:
     "Online Quran academy offering personalised 1-on-1 Quran, Tajweed, Hifz, Arabic and Islamic Studies classes for kids and adults with certified male and female tutors.",

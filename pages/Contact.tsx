@@ -19,6 +19,21 @@ import {
   Sparkles,
 } from "lucide-react";
 import { submitLead } from "../services/api";
+import { CONTACT_EMAIL } from "../seo/seo.config";
+import {
+  PhoneCountryFields,
+  buildPhonePayload,
+} from "../components/PhoneCountryFields";
+import { DEFAULT_COUNTRY_ID } from "../data/countries";
+import { ThemedSelect } from "../components/ThemedSelect";
+
+const SUBJECT_OPTIONS = [
+  { value: "trial", label: "Book a Free Trial" },
+  { value: "pricing", label: "Pricing & Plans" },
+  { value: "tutors", label: "Tutor Information" },
+  { value: "technical", label: "Technical Support" },
+  { value: "other", label: "Other Inquiry" },
+];
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STYLES — matches FAQ palette exactly
@@ -278,10 +293,22 @@ const useReveal = () => {
 // ─────────────────────────────────────────────────────────────────────────────
 // MAIN COMPONENT
 // ─────────────────────────────────────────────────────────────────────────────
+const fieldErrorStyle: React.CSSProperties = {
+  color: "#ff8fa3",
+  fontSize: 11,
+  marginTop: 6,
+  lineHeight: 1.4,
+};
+
 export const Contact: React.FC = () => {
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [countryId, setCountryId] = useState(DEFAULT_COUNTRY_ID);
+  const [phone, setPhone] = useState("");
+  const [subject, setSubject] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [formMessage, setFormMessage] = useState("");
   const heroReveal = useReveal();
   const statsReveal = useReveal();
   const formReveal = useReveal();
@@ -291,18 +318,27 @@ export const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("loading");
+    setFieldErrors({});
+    setFormMessage("");
     const formData = new FormData(e.currentTarget);
+    const phonePayload = buildPhonePayload(countryId, phone);
     const data = {
       type: "contact" as const,
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      phone: formData.get("phone") as string,
-      country: formData.get("country") as string,
-      message: formData.get("message") as string,
+      name: (formData.get("name") as string) ?? "",
+      email: (formData.get("email") as string) ?? "",
+      phone: phonePayload.phone,
+      country: phonePayload.country,
+      subject,
+      message: (formData.get("message") as string) ?? "",
     };
     const res = await submitLead(data);
-    if (res.success) setStatus("success");
-    else setStatus("error");
+    if (res.success) {
+      setStatus("success");
+      return;
+    }
+    setStatus("error");
+    setFormMessage(res.message);
+    if (res.errors) setFieldErrors(res.errors);
   };
 
   const infoCards = [
@@ -318,7 +354,7 @@ export const Contact: React.FC = () => {
     {
       icon: Mail,
       title: "Email Support",
-      value: "aliflaameem772@gmail.com",
+      value: CONTACT_EMAIL,
       sub: "Reply within 2 hours",
       color: "#7eb8ff",
       bg: "rgba(127,178,255,.12)",
@@ -1008,51 +1044,30 @@ export const Contact: React.FC = () => {
                         gap: 16,
                       }}
                     >
-                      {/* Name + Phone row */}
-                      <div
-                        className="form-row"
-                        style={{ display: "flex", gap: 14 }}
-                      >
-                        <div className="field-wrap" style={{ flex: 1 }}>
-                          <svg
-                            className="field-icon"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <circle cx="12" cy="8" r="4" />
-                            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
-                          </svg>
-                          <input
-                            required
-                            name="name"
-                            type="text"
-                            placeholder="Full Name"
-                            className="contact-input"
-                          />
-                        </div>
-                        <div className="field-wrap" style={{ flex: 1 }}>
-                          <svg
-                            className="field-icon"
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          >
-                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.82 19.79 19.79 0 01.9 2.18 2 2 0 012.88 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.91 7.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" />
-                          </svg>
-                          <input
-                            name="phone"
-                            type="tel"
-                            placeholder="Phone (optional)"
-                            className="contact-input"
-                          />
-                        </div>
+                      {/* Name */}
+                      <div className="field-wrap">
+                        <svg
+                          className="field-icon"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <circle cx="12" cy="8" r="4" />
+                          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                        </svg>
+                        <input
+                          name="name"
+                          type="text"
+                          placeholder="Full Name"
+                          className="contact-input"
+                          aria-invalid={Boolean(fieldErrors.name)}
+                        />
+                        {fieldErrors.name && (
+                          <p style={fieldErrorStyle}>{fieldErrors.name}</p>
+                        )}
                       </div>
 
                       {/* Email */}
@@ -1070,86 +1085,58 @@ export const Contact: React.FC = () => {
                           <polyline points="22,6 12,13 2,6" />
                         </svg>
                         <input
-                          required
                           name="email"
                           type="email"
                           placeholder="Email Address"
                           className="contact-input"
+                          aria-invalid={Boolean(fieldErrors.email)}
                         />
+                        {fieldErrors.email && (
+                          <p style={fieldErrorStyle}>{fieldErrors.email}</p>
+                        )}
                       </div>
 
-                      {/* Country */}
-                      <div className="field-wrap">
-                        <svg
-                          className="field-icon"
-                          width="16"
-                          height="16"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                        >
-                          <circle cx="12" cy="12" r="10" />
-                          <line x1="2" y1="12" x2="22" y2="12" />
-                          <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                        </svg>
-                        <input
-                          name="country"
-                          type="text"
-                          placeholder="Your Country"
-                          className="contact-input"
-                        />
-                      </div>
+                      <PhoneCountryFields
+                        layout="contact"
+                        countryId={countryId}
+                        onCountryIdChange={setCountryId}
+                        phone={phone}
+                        onPhoneChange={setPhone}
+                        phonePlaceholder="WhatsApp / phone number"
+                        errors={{
+                          phone: fieldErrors.phone,
+                          country: fieldErrors.country,
+                        }}
+                      />
 
-                      {/* Subject */}
-                      <select
+                      <ThemedSelect
                         name="subject"
-                        className="contact-input"
-                        style={{ appearance: "none", cursor: "pointer" }}
-                      >
-                        <option
-                          value=""
-                          disabled
-                          selected
-                          style={{ background: "#020b06" }}
-                        >
-                          Select a Subject
-                        </option>
-                        <option value="trial" style={{ background: "#020b06" }}>
-                          Book a Free Trial
-                        </option>
-                        <option
-                          value="pricing"
-                          style={{ background: "#020b06" }}
-                        >
-                          Pricing & Plans
-                        </option>
-                        <option
-                          value="tutors"
-                          style={{ background: "#020b06" }}
-                        >
-                          Tutor Information
-                        </option>
-                        <option
-                          value="technical"
-                          style={{ background: "#020b06" }}
-                        >
-                          Technical Support
-                        </option>
-                        <option value="other" style={{ background: "#020b06" }}>
-                          Other Inquiry
-                        </option>
-                      </select>
+                        value={subject}
+                        onChange={setSubject}
+                        placeholder="Select a Subject"
+                        options={SUBJECT_OPTIONS}
+                        aria-invalid={Boolean(fieldErrors.subject)}
+                      />
+                      {fieldErrors.subject && (
+                        <p style={{ ...fieldErrorStyle, marginTop: -8 }}>
+                          {fieldErrors.subject}
+                        </p>
+                      )}
 
                       {/* Message */}
                       <textarea
-                        required
                         name="message"
                         rows={5}
-                        placeholder="Your Message..."
+                        placeholder="Your Message (at least 10 characters)..."
                         className="contact-input"
                         style={{ paddingLeft: 22 }}
+                        aria-invalid={Boolean(fieldErrors.message)}
                       />
+                      {fieldErrors.message && (
+                        <p style={{ ...fieldErrorStyle, marginTop: -8 }}>
+                          {fieldErrors.message}
+                        </p>
+                      )}
 
                       {/* Submit */}
                       <button
@@ -1182,7 +1169,7 @@ export const Contact: React.FC = () => {
                         )}
                       </button>
 
-                      {status === "error" && (
+                      {status === "error" && formMessage && (
                         <p
                           style={{
                             color: "#ff8fa3",
@@ -1191,8 +1178,7 @@ export const Contact: React.FC = () => {
                             marginTop: -4,
                           }}
                         >
-                          Something went wrong. Please try again or reach us via
-                          WhatsApp.
+                          {formMessage}
                         </p>
                       )}
 

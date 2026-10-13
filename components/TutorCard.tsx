@@ -3,25 +3,27 @@ import { Tutor } from "../types";
 import {
   Star,
   Users,
-  Briefcase,
-  Globe,
   CheckCircle2,
-  Languages,
   Clock,
   ChevronRight,
 } from "lucide-react";
 import { AudioPlayer } from "./AudioPlayer";
 import { Link } from "react-router-dom";
+import { TutorAvatar } from "./TutorAvatar";
 
 export const TutorCard: React.FC<{ tutor: Tutor }> = ({ tutor }) => {
   return (
     <div className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full group">
       <div className="relative">
-        <div className="h-auto aspect-square md:h-64 overflow-hidden">
-          <img
-            src={tutor.photoUrl}
-            alt={tutor.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        <div
+          className="h-auto aspect-square md:h-64 overflow-hidden flex items-center justify-center"
+          style={{ background: "linear-gradient(180deg,#f8faf9 0%,#eef5f2 100%)" }}
+        >
+          <TutorAvatar
+            name={tutor.name}
+            gender={tutor.gender}
+            size={120}
+            accent="#074E3C"
           />
         </div>
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">

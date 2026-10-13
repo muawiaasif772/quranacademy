@@ -14,6 +14,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CONTACT_EMAIL } from "../seo/seo.config";
 
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
@@ -1045,10 +1046,10 @@ export const PrivacyPolicy: React.FC = () => {
                   <p className="bt">
                     Email{" "}
                     <a
-                      href="mailto:aliflaameem772@gmail.com"
+                      href={`mailto:${CONTACT_EMAIL}`}
                       style={{ color: "var(--gold-m)", textDecoration: "none" }}
                     >
-                      aliflaameem772@gmail.com
+                      {CONTACT_EMAIL}
                     </a>{" "}
                     to exercise any right. We may verify your identity first.
                   </p>
@@ -1188,13 +1189,13 @@ export const PrivacyPolicy: React.FC = () => {
                     {[
                       {
                         label: "Privacy Officer",
-                        value: "aliflaameem772@gmail.com",
+                        value: CONTACT_EMAIL,
                         icon: Shield,
                         color: "#2fcf87",
                       },
                       {
                         label: "General Support",
-                        value: "aliflaameem772@gmail.com",
+                        value: CONTACT_EMAIL,
                         icon: Mail,
                         color: "var(--gold-m)",
                       },

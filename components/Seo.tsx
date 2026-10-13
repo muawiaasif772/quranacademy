@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { BRAND_FAVICON_PATH } from "../seo/brand-assets";
 import { buildBreadcrumbJsonLd } from "../seo/breadcrumbs";
 import {
   DEFAULT_OG_IMAGE,
@@ -54,6 +55,8 @@ export function applySeo(seo: PageSeo, pathname: string): void {
   upsertMeta("name", "description", seo.description);
   upsertMeta("name", "robots", seo.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
   upsertLink("canonical", canonical);
+  upsertLink("icon", BRAND_FAVICON_PATH);
+  upsertLink("apple-touch-icon", BRAND_FAVICON_PATH);
 
   // Open Graph
   upsertMeta("property", "og:type", seo.type ?? "website");

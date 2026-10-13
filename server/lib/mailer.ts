@@ -10,7 +10,8 @@ export interface MailConfig {
 export function getMailConfig(): MailConfig | null {
   const user = process.env.SMTP_USER?.trim();
   const pass = process.env.SMTP_PASS?.replace(/\s+/g, ""); // Gmail shows App Passwords with spaces
-  const adminEmail = process.env.ADMIN_EMAIL?.trim() || user;
+  const adminEmail =
+    process.env.ADMIN_EMAIL?.trim() || "infoaliflaameem@gmail.com";
   if (!user || !pass || !adminEmail) return null;
 
   return {

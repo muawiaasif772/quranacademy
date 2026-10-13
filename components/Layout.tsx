@@ -17,6 +17,8 @@ import {
   ChevronDown,
   Sparkles,
 } from "lucide-react";
+import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
+import { CONTACT_EMAIL } from "../seo/seo.config";
 
 const layoutStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
@@ -45,7 +47,7 @@ const layoutStyles = `
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
-  .nav-scrolled .nav-inner { height: 64px !important; }
+  .nav-scrolled .nav-inner { height: 72px !important; }
 
   /* ── nav link underline slide ── */
   .nav-link {
@@ -83,6 +85,35 @@ const layoutStyles = `
     0%   { background-position: -400px 0; }
     100% { background-position:  400px 0; }
   }
+  .brand-logo-shell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 0;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    height: clamp(48px, 6.2vw, 62px);
+    width: auto;
+    max-width: min(360px, 78vw);
+    min-width: 200px;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
+  }
+  .nav-scrolled .brand-logo {
+    height: clamp(44px, 5.5vw, 54px);
+    min-width: 180px;
+  }
+  @media (max-width: 720px) {
+    .brand-logo {
+      height: clamp(44px, 12vw, 52px);
+      min-width: 160px;
+      max-width: min(280px, 62vw);
+    }
+  }
+
   .logo-shimmer {
     background: linear-gradient(90deg, #fff 0%, var(--gold-lt) 35%, #fff 60%, var(--gold-lt) 80%, #fff 100%);
     background-size: 400px 100%;
@@ -275,7 +306,7 @@ export const Navbar: React.FC = () => {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              height: 76,
+              height: 84,
               transition: "height .4s",
             }}
           >
@@ -291,79 +322,17 @@ export const Navbar: React.FC = () => {
                 flexShrink: 0,
               }}
             >
-              {/* emblem */}
-              <div style={{ position: "relative", width: 44, height: 44 }}>
-                {/* rotating ring */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: -3,
-                    borderRadius: "50%",
-                    border: "1px dashed rgba(201,151,58,.35)",
-                    animation: "rotateSlow 12s linear infinite",
-                  }}
+              <span className="brand-logo-shell">
+                <img
+                  src={BRAND_LOGO_PATH}
+                  alt={BRAND_LOGO_ALT}
+                  className="brand-logo"
+                  width={360}
+                  height={62}
+                  fetchPriority="high"
+                  decoding="async"
                 />
-                <div
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: 14,
-                    background: "linear-gradient(135deg,#0e4224,#0a2e18)",
-                    border: "1px solid rgba(201,151,58,.3)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow:
-                      "0 4px 20px rgba(201,151,58,.2),inset 0 1px 0 rgba(255,255,255,.07)",
-                    position: "relative",
-                    zIndex: 1,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Cinzel',serif",
-                      fontSize: 13,
-                      fontWeight: 900,
-                      color: "var(--gold-mid)",
-                      letterSpacing: "-.02em",
-                    }}
-                  >
-                    ALM
-                  </span>
-                </div>
-              </div>
-              {/* wordmark */}
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  lineHeight: 1,
-                }}
-              >
-                <span
-                  className="logo-shimmer"
-                  style={{
-                    fontFamily: "'Cinzel',serif",
-                    fontSize: 15,
-                    fontWeight: 900,
-                    letterSpacing: ".12em",
-                  }}
-                >
-                  Alif LaAm Meem
-                </span>
-                <span
-                  style={{
-                    fontFamily: "'Cormorant Garamond',serif",
-                    fontSize: 11,
-                    color: "rgba(255,255,255,.3)",
-                    letterSpacing: ".18em",
-                    marginTop: 2,
-                    fontStyle: "italic",
-                  }}
-                >
-                  Academy
-                </span>
-              </div>
+              </span>
             </Link>
 
             {/* ── Desktop Links ── */}
@@ -722,63 +691,20 @@ export const Footer: React.FC = () => {
           {/* col 1 — brand */}
           <div style={{ gridColumn: "span 1", minWidth: 0 }}>
             {/* logo */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 12,
-                marginBottom: 24,
-              }}
+            <span
+              className="brand-logo-shell"
+              style={{ marginBottom: 24, alignSelf: "flex-start" }}
             >
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 14,
-                  background: "linear-gradient(135deg,#0e4224,#0a2e18)",
-                  border: "1px solid rgba(201,151,58,.3)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: "0 4px 16px rgba(201,151,58,.15)",
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: "'Cinzel',serif",
-                    fontSize: 13,
-                    fontWeight: 900,
-                    color: "var(--gold-mid)",
-                  }}
-                >
-                  NQ
-                </span>
-              </div>
-              <div>
-                <div
-                  style={{
-                    fontFamily: "'Cinzel',serif",
-                    fontSize: 13,
-                    fontWeight: 900,
-                    color: "#fff",
-                    letterSpacing: ".1em",
-                  }}
-                >
-                  ALIF LAAM MEEM
-                </div>
-                <div
-                  style={{
-                    fontFamily: "'Cormorant Garamond',serif",
-                    fontSize: 11,
-                    color: "rgba(255,255,255,.3)",
-                    fontStyle: "italic",
-                    letterSpacing: ".15em",
-                  }}
-                >
-                  Academy
-                </div>
-              </div>
-            </div>
+              <img
+                src={BRAND_LOGO_PATH}
+                alt={BRAND_LOGO_ALT}
+                className="brand-logo"
+                style={{ maxWidth: 320, minWidth: 220 }}
+                width={320}
+                height={58}
+                loading="lazy"
+              />
+            </span>
 
             <p
               style={{
@@ -974,7 +900,7 @@ export const Footer: React.FC = () => {
                 {
                   icon: <Mail size={15} />,
                   label: "Email",
-                  val: "info@aliflaameem.com",
+                  val: CONTACT_EMAIL,
                   color: "#2fcf87",
                 },
               ].map((c, i) => (

@@ -1,19 +1,14 @@
-import { escapeHtml, multilineHtml } from "../lib/render-template";
+import {
+  ADMIN_CONTACT_TEMPLATE,
+  STUDENT_CONTACT_TEMPLATE,
+  buildContactTemplateValues,
+  contactSubjectLabel,
+} from "../routes/contact";
 import { getMailConfig, sendEmail } from "../lib/mailer";
-import { validateContactSubmission } from "../lib/validate-contact";
+import { renderTemplateFile } from "../lib/render-template";
+import { validateContactSubmission, type ContactSubmission } from "../lib/validate-contact";
 
-function adminHtml(data: import("../lib/validate-contact").ContactSubmission): string {
-  return `<!DOCTYPE html><html><body style="font-family:system-ui,sans-serif;line-height:1.6;color:#1e293b">
-    <h2 style="color:#0a2e18">New contact message</h2>
-    <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
-    <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
-    <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
-    <p><strong>Country:</strong> ${escapeHtml(data.country || "—")}</p>
-    <p><strong>Message:</strong><br/>${multilineHtml(data.message).html}</p>
-  </body></html>`;
-}
-
-function adminPlainText(data: import("../lib/validate-contact").ContactSubmission): string {
+function adminPlainText(data: ContactSubmission): string {
   return [
     "New contact message",
     "",
@@ -21,19 +16,25 @@ function adminPlainText(data: import("../lib/validate-contact").ContactSubmissio
     `Email: ${data.email}`,
     `Phone: ${data.phone}`,
     `Country: ${data.country || "-"}`,
+    `Subject: ${contactSubjectLabel(data.subject)}`,
     "",
     "Message:",
     data.message,
   ].join("\n");
 }
 
-function studentHtml(name: string): string {
-  return `<!DOCTYPE html><html><body style="font-family:system-ui,sans-serif;line-height:1.6;color:#1e293b">
-    <p>Assalamu Alaikum ${escapeHtml(name)},</p>
-    <p>Thank you for contacting <strong>Alif Laam Meem Academy</strong>. We have received your message and will reply within 24 hours.</p>
-    <p>WhatsApp: +92 0300 6873200</p>
-    <p>JazakAllahu Khairan,<br/>Alif Laam Meem Academy Team</p>
-  </body></html>`;
+function studentPlainText(data: ContactSubmission): string {
+  return [
+    `Assalamu Alaikum ${data.name},`,
+    "",
+    `Thank you for contacting Alif Laam Meem Academy about ${contactSubjectLabel(data.subject)}.`,
+    `We have received your message and will reply within 24 hours.`,
+    "",
+    `WhatsApp: +92 300 6873200`,
+    "",
+    `JazakAllahu Khairan,`,
+    `Alif Laam Meem Academy Team`,
+  ].join("\n");
 }
 
 export async function processContactSubmission(
@@ -63,21 +64,37 @@ export async function processContactSubmission(
   }
 
   const data = validation.data;
+  const values = buildContactTemplateValues(data);
+
+  let adminHtml: string;
+  let studentHtml: string;
+  try {
+    [adminHtml, studentHtml] = await Promise.all([
+      renderTemplateFile(ADMIN_CONTACT_TEMPLATE, values),
+      renderTemplateFile(STUDENT_CONTACT_TEMPLATE, values),
+    ]);
+  } catch (error) {
+    console.error("[contact] Failed to render email templates:", error);
+    return {
+      status: 500,
+      body: { success: false, message: "Could not prepare the email. Please try again." },
+    };
+  }
 
   const [adminResult, studentResult] = await Promise.all([
     sendEmail(config, {
       to: config.adminEmail,
       replyTo: data.email,
       subject: `New website message from ${data.name}`,
-      html: adminHtml(data),
+      html: adminHtml,
       text: adminPlainText(data),
     }),
     sendEmail(config, {
       to: data.email,
       replyTo: config.adminEmail,
       subject: "We received your message – Alif Laam Meem Academy",
-      html: studentHtml(data.name),
-      text: `Assalamu Alaikum ${data.name},\n\nThank you for contacting Alif Laam Meem Academy. We will reply within 24 hours.\n\nJazakAllahu Khairan,\nAlif Laam Meem Academy Team`,
+      html: studentHtml,
+      text: studentPlainText(data),
     }),
   ]);
 

@@ -2,11 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   GraduationCap,
   UserCheck,
+  CalendarCheck,
   CalendarDays,
-  Video,
+  MonitorPlay,
+  ClipboardList,
   BookOpen,
-  Play,
-  X,
+  Video,
   CheckCircle,
   ArrowRight,
   ArrowDown,
@@ -16,7 +17,6 @@ import {
   Award,
   Shield,
   Users,
-  ExternalLink,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -101,6 +101,48 @@ const pageStyles = `
   .fnc-icon-wrap { transition:transform .5s cubic-bezier(.16,1,.3,1); }
   .fnc-arrow { transition:transform .35s ease, background .3s, color .3s; }
 
+  /* 5 step nav cards — center incomplete last row */
+  .hiw-feature-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(12px, 3vw, 20px);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hiw-feature-grid > .feat-nav-card {
+    flex: 1 1 160px;
+    max-width: calc(20% - 16px);
+    min-width: min(100%, 150px);
+    box-sizing: border-box;
+  }
+  @media (max-width: 900px) {
+    .hiw-feature-grid > .feat-nav-card { max-width: calc(33.333% - 14px); }
+  }
+  @media (max-width: 620px) {
+    .hiw-feature-grid > .feat-nav-card { max-width: calc(50% - 10px); }
+  }
+
+  /* Why us cards — center last row when 3+1 etc. */
+  .hiw-why-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 24px);
+  }
+  .hiw-why-grid > .feat-why {
+    flex: 1 1 220px;
+    max-width: calc(25% - 18px);
+    min-width: min(100%, 220px);
+    box-sizing: border-box;
+  }
+  @media (max-width: 1000px) {
+    .hiw-why-grid > .feat-why { max-width: calc(50% - 12px); }
+  }
+  @media (max-width: 520px) {
+    .hiw-why-grid > .feat-why { max-width: 100%; }
+  }
+
   /* shimmer sweep */
   .shb{position:relative;overflow:hidden;}
   .shb::after{
@@ -109,18 +151,15 @@ const pageStyles = `
     animation:shimBar 3.5s ease-in-out infinite;
   }
 
-  /* step image card */
+  /* step icon card */
   .sc{
     background:rgba(255,255,255,.025);
     border:1px solid rgba(255,255,255,.06);
     border-radius:28px;overflow:hidden;
     transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease;
-    cursor:pointer;position:relative;
+    position:relative;
   }
-  .sc:hover{ transform:translateY(-8px); box-shadow:0 40px 80px rgba(0,0,0,.45),0 0 0 1px rgba(201,151,58,.2)!important; }
-  .sc:hover .si{ transform:scale(1.07); }
-  .si{ transition:transform .7s ease; }
-  .sc:hover .sov{ opacity:1!important; }
+  .sc:hover{ transform:translateY(-6px); box-shadow:0 32px 64px rgba(0,0,0,.4),0 0 0 1px rgba(201,151,58,.18)!important; }
 
   .badge{
     display:inline-flex;align-items:center;gap:5px;
@@ -252,16 +291,13 @@ const processSteps = [
   {
     id: "step-1",
     number: "01",
-    icon: BookOpen,
+    icon: ClipboardList,
     title: "Choose Your Course",
     subtitle: "Your Learning Path",
     tag: "Begin Here",
     accent: "#c9973a",
     description:
       "Select from our wide range of programs including Noorani Qaida for beginners, advanced Tajweed rules, or specialized Hifz memorization tracks. Our advisors help you pick the level that matches your current proficiency.",
-    image:
-      "https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=1200",
-    videoUrl: "https://www.youtube.com/embed/S_T16BfE96c",
     badges: ["Noorani Qaida", "Tajweed", "Hifz"],
   },
   {
@@ -274,36 +310,30 @@ const processSteps = [
     accent: "#2fcf87",
     description:
       "Based on your preferences for gender, language (English, Arabic, Urdu, etc.), and age group, we assign you a certified scholar. Every tutor is an Ijazah holder and Al-Azhar trained professional.",
-    image:
-      "https://images.unsplash.com/photo-1552058544-f2b08422138a?auto=format&fit=crop&q=80&w=1200",
     badges: ["Al-Azhar", "Ijazah Holder", "Verified"],
   },
   {
     id: "step-3",
     number: "03",
-    icon: CalendarDays,
+    icon: CalendarCheck,
     title: "Book Your Free Trial",
     subtitle: "Zero Commitment",
     tag: "30 Min Free",
     accent: "#7eb8ff",
     description:
       "Schedule a 30-minute session at a time that works for you, 24/7. This evaluation session is completely free — no credit card or commitment required. Meet your teacher and see our interactive portal in action.",
-    image:
-      "https://images.unsplash.com/photo-1543269664-76bc3997d9ea?auto=format&fit=crop&q=80&w=1200",
     badges: ["No Credit Card", "24/7 Booking", "Live Session"],
   },
   {
     id: "step-4",
     number: "04",
-    icon: Video,
+    icon: MonitorPlay,
     title: "Start 1-on-1 Live Classes",
     subtitle: "Immersive Learning",
     tag: "HD Video",
     accent: "#ff8fa3",
     description:
       "Connect with your teacher via our high-quality video classroom. Students benefit from real-time feedback, screen sharing, and a digital whiteboard that makes learning Tajweed and Arabic interactive and fun.",
-    image:
-      "https://images.unsplash.com/photo-1588702547319-3571cd511d0b?auto=format&fit=crop&q=80&w=1200",
     badges: ["HD Video", "Whiteboard", "Screen Share"],
   },
   {
@@ -316,8 +346,6 @@ const processSteps = [
     accent: "#b58cff",
     description:
       "Your learning is monitored through weekly evaluations and monthly reports. Upon completing a level or memorizing a portion of the Quran, you will receive an official certification recognized globally.",
-    image:
-      "https://images.unsplash.com/photo-1523050335392-93851179ae22?auto=format&fit=crop&q=80&w=1200",
     badges: ["Weekly Evals", "Official Cert", "Global Recognition"],
   },
 ];
@@ -357,104 +385,18 @@ const whyUs = [
   },
 ];
 
-// ── Dialog ────────────────────────────────────────────────────────────────────
-const Dialog = ({
-  src,
-  onClose,
-}: {
-  src: string | null;
-  onClose: () => void;
-}) => {
-  if (!src) return null;
-  const isVideo = src.includes("embed") || src.includes("youtube");
-
-  return (
-    <div
-      onClick={onClose}
-      className="dlg-wrap"
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 200,
-        background: "rgba(2,11,6,.96)",
-        backdropFilter: "blur(20px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 24,
-      }}
-    >
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="dlg-card"
-        style={{
-          position: "relative",
-          width: "100%",
-          maxWidth: 900,
-          borderRadius: 24,
-          overflow: "hidden",
-          border: "1px solid rgba(201,151,58,.25)",
-          boxShadow: "0 40px 100px rgba(0,0,0,.6)",
-        }}
-      >
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          style={{
-            position: "absolute",
-            top: 12,
-            right: 12,
-            zIndex: 10,
-            width: 40,
-            height: 40,
-            borderRadius: "50%",
-            background: "rgba(255,255,255,.08)",
-            border: "1px solid rgba(255,255,255,.14)",
-            color: "#fff",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <X size={18} />
-        </button>
-
-        <div style={{ aspectRatio: "16/9", background: "#000" }}>
-          {isVideo ? (
-            <iframe
-              title="Preview"
-              style={{ width: "100%", height: "100%", border: "none" }}
-              src={`${src}?autoplay=1`}
-              allow="autoplay; fullscreen"
-            />
-          ) : (
-            <img
-              src={src}
-              alt="Preview"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 // ── Step Row ──────────────────────────────────────────────────────────────────
 const StepRow = ({
   step,
   index,
-  onOpen,
 }: {
   step: (typeof processSteps)[0];
   index: number;
-  onOpen: (s: string) => void;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
   const rev = index % 2 !== 0;
-  const media = step.videoUrl || step.image;
+  const StepIcon = step.icon;
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -622,38 +564,6 @@ const StepRow = ({
             </div>
           ))}
         </div>
-
-        <button
-          onClick={() => onOpen(media)}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            background: `linear-gradient(135deg,${step.accent},${step.accent}aa)`,
-            color: "#020b06",
-            padding: "13px 28px",
-            borderRadius: 14,
-            fontFamily: "'Cinzel',serif",
-            fontWeight: 700,
-            fontSize: 11,
-            letterSpacing: ".1em",
-            cursor: "pointer",
-            border: "none",
-            boxShadow: `0 6px 24px ${step.accent}40`,
-            transition: "transform .25s,box-shadow .25s",
-          }}
-        >
-          {step.videoUrl ? (
-            <>
-              <Play size={14} fill="#020b06" /> Watch Preview
-            </>
-          ) : (
-            <>
-              Explore Step <ExternalLink size={13} />
-            </>
-          )}
-          <ArrowRight size={14} />
-        </button>
       </div>
 
       <div
@@ -691,7 +601,6 @@ const StepRow = ({
 
         <div
           className="sc shb"
-          onClick={() => onOpen(media)}
           style={{
             position: "relative",
             zIndex: 1,
@@ -711,77 +620,47 @@ const StepRow = ({
           />
           <div
             className="media-height"
-            style={{ height: 320, overflow: "hidden", position: "relative" }}
+            style={{
+              height: 320,
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 20,
+              padding: "32px 24px",
+              background:
+                "linear-gradient(165deg, rgba(10,46,24,.55) 0%, rgba(2,11,6,.92) 100%)",
+            }}
           >
-            <img
-              src={step.image}
-              alt={step.title}
-              className="si"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                filter: "grayscale(12%)",
-              }}
-            />
             <div
               style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(to top,rgba(2,11,6,.85) 0%,rgba(2,11,6,.1) 55%,transparent 100%)",
-              }}
-            />
-            <div
-              className="sov"
-              style={{
-                position: "absolute",
-                inset: 0,
-                opacity: 0,
-                transition: "opacity .3s",
+                width: 120,
+                height: 120,
+                borderRadius: "50%",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                background: `${step.accent}14`,
+                border: `2px solid ${step.accent}40`,
+                boxShadow: `0 12px 40px ${step.accent}25`,
               }}
             >
-              <div
-                style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: "50%",
-                  background: step.accent,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  boxShadow: `0 8px 32px ${step.accent}60`,
-                }}
-              >
-                <Play
-                  size={28}
-                  fill="#020b06"
-                  color="#020b06"
-                  style={{ marginLeft: 3 }}
-                />
-              </div>
+              <StepIcon size={52} color={step.accent} strokeWidth={1.5} />
             </div>
             <div
               style={{
-                position: "absolute",
-                bottom: 16,
-                left: 16,
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
-                background: "rgba(2,11,6,.85)",
-                backdropFilter: "blur(8px)",
+                background: "rgba(2,11,6,.75)",
                 border: `1px solid ${step.accent}30`,
                 borderRadius: 100,
-                padding: "7px 14px",
-                maxWidth: "calc(100% - 32px)",
+                padding: "8px 16px",
+                maxWidth: "100%",
               }}
             >
-              <step.icon size={14} color={step.accent} />
+              <StepIcon size={14} color={step.accent} aria-hidden />
               <span
                 style={{
                   fontFamily: "'Cinzel',serif",
@@ -806,7 +685,6 @@ const StepRow = ({
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 const HowItWorks: React.FC = () => {
-  const [mediaSrc, setMediaSrc] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState("step-1");
 
   const scrollToSection = (id: string) => {
@@ -1037,16 +915,7 @@ const HowItWorks: React.FC = () => {
             </div>
 
             {/* 5 feature cards */}
-            <div
-              className="h5"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-                gap: "clamp(12px, 3vw, 20px)",
-                maxWidth: 1100,
-                margin: "0 auto",
-              }}
-            >
+            <div className="h5 hiw-feature-grid">
               {featureCards.map((card, idx) => (
                 <div
                   key={card.id}
@@ -1279,12 +1148,7 @@ const HowItWorks: React.FC = () => {
           >
             <div style={{ display: "flex", flexDirection: "column", gap: 100 }}>
               {processSteps.map((step, idx) => (
-                <StepRow
-                  key={step.id}
-                  step={step}
-                  index={idx}
-                  onOpen={setMediaSrc}
-                />
+                <StepRow key={step.id} step={step} index={idx} />
               ))}
             </div>
           </div>
@@ -1340,13 +1204,7 @@ const HowItWorks: React.FC = () => {
               </h2>
             </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-                gap: "clamp(16px, 4vw, 24px)",
-              }}
-            >
+            <div className="hiw-why-grid">
               {whyUs.map((f, i) => (
                 <div
                   key={i}
@@ -1516,7 +1374,6 @@ const HowItWorks: React.FC = () => {
         {/* ... keep your steps + rest sections same ... */}
       </div>
 
-      <Dialog src={mediaSrc} onClose={() => setMediaSrc(null)} />
     </>
   );
 };

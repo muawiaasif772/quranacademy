@@ -15,6 +15,7 @@ import {
   Mail,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CONTACT_EMAIL } from "../seo/seo.config";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STYLES — same palette as HowItWorks / Tutors / Pricing
@@ -1124,7 +1125,7 @@ export const FAQ: React.FC = () => {
                   hours.
                 </p>
                 <a
-                  href="mailto:support@academy.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",

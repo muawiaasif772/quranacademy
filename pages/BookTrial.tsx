@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { submitTrial } from "../services/api";
 import {
+  PhoneCountryFields,
+  buildPhonePayload,
+} from "../components/PhoneCountryFields";
+import { DEFAULT_COUNTRY_ID } from "../data/countries";
+import { ThemedSelect } from "../components/ThemedSelect";
+import {
   CheckCircle2,
   Loader2,
   Clock,
@@ -209,6 +215,26 @@ const pageStyles = `
     position:relative;overflow:hidden;
   }
   .why-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.4);}
+
+  /* 6 benefit cards: flex centers the last row when only 2 items remain */
+  .why-trial-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 24px);
+  }
+  .why-trial-grid > .why-card {
+    flex: 1 1 260px;
+    max-width: calc(25% - 18px);
+    min-width: min(100%, 260px);
+    box-sizing: border-box;
+  }
+  @media (max-width: 900px) {
+    .why-trial-grid > .why-card { max-width: calc(50% - 12px); }
+  }
+  @media (max-width: 560px) {
+    .why-trial-grid > .why-card { max-width: 100%; }
+  }
 
   /* success icon pop */
   .success-icon { animation:checkPop .5s cubic-bezier(.16,1,.3,1) both; }
@@ -637,6 +663,12 @@ const BookTrial: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [countryId, setCountryId] = useState(DEFAULT_COUNTRY_ID);
+  const [phone, setPhone] = useState("");
+  const [courseInterest, setCourseInterest] = useState("");
+  const [ageGroup, setAgeGroup] = useState("");
+  const [timeSlot, setTimeSlot] = useState("");
 
   const whyReveal = useReveal();
   const stepsReveal = useReveal();
@@ -651,15 +683,17 @@ const BookTrial: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setFieldErrors({});
 
     const formData = new FormData(e.currentTarget);
     const field = (key: string) => (formData.get(key) as string | null) ?? "";
+    const phonePayload = buildPhonePayload(countryId, phone);
 
     const result = await submitTrial({
       name: field("name"),
       email: field("email"),
-      phone: field("phone"),
-      country: field("country"),
+      phone: phonePayload.phone,
+      country: phonePayload.country,
       courseInterest: field("courseInterest"),
       ageGroup: field("ageGroup"),
       days: formData.getAll("days") as string[],
@@ -674,9 +708,8 @@ const BookTrial: React.FC = () => {
       return;
     }
 
-    // Surface server-side field errors (if any) under the generic message.
-    const fieldErrors = result.errors ? Object.values(result.errors) : [];
-    setError(fieldErrors.length ? `${result.message} ${fieldErrors.join(" ")}` : result.message);
+    setFieldErrors(result.errors ?? {});
+    setError(result.message);
   };
 
   if (submitted)
@@ -1013,13 +1046,7 @@ const BookTrial: React.FC = () => {
               </h2>
             </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                gap: "clamp(16px, 4vw, 24px)",
-              }}
-            >
+            <div className="why-trial-grid">
               {whyTrial.map((w, i) => (
                 <div
                   key={i}
@@ -1758,40 +1785,46 @@ const BookTrial: React.FC = () => {
                 >
                   <Field icon={User}>
                     <input
-                      required
                       name="name"
                       type="text"
                       placeholder="Full Name"
                       className="f-input"
+                      aria-invalid={Boolean(fieldErrors.name)}
                     />
+                    {fieldErrors.name && (
+                      <p style={{ color: "#ff8f8f", fontSize: 11, marginTop: 6 }}>
+                        {fieldErrors.name}
+                      </p>
+                    )}
                   </Field>
                   <Field icon={Mail}>
                     <input
-                      required
                       name="email"
                       type="email"
                       placeholder="Email Address"
                       className="f-input"
+                      aria-invalid={Boolean(fieldErrors.email)}
                     />
+                    {fieldErrors.email && (
+                      <p style={{ color: "#ff8f8f", fontSize: 11, marginTop: 6 }}>
+                        {fieldErrors.email}
+                      </p>
+                    )}
                   </Field>
-                  <Field icon={Phone}>
-                    <input
-                      required
-                      name="phone"
-                      type="tel"
-                      placeholder="WhatsApp Number"
-                      className="f-input"
+                  <div style={{ gridColumn: "1 / -1", width: "100%", minWidth: 0 }}>
+                    <PhoneCountryFields
+                      layout="trial"
+                      countryId={countryId}
+                      onCountryIdChange={setCountryId}
+                      phone={phone}
+                      onPhoneChange={setPhone}
+                      phonePlaceholder="WhatsApp number"
+                      errors={{
+                        phone: fieldErrors.phone,
+                        country: fieldErrors.country,
+                      }}
                     />
-                  </Field>
-                  <Field icon={Globe}>
-                    <input
-                      required
-                      name="country"
-                      type="text"
-                      placeholder="Country"
-                      className="f-input"
-                    />
-                  </Field>
+                  </div>
                 </div>
 
                 <div
@@ -1817,24 +1850,24 @@ const BookTrial: React.FC = () => {
                   }}
                 >
                   <div>
-                    <select required name="courseInterest" className="f-select">
-                      <option value="">Select Course</option>
-                      {courses.map((c) => (
-                        <option key={c} value={c}>
-                          {c}
-                        </option>
-                      ))}
-                    </select>
+                    <ThemedSelect
+                      name="courseInterest"
+                      value={courseInterest}
+                      onChange={setCourseInterest}
+                      placeholder="Select Course"
+                      required
+                      options={courses.map((c) => ({ value: c, label: c }))}
+                    />
                   </div>
                   <div>
-                    <select required name="ageGroup" className="f-select">
-                      <option value="">Age Group</option>
-                      {ageGroups.map((a) => (
-                        <option key={a} value={a}>
-                          {a}
-                        </option>
-                      ))}
-                    </select>
+                    <ThemedSelect
+                      name="ageGroup"
+                      value={ageGroup}
+                      onChange={setAgeGroup}
+                      placeholder="Age Group"
+                      required
+                      options={ageGroups.map((a) => ({ value: a, label: a }))}
+                    />
                   </div>
                 </div>
 
@@ -1875,14 +1908,13 @@ const BookTrial: React.FC = () => {
                 </div>
 
                 <div style={{ marginBottom: 24 }}>
-                  <select name="time" className="f-select">
-                    <option value="">Preferred Time Slot</option>
-                    {timeSlots.map((t) => (
-                      <option key={t} value={t}>
-                        {t}
-                      </option>
-                    ))}
-                  </select>
+                  <ThemedSelect
+                    name="time"
+                    value={timeSlot}
+                    onChange={setTimeSlot}
+                    placeholder="Preferred Time Slot"
+                    options={timeSlots.map((t) => ({ value: t, label: t }))}
+                  />
                 </div>
 
                 <div

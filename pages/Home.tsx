@@ -15,6 +15,8 @@ import { COURSES, TUTORS, FAQS } from "../data";
 import HowItWorksSection from "@/components/process";
 import StatsRibbon from "@/components/stateRibon";
 import WhyUsSection from "@/components/Whyussection";
+import { TutorAvatar } from "../components/TutorAvatar";
+import { homeHeroImage } from "../seo/image-assets";
 
 // ── Inline styles & keyframes injected once ──────────────────────────────────
 const globalStyle = `
@@ -290,10 +292,6 @@ const Home: React.FC = () => {
             overflow: "hidden",
           }}
         >
-          {console.log(
-            "Rendering Home with tutors:",
-            process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-          )}
           {/* Large decorative Arabic calligraphy overlay */}
           <div
             style={{
@@ -603,8 +601,8 @@ const Home: React.FC = () => {
                   }}
                 >
                   <img
-                    src="/assets\images\images.png"
-                    alt="Student learning Quran"
+                    src={homeHeroImage}
+                    alt="Online Quran academy — student learning Quran with Alif Laam Meem tutor"
                     style={{
                       width: "100%",
                       height: "clamp(260px, 50vw, 480px)",
@@ -1003,37 +1001,7 @@ const Home: React.FC = () => {
 
             {/* ← TUTORS GRID: 1 col mobile, 2 col tablet, 3 col desktop */}
             <div className="tutors-grid">
-              {(
-                TUTORS || [
-                  {
-                    id: 1,
-                    name: "Sheikh Ahmed Al-Rashid",
-                    specialties: ["Tajweed"],
-                    rating: 4.9,
-                    experienceYears: 12,
-                    photoUrl:
-                      "/assets/images/WhatsApp Image 2026-02-18 at 3.50.41 AM (1).jpeg",
-                  },
-                  {
-                    id: 2,
-                    name: "Ustadha Fatima Hassan",
-                    specialties: ["Quran Memorization"],
-                    rating: 4.8,
-                    experienceYears: 8,
-                    photoUrl: "https://picsum.photos/seed/tutor2/300/300",
-                  },
-                  {
-                    id: 3,
-                    name: "Sheikh Omar Abdullah",
-                    specialties: ["Arabic Language"],
-                    rating: 5.0,
-                    experienceYears: 15,
-                    photoUrl: "https://picsum.photos/seed/tutor3/300/300",
-                  },
-                ]
-              )
-                .slice(0, 3)
-                .map((tutor: any) => (
+              {TUTORS.slice(0, 3).map((tutor) => (
                   <div
                     key={tutor.id}
                     className="card-lift"
@@ -1058,22 +1026,12 @@ const Home: React.FC = () => {
                         className="tutor-ring pulse-ring"
                         style={{ position: "relative" }}
                       >
-                        <div
-                          className="tutor-ring-inner"
-                          style={{
-                            width: "clamp(90px, 15vw, 120px)",
-                            height: "clamp(90px, 15vw, 120px)",
-                          }}
-                        >
-                          <img
-                            src={tutor.photoUrl}
-                            alt={tutor.name}
-                            style={{
-                              width: "clamp(90px, 15vw, 120px)",
-                              height: "clamp(90px, 15vw, 120px)",
-                              objectFit: "cover",
-                              filter: "grayscale(30%)",
-                            }}
+                        <div className="tutor-ring-inner">
+                          <TutorAvatar
+                            name={tutor.name}
+                            gender={tutor.gender}
+                            size={120}
+                            accent="var(--gold-300)"
                           />
                         </div>
                       </div>
@@ -1097,7 +1055,7 @@ const Home: React.FC = () => {
                         margin: "0 0 14px",
                       }}
                     >
-                      {tutor.specialties[0]} Specialist
+                      {tutor.title ?? `${tutor.specialties[0]} Specialist`}
                     </p>
                     <div
                       style={{

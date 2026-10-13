@@ -53,8 +53,9 @@ export function validateTrialSubmission(body: unknown): ValidationResult {
   else if (!EMAIL_RE.test(data.email)) errors.email = "Please enter a valid email address.";
 
   const phoneDigits = data.phone.replace(/\D/g, "");
+  if (!data.country) errors.country = "Please select your country.";
   if (!data.phone) errors.phone = "WhatsApp number is required.";
-  else if (phoneDigits.length < 6) errors.phone = "Please enter a valid WhatsApp number.";
+  else if (phoneDigits.length < 8) errors.phone = "Please enter a valid WhatsApp number with country code.";
 
   return Object.keys(errors).length ? { ok: false, errors } : { ok: true, data };
 }

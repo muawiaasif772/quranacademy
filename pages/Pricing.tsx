@@ -184,6 +184,29 @@ const pageStyles = `
     box-shadow:0 32px 64px rgba(0,0,0,.4);
   }
 
+  /* 6 included cards: center the last row when only 2 remain (4+2 layout) */
+  .pricing-included-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(14px, 4vw, 22px);
+  }
+  .pricing-included-grid > .inc-card {
+    flex: 1 1 250px;
+    max-width: calc(25% - 17px);
+    min-width: min(100%, 250px);
+    box-sizing: border-box;
+  }
+  @media (max-width: 1100px) {
+    .pricing-included-grid > .inc-card { max-width: calc(33.333% - 15px); }
+  }
+  @media (max-width: 800px) {
+    .pricing-included-grid > .inc-card { max-width: calc(50% - 11px); }
+  }
+  @media (max-width: 560px) {
+    .pricing-included-grid > .inc-card { max-width: 100%; }
+  }
+
   /* trust badges */
   .trust-grid{
     display:grid;
@@ -1442,13 +1465,7 @@ const PricingPage: React.FC = () => {
               </h2>
             </div>
 
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-                gap: "clamp(14px, 4vw, 22px)",
-              }}
-            >
+            <div className="pricing-included-grid">
               {included.map((item, i) => (
                 <div
                   key={i}

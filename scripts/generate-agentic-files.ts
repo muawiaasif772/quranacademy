@@ -6,6 +6,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COURSES } from "../data";
+import { brandLogoAbsolute } from "../seo/brand-assets";
 import { SITE_URL, SITE_NAME, CONTACT_EMAIL, CONTACT_PHONE } from "../seo/seo.config";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -109,7 +110,7 @@ const aiCatalog = {
     displayName: "Alif Laam Meem Islamic Institute",
     identifier: SITE_URL,
     documentationUrl: `${SITE_URL}/llms.txt`,
-    logoUrl: `${SITE_URL}/assets/images/images.png`,
+    logoUrl: brandLogoAbsolute(SITE_URL),
   },
   entries: catalogEntries,
 };

@@ -17,6 +17,7 @@ import {
   Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CONTACT_EMAIL } from "../seo/seo.config";
 
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
@@ -1101,13 +1102,13 @@ export const TermsOfService: React.FC = () => {
                     {[
                       {
                         label: "Legal",
-                        value: "legal@nooralquran.com",
+                        value: CONTACT_EMAIL,
                         icon: Gavel,
                         color: "#7eb8ff",
                       },
                       {
                         label: "Support",
-                        value: "support@nooralquran.com",
+                        value: CONTACT_EMAIL,
                         icon: Mail,
                         color: "var(--gold-m)",
                       },

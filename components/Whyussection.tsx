@@ -1,5 +1,6 @@
 import React from "react";
 import { Star, Users, ShieldCheck, BookOpen, Globe } from "lucide-react";
+import { SITE_OG_IMAGE_PATH } from "../seo/image-assets";
 
 const whyUsStyles = `
   /* ── Why Us responsive grid ── */
@@ -141,8 +142,8 @@ export default function WhyUsSection() {
                 }}
               >
                 <img
-                  src="/assets/images/closeup-of-muslim-children-in-elegant-attire-reciting-the-quran-showcasing-their-devotion-and-cultural-heritage-generated-image-photo.jpg"
-                  alt="Students learning Quran"
+                  src={SITE_OG_IMAGE_PATH}
+                  alt="Muslim children learning Quran online at Alif Laam Meem Academy"
                   className="whyus-image"
                 />
                 <div

@@ -15,6 +15,10 @@ export interface Tutor {
   id: string;
   name: string;
   gender: 'Male' | 'Female';
+  /** e.g. "Tajweed Specialist" — shown on tutor cards */
+  title?: string;
+  /** Short bio for featured / list views */
+  bio?: string;
   photoUrl: string;
   badges: string[];
   rating: number;
