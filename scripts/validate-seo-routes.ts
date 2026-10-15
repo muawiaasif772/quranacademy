@@ -179,6 +179,37 @@ if (WEBSITE_JSON_LD.name !== SITE_NAME || WEBSITE_JSON_LD.url !== `${SITE_URL}/`
   failed++;
 }
 
+const homeHtml = readFileSync(path.join(ROOT, "dist", "index.html"), "utf8");
+const coursesShell = path.join(ROOT, "dist", "courses", "index.html");
+if (!existsSync(coursesShell)) {
+  console.error("[validate-seo] Missing dist/courses/index.html — run generate-route-html-shells.ts");
+  failed++;
+} else {
+  const coursesHtml = readFileSync(coursesShell, "utf8");
+  const homeTitle = homeHtml.match(/<title>([^<]*)<\/title>/i)?.[1] ?? "";
+  const coursesTitle = coursesHtml.match(/<title>([^<]*)<\/title>/i)?.[1] ?? "";
+  if (!coursesTitle || coursesTitle === homeTitle) {
+    console.error("[validate-seo] courses/index.html must have a unique <title> vs homepage");
+    failed++;
+  }
+  if (!coursesHtml.includes('rel="canonical" href="https://alif-laam-meem-islamic-insitute.netlify.app/courses"')) {
+    console.error("[validate-seo] courses/index.html canonical must point to /courses");
+    failed++;
+  }
+}
+
+const sampleCourseShell = path.join(ROOT, "dist", "course", "noorani-qaida", "index.html");
+if (!existsSync(sampleCourseShell)) {
+  console.error("[validate-seo] Missing dist/course/noorani-qaida/index.html");
+  failed++;
+} else {
+  const html = readFileSync(sampleCourseShell, "utf8");
+  if (!html.includes("/course/noorani-qaida")) {
+    console.error("[validate-seo] course shell canonical must reference its own URL");
+    failed++;
+  }
+}
+
 if (resolveSeo("/register").noindex !== true) {
   console.error("[validate-seo] /register should be noindex");
   failed++;

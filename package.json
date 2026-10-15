@@ -7,7 +7,7 @@
     "dev": "concurrently -k -n web,api -c cyan,yellow \"yarn dev:web\" \"yarn dev:api\"",
     "dev:web": "vite",
     "dev:api": "tsx watch server/index.ts",
-    "build": "tsx scripts/copy-email-templates-for-functions.ts && tsx scripts/generate-sitemap.ts && tsx scripts/generate-agentic-files.ts && vite build && tsx scripts/validate-seo-routes.ts && tsx scripts/validate-agentic-files.ts",
+    "build": "tsx scripts/copy-email-templates-for-functions.ts && tsx scripts/generate-sitemap.ts && tsx scripts/generate-agentic-files.ts && vite build && tsx scripts/generate-route-html-shells.ts && tsx scripts/validate-seo-routes.ts && tsx scripts/validate-agentic-files.ts",
     "sitemap": "tsx scripts/generate-sitemap.ts",
     "preview": "vite preview",
     "start": "cross-env NODE_ENV=production tsx server/index.ts"

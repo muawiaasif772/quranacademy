@@ -24,3 +24,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Do not commit a static sitemap — URLs are generated from routes (see seo/sitemap-xml.ts)
+public/sitemap.xml
