@@ -6,7 +6,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COURSES } from "../data";
 import { getIndexablePaths, isIndexablePath } from "../seo/indexable-routes";
-import { resolveSeo, SITE_URL } from "../seo/seo.config";
+import {
+  BRAND_FAVICON_48_PATH,
+  BRAND_FAVICON_PATH,
+} from "../seo/brand-assets";
+import { resolveSeo, SITE_NAME, SITE_URL, WEBSITE_JSON_LD } from "../seo/seo.config";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SITEMAP_URL = `${SITE_URL}/sitemap.xml`;
@@ -145,6 +149,34 @@ for (const p of expected) {
     console.error("[validate-seo] Weak description:", p);
     failed++;
   }
+}
+
+const indexHtml = readFileSync(path.join(ROOT, "index.html"), "utf8");
+if (!indexHtml.includes('id="ld-website"')) {
+  console.error("[validate-seo] index.html must include static WebSite JSON-LD (id=ld-website)");
+  failed++;
+}
+if (!indexHtml.includes(`application-name" content="${SITE_NAME}"`)) {
+  console.error("[validate-seo] index.html must include application-name meta");
+  failed++;
+}
+if (!indexHtml.includes(BRAND_FAVICON_48_PATH)) {
+  console.error("[validate-seo] index.html must reference 48x48 favicon");
+  failed++;
+}
+for (const fav of [
+  path.join(ROOT, "public", BRAND_FAVICON_PATH.slice(1)),
+  path.join(ROOT, "public", BRAND_FAVICON_48_PATH.slice(1)),
+  path.join(ROOT, "public", "favicon.ico"),
+]) {
+  if (!existsSync(fav)) {
+    console.error(`[validate-seo] Missing favicon asset: ${fav}`);
+    failed++;
+  }
+}
+if (WEBSITE_JSON_LD.name !== SITE_NAME || WEBSITE_JSON_LD.url !== `${SITE_URL}/`) {
+  console.error("[validate-seo] WEBSITE_JSON_LD name/url must match SITE_NAME and homepage URL");
+  failed++;
 }
 
 if (resolveSeo("/register").noindex !== true) {

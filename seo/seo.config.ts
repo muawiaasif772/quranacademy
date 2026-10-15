@@ -6,6 +6,9 @@ import { SITE_OG_IMAGE_PATH } from "./image-assets";
 
 export const SITE_URL = "https://alif-laam-meem-islamic-insitute.netlify.app";
 export const SITE_NAME = "Alif Laam Meem Academy";
+export const SITE_ALTERNATE_NAME = "Alif Laam Meem Islamic Institute";
+/** Canonical homepage (trailing slash). */
+export const SITE_HOME_URL = `${SITE_URL}/`;
 export const DEFAULT_OG_IMAGE = `${SITE_URL}${SITE_OG_IMAGE_PATH}`;
 export const CONTACT_PHONE = "+92 300 6873200";
 export const CONTACT_EMAIL = "infoaliflaameem@gmail.com";
@@ -38,8 +41,8 @@ export const ORGANIZATION_JSON_LD = {
   "@type": "EducationalOrganization",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
-  alternateName: "Alif Laam Meem Islamic Institute",
-  url: SITE_URL,
+  alternateName: SITE_ALTERNATE_NAME,
+  url: SITE_HOME_URL,
   logo: brandLogoAbsolute(SITE_URL),
   image: DEFAULT_OG_IMAGE,
   description:
@@ -62,8 +65,11 @@ export const WEBSITE_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-  url: SITE_URL,
+  url: SITE_HOME_URL,
   name: SITE_NAME,
+  alternateName: SITE_ALTERNATE_NAME,
+  description:
+    "Official website of Alif Laam Meem Academy — live 1-on-1 online Quran, Tajweed, Hifz, Arabic and Islamic Studies classes.",
   publisher: { "@id": `${SITE_URL}/#organization` },
   inLanguage: "en",
 };
@@ -73,9 +79,10 @@ export const WEBSITE_JSON_LD = {
 // ─────────────────────────────────────────────────────────────────────────────
 export const STATIC_PAGES: Record<string, PageSeo> = {
   "/": {
-    title: "Alif Laam Meem Islamic Institute | Online Quran Academy",
+    title: "Alif Laam Meem Academy | Online Quran Classes for Kids & Adults",
     description:
-      "Learn Quran online with live 1-on-1 classes for kids and adults. Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies with male or female tutors. Book a free trial — no card required.",
+      "Alif Laam Meem Academy (Alif Laam Meem Islamic Institute) — live 1-on-1 online Quran classes for kids and adults. Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies. Book a free trial.",
+    canonicalPath: "/",
   },
   "/courses": {
     title: "Online Quran Courses | Noorani Qaida, Tajweed, Hifz & Arabic",

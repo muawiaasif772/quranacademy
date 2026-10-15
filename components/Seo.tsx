@@ -1,6 +1,11 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { BRAND_FAVICON_PATH } from "../seo/brand-assets";
+import {
+  BRAND_FAVICON_48_PATH,
+  BRAND_FAVICON_192_PATH,
+  BRAND_FAVICON_PATH,
+  brandFaviconAbsolute,
+} from "../seo/brand-assets";
 import { buildBreadcrumbJsonLd } from "../seo/breadcrumbs";
 import {
   DEFAULT_OG_IMAGE,
@@ -26,14 +31,35 @@ function upsertMeta(attr: "name" | "property", key: string, content: string) {
   el.setAttribute("content", content);
 }
 
-function upsertLink(rel: string, href: string) {
-  let el = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
+function upsertLink(rel: string, href: string, extra?: Record<string, string>) {
+  const sizeKey = extra?.sizes ?? "";
+  const selector =
+    rel === "icon" && sizeKey
+      ? `link[rel="icon"][sizes="${sizeKey}"]`
+      : rel === "icon"
+        ? `link[rel="icon"]:not([sizes])`
+        : `link[rel="${rel}"]`;
+  let el = document.head.querySelector<HTMLLinkElement>(selector);
   if (!el) {
     el = document.createElement("link");
     el.setAttribute("rel", rel);
     document.head.appendChild(el);
   }
   el.setAttribute("href", href);
+  if (extra) {
+    for (const [k, v] of Object.entries(extra)) {
+      el.setAttribute(k, v);
+    }
+  }
+}
+
+function applyFaviconLinks() {
+  const icon512 = brandFaviconAbsolute(SITE_URL, BRAND_FAVICON_PATH);
+  const icon48 = brandFaviconAbsolute(SITE_URL, BRAND_FAVICON_48_PATH);
+  const icon192 = brandFaviconAbsolute(SITE_URL, BRAND_FAVICON_192_PATH);
+  upsertLink("icon", icon48, { sizes: "48x48", type: "image/png" });
+  upsertLink("icon", icon512, { sizes: "512x512", type: "image/png" });
+  upsertLink("apple-touch-icon", icon192, { sizes: "192x192" });
 }
 
 function upsertJsonLd(id: string, data: unknown) {
@@ -54,9 +80,10 @@ export function applySeo(seo: PageSeo, pathname: string): void {
   document.title = seo.title;
   upsertMeta("name", "description", seo.description);
   upsertMeta("name", "robots", seo.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
+  upsertMeta("name", "application-name", SITE_NAME);
+  upsertMeta("name", "apple-mobile-web-app-title", SITE_NAME);
   upsertLink("canonical", canonical);
-  upsertLink("icon", BRAND_FAVICON_PATH);
-  upsertLink("apple-touch-icon", BRAND_FAVICON_PATH);
+  applyFaviconLinks();
 
   // Open Graph
   upsertMeta("property", "og:type", seo.type ?? "website");
