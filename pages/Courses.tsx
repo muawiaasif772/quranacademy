@@ -22,20 +22,6 @@ import {
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-dk:   #0a2e18;
-    --em-md:   #0e4224;
-    --em-vv:   #16a05c;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-    --cream:   #fdfaf3;
-    --ivory:   #f8f3e8;
-  }
-
   /* ✅ GLOBAL RESPONSIVE + FIX HORIZONTAL SCROLL */
   *, *::before, *::after { box-sizing: border-box; }
   html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
@@ -121,39 +107,48 @@ const pageStyles = `
     padding:9px 20px; border-radius:100px;
     font-family:'Cinzel',serif; font-size:10px; font-weight:700; letter-spacing:.18em;
     text-transform:uppercase; cursor:pointer;
-    border:1px solid rgba(255,255,255,.08);
-    color:rgba(255,255,255,.45);
-    background:rgba(255,255,255,.03);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);
+    background:var(--surface-chip-bg);
     transition:all .25s; white-space:nowrap;
   }
-  .filter-pill:hover { color:var(--gold-lt); border-color:rgba(201,151,58,.25); background:rgba(201,151,58,.05); }
+  .filter-pill:hover {
+    color:var(--gold);
+    border-color:rgba(201,151,58,.35);
+    background:rgba(201,151,58,.08);
+  }
   .filter-pill-active {
     background:linear-gradient(135deg,rgba(201,151,58,.2),rgba(201,151,58,.08)) !important;
     border-color:rgba(201,151,58,.5) !important;
-    color:var(--gold-lt) !important;
+    color:var(--gold) !important;
     box-shadow:0 4px 16px rgba(201,151,58,.15) !important;
   }
 
   /* ✅ search bar responsive (no fixed width growth on focus) */
   .search-bar {
-    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+    background:var(--page-input-bg);
+    border:1px solid var(--page-input-border);
     border-radius:14px; padding:12px 18px 12px 46px;
-    color:#fff; font-family:'Nunito',sans-serif; font-size:14px;
+    color:var(--on-surface);
+    font-family:'Nunito',sans-serif; font-size:14px;
     outline:none; transition:all .3s;
 
     width: 100%;
     max-width: 360px;  /* desktop */
     min-width: 0;      /* ✅ prevents flex overflow */
   }
-  .search-bar::placeholder { color:rgba(255,255,255,.25); }
-  .search-bar:focus { border-color:rgba(201,151,58,.4); background:rgba(255,255,255,.06); }
+  .search-bar::placeholder { color:var(--on-surface-subtle); }
+  .search-bar:focus {
+    border-color:rgba(201,151,58,.5);
+    box-shadow:0 0 0 4px rgba(201,151,58,.12);
+  }
   @media (max-width: 640px) { .search-bar { max-width: 100%; } }
 
   /* sec-label */
   .sec-label { font-family:'Cinzel',serif; font-size:11px; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
 
   /* feature check row */
-  .feat-row { display:flex; align-items:center; gap:10px; font-size:13px; color:rgba(255,255,255,.48); min-width:0; }
+  .feat-row { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--on-surface-muted); min-width:0; }
 
   /* shimmer bar on card top */
   .shim-top { position:relative; overflow:hidden; }
@@ -168,7 +163,7 @@ const pageStyles = `
 
   /* CTA band */
   .cta-band {
-    background:linear-gradient(135deg,rgba(14,66,36,.75),rgba(10,46,24,.85));
+    background:var(--tutor-spotlight-bg);
     border:1px solid rgba(201,151,58,.22);
     border-radius:28px; padding:60px 64px;
     position:relative; overflow:hidden;
@@ -370,7 +365,7 @@ const Courses: React.FC = () => {
         className="page-wrap"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
         }}
       >
@@ -378,7 +373,7 @@ const Courses: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 20% 0%,#0d4a2a 0%,transparent 55%), radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%), radial-gradient(100% 100% at 50% 50%,#020b06 0%,#030f07 100%)",
+              "var(--page-hero-extended-bg)",
             padding: "100px 0 80px",
             position: "relative",
             overflow: "hidden",
@@ -501,7 +496,7 @@ const Courses: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(42px,6vw,80px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.08,
                 marginBottom: 20,
               }}
@@ -516,7 +511,7 @@ const Courses: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 18,
                 lineHeight: 1.85,
                 maxWidth: 580,
@@ -562,7 +557,7 @@ const Courses: React.FC = () => {
                     display: "flex",
                     alignItems: "center",
                     gap: 8,
-                    color: "rgba(255,255,255,.4)",
+                    color: "var(--on-surface-muted)",
                     fontSize: 13,
                     fontWeight: 600,
                   }}
@@ -580,8 +575,8 @@ const Courses: React.FC = () => {
         {/* ══════════════════════════════════════ FILTER BAR */}
         <section
           style={{
-            background: "linear-gradient(180deg,#020b06 0%,var(--forest) 100%)",
-            borderBottom: "1px solid rgba(255,255,255,.05)",
+            background: "var(--sticky-bar-bg)",
+            borderBottom: "1px solid var(--sticky-bar-border)",
             padding: "20px 0",
             position: "sticky",
             top: 76,
@@ -612,7 +607,7 @@ const Courses: React.FC = () => {
             >
               <Filter
                 size={14}
-                color="rgba(255,255,255,.25)"
+                color="var(--on-surface-subtle)"
                 style={{ flexShrink: 0 }}
               />
               {FILTERS.map((f) => (
@@ -622,7 +617,7 @@ const Courses: React.FC = () => {
                   className={`filter-pill${
                     activeFilter === f ? " filter-pill-active" : ""
                   }`}
-                  style={{ border: "none", cursor: "pointer" }}
+                  style={{ cursor: "pointer" }}
                 >
                   {f === "All" && <span style={{ fontSize: 9 }}>✦</span>}
                   {f}
@@ -641,7 +636,7 @@ const Courses: React.FC = () => {
                   left: 14,
                   top: "50%",
                   transform: "translateY(-50%)",
-                  color: "rgba(255,255,255,.25)",
+                  color: "var(--on-surface-subtle)",
                 }}
               />
               <input
@@ -660,7 +655,7 @@ const Courses: React.FC = () => {
           style={{
             padding: "80px 0 120px",
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -704,7 +699,7 @@ const Courses: React.FC = () => {
                   fontSize: 11,
                   fontWeight: 700,
                   letterSpacing: ".2em",
-                  color: "rgba(255,255,255,.28)",
+                  color: "var(--on-surface-muted)",
                   textTransform: "uppercase",
                 }}
               >
@@ -727,7 +722,7 @@ const Courses: React.FC = () => {
                 style={{
                   textAlign: "center",
                   padding: "80px 24px",
-                  color: "rgba(255,255,255,.3)",
+                  color: "var(--on-surface-subtle)",
                 }}
               >
                 <div
@@ -772,8 +767,8 @@ const Courses: React.FC = () => {
                       style={{
                         borderRadius: 24,
                         overflow: "hidden",
-                        border: "1px solid rgba(255,255,255,.06)",
-                        background: "rgba(255,255,255,.025)",
+                        border: "1px solid var(--surface-chip-border)",
+                        background: "var(--surface-chip-bg)",
                         backdropFilter: "blur(16px)",
                         display: "flex",
                         flexDirection: "column",
@@ -807,7 +802,7 @@ const Courses: React.FC = () => {
                             position: "absolute",
                             inset: 0,
                             background:
-                              "linear-gradient(to top,rgba(2,11,6,.9) 0%,rgba(2,11,6,.2) 60%,transparent 100%)",
+                              "var(--course-image-scrim)",
                           }}
                         />
 
@@ -831,7 +826,7 @@ const Courses: React.FC = () => {
                             top: 18,
                             left: 18,
                             background: acc.color,
-                            color: "#020b06",
+                            color: "var(--on-gold)",
                             fontSize: 9,
                             fontWeight: 800,
                             letterSpacing: ".16em",
@@ -888,7 +883,7 @@ const Courses: React.FC = () => {
                             border: "1px solid rgba(255,255,255,.08)",
                             borderRadius: 100,
                             padding: "5px 12px",
-                            color: "rgba(255,255,255,.6)",
+                            color: "var(--on-surface-muted)",
                             fontSize: 11,
                             fontWeight: 600,
                             maxWidth: "calc(100% - 32px)",
@@ -932,7 +927,7 @@ const Courses: React.FC = () => {
                             fontFamily: "'Cormorant Garamond',serif",
                             fontSize: 22,
                             fontWeight: 700,
-                            color: "#fff",
+                            color: "var(--on-surface)",
                             marginBottom: 4,
                             lineHeight: 1.2,
                           }}
@@ -942,7 +937,7 @@ const Courses: React.FC = () => {
 
                         <p
                           style={{
-                            color: "rgba(255,255,255,.38)",
+                            color: "var(--on-surface-faint)",
                             lineHeight: 1.75,
                             fontSize: 13.5,
                             marginBottom: 4,
@@ -1009,7 +1004,7 @@ const Courses: React.FC = () => {
                               display: "flex",
                               alignItems: "center",
                               gap: 6,
-                              color: "rgba(255,255,255,.3)",
+                              color: "var(--on-surface-subtle)",
                               fontSize: 12,
                             }}
                           >
@@ -1033,7 +1028,7 @@ const Courses: React.FC = () => {
                             ))}
                             <span
                               style={{
-                                color: "rgba(255,255,255,.5)",
+                                color: "var(--on-surface-muted)",
                                 fontSize: 11,
                                 marginLeft: 5,
                                 fontWeight: 700,
@@ -1078,7 +1073,7 @@ const Courses: React.FC = () => {
         </section>
 
         {/* ══════════════════════════════════════ BOTTOM CTA */}
-        <section style={{ background: "var(--deep)", padding: "0 0 100px" }}>
+        <section style={{ background: "var(--surface-base)", padding: "0 0 100px" }}>
           <div className="container">
             <div className="cta-band">
               {/* glow inside */}
@@ -1161,7 +1156,7 @@ const Courses: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: "clamp(26px,3.5vw,46px)",
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       lineHeight: 1.2,
                       marginBottom: 18,
                     }}
@@ -1182,7 +1177,7 @@ const Courses: React.FC = () => {
                   </h2>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.38)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 15,
                       lineHeight: 1.8,
                     }}
@@ -1209,7 +1204,7 @@ const Courses: React.FC = () => {
                       gap: 10,
                       background:
                         "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                      color: "#020b06",
+                      color: "var(--on-gold)",
                       padding: "18px 44px",
                       borderRadius: 16,
                       fontFamily: "'Cinzel',serif",
@@ -1243,7 +1238,7 @@ const Courses: React.FC = () => {
                           display: "flex",
                           alignItems: "center",
                           gap: 6,
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 12,
                         }}
                       >

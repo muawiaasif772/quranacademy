@@ -19,23 +19,10 @@ import {
 } from "lucide-react";
 import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
 import { CONTACT_EMAIL } from "../seo/seo.config";
+import { ThemeToggle } from "./ThemeToggle";
 
 const layoutStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
-
-  :root {
-    --deep:     #020b06;
-    --forest:   #051610;
-    --em-dk:    #0a2e18;
-    --em-md:    #0e4224;
-    --em-vv:    #16a05c;
-    --em-lt:    #2fcf87;
-    --gold:     #c9973a;
-    --gold-mid: #e4b558;
-    --gold-lt:  #f5d98e;
-    --cream:    #fdfaf3;
-    --ivory:    #f8f3e8;
-  }
 
   /* ── navbar scroll shrink ── */
   .nav-root {
@@ -59,7 +46,7 @@ const layoutStyles = `
     letter-spacing: .2em;
     text-transform: uppercase;
     text-decoration: none;
-    color: rgba(255,255,255,.55);
+    color: var(--nav-link-fg);
     padding-bottom: 4px;
   }
   .nav-link::after {
@@ -133,7 +120,7 @@ const layoutStyles = `
     display: flex; align-items: center; gap: 12px;
     font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
     letter-spacing: .15em; text-transform: uppercase;
-    color: rgba(255,255,255,.7); text-decoration: none;
+    color: var(--on-surface-muted); text-decoration: none;
     padding: 14px 20px; border-radius: 14px;
     border: 1px solid transparent;
     transition: all .25s;
@@ -147,7 +134,7 @@ const layoutStyles = `
   /* ── footer link hover ── */
   .foot-link {
     display: flex; align-items: center; gap: 8px;
-    color: rgba(255,255,255,.4); text-decoration: none;
+    color: var(--on-surface-muted); text-decoration: none;
     font-size: 13px; font-weight: 600;
     transition: all .25s;
     padding: 3px 0;
@@ -163,20 +150,24 @@ const layoutStyles = `
   .foot-link:hover { color: var(--gold-lt); padding-left: 4px; }
   .foot-link:hover::before { opacity: 1; transform: translateX(0); }
 
+  .foot-bar-link:hover {
+    color: var(--gold-lt);
+  }
+
   /* ── social icon ── */
   .social-btn {
     width: 40px; height: 40px; border-radius: 12px;
     border: 1px solid rgba(201,151,58,.2);
     background: rgba(201,151,58,.05);
     display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,.4);
+    color: var(--on-surface-muted);
     text-decoration: none;
     transition: all .3s;
   }
   .social-btn:hover {
     background: var(--gold);
     border-color: var(--gold);
-    color: var(--deep);
+    color: var(--on-gold);
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(201,151,58,.35);
   }
@@ -201,7 +192,7 @@ const layoutStyles = `
   .nav-cta {
     display: inline-flex; align-items: center; gap: 8px;
     background: linear-gradient(135deg, var(--gold-mid) 0%, var(--gold) 50%, #a36c18 100%);
-    color: var(--deep); padding: 10px 24px; border-radius: 12px;
+    color: var(--on-gold); padding: 10px 24px; border-radius: 12px;
     font-family: 'Cinzel', serif; font-weight: 700; font-size: 10px; letter-spacing: .12em;
     text-decoration: none; text-transform: uppercase;
     box-shadow: 0 4px 20px rgba(201,151,58,.35), inset 0 1px 0 rgba(255,255,255,.25);
@@ -217,16 +208,16 @@ const layoutStyles = `
 
   /* footer newsletter input */
   .news-input {
-    flex: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(201,151,58,.2);
-    border-radius: 12px 0 0 12px; padding: 12px 18px; color: #fff;
+    flex: 1; background: var(--page-input-bg); border: 1px solid var(--page-input-border);
+    border-radius: 12px 0 0 12px; padding: 12px 18px; color: var(--on-surface);
     font-family: 'Nunito', sans-serif; font-size: 13px; outline: none;
     transition: border-color .25s;
   }
-  .news-input::placeholder { color: rgba(255,255,255,.25); }
+  .news-input::placeholder { color: var(--on-surface-subtle); }
   .news-input:focus { border-color: rgba(201,151,58,.55); }
   .news-btn {
     background: linear-gradient(135deg, var(--gold-mid), var(--gold));
-    color: var(--deep); border: none; padding: 12px 20px;
+    color: var(--on-gold); border: none; padding: 12px 20px;
     border-radius: 0 12px 12px 0; cursor: pointer;
     font-family: 'Cinzel', serif; font-weight: 700; font-size: 11px; letter-spacing: .1em;
     transition: all .25s;
@@ -283,11 +274,9 @@ export const Navbar: React.FC = () => {
           position: "sticky",
           top: 0,
           zIndex: 50,
-          background: scrolled
-            ? "rgba(2,11,6,.96)"
-            : "linear-gradient(180deg,rgba(2,11,6,.98) 0%,rgba(2,11,6,.92) 100%)",
+          background: scrolled ? "var(--nav-bg-scrolled)" : "var(--nav-bg)",
           backdropFilter: "blur(24px) saturate(180%)",
-          borderBottom: "1px solid rgba(201,151,58,.12)",
+          borderBottom: "1px solid var(--nav-border)",
         }}
       >
         {/* top gold micro-line */}
@@ -352,7 +341,8 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* ── CTA + Hamburger ── */}
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <ThemeToggle />
               <Link to="/book-free-trial" className="nav-cta desktop-cta">
                 ✦ Free Trial
               </Link>
@@ -392,7 +382,7 @@ export const Navbar: React.FC = () => {
             className="mobile-menu"
             style={{
               borderTop: "1px solid rgba(201,151,58,.1)",
-              background: "rgba(2,11,6,.98)",
+              background: "var(--mobile-menu-bg)",
               backdropFilter: "blur(24px)",
               padding: "20px 20px 28px",
             }}
@@ -418,6 +408,27 @@ export const Navbar: React.FC = () => {
                   {link.name}
                 </Link>
               ))}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 12,
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "'Cinzel',serif",
+                  fontSize: 10,
+                  letterSpacing: ".2em",
+                  color: "var(--on-surface-muted)",
+                  textTransform: "uppercase",
+                }}
+              >
+                Appearance
+              </span>
+              <ThemeToggle />
             </div>
             <div
               style={{
@@ -487,7 +498,7 @@ export const Navbar: React.FC = () => {
               />
               <span
                 style={{
-                  color: "rgba(255,255,255,.35)",
+                  color: "var(--on-surface-faint)",
                   fontSize: 12,
                   fontFamily: "'Nunito',sans-serif",
                 }}
@@ -526,8 +537,8 @@ export const Footer: React.FC = () => {
   return (
     <footer
       style={{
-        background: "linear-gradient(180deg,#020b06 0%,#030f07 100%)",
-        color: "rgba(255,255,255,.55)",
+        background: "var(--footer-bg)",
+        color: "var(--footer-fg-muted)",
         position: "relative",
         overflow: "hidden",
         fontFamily: "'Nunito',sans-serif",
@@ -587,9 +598,8 @@ export const Footer: React.FC = () => {
         {/* ── top cta band ── */}
         <div
           style={{
-            background:
-              "linear-gradient(135deg,rgba(14,66,36,.7),rgba(10,46,24,.8))",
-            border: "1px solid rgba(201,151,58,.2)",
+            background: "var(--footer-banner-bg)",
+            border: "1px solid var(--footer-banner-border)",
             borderRadius: "clamp(16px, 3vw, 24px)",
             padding: "clamp(24px, 5vw, 52px)",
             display: "flex",
@@ -636,7 +646,7 @@ export const Footer: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(22px,3vw,34px)",
                 fontWeight: 600,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.2,
               }}
             >
@@ -710,7 +720,7 @@ export const Footer: React.FC = () => {
               style={{
                 fontSize: 13,
                 lineHeight: 1.85,
-                color: "rgba(255,255,255,.38)",
+                color: "var(--on-surface-faint)",
                 marginBottom: 28,
               }}
             >
@@ -739,7 +749,7 @@ export const Footer: React.FC = () => {
                   <div
                     style={{
                       fontSize: 10,
-                      color: "rgba(255,255,255,.3)",
+                      color: "var(--on-surface-subtle)",
                       letterSpacing: ".08em",
                       marginTop: 2,
                     }}
@@ -748,7 +758,12 @@ export const Footer: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <div style={{ width: 1, background: "rgba(255,255,255,.06)" }} />
+              <div
+                style={{
+                  width: 1,
+                  background: "var(--surface-chip-border)",
+                }}
+              />
               <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
                 {[1, 2, 3, 4, 5].map((i) => (
                   <Star
@@ -760,7 +775,7 @@ export const Footer: React.FC = () => {
                 ))}
                 <span
                   style={{
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     fontSize: 12,
                     fontWeight: 700,
                     marginLeft: 4,
@@ -912,8 +927,8 @@ export const Footer: React.FC = () => {
                     gap: 14,
                     padding: "12px 16px",
                     borderRadius: 14,
-                    background: "rgba(255,255,255,.03)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: "var(--surface-chip-bg)",
+                    border: "1px solid var(--surface-chip-border)",
                     transition: "border-color .25s",
                   }}
                 >
@@ -940,7 +955,7 @@ export const Footer: React.FC = () => {
                         fontSize: 9,
                         fontWeight: 700,
                         letterSpacing: ".18em",
-                        color: "rgba(255,255,255,.3)",
+                        color: "var(--on-surface-subtle)",
                         textTransform: "uppercase",
                         marginBottom: 2,
                       }}
@@ -949,7 +964,7 @@ export const Footer: React.FC = () => {
                     </div>
                     <div
                       style={{
-                        color: "rgba(255,255,255,.8)",
+                        color: "var(--on-surface)",
                         fontSize: 13,
                         fontWeight: 600,
                       }}
@@ -979,7 +994,7 @@ export const Footer: React.FC = () => {
               <p
                 style={{
                   fontSize: 12,
-                  color: "rgba(255,255,255,.3)",
+                  color: "var(--on-surface-subtle)",
                   marginBottom: 12,
                   lineHeight: 1.6,
                 }}
@@ -1009,7 +1024,7 @@ export const Footer: React.FC = () => {
         {/* ── bottom bar ── */}
         <div
           style={{
-            borderTop: "1px solid rgba(255,255,255,.05)",
+            borderTop: "1px solid var(--sticky-bar-border)",
             padding: "28px 0",
             display: "flex",
             alignItems: "center",
@@ -1019,13 +1034,15 @@ export const Footer: React.FC = () => {
           }}
         >
           <p
+            className="foot-bar-copy"
             style={{
               fontFamily: "'Cinzel',serif",
               fontSize: 9,
               fontWeight: 700,
               letterSpacing: ".18em",
-              color: "#ffffffff",
+              color: "var(--footer-fg-muted)",
               textTransform: "uppercase",
+              margin: 0,
             }}
           >
             © {new Date().getFullYear()} Alif Laam Meem Islamic Insitute
@@ -1038,22 +1055,17 @@ export const Footer: React.FC = () => {
               <a
                 key={i}
                 href={l.href}
+                className="foot-bar-link"
                 style={{
                   fontFamily: "'Cinzel',serif",
                   fontSize: 9,
                   fontWeight: 700,
                   letterSpacing: ".16em",
-                  color: "#ffffffff",
+                  color: "var(--footer-fg-muted)",
                   textTransform: "uppercase",
                   textDecoration: "none",
                   transition: "color .25s",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.color = "var(--gold)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color = "#ffffffff")
-                }
               >
                 {l.label}
               </a>
@@ -1083,7 +1095,7 @@ export const Footer: React.FC = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#fff",
+          color: "var(--on-surface)",
           textDecoration: "none",
           boxShadow: "0 8px 32px rgba(37,211,102,.4)",
           transition: "transform .25s, box-shadow .25s",
@@ -1106,7 +1118,7 @@ export const Footer: React.FC = () => {
             fontFamily: "'Nunito',sans-serif",
             fontSize: 12,
             fontWeight: 600,
-            color: "#fff",
+            color: "var(--on-surface)",
             pointerEvents: "none",
             opacity: 0,
             transition: "opacity .25s",

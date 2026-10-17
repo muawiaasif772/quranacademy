@@ -4,6 +4,7 @@ import {
   createFormSelectStyles,
   type FormSelectOption,
 } from "./formSelectTheme";
+import { useTheme } from "../theme/ThemeProvider";
 
 type Props = {
   name?: string;
@@ -30,7 +31,11 @@ export const ThemedSelect: React.FC<Props> = ({
   "aria-label": ariaLabel,
   "aria-invalid": ariaInvalid,
 }) => {
-  const styles = useMemo(() => createFormSelectStyles(minHeight), [minHeight]);
+  const { theme } = useTheme();
+  const styles = useMemo(
+    () => createFormSelectStyles(minHeight, theme),
+    [minHeight, theme],
+  );
   const selected = options.find((o) => o.value === value) ?? null;
 
   return (

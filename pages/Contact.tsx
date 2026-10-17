@@ -41,15 +41,6 @@ const SUBJECT_OPTIONS = [
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-  }
-
   .hex-bg {
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
   }
@@ -110,13 +101,14 @@ const pageStyles = `
 
   /* contact info card */
   .info-card {
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.07);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:22px;
     padding:28px 24px;
     transition:all .35s cubic-bezier(.16,1,.3,1);
     position:relative;overflow:hidden;
     cursor:default;
+    box-shadow:0 8px 28px var(--page-shadow);
   }
   .info-card::before {
     content:'';position:absolute;top:0;left:0;right:0;height:2px;
@@ -126,7 +118,7 @@ const pageStyles = `
   .info-card:hover {
     transform:translateY(-6px) translateX(4px);
     border-color:rgba(201,151,58,.3);
-    box-shadow:0 24px 60px rgba(0,0,0,.5),0 0 0 1px rgba(201,151,58,.1);
+    box-shadow:0 24px 60px var(--page-shadow),0 0 0 1px rgba(201,151,58,.1);
   }
   .info-card:hover::before {
     background:linear-gradient(90deg,transparent,var(--gold),transparent);
@@ -135,21 +127,20 @@ const pageStyles = `
   /* form input */
   .contact-input {
     width:100%;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.08);
+    background:var(--page-input-bg);
+    border:1px solid var(--page-input-border);
     border-radius:16px;
     padding:18px 22px;
-    color:#fff;
+    color:var(--on-surface);
     font-family:'Nunito',sans-serif;font-size:15px;font-weight:600;
     outline:none;transition:all .3s;
     resize:none;
     box-sizing:border-box;
   }
-  .contact-input::placeholder{color:rgba(255,255,255,.22);}
+  .contact-input::placeholder{color:var(--on-surface-subtle);}
   .contact-input:focus{
-    border-color:rgba(201,151,58,.5);
-    background:rgba(255,255,255,.055);
-    box-shadow:0 0 0 4px rgba(201,151,58,.08), 0 8px 32px rgba(0,0,0,.3);
+    border-color:rgba(201,151,58,.55);
+    box-shadow:0 0 0 4px rgba(201,151,58,.12), 0 8px 32px var(--page-shadow);
   }
 
   /* floating label wrapper */
@@ -157,7 +148,7 @@ const pageStyles = `
   .field-icon {
     position:absolute;
     left:18px;top:50%;transform:translateY(-50%);
-    color:rgba(255,255,255,.2);
+    color:var(--on-surface-subtle);
     pointer-events:none;
     transition:color .3s;
   }
@@ -168,7 +159,7 @@ const pageStyles = `
   .submit-btn {
     width:100%;
     background:linear-gradient(135deg,var(--gold-m),var(--gold));
-    color:#020b06;
+    color:var(--on-gold);
     border:none;
     padding:20px 32px;
     border-radius:16px;
@@ -195,9 +186,11 @@ const pageStyles = `
   .trust-badge {
     display:inline-flex;align-items:center;gap:8px;
     padding:8px 16px;border-radius:100px;
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
-    color:rgba(255,255,255,.4);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);
     font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;
+    box-shadow:0 2px 8px var(--page-shadow);
   }
 
   /* ripple ring */
@@ -209,21 +202,22 @@ const pageStyles = `
   /* social link */
   .social-link {
     width:44px;height:44px;border-radius:12px;
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     display:flex;align-items:center;justify-content:center;
-    color:rgba(255,255,255,.4);
+    color:var(--on-surface-muted);
     transition:all .3s;cursor:pointer;text-decoration:none;
   }
   .social-link:hover {
     background:rgba(201,151,58,.12);border-color:rgba(201,151,58,.35);
-    color:var(--gold-lt);transform:translateY(-3px);
+    color:var(--gold);transform:translateY(-3px);
     box-shadow:0 8px 24px rgba(201,151,58,.2);
   }
 
   /* map placeholder */
   .map-container {
-    background:rgba(255,255,255,.02);
-    border:1px solid rgba(255,255,255,.07);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:24px;overflow:hidden;
     position:relative;
   }
@@ -231,28 +225,35 @@ const pageStyles = `
   /* stat card */
   .stat-card {
     text-align:center;padding:28px 20px;
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.06);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:20px;
     transition:all .35s;
+    box-shadow:0 4px 20px var(--page-shadow);
   }
   .stat-card:hover {
     border-color:rgba(201,151,58,.25);
     transform:translateY(-4px);
-    box-shadow:0 20px 48px rgba(0,0,0,.4);
+    box-shadow:0 20px 48px var(--page-shadow);
   }
 
   /* process step */
   .process-step {
     display:flex;gap:20px;align-items:flex-start;
     padding:24px 28px;
-    background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:20px;
     transition:all .3s;
   }
   .process-step:hover {
-    background:rgba(255,255,255,.04);border-color:rgba(201,151,58,.2);
+    background:var(--surface-chip-bg);
+    border-color:rgba(201,151,58,.2);
     transform:translateX(6px);
+  }
+
+  .scroll-cue {
+    color:var(--on-surface-muted);
   }
 
   /* responsive */
@@ -409,18 +410,18 @@ export const Contact: React.FC = () => {
     <>
       <style>{pageStyles}</style>
       <div
+        className="alm-page"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
-          color: "#fff",
+          color: "var(--on-surface)",
         }}
       >
         {/* ══════════════════════ HERO SECTION */}
         <section
           style={{
-            background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
+            background: "var(--hero-panel-bg)",
             padding: "clamp(100px,14vw,160px) 24px clamp(70px,10vw,100px)",
             position: "relative",
             overflow: "hidden",
@@ -548,7 +549,7 @@ export const Contact: React.FC = () => {
                 fontWeight: 300,
                 lineHeight: 1.0,
                 marginBottom: 24,
-                color: "#fff",
+                color: "var(--on-surface)",
               }}
             >
               Get in{" "}
@@ -563,7 +564,7 @@ export const Contact: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 18,
                 lineHeight: 1.85,
                 maxWidth: 520,
@@ -610,6 +611,7 @@ export const Contact: React.FC = () => {
               }}
             >
               <span
+                className="scroll-cue"
                 style={{
                   fontFamily: "'Cinzel',serif",
                   fontSize: 9,
@@ -635,7 +637,8 @@ export const Contact: React.FC = () => {
         <section
           ref={statsReveal.ref}
           style={{
-            background: "var(--forest)",
+            background:
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "60px 24px",
             borderTop: "1px solid rgba(201,151,58,.1)",
             borderBottom: "1px solid rgba(201,151,58,.1)",
@@ -688,7 +691,7 @@ export const Contact: React.FC = () => {
                   </p>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.35)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 11,
                       letterSpacing: ".06em",
                       marginTop: 6,
@@ -708,7 +711,7 @@ export const Contact: React.FC = () => {
           style={{
             padding: "clamp(60px,10vw,120px) 24px",
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -752,7 +755,7 @@ export const Contact: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: "clamp(30px,4vw,52px)",
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       lineHeight: 1.15,
                       marginBottom: 16,
                     }}
@@ -765,7 +768,7 @@ export const Contact: React.FC = () => {
                   </h2>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.4)",
+                      color: "var(--on-surface-muted)",
                       fontSize: 15,
                       lineHeight: 1.85,
                     }}
@@ -811,7 +814,7 @@ export const Contact: React.FC = () => {
                       </div>
                       <p
                         style={{
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 10,
                           fontFamily: "'Cinzel',serif",
                           letterSpacing: ".14em",
@@ -826,14 +829,14 @@ export const Contact: React.FC = () => {
                           fontFamily: "'Cormorant Garamond',serif",
                           fontSize: 18,
                           fontWeight: 700,
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           marginBottom: 4,
                         }}
                       >
                         {card.value}
                       </p>
                       <p
-                        style={{ color: "rgba(255,255,255,.25)", fontSize: 12 }}
+                        style={{ color: "var(--on-surface-subtle)", fontSize: 12 }}
                       >
                         {card.sub}
                       </p>
@@ -845,7 +848,7 @@ export const Contact: React.FC = () => {
                 <div>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.25)",
+                      color: "var(--on-surface-subtle)",
                       fontSize: 11,
                       fontFamily: "'Cinzel',serif",
                       letterSpacing: ".16em",
@@ -881,7 +884,7 @@ export const Contact: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: 20,
                       fontStyle: "italic",
-                      color: "rgba(255,255,255,.55)",
+                      color: "var(--on-surface-muted)",
                       lineHeight: 1.7,
                     }}
                   >
@@ -905,12 +908,13 @@ export const Contact: React.FC = () => {
               {/* ── RIGHT: Form */}
               <div
                 style={{
-                  background: "rgba(255,255,255,.025)",
-                  border: "1px solid rgba(255,255,255,.07)",
+                  background: "var(--page-card-bg)",
+                  border: "1px solid var(--page-card-border)",
                   borderRadius: 28,
                   padding: "clamp(28px,5vw,52px)",
                   position: "relative",
                   overflow: "hidden",
+                  boxShadow: "0 24px 64px var(--page-shadow)",
                 }}
               >
                 {/* Gold top accent */}
@@ -978,7 +982,7 @@ export const Contact: React.FC = () => {
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: 36,
                         fontWeight: 700,
-                        color: "#fff",
+                        color: "var(--on-surface)",
                         marginBottom: 12,
                       }}
                     >
@@ -986,7 +990,7 @@ export const Contact: React.FC = () => {
                     </h2>
                     <p
                       style={{
-                        color: "rgba(255,255,255,.4)",
+                        color: "var(--on-surface-muted)",
                         fontSize: 15,
                         lineHeight: 1.8,
                         maxWidth: 320,
@@ -1028,7 +1032,7 @@ export const Contact: React.FC = () => {
                           fontFamily: "'Cormorant Garamond',serif",
                           fontSize: 28,
                           fontWeight: 600,
-                          color: "#fff",
+                          color: "var(--on-surface)",
                         }}
                       >
                         Let's Start a{" "}
@@ -1185,7 +1189,7 @@ export const Contact: React.FC = () => {
                       {/* Privacy note */}
                       <p
                         style={{
-                          color: "rgba(255,255,255,.2)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 11,
                           textAlign: "center",
                           lineHeight: 1.7,
@@ -1217,7 +1221,7 @@ export const Contact: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
+              "var(--marketing-cta-bg)",
             padding: "clamp(80px,12vw,120px) 24px",
             position: "relative",
             overflow: "hidden",
@@ -1271,7 +1275,7 @@ export const Contact: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(32px,5vw,68px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.1,
                 marginBottom: 24,
               }}
@@ -1288,7 +1292,7 @@ export const Contact: React.FC = () => {
             </h2>
             <p
               style={{
-                color: "rgba(255,255,255,.4)",
+                color: "var(--on-surface-muted)",
                 fontSize: 17,
                 lineHeight: 1.85,
                 maxWidth: 500,
@@ -1314,7 +1318,7 @@ export const Contact: React.FC = () => {
                   gap: 10,
                   background:
                     "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                  color: "#020b06",
+                  color: "var(--on-gold)",
                   padding: "18px 48px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",

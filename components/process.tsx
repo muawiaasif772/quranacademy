@@ -219,8 +219,7 @@ export default function HowItWorksSection() {
       <section
         className="hiw-section-pad"
         style={{
-          background:
-            "radial-gradient(ellipse 100% 80% at 50% 0%, #0a2d1a 0%, #030d08 60%), #030d08",
+          background: "var(--hiw-section-bg)",
           padding: "120px 24px 140px",
           position: "relative",
           overflow: "hidden",
@@ -348,7 +347,7 @@ export default function HowItWorksSection() {
                 fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "clamp(28px, 4.5vw, 58px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 margin: 0,
                 lineHeight: 1.12,
                 letterSpacing: "-.01em",
@@ -372,7 +371,7 @@ export default function HowItWorksSection() {
 
             <p
               style={{
-                color: "rgba(255,255,255,.38)",
+                color: "var(--on-surface-faint)",
                 marginTop: 18,
                 fontSize: "clamp(13px, 2vw, 16px)",
                 maxWidth: 480,
@@ -395,8 +394,8 @@ export default function HowItWorksSection() {
                   <div
                     className="hiw-card"
                     style={{
-                      background: "rgba(255,255,255,.03)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "var(--surface-chip-bg)",
+                      border: "1px solid var(--surface-chip-border)",
                       borderRadius: 28,
                       position: "relative",
                       overflow: "hidden",
@@ -599,7 +598,7 @@ export default function HowItWorksSection() {
                           fontFamily: "'Cormorant Garamond', serif",
                           fontSize: "clamp(20px, 3vw, 24px)",
                           fontWeight: 700,
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           margin: "0 0 12px",
                           lineHeight: 1.2,
                         }}
@@ -620,7 +619,7 @@ export default function HowItWorksSection() {
                       {/* desc */}
                       <p
                         style={{
-                          color: "rgba(255,255,255,.42)",
+                          color: "var(--on-surface-muted)",
                           lineHeight: 1.8,
                           margin: 0,
                           fontSize: "clamp(13px, 1.8vw, 14.5px)",

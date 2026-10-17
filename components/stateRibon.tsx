@@ -44,15 +44,33 @@ const statsStyles = `
 
   .stat-card {
     animation: statEntrance .7s cubic-bezier(.16,1,.3,1) both;
-    transition: transform .35s cubic-bezier(.16,1,.3,1);
+    transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease, border-color .35s ease;
     cursor: default;
+    background: var(--page-card-bg);
+    border: 1px solid var(--page-card-border);
+    border-radius: 20px;
+    box-shadow: 0 10px 32px var(--page-shadow);
+  }
+  html[data-theme="dark"] .stat-card,
+  html:not([data-theme="light"]) .stat-card {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.09);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+  html[data-theme="light"] .stat-card {
+    background: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
+    border-color: rgba(13, 46, 36, 0.12);
+  }
+  .stat-card:hover {
+    border-color: rgba(201, 151, 58, 0.35);
+    box-shadow: 0 20px 48px var(--page-shadow), 0 0 0 1px rgba(201, 151, 58, 0.12);
   }
   .stat-card:nth-child(1) { animation-delay: .05s; }
   .stat-card:nth-child(2) { animation-delay: .15s; }
   .stat-card:nth-child(3) { animation-delay: .25s; }
   .stat-card:nth-child(4) { animation-delay: .35s; }
 
-  .stat-card:hover { transform: translateY(-8px) scale(1.03); }
+  .stat-card:hover { transform: translateY(-6px) scale(1.02); }
   .stat-card:hover .stat-icon-wrap { animation: glowPop .8s ease-in-out infinite; }
   .stat-card:hover .stat-icon-lucide { animation: iconFloat 2s ease-in-out infinite; }
   .stat-card:hover .stat-ring-outer { animation-duration: 3s; }
@@ -93,23 +111,44 @@ const statsStyles = `
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+    gap: clamp(12px, 2vw, 20px);
+    padding: clamp(28px, 4vw, 44px) 0;
+  }
+
+  .stat-right-divider {
+    display: none !important;
+  }
+
+  .stat-icon-wrap {
+    background: radial-gradient(
+      circle at 35% 35%,
+      var(--stat-accent-dim, rgba(201, 151, 58, 0.15)),
+      rgba(0, 0, 0, 0.25)
+    ) !important;
+  }
+  html[data-theme="light"] .stat-icon-wrap {
+    background: linear-gradient(
+      145deg,
+      #ffffff 0%,
+      var(--stat-accent-dim, rgba(201, 151, 58, 0.12)) 100%
+    ) !important;
+    border-width: 2px !important;
+    box-shadow: 0 8px 20px var(--page-shadow) !important;
+  }
+
+  .stat-label {
+    color: var(--on-surface);
+    font-weight: 700;
+  }
+  html[data-theme="dark"] .stat-label,
+  html:not([data-theme="light"]) .stat-label {
+    color: var(--on-surface-muted);
   }
 
   /* 2x2 on tablet */
   @media (max-width: 900px) {
     .stats-grid {
       grid-template-columns: repeat(2, 1fr);
-    }
-    /* Reset right-border dividers in 2-col mode */
-    .stat-card:nth-child(2) .stat-right-divider,
-    .stat-card:nth-child(4) .stat-right-divider {
-      display: none !important;
-    }
-    /* Add bottom border between rows */
-    .stat-card:nth-child(1),
-    .stat-card:nth-child(2) {
-      border-bottom: 1px solid rgba(255,255,255,.05);
     }
   }
 
@@ -118,17 +157,6 @@ const statsStyles = `
     .stats-grid {
       grid-template-columns: 1fr;
     }
-    .stat-card {
-      border-bottom: 1px solid rgba(255,255,255,.05) !important;
-      border-right: none !important;
-    }
-    .stat-card:last-child {
-      border-bottom: none !important;
-    }
-    .stat-right-divider {
-      display: none !important;
-    }
-    /* On mobile, give less vertical padding */
     .stat-card-inner {
       padding: 36px 24px 32px !important;
     }
@@ -139,6 +167,13 @@ const statsStyles = `
     .stat-card-inner {
       padding: 40px 20px 36px !important;
     }
+  }
+
+  .stats-hex-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='.25' opacity='.05' d='M30 3 L57 18 L57 42 L30 57 L3 42 L3 18Z'/%3E%3C/svg%3E");
+  }
+  html[data-theme="light"] .stats-hex-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='none' stroke='%230d2e24' stroke-width='.35' opacity='.06' d='M30 3 L57 18 L57 42 L30 57 L3 42 L3 18Z'/%3E%3C/svg%3E");
   }
 `;
 
@@ -200,8 +235,7 @@ export default function StatsRibbon() {
 
       <section
         style={{
-          background:
-            "linear-gradient(180deg, #040f09 0%, #061c11 50%, #040f09 100%)",
+          background: "var(--stats-ribbon-bg)",
           position: "relative",
           overflow: "hidden",
           padding: "0 clamp(12px, 3vw, 24px)",
@@ -235,11 +269,12 @@ export default function StatsRibbon() {
 
         {/* subtle hex bg */}
         <div
+          className="stats-hex-bg"
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='.25' opacity='.05' d='M30 3 L57 18 L57 42 L30 57 L3 42 L3 18Z'/%3E%3C/svg%3E")`,
             pointerEvents: "none",
+            opacity: 0.5,
           }}
         />
 
@@ -266,34 +301,32 @@ export default function StatsRibbon() {
                 <div
                   key={i}
                   className="stat-card stat-shimmer"
-                  style={{
-                    position: "relative",
-                    overflow: "hidden",
-                    borderRight: s.showDivider
-                      ? "1px solid rgba(255,255,255,.05)"
-                      : "none",
-                    textAlign: "center",
-                  }}
+                  style={
+                    {
+                      position: "relative",
+                      overflow: "hidden",
+                      textAlign: "center",
+                      "--stat-accent": s.color,
+                      "--stat-accent-dim": s.colorDim,
+                    } as React.CSSProperties
+                  }
                 >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      height: 3,
+                      background: `linear-gradient(90deg, transparent, ${s.color}, transparent)`,
+                      opacity: 0.85,
+                    }}
+                  />
                   {/* inner padding wrapper — targeted by responsive CSS */}
                   <div
                     className="stat-card-inner"
-                    style={{ padding: "52px clamp(16px, 3vw, 28px) 48px" }}
+                    style={{ padding: "44px clamp(16px, 3vw, 28px) 36px" }}
                   >
-                    {/* vertical gold accent divider (right edge) */}
-                    {s.showDivider && (
-                      <div
-                        className="stat-border-pulse stat-right-divider"
-                        style={{
-                          position: "absolute",
-                          top: "15%",
-                          bottom: "15%",
-                          right: 0,
-                          width: 1,
-                          background: `linear-gradient(180deg, transparent, ${s.color}, transparent)`,
-                        }}
-                      />
-                    )}
 
                     {/* inner card glow */}
                     <div
@@ -348,14 +381,13 @@ export default function StatsRibbon() {
                           width: "clamp(42px, 7vw, 56px)",
                           height: "clamp(42px, 7vw, 56px)",
                           borderRadius: "50%",
-                          background: `radial-gradient(circle at 35% 35%, ${s.colorDim}, rgba(0,0,0,.3))`,
-                          border: `1.5px solid ${s.color}30`,
+                          border: `2px solid ${s.color}45`,
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           position: "relative",
                           zIndex: 2,
-                          boxShadow: `0 0 24px ${s.colorGlow}, inset 0 1px 0 rgba(255,255,255,.07)`,
+                          boxShadow: `0 0 20px ${s.colorGlow}`,
                         }}
                       >
                         <div
@@ -382,12 +414,11 @@ export default function StatsRibbon() {
 
                     {/* label */}
                     <div
+                      className="stat-label"
                       style={{
                         fontFamily: "'Cinzel', serif",
-                        color: "rgba(255,255,255,.75)",
                         fontSize: "clamp(10px, 1.5vw, 12px)",
-                        fontWeight: 600,
-                        letterSpacing: ".1em",
+                        letterSpacing: ".12em",
                         textTransform: "uppercase",
                         marginBottom: 5,
                       }}
@@ -398,7 +429,7 @@ export default function StatsRibbon() {
                     {/* sub-label */}
                     <div
                       style={{
-                        color: "rgba(255,255,255,.25)",
+                        color: "var(--on-surface-subtle)",
                         fontSize: "clamp(10px, 1.2vw, 11px)",
                         letterSpacing: ".04em",
                       }}

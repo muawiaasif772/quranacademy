@@ -24,17 +24,6 @@ import { Link } from "react-router-dom";
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-dk:   #0a2e18;
-    --em-md:   #0e4224;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-  }
-
   * { box-sizing: border-box; }
   html, body { max-width: 100%; overflow-x: hidden; }
   img, iframe { max-width: 100%; display: block; }
@@ -81,8 +70,8 @@ const pageStyles = `
   /* ── Original Feature Cards — restyled ── */
   .feat-nav-card {
     position:relative;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.07);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:28px;
     padding:32px 20px 28px;
     display:flex;flex-direction:column;align-items:center;justify-content:space-between;
@@ -153,8 +142,8 @@ const pageStyles = `
 
   /* step icon card */
   .sc{
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.06);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:28px;overflow:hidden;
     transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease;
     position:relative;
@@ -177,8 +166,8 @@ const pageStyles = `
     padding:8px 18px;border-radius:100px;
     font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.16em;
     text-transform:uppercase;cursor:pointer;
-    border:1px solid rgba(255,255,255,.07);
-    color:rgba(255,255,255,.4);background:rgba(255,255,255,.03);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);background:var(--surface-chip-bg);
     transition:all .25s;white-space:nowrap;
   }
   .sp:hover{color:var(--gold-lt);border-color:rgba(201,151,58,.3);background:rgba(201,151,58,.06);}
@@ -474,7 +463,7 @@ const StepRow = ({
             fontFamily: "'Cormorant Garamond',serif",
             fontSize: "clamp(26px,3.2vw,46px)",
             fontWeight: 700,
-            color: "#fff",
+            color: "var(--on-surface)",
             lineHeight: 1.12,
             marginBottom: 16,
           }}
@@ -484,7 +473,7 @@ const StepRow = ({
 
         <p
           style={{
-            color: "rgba(255,255,255,.45)",
+            color: "var(--on-surface-muted)",
             fontSize: 16,
             lineHeight: 1.85,
             marginBottom: 24,
@@ -537,8 +526,8 @@ const StepRow = ({
                 display: "flex",
                 alignItems: "center",
                 gap: 8,
-                background: "rgba(255,255,255,.03)",
-                border: "1px solid rgba(255,255,255,.06)",
+                background: "var(--surface-chip-bg)",
+                border: "1px solid var(--surface-chip-border)",
                 borderRadius: 12,
                 padding: "10px 14px",
                 minWidth: 0,
@@ -551,7 +540,7 @@ const StepRow = ({
               />
               <span
                 style={{
-                  color: "rgba(255,255,255,.55)",
+                  color: "var(--on-surface-muted)",
                   fontSize: 12,
                   fontWeight: 600,
                   overflow: "hidden",
@@ -619,7 +608,7 @@ const StepRow = ({
             }}
           />
           <div
-            className="media-height"
+            className="media-height alm-brand-panel"
             style={{
               height: 320,
               position: "relative",
@@ -629,8 +618,6 @@ const StepRow = ({
               justifyContent: "center",
               gap: 20,
               padding: "32px 24px",
-              background:
-                "linear-gradient(165deg, rgba(10,46,24,.55) 0%, rgba(2,11,6,.92) 100%)",
             }}
           >
             <div
@@ -720,19 +707,19 @@ const HowItWorks: React.FC = () => {
       <style>{pageStyles}</style>
 
       <div
+        className="alm-page"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
-          color: "#fff",
+          color: "var(--on-surface)",
           overflowX: "hidden",
         }}
       >
         <section
           className="hero-pad"
           style={{
-            background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
+            background: "var(--hero-panel-bg)",
             position: "relative",
             overflow: "hidden",
           }}
@@ -833,7 +820,7 @@ const HowItWorks: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(40px,7vw,88px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.08,
                 marginBottom: 18,
               }}
@@ -848,7 +835,7 @@ const HowItWorks: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 18,
                 lineHeight: 1.85,
                 maxWidth: 580,
@@ -903,7 +890,7 @@ const HowItWorks: React.FC = () => {
                   </div>
                   <span
                     style={{
-                      color: "rgba(255,255,255,.3)",
+                      color: "var(--on-surface-subtle)",
                       fontSize: 11,
                       letterSpacing: ".08em",
                     }}
@@ -976,7 +963,7 @@ const HowItWorks: React.FC = () => {
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: 18,
                         fontWeight: 700,
-                        color: "#fff",
+                        color: "var(--on-surface)",
                         marginBottom: 6,
                         lineHeight: 1.2,
                       }}
@@ -1022,9 +1009,9 @@ const HowItWorks: React.FC = () => {
         {/* ══ STICKY STEP NAV ═══════════════════════════════════════════════ */}
         <div
           style={{
-            background: "rgba(2,11,6,.97)",
-            borderTop: "1px solid rgba(255,255,255,.05)",
-            borderBottom: "1px solid rgba(255,255,255,.05)",
+            background: "var(--sticky-bar-bg)",
+            borderTop: "1px solid var(--sticky-bar-border)",
+            borderBottom: "1px solid var(--sticky-bar-border)",
             padding: "14px 14px",
             position: "sticky",
             top: 0,
@@ -1061,7 +1048,7 @@ const HowItWorks: React.FC = () => {
           className="section-pad"
           style={{
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 10%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 10%)",
             textAlign: "center",
             paddingBottom: 0,
           }}
@@ -1112,7 +1099,7 @@ const HowItWorks: React.FC = () => {
 
             <p
               style={{
-                color: "rgba(255,255,255,.35)",
+                color: "var(--on-surface-faint)",
                 fontSize: 16,
                 lineHeight: 1.8,
                 maxWidth: 560,
@@ -1130,7 +1117,7 @@ const HowItWorks: React.FC = () => {
           className="steps-pad"
           style={{
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -1158,7 +1145,7 @@ const HowItWorks: React.FC = () => {
         <section
           className="section-pad"
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             position: "relative",
             overflow: "hidden",
           }}
@@ -1211,8 +1198,8 @@ const HowItWorks: React.FC = () => {
                   className="feat-why"
                   style={{
                     textAlign: "center",
-                    background: "rgba(255,255,255,.025)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: "var(--surface-chip-bg)",
+                    border: "1px solid var(--surface-chip-border)",
                     borderRadius: 22,
                     padding: "40px 28px",
                     position: "relative",
@@ -1265,7 +1252,7 @@ const HowItWorks: React.FC = () => {
                   </h4>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.38)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 13,
                       lineHeight: 1.75,
                     }}
@@ -1285,7 +1272,7 @@ const HowItWorks: React.FC = () => {
           className="section-pad"
           style={{
             background:
-              "linear-gradient(180deg,var(--deep) 0%,var(--forest) 100%)",
+              "linear-gradient(180deg,var(--surface-section-to) 0%,var(--surface-section-from) 100%)",
           }}
         >
           <div style={{ maxWidth: 820, margin: "0 auto", textAlign: "center" }}>
@@ -1312,7 +1299,7 @@ const HowItWorks: React.FC = () => {
                 fontSize: "clamp(18px,2.5vw,30px)",
                 fontWeight: 600,
                 fontStyle: "italic",
-                color: "rgba(255,255,255,.8)",
+                color: "var(--on-surface)",
                 lineHeight: 1.7,
                 marginBottom: 26,
               }}
@@ -1342,7 +1329,7 @@ const HowItWorks: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: 20,
                   fontWeight: 700,
-                  color: "#020b06",
+                  color: "var(--on-gold)",
                 }}
               >
                 S
@@ -1350,7 +1337,7 @@ const HowItWorks: React.FC = () => {
               <div style={{ textAlign: "left" }}>
                 <p
                   style={{
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     fontWeight: 700,
                     fontSize: 14,
                     margin: 0,
@@ -1360,7 +1347,7 @@ const HowItWorks: React.FC = () => {
                 </p>
                 <p
                   style={{
-                    color: "rgba(255,255,255,.35)",
+                    color: "var(--on-surface-faint)",
                     fontSize: 12,
                     margin: 0,
                   }}

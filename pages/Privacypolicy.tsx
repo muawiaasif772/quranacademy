@@ -18,7 +18,6 @@ import { CONTACT_EMAIL } from "../seo/seo.config";
 
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
-  :root { --deep:#020b06; --forest:#051610; --gold:#c9973a; --gold-m:#e4b558; --gold-lt:#f5d98e; }
   .hex-bg { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E"); }
 
   @keyframes fadeUp    { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
@@ -172,7 +171,7 @@ const Sec: React.FC<{
               fontFamily: "'Cormorant Garamond',serif",
               fontSize: "clamp(18px,2.6vw,25px)",
               fontWeight: 700,
-              color: "#fff",
+              color: "var(--on-surface)",
               lineHeight: 1.2,
             }}
           >
@@ -241,18 +240,18 @@ export const PrivacyPolicy: React.FC = () => {
     <>
       <style>{pageStyles}</style>
       <div
+        className="alm-page"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
-          color: "#fff",
+          color: "var(--on-surface)",
         }}
       >
         {/* ══ HERO ══ */}
         <section
           style={{
-            background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
+            background: "var(--hero-panel-bg)",
             padding: "clamp(100px,14vw,155px) 24px clamp(56px,8vw,80px)",
             position: "relative",
             overflow: "hidden",
@@ -370,7 +369,7 @@ export const PrivacyPolicy: React.FC = () => {
                 fontWeight: 300,
                 lineHeight: 1.0,
                 marginBottom: 18,
-                color: "#fff",
+                color: "var(--on-surface)",
               }}
             >
               Privacy{" "}
@@ -385,7 +384,7 @@ export const PrivacyPolicy: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.4)",
+                color: "var(--on-surface-muted)",
                 fontSize: 16,
                 lineHeight: 1.8,
                 maxWidth: 460,
@@ -416,7 +415,7 @@ export const PrivacyPolicy: React.FC = () => {
                   borderRadius: 100,
                   background: "rgba(255,255,255,.04)",
                   border: "1px solid rgba(255,255,255,.08)",
-                  color: "rgba(255,255,255,.32)",
+                  color: "var(--on-surface-faint)",
                   fontSize: 12,
                   fontWeight: 700,
                 }}
@@ -445,8 +444,8 @@ export const PrivacyPolicy: React.FC = () => {
                   style={{
                     padding: "14px 10px",
                     textAlign: "center",
-                    background: "rgba(255,255,255,.025)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: "var(--surface-chip-bg)",
+                    border: "1px solid var(--surface-chip-border)",
                     borderRadius: 14,
                   }}
                 >
@@ -483,7 +482,7 @@ export const PrivacyPolicy: React.FC = () => {
           style={{
             padding: "clamp(52px,9vw,88px) 24px",
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -521,8 +520,8 @@ export const PrivacyPolicy: React.FC = () => {
                 <div className="toc-sticky">
                   <div
                     style={{
-                      background: "rgba(255,255,255,.025)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      background: "var(--surface-chip-bg)",
+                      border: "1px solid var(--surface-chip-border)",
                       borderRadius: 20,
                       padding: "20px 14px",
                       position: "relative",
@@ -831,7 +830,7 @@ export const PrivacyPolicy: React.FC = () => {
                       >
                         <strong
                           style={{
-                            color: "rgba(255,255,255,.75)",
+                            color: "var(--on-surface-muted)",
                             fontSize: 13,
                             fontFamily: "'Nunito',sans-serif",
                             minWidth: 110,
@@ -926,7 +925,7 @@ export const PrivacyPolicy: React.FC = () => {
                             fontFamily: "'Cormorant Garamond',serif",
                             fontSize: 15,
                             fontWeight: 700,
-                            color: "#fff",
+                            color: "var(--on-surface)",
                             marginBottom: 4,
                           }}
                         >
@@ -1031,7 +1030,7 @@ export const PrivacyPolicy: React.FC = () => {
                             fontFamily: "'Cormorant Garamond',serif",
                             fontSize: 15,
                             fontWeight: 700,
-                            color: "#fff",
+                            color: "var(--on-surface)",
                             marginBottom: 4,
                           }}
                         >
@@ -1276,7 +1275,7 @@ export const PrivacyPolicy: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
+              "var(--marketing-cta-bg)",
             padding: "clamp(72px,11vw,110px) 24px",
             position: "relative",
             overflow: "hidden",
@@ -1329,7 +1328,7 @@ export const PrivacyPolicy: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(28px,5vw,52px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.1,
                 marginBottom: 16,
               }}
@@ -1345,7 +1344,7 @@ export const PrivacyPolicy: React.FC = () => {
             </h2>
             <p
               style={{
-                color: "rgba(255,255,255,.38)",
+                color: "var(--on-surface-faint)",
                 fontSize: 15,
                 lineHeight: 1.8,
                 maxWidth: 400,
@@ -1371,7 +1370,7 @@ export const PrivacyPolicy: React.FC = () => {
                   gap: 9,
                   background:
                     "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                  color: "#020b06",
+                  color: "var(--on-gold)",
                   padding: "15px 36px",
                   borderRadius: 13,
                   fontFamily: "'Cinzel',serif",

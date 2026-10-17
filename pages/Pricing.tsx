@@ -29,17 +29,6 @@ import { Link } from "react-router-dom";
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-dk:   #0a2e18;
-    --em-md:   #0e4224;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-  }
-
   * { box-sizing: border-box; }
   html, body { max-width: 100%; overflow-x: hidden; }
   img, svg, video, iframe { max-width: 100%; }
@@ -107,8 +96,8 @@ const pageStyles = `
 
   /* plan card */
   .plan-card {
-    background:rgba(255,255,255,.025);
-    border:1px solid rgba(255,255,255,.07);
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
     border-radius:28px;
     overflow:hidden;
     transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease, border-color .3s;
@@ -132,22 +121,24 @@ const pageStyles = `
   .feat-row {
     display:flex;align-items:flex-start;gap:10px;
     padding:9px 0;
-    border-bottom:1px solid rgba(255,255,255,.04);
+    border-bottom:1px solid var(--border-divider);
     transition:background .2s;
   }
   .feat-row:last-child{border-bottom:none;}
-  .feat-row:hover{background:rgba(255,255,255,.02);border-radius:8px;padding-left:6px;}
+  .feat-row:hover{background:var(--row-hover-bg);border-radius:8px;padding-left:6px;}
 
   /* FAQ */
   .faq-item {
-    border:1px solid rgba(255,255,255,.07);
+    border:1px solid var(--page-card-border);
+    background:var(--page-card-bg);
     border-radius:18px;
     overflow:hidden;
     transition:border-color .3s, box-shadow .3s;
     margin-bottom:12px;
+    box-shadow:0 4px 20px var(--page-shadow);
   }
   .faq-item:hover{border-color:rgba(201,151,58,.25);}
-  .faq-item.open{border-color:rgba(201,151,58,.35);box-shadow:0 8px 32px rgba(0,0,0,.3);}
+  .faq-item.open{border-color:rgba(201,151,58,.35);box-shadow:0 8px 32px var(--page-shadow);}
   .faq-trigger{
     width:100%;display:flex;align-items:center;justify-content:space-between;
     padding:18px 22px;background:none;border:none;cursor:pointer;
@@ -157,24 +148,24 @@ const pageStyles = `
   /* toggle pill */
   .toggle-wrap{
     display:inline-flex;align-items:center;gap:0;
-    background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+    background:var(--surface-chip-bg);border:1px solid var(--surface-chip-border);
     border-radius:100px;padding:4px;
     flex-wrap:wrap;
   }
   .toggle-btn{
     padding:9px 22px;border-radius:100px;border:none;cursor:pointer;
     font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.12em;
-    text-transform:uppercase;transition:all .3s;color:rgba(255,255,255,.4);background:transparent;
+    text-transform:uppercase;transition:all .3s;color:var(--on-surface-muted);background:transparent;
     white-space:nowrap;
   }
   .toggle-btn-a{
     background:linear-gradient(135deg,var(--gold-m),var(--gold))!important;
-    color:#020b06!important;box-shadow:0 4px 16px rgba(201,151,58,.3)!important;
+    color:var(--on-gold)!important;box-shadow:0 4px 16px rgba(201,151,58,.3)!important;
   }
 
   /* included card */
   .inc-card{
-    background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);
+    background:var(--page-card-bg);border:1px solid var(--page-card-border);
     border-radius:22px;padding:26px 22px;
     transition:transform .35s ease,box-shadow .35s ease;
     position:relative;overflow:hidden;
@@ -530,7 +521,7 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
             fontFamily: "'Cormorant Garamond',serif",
             fontSize: 18,
             fontWeight: 700,
-            color: "#fff",
+            color: "var(--on-surface)",
             lineHeight: 1.35,
           }}
         >
@@ -545,13 +536,13 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
             flexShrink: 0,
             background: open
               ? "linear-gradient(135deg,var(--gold-m),var(--gold))"
-              : "rgba(255,255,255,.06)",
-            border: `1px solid ${open ? "transparent" : "rgba(255,255,255,.1)"}`,
+              : "var(--surface-chip-bg)",
+            border: `1px solid ${open ? "transparent" : "var(--page-card-border)"}`,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             transition: "all .3s",
-            color: open ? "#020b06" : "rgba(255,255,255,.5)",
+            color: open ? "var(--on-surface)" : "var(--on-surface-muted)",
           }}
         >
           <ChevronDown
@@ -574,7 +565,7 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
         <p
           style={{
             padding: "0 22px 18px",
-            color: "rgba(255,255,255,.45)",
+            color: "var(--on-surface-muted)",
             fontSize: 15,
             lineHeight: 1.85,
           }}
@@ -606,11 +597,11 @@ const PlanCalc = () => {
   return (
     <div
       style={{
-        background: "rgba(255,255,255,.025)",
-        border: "1px solid rgba(201,151,58,.2)",
+        background: "var(--page-card-bg)",
+        border: "1px solid var(--page-card-border)",
         borderRadius: 24,
         padding: "32px 24px",
-        boxShadow: "0 20px 56px rgba(0,0,0,.38)",
+        boxShadow: "0 20px 56px var(--page-shadow)",
         position: "relative",
         overflow: "hidden",
       }}
@@ -654,7 +645,7 @@ const PlanCalc = () => {
           <p className="sec-label" style={{ marginBottom: 2 }}>
             Plan Calculator
           </p>
-          <p style={{ color: "rgba(255,255,255,.3)", fontSize: 12 }}>
+          <p style={{ color: "var(--on-surface-subtle)", fontSize: 12 }}>
             Estimate your monthly cost
           </p>
         </div>
@@ -671,7 +662,7 @@ const PlanCalc = () => {
         >
           <label
             style={{
-              color: "rgba(255,255,255,.6)",
+              color: "var(--on-surface-muted)",
               fontSize: 13,
               fontWeight: 700,
             }}
@@ -707,8 +698,8 @@ const PlanCalc = () => {
             marginTop: 6,
           }}
         >
-          <span style={{ color: "rgba(255,255,255,.2)", fontSize: 11 }}>1</span>
-          <span style={{ color: "rgba(255,255,255,.2)", fontSize: 11 }}>7</span>
+          <span style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}>1</span>
+          <span style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}>7</span>
         </div>
       </div>
 
@@ -723,7 +714,7 @@ const PlanCalc = () => {
         >
           <label
             style={{
-              color: "rgba(255,255,255,.6)",
+              color: "var(--on-surface-muted)",
               fontSize: 13,
               fontWeight: 700,
             }}
@@ -759,8 +750,8 @@ const PlanCalc = () => {
             marginTop: 6,
           }}
         >
-          <span style={{ color: "rgba(255,255,255,.2)", fontSize: 11 }}>1</span>
-          <span style={{ color: "rgba(255,255,255,.2)", fontSize: 11 }}>4</span>
+          <span style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}>1</span>
+          <span style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}>4</span>
         </div>
       </div>
 
@@ -787,7 +778,7 @@ const PlanCalc = () => {
           <div>
             <p
               style={{
-                color: "rgba(255,255,255,.4)",
+                color: "var(--on-surface-muted)",
                 fontSize: 12,
                 marginBottom: 4,
               }}
@@ -815,7 +806,7 @@ const PlanCalc = () => {
               </span>
               <span
                 style={{
-                  color: "rgba(255,255,255,.3)",
+                  color: "var(--on-surface-subtle)",
                   fontSize: 13,
                   marginBottom: 6,
                 }}
@@ -829,7 +820,7 @@ const PlanCalc = () => {
             <div style={{ textAlign: "right" }}>
               <p
                 style={{
-                  color: "rgba(255,255,255,.3)",
+                  color: "var(--on-surface-subtle)",
                   fontSize: 11,
                   marginBottom: 6,
                 }}
@@ -852,7 +843,7 @@ const PlanCalc = () => {
 
         <p
           style={{
-            color: "rgba(255,255,255,.3)",
+            color: "var(--on-surface-subtle)",
             fontSize: 12,
             lineHeight: 1.6,
           }}
@@ -891,19 +882,19 @@ const PricingPage: React.FC = () => {
       <style>{pageStyles}</style>
 
       <div
+        className="alm-page"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
-          color: "#fff",
+          color: "var(--on-surface)",
           overflowX: "hidden",
         }}
       >
         {/* ══════════════════════════════ HERO (reduced padding) */}
         <section
           style={{
-            background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
+            background: "var(--hero-panel-bg)",
             padding: "86px 18px 58px",
             position: "relative",
             overflow: "hidden",
@@ -1006,7 +997,7 @@ const PricingPage: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(40px,7vw,84px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.08,
                 marginBottom: 16,
               }}
@@ -1021,7 +1012,7 @@ const PricingPage: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 17,
                 lineHeight: 1.85,
                 maxWidth: 560,
@@ -1077,7 +1068,7 @@ const PricingPage: React.FC = () => {
           style={{
             padding: "56px 18px 64px",
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -1134,7 +1125,7 @@ const PricingPage: React.FC = () => {
                         background: isPopular
                           ? "linear-gradient(135deg,var(--gold-m),var(--gold))"
                           : `linear-gradient(135deg,${plan.accent}cc,${plan.accent}88)`,
-                        color: "#020b06",
+                        color: "var(--on-gold)",
                         textAlign: "center",
                         padding: "7px 0",
                         fontFamily: "'Cinzel',serif",
@@ -1180,7 +1171,7 @@ const PricingPage: React.FC = () => {
                             fontFamily: "'Cinzel',serif",
                             fontSize: 16,
                             fontWeight: 700,
-                            color: "#fff",
+                            color: "var(--on-surface)",
                             marginBottom: 2,
                           }}
                         >
@@ -1188,7 +1179,7 @@ const PricingPage: React.FC = () => {
                         </h3>
                         <p
                           style={{
-                            color: "rgba(255,255,255,.35)",
+                            color: "var(--on-surface-faint)",
                             fontSize: 12,
                           }}
                         >
@@ -1211,7 +1202,7 @@ const PricingPage: React.FC = () => {
                           fontFamily: "'Cormorant Garamond',serif",
                           fontSize: 52,
                           fontWeight: 700,
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           lineHeight: 1,
                         }}
                       >
@@ -1219,7 +1210,7 @@ const PricingPage: React.FC = () => {
                       </span>
                       <span
                         style={{
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 14,
                           marginBottom: 8,
                         }}
@@ -1231,7 +1222,7 @@ const PricingPage: React.FC = () => {
                     {billing === "yearly" && (
                       <p
                         style={{
-                          color: "rgba(255,255,255,.25)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 12,
                           marginBottom: 18,
                         }}
@@ -1261,8 +1252,8 @@ const PricingPage: React.FC = () => {
                               flexShrink: 0,
                               background: f.included
                                 ? `${plan.accent}20`
-                                : "rgba(255,255,255,.04)",
-                              border: `1px solid ${f.included ? plan.accent + "50" : "rgba(255,255,255,.08)"}`,
+                                : "var(--surface-chip-bg)",
+                              border: `1px solid ${f.included ? plan.accent + "50" : "var(--surface-chip-border)"}`,
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center",
@@ -1272,18 +1263,15 @@ const PricingPage: React.FC = () => {
                             {f.included ? (
                               <Check size={11} color={plan.accent} />
                             ) : (
-                              <X size={10} color="rgba(255,255,255,.2)" />
+                              <X size={10} color="var(--icon-faint)" />
                             )}
                           </div>
                           <span
-                            style={{
-                              fontSize: 13,
-                              fontWeight: 600,
-                              color: f.included
-                                ? "rgba(255,255,255,.75)"
-                                : "rgba(255,255,255,.2)",
-                              lineHeight: 1.5,
-                            }}
+                            className={
+                              f.included
+                                ? "feat-row-label"
+                                : "feat-row-label feat-row-label--off"
+                            }
                           >
                             {f.text}
                           </span>
@@ -1310,7 +1298,7 @@ const PricingPage: React.FC = () => {
                           ? {
                               background:
                                 "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                              color: "#020b06",
+                              color: "var(--on-gold)",
                               boxShadow: "0 6px 24px rgba(201,151,58,.4)",
                             }
                           : {
@@ -1331,7 +1319,7 @@ const PricingPage: React.FC = () => {
           <p
             style={{
               textAlign: "center",
-              color: "rgba(255,255,255,.25)",
+              color: "var(--on-surface-subtle)",
               fontSize: 13,
               marginTop: 22,
               padding: "0 12px",
@@ -1349,7 +1337,7 @@ const PricingPage: React.FC = () => {
         <section
           ref={trustReveal.ref}
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             padding: "40px 18px",
             opacity: trustReveal.vis ? 1 : 0,
             transform: trustReveal.vis ? "translateY(0)" : "translateY(28px)",
@@ -1374,14 +1362,14 @@ const PricingPage: React.FC = () => {
                         fontFamily: "'Cinzel',serif",
                         fontSize: 10,
                         fontWeight: 700,
-                        color: "#fff",
+                        color: "var(--on-surface)",
                         letterSpacing: ".08em",
                         marginTop: 2,
                       }}
                     >
                       {b.value}
                     </p>
-                    <p style={{ color: "rgba(255,255,255,.3)", fontSize: 11 }}>
+                    <p style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}>
                       {b.sub}
                     </p>
                   </div>
@@ -1395,7 +1383,7 @@ const PricingPage: React.FC = () => {
         <section
           style={{
             background:
-              "linear-gradient(180deg,var(--deep) 0%,var(--forest) 100%)",
+              "linear-gradient(180deg,var(--surface-section-to) 0%,var(--surface-section-from) 100%)",
             padding: "56px 18px 64px",
             position: "relative",
             overflow: "hidden",
@@ -1457,7 +1445,7 @@ const PricingPage: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(26px,4vw,48px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                 Everything You Need to{" "}
@@ -1506,7 +1494,7 @@ const PricingPage: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: 18,
                       fontWeight: 700,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       marginBottom: 10,
                     }}
                   >
@@ -1515,7 +1503,7 @@ const PricingPage: React.FC = () => {
 
                   <p
                     style={{
-                      color: "rgba(255,255,255,.4)",
+                      color: "var(--on-surface-muted)",
                       fontSize: 13,
                       lineHeight: 1.75,
                     }}
@@ -1530,10 +1518,11 @@ const PricingPage: React.FC = () => {
 
         {/* ══════════════════════════════ CALCULATOR + INVESTMENT (reduced padding) */}
         <section
+          className="alm-band-section"
           style={{
-            background: "var(--forest)",
+            background:
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "56px 18px 68px",
-            position: "relative",
           }}
         >
           <div
@@ -1601,7 +1590,7 @@ const PricingPage: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(26px,3.5vw,48px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.1,
                   marginBottom: 14,
                 }}
@@ -1613,7 +1602,7 @@ const PricingPage: React.FC = () => {
 
               <p
                 style={{
-                  color: "rgba(255,255,255,.45)",
+                  color: "var(--on-surface-muted)",
                   fontSize: 16,
                   lineHeight: 1.85,
                   marginBottom: 20,
@@ -1640,8 +1629,8 @@ const PricingPage: React.FC = () => {
                       alignItems: "center",
                       gap: 12,
                       padding: "12px 14px",
-                      background: "rgba(255,255,255,.03)",
-                      border: "1px solid rgba(255,255,255,.06)",
+                      background: "var(--surface-chip-bg)",
+                      border: "1px solid var(--surface-chip-border)",
                       borderRadius: 14,
                     }}
                   >
@@ -1663,7 +1652,7 @@ const PricingPage: React.FC = () => {
 
                     <span
                       style={{
-                        color: "rgba(255,255,255,.7)",
+                        color: "var(--on-surface-muted)",
                         fontSize: 14,
                         fontWeight: 700,
                       }}
@@ -1681,7 +1670,7 @@ const PricingPage: React.FC = () => {
         <section
           style={{
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "56px 18px",
             position: "relative",
           }}
@@ -1699,7 +1688,7 @@ const PricingPage: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(24px,3.5vw,44px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                 Trusted by <span className="gold-text">5,000+ Families</span>{" "}
@@ -1719,8 +1708,8 @@ const PricingPage: React.FC = () => {
                   key={i}
                   className="inc-card shb"
                   style={{
-                    background: "rgba(255,255,255,.025)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: "var(--surface-chip-bg)",
+                    border: "1px solid var(--surface-chip-border)",
                   }}
                 >
                   <div style={{ display: "flex", gap: 2, marginBottom: 14 }}>
@@ -1740,7 +1729,7 @@ const PricingPage: React.FC = () => {
                       fontStyle: "italic",
                       fontSize: 17,
                       fontWeight: 600,
-                      color: "rgba(255,255,255,.75)",
+                      color: "var(--on-surface-muted)",
                       lineHeight: 1.7,
                       marginBottom: 20,
                     }}
@@ -1763,19 +1752,19 @@ const PricingPage: React.FC = () => {
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: 17,
                         fontWeight: 700,
-                        color: "#020b06",
+                        color: "var(--on-gold)",
                       }}
                     >
                       {t.name[0]}
                     </div>
                     <div>
                       <p
-                        style={{ color: "#fff", fontWeight: 700, fontSize: 13 }}
+                        style={{ color: "var(--on-surface)", fontWeight: 700, fontSize: 13 }}
                       >
                         {t.name}
                       </p>
                       <p
-                        style={{ color: "rgba(255,255,255,.3)", fontSize: 11 }}
+                        style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}
                       >
                         {t.location}
                       </p>
@@ -1790,7 +1779,7 @@ const PricingPage: React.FC = () => {
         {/* ══════════════════════════════ FAQ (reduced padding) */}
         <section
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             padding: "56px 18px 64px",
             position: "relative",
             overflow: "hidden",
@@ -1850,7 +1839,7 @@ const PricingPage: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(24px,3.5vw,46px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                 Frequently Asked <span className="gold-text">Questions</span>
@@ -1867,7 +1856,7 @@ const PricingPage: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
+              "var(--marketing-cta-bg)",
             padding: "70px 18px",
             position: "relative",
             overflow: "hidden",
@@ -1924,7 +1913,7 @@ const PricingPage: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(30px,5vw,62px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.1,
                 marginBottom: 18,
               }}
@@ -1941,7 +1930,7 @@ const PricingPage: React.FC = () => {
 
             <p
               style={{
-                color: "rgba(255,255,255,.4)",
+                color: "var(--on-surface-muted)",
                 fontSize: 17,
                 lineHeight: 1.85,
                 maxWidth: 520,
@@ -1968,7 +1957,7 @@ const PricingPage: React.FC = () => {
                   gap: 10,
                   background:
                     "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                  color: "#020b06",
+                  color: "var(--on-gold)",
                   padding: "16px 42px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",
@@ -1992,7 +1981,7 @@ const PricingPage: React.FC = () => {
                   gap: 10,
                   background: "rgba(255,255,255,.04)",
                   border: "1px solid rgba(255,255,255,.12)",
-                  color: "rgba(255,255,255,.7)",
+                  color: "var(--on-surface-muted)",
                   padding: "16px 32px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",

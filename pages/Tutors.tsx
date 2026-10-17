@@ -22,18 +22,6 @@ import {
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-dk:   #0a2e18;
-    --em-md:   #0e4224;
-    --em-vv:   #16a05c;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-  }
-
   /* ✅ GLOBAL RESPONSIVE + FIX HORIZONTAL SCROLL */
   *, *::before, *::after { box-sizing: border-box; }
   html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
@@ -87,30 +75,39 @@ const pageStyles = `
     padding:8px 18px;border-radius:100px;
     font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:.16em;
     text-transform:uppercase;cursor:pointer;
-    border:1px solid rgba(255,255,255,.07);
-    color:rgba(255,255,255,.42);background:rgba(255,255,255,.03);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);background:var(--surface-chip-bg);
     transition:all .25s;white-space:nowrap;
   }
-  .f-pill:hover{color:var(--gold-lt);border-color:rgba(201,151,58,.25);background:rgba(201,151,58,.05);}
+  .f-pill:hover{
+    color:var(--gold);
+    border-color:rgba(201,151,58,.35);
+    background:rgba(201,151,58,.08);
+  }
   .f-pill-active{
     background:linear-gradient(135deg,rgba(201,151,58,.2),rgba(201,151,58,.08))!important;
-    border-color:rgba(201,151,58,.5)!important;color:var(--gold-lt)!important;
+    border-color:rgba(201,151,58,.5)!important;color:var(--gold)!important;
     box-shadow:0 4px 16px rgba(201,151,58,.15)!important;
   }
 
   /* ✅ search input responsive (no fixed width expansion overflow) */
   .srch{
-    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    background:var(--page-input-bg);
+    border:1px solid var(--page-input-border);
     border-radius:14px;padding:11px 16px 11px 44px;
-    color:#fff;font-family:'Nunito',sans-serif;font-size:14px;
+    color:var(--on-surface);
+    font-family:'Nunito',sans-serif;font-size:14px;
     outline:none;transition:all .3s;
 
     width: 100%;
     max-width: 360px;
     min-width: 0;
   }
-  .srch::placeholder{color:rgba(255,255,255,.22);}
-  .srch:focus{border-color:rgba(201,151,58,.4);background:rgba(255,255,255,.06);}
+  .srch::placeholder{color:var(--on-surface-subtle);}
+  .srch:focus{
+    border-color:rgba(201,151,58,.5);
+    box-shadow:0 0 0 4px rgba(201,151,58,.12);
+  }
   @media (max-width: 640px){ .srch{max-width:100%;} }
 
   /* tutor card */
@@ -163,13 +160,18 @@ const pageStyles = `
   .v-btn{
     width:38px;height:38px;border-radius:10px;cursor:pointer;
     display:flex;align-items:center;justify-content:center;
-    border:1px solid rgba(255,255,255,.08);
-    background:rgba(255,255,255,.03);color:rgba(255,255,255,.35);
+    border:1px solid var(--page-card-border);
+    background:var(--surface-chip-bg);
+    color:var(--on-surface-muted);
     transition:all .25s;
     flex: 0 0 auto;
   }
-  .v-btn-active{background:rgba(201,151,58,.12)!important;border-color:rgba(201,151,58,.3)!important;color:var(--gold-lt)!important;}
-  .v-btn:hover{color:var(--gold-lt);border-color:rgba(201,151,58,.2);}
+  .v-btn-active{
+    background:rgba(201,151,58,.12)!important;
+    border-color:rgba(201,151,58,.35)!important;
+    color:var(--gold)!important;
+  }
+  .v-btn:hover{color:var(--gold);border-color:rgba(201,151,58,.3);}
 
   /* list view */
   .t-list-card{
@@ -190,6 +192,114 @@ const pageStyles = `
   }
   @media (max-width: 920px){
     .spotlight { grid-template-columns: 1fr; }
+  }
+
+  /* Featured spotlight — dark: emerald premium | light: ivory card, readable text */
+  html[data-theme="dark"] .tutor-spotlight-premium,
+  html:not([data-theme="light"]) .tutor-spotlight-premium {
+    background: linear-gradient(135deg, #0e4224 0%, #0a2e18 48%, #051610 100%);
+    border: 1px solid rgba(201, 151, 58, 0.28);
+    box-shadow: 0 32px 80px rgba(2, 11, 6, 0.42);
+  }
+  html[data-theme="dark"] .tutor-spotlight-premium-media,
+  html:not([data-theme="light"]) .tutor-spotlight-premium-media {
+    background: linear-gradient(
+      165deg,
+      rgba(10, 46, 24, 0.55) 0%,
+      rgba(2, 11, 6, 0.97) 100%
+    );
+  }
+  html[data-theme="dark"] .spotlight-media-scrim,
+  html:not([data-theme="light"]) .spotlight-media-scrim {
+    background: linear-gradient(to right, rgba(2, 11, 6, 0.05), rgba(2, 11, 6, 0.55));
+  }
+  html[data-theme="dark"] .tutor-spotlight-premium-body .spotlight-name,
+  html:not([data-theme="light"]) .tutor-spotlight-premium-body .spotlight-name {
+    color: #ffffff;
+  }
+  html[data-theme="dark"] .tutor-spotlight-premium-body .spotlight-bio,
+  html:not([data-theme="light"]) .tutor-spotlight-premium-body .spotlight-bio {
+    color: rgba(255, 255, 255, 0.62);
+  }
+  html[data-theme="dark"] .tutor-spotlight-premium-body .spotlight-muted,
+  html:not([data-theme="light"]) .tutor-spotlight-premium-body .spotlight-muted {
+    color: rgba(255, 255, 255, 0.42);
+  }
+  html[data-theme="dark"] .tutor-spotlight-premium .btn-spotlight-ghost,
+  html:not([data-theme="light"]) .tutor-spotlight-premium .btn-spotlight-ghost {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.88);
+  }
+  html[data-theme="dark"] .tutor-spotlight-premium .btn-spotlight-ghost:hover,
+  html:not([data-theme="light"]) .tutor-spotlight-premium .btn-spotlight-ghost:hover {
+    border-color: rgba(201, 151, 58, 0.45);
+    background: rgba(201, 151, 58, 0.12);
+    color: var(--gold-lt);
+  }
+
+  html[data-theme="light"] .tutor-spotlight-premium {
+    background: linear-gradient(135deg, #ffffff 0%, #f8faf9 52%, #f3efe6 100%);
+    border: 1px solid var(--page-card-border);
+    box-shadow: 0 28px 72px var(--page-shadow);
+  }
+  html[data-theme="light"] .tutor-spotlight-premium-media {
+    background: linear-gradient(165deg, #e4f2eb 0%, #c8e2d4 42%, #a8d4be 100%);
+  }
+  html[data-theme="light"] .spotlight-media-scrim {
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0),
+      rgba(13, 46, 36, 0.06)
+    );
+  }
+  html[data-theme="light"] .tutor-spotlight-premium-body .spotlight-name {
+    color: var(--on-surface);
+  }
+  html[data-theme="light"] .tutor-spotlight-premium-body .spotlight-bio {
+    color: var(--on-surface-muted);
+  }
+  html[data-theme="light"] .tutor-spotlight-premium-body .spotlight-muted {
+    color: var(--on-surface-subtle);
+  }
+  html[data-theme="light"] .tutor-spotlight-premium .spotlight-badge-gold {
+    color: var(--gold) !important;
+    border-color: rgba(201, 151, 58, 0.35) !important;
+    background: rgba(201, 151, 58, 0.1) !important;
+  }
+  html[data-theme="light"] .tutor-spotlight-premium .spotlight-badge-green {
+    color: #0a5c38 !important;
+    border-color: rgba(10, 92, 56, 0.25) !important;
+    background: rgba(47, 207, 135, 0.12) !important;
+  }
+  html[data-theme="light"] .tutor-spotlight-premium .btn-spotlight-ghost {
+    background: var(--page-card-bg);
+    border: 1px solid var(--page-card-border);
+    color: var(--on-surface);
+    box-shadow: 0 2px 8px var(--page-shadow);
+  }
+  html[data-theme="light"] .tutor-spotlight-premium .btn-spotlight-ghost:hover {
+    border-color: rgba(201, 151, 58, 0.45);
+    background: var(--surface-chip-bg);
+    color: var(--on-surface);
+  }
+
+  html[data-theme="dark"] .t-card-media-emerald,
+  html:not([data-theme="light"]) .t-card-media-emerald {
+    background: linear-gradient(
+      165deg,
+      rgba(10, 46, 24, 0.45) 0%,
+      rgba(2, 11, 6, 0.94) 100%
+    );
+  }
+  html[data-theme="light"] .t-card-media-emerald {
+    background: linear-gradient(165deg, #e0f0e8 0%, #c5e2d6 50%, #9fd0b8 100%);
+  }
+  html[data-theme="light"] .t-card,
+  html[data-theme="light"] .t-list-card {
+    background: var(--page-card-bg) !important;
+    border-color: var(--page-card-border) !important;
+    box-shadow: 0 12px 40px var(--page-shadow) !important;
   }
 
   /* ✅ List card responsive: collapse to stacked layout */
@@ -287,7 +397,7 @@ const Tutors: React.FC = () => {
         className="page-wrap"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
         }}
       >
@@ -295,7 +405,7 @@ const Tutors: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),radial-gradient(100% 100% at 50% 50%,#020b06 0%,#030f07 100%)",
+              "var(--page-hero-extended-bg)",
             padding: "100px 0 80px",
             position: "relative",
             overflow: "hidden",
@@ -395,7 +505,7 @@ const Tutors: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(42px,6vw,80px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.08,
                 marginBottom: 20,
               }}
@@ -410,7 +520,7 @@ const Tutors: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 18,
                 lineHeight: 1.85,
                 maxWidth: 560,
@@ -483,7 +593,7 @@ const Tutors: React.FC = () => {
                   </div>
                   <span
                     style={{
-                      color: "rgba(255,255,255,.3)",
+                      color: "var(--on-surface-subtle)",
                       fontSize: 11,
                       letterSpacing: ".08em",
                     }}
@@ -499,7 +609,7 @@ const Tutors: React.FC = () => {
         {/* ══════════════════════════ FEATURED TUTOR SPOTLIGHT */}
         <section
           style={{
-            background: "linear-gradient(180deg,#020b06 0%,var(--forest) 100%)",
+            background: "linear-gradient(180deg,var(--surface-section-to) 0%,var(--surface-section-from) 100%)",
             padding: "72px 0",
           }}
         >
@@ -525,19 +635,16 @@ const Tutors: React.FC = () => {
             </div>
 
             <div
-              className="shim-bar spotlight"
+              className="shim-bar spotlight tutor-spotlight-premium"
               style={{
-                background:
-                  "linear-gradient(135deg,rgba(14,66,36,.65),rgba(10,46,24,.8))",
-                border: "1px solid rgba(201,151,58,.2)",
                 borderRadius: 28,
                 overflow: "hidden",
-                boxShadow: "0 32px 80px rgba(0,0,0,.4)",
                 position: "relative",
               }}
             >
               {/* left — image */}
               <div
+                className="tutor-spotlight-premium-media"
                 style={{
                   position: "relative",
                   overflow: "hidden",
@@ -545,8 +652,6 @@ const Tutors: React.FC = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background:
-                    "linear-gradient(165deg, rgba(10,46,24,.5) 0%, rgba(2,11,6,.95) 100%)",
                 }}
               >
                 {featured?.name ? (
@@ -558,11 +663,10 @@ const Tutors: React.FC = () => {
                   />
                 ) : null}
                 <div
+                  className="spotlight-media-scrim"
                   style={{
                     position: "absolute",
                     inset: 0,
-                    background:
-                      "linear-gradient(to right,rgba(2,11,6,.05),rgba(2,11,6,.55))",
                     pointerEvents: "none",
                   }}
                 />
@@ -602,6 +706,7 @@ const Tutors: React.FC = () => {
 
               {/* right — info */}
               <div
+                className="tutor-spotlight-premium-body"
                 style={{
                   padding: "48px 48px 48px 40px",
                   position: "relative",
@@ -637,11 +742,11 @@ const Tutors: React.FC = () => {
                       ⭐ Top Rated Tutor
                     </p>
                     <h2
+                      className="spotlight-name"
                       style={{
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: "clamp(26px,3vw,40px)",
                         fontWeight: 700,
-                        color: "#fff",
                         lineHeight: 1.1,
                         overflowWrap: "anywhere",
                       }}
@@ -689,8 +794,8 @@ const Tutors: React.FC = () => {
                       ))}
                     </div>
                     <div
+                      className="spotlight-muted"
                       style={{
-                        color: "rgba(255,255,255,.3)",
                         fontSize: 10,
                         marginTop: 4,
                       }}
@@ -701,8 +806,8 @@ const Tutors: React.FC = () => {
                 </div>
 
                 <p
+                  className="spotlight-bio"
                   style={{
-                    color: "rgba(255,255,255,.5)",
                     fontSize: 15,
                     lineHeight: 1.8,
                     marginBottom: 28,
@@ -726,7 +831,7 @@ const Tutors: React.FC = () => {
                   ).map((b: string, i: number) => (
                     <span
                       key={i}
-                      className="badge"
+                      className="badge spotlight-badge-gold"
                       style={{
                         background: "rgba(201,151,58,.12)",
                         border: "1px solid rgba(201,151,58,.25)",
@@ -741,7 +846,7 @@ const Tutors: React.FC = () => {
                   {(featured?.specialties || []).map((s: string, i: number) => (
                     <span
                       key={i}
-                      className="badge"
+                      className="badge spotlight-badge-green"
                       style={{
                         background: "rgba(47,207,135,.1)",
                         border: "1px solid rgba(47,207,135,.2)",
@@ -791,8 +896,8 @@ const Tutors: React.FC = () => {
                         {s.v}
                       </div>
                       <div
+                        className="spotlight-muted"
                         style={{
-                          color: "rgba(255,255,255,.3)",
                           fontSize: 11,
                           marginTop: 3,
                           letterSpacing: ".06em",
@@ -814,7 +919,7 @@ const Tutors: React.FC = () => {
                       gap: 8,
                       background:
                         "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                      color: "#020b06",
+                      color: "var(--on-gold)",
                       padding: "13px 28px",
                       borderRadius: 14,
                       fontFamily: "'Cinzel',serif",
@@ -830,13 +935,12 @@ const Tutors: React.FC = () => {
                   </Link>
 
                   <button
+                    type="button"
+                    className="btn-spotlight-ghost"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
                       gap: 8,
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.1)",
-                      color: "rgba(255,255,255,.6)",
                       padding: "13px 22px",
                       borderRadius: 14,
                       fontFamily: "'Cinzel',serif",
@@ -859,9 +963,9 @@ const Tutors: React.FC = () => {
         <div
           className="sticky-bar"
           style={{
-            background: "rgba(2,11,6,.97)",
-            borderTop: "1px solid rgba(255,255,255,.05)",
-            borderBottom: "1px solid rgba(255,255,255,.05)",
+            background: "var(--sticky-bar-bg)",
+            borderTop: "1px solid var(--sticky-bar-border)",
+            borderBottom: "1px solid var(--sticky-bar-border)",
             padding: "18px 0",
             position: "sticky",
             top: 76,
@@ -895,7 +999,7 @@ const Tutors: React.FC = () => {
                   key={f}
                   onClick={() => setActiveFilter(f)}
                   className={`f-pill${activeFilter === f ? " f-pill-active" : ""}`}
-                  style={{ border: "none", cursor: "pointer" }}
+                  style={{ cursor: "pointer" }}
                 >
                   {f === "All" && <span style={{ fontSize: 8 }}>✦</span>}
                   {f}
@@ -923,7 +1027,7 @@ const Tutors: React.FC = () => {
                     left: 13,
                     top: "50%",
                     transform: "translateY(-50%)",
-                    color: "rgba(255,255,255,.25)",
+                    color: "var(--on-surface-subtle)",
                   }}
                 />
                 <input
@@ -980,7 +1084,7 @@ const Tutors: React.FC = () => {
                   fontSize: 10,
                   fontWeight: 700,
                   letterSpacing: ".15em",
-                  color: "rgba(255,255,255,.28)",
+                  color: "var(--on-surface-muted)",
                   whiteSpace: "nowrap",
                   flex: "0 0 auto",
                 }}
@@ -996,7 +1100,7 @@ const Tutors: React.FC = () => {
           style={{
             padding: "72px 0 120px",
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -1028,7 +1132,7 @@ const Tutors: React.FC = () => {
                 style={{
                   textAlign: "center",
                   padding: "80px 24px",
-                  color: "rgba(255,255,255,.3)",
+                  color: "var(--on-surface-subtle)",
                 }}
               >
                 <p
@@ -1069,19 +1173,20 @@ const Tutors: React.FC = () => {
                       style={{
                         borderRadius: 22,
                         overflow: "hidden",
-                        border: "1px solid rgba(255,255,255,.06)",
-                        background: "rgba(255,255,255,.025)",
+                        border: "1px solid var(--page-card-border)",
+                        background: "var(--page-card-bg)",
                         backdropFilter: "blur(16px)",
                         display: "flex",
                         flexDirection: "column",
                         animationDelay: `${(idx % 4) * 0.08}s`,
-                        boxShadow: "0 8px 32px rgba(0,0,0,.3)",
+                        boxShadow: "0 8px 32px var(--page-shadow)",
                       }}
                       onMouseEnter={() => setHoveredId(tutor.id)}
                       onMouseLeave={() => setHoveredId(null)}
                     >
                       {/* image */}
                       <div
+                        className="t-card-media-emerald"
                         style={{
                           position: "relative",
                           height: 220,
@@ -1090,8 +1195,6 @@ const Tutors: React.FC = () => {
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          background:
-                            "linear-gradient(180deg, rgba(14,66,36,.35) 0%, rgba(2,11,6,.9) 100%)",
                         }}
                       >
                         <TutorAvatar
@@ -1105,7 +1208,7 @@ const Tutors: React.FC = () => {
                             position: "absolute",
                             inset: 0,
                             background:
-                              "linear-gradient(to top,rgba(2,11,6,.75) 0%,transparent 55%)",
+                              "var(--tutor-card-image-scrim)",
                             pointerEvents: "none",
                           }}
                         />
@@ -1192,7 +1295,7 @@ const Tutors: React.FC = () => {
                               gap: 6,
                               background:
                                 "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                              color: "#020b06",
+                              color: "var(--on-gold)",
                               padding: "10px 18px",
                               borderRadius: 12,
                               fontFamily: "'Cinzel',serif",
@@ -1215,7 +1318,7 @@ const Tutors: React.FC = () => {
                               alignItems: "center",
                               justifyContent: "center",
                               cursor: "pointer",
-                              color: "rgba(255,255,255,.7)",
+                              color: "var(--on-surface-muted)",
                             }}
                           >
                             <Play size={14} />
@@ -1252,7 +1355,7 @@ const Tutors: React.FC = () => {
                             fontFamily: "'Cormorant Garamond',serif",
                             fontSize: 18,
                             fontWeight: 700,
-                            color: "#fff",
+                            color: "var(--on-surface)",
                             marginBottom: 4,
                             lineHeight: 1.2,
                             overflowWrap: "anywhere",
@@ -1305,7 +1408,7 @@ const Tutors: React.FC = () => {
                             </div>
                             <span
                               style={{
-                                color: "#fff",
+                                color: "var(--on-surface)",
                                 fontSize: 11,
                                 fontWeight: 700,
                               }}
@@ -1316,7 +1419,7 @@ const Tutors: React.FC = () => {
 
                           <div
                             style={{
-                              color: "rgba(255,255,255,.3)",
+                              color: "var(--on-surface-subtle)",
                               fontSize: 11,
                             }}
                           >
@@ -1359,7 +1462,7 @@ const Tutors: React.FC = () => {
                             alignItems: "center",
                             gap: 8,
                             marginBottom: 18,
-                            color: "rgba(255,255,255,.3)",
+                            color: "var(--on-surface-subtle)",
                             fontSize: 12,
                           }}
                         >
@@ -1438,11 +1541,11 @@ const Tutors: React.FC = () => {
                       style={{
                         padding: "24px 28px",
                         borderRadius: 20,
-                        border: "1px solid rgba(255,255,255,.06)",
-                        background: "rgba(255,255,255,.025)",
+                        border: "1px solid var(--page-card-border)",
+                        background: "var(--page-card-bg)",
                         backdropFilter: "blur(16px)",
                         animationDelay: `${idx * 0.05}s`,
-                        boxShadow: "0 4px 24px rgba(0,0,0,.25)",
+                        boxShadow: "0 4px 24px var(--page-shadow)",
                         position: "relative",
                         overflow: "hidden",
                       }}
@@ -1510,7 +1613,7 @@ const Tutors: React.FC = () => {
                               fontFamily: "'Cormorant Garamond',serif",
                               fontSize: 20,
                               fontWeight: 700,
-                              color: "#fff",
+                              color: "var(--on-surface)",
                               overflowWrap: "anywhere",
                             }}
                           >
@@ -1570,7 +1673,7 @@ const Tutors: React.FC = () => {
                             ))}
                             <span
                               style={{
-                                color: "#fff",
+                                color: "var(--on-surface)",
                                 fontSize: 12,
                                 fontWeight: 700,
                                 marginLeft: 4,
@@ -1580,7 +1683,7 @@ const Tutors: React.FC = () => {
                             </span>
                             <span
                               style={{
-                                color: "rgba(255,255,255,.3)",
+                                color: "var(--on-surface-subtle)",
                                 fontSize: 11,
                                 marginLeft: 3,
                               }}
@@ -1591,7 +1694,7 @@ const Tutors: React.FC = () => {
 
                           <span
                             style={{
-                              color: "rgba(255,255,255,.25)",
+                              color: "var(--on-surface-subtle)",
                               fontSize: 12,
                             }}
                           >
@@ -1600,7 +1703,7 @@ const Tutors: React.FC = () => {
 
                           <span
                             style={{
-                              color: "rgba(255,255,255,.25)",
+                              color: "var(--on-surface-subtle)",
                               fontSize: 12,
                             }}
                           >
@@ -1612,7 +1715,7 @@ const Tutors: React.FC = () => {
                               display: "flex",
                               alignItems: "center",
                               gap: 5,
-                              color: "rgba(255,255,255,.3)",
+                              color: "var(--on-surface-subtle)",
                               fontSize: 12,
                             }}
                           >
@@ -1669,7 +1772,7 @@ const Tutors: React.FC = () => {
         {/* ══════════════════════════ WHY OUR TUTORS */}
         <section
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             padding: "80px 0 100px",
             position: "relative",
             overflow: "hidden",
@@ -1708,7 +1811,7 @@ const Tutors: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(30px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                 Why Our Tutors Are <span className="gold-text">Different</span>
@@ -1752,8 +1855,8 @@ const Tutors: React.FC = () => {
                   key={i}
                   style={{
                     textAlign: "center",
-                    background: "rgba(255,255,255,.03)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: "var(--surface-chip-bg)",
+                    border: "1px solid var(--surface-chip-border)",
                     borderRadius: 22,
                     padding: "40px 28px",
                     position: "relative",
@@ -1803,7 +1906,7 @@ const Tutors: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: 18,
                       fontWeight: 700,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       marginBottom: 10,
                     }}
                   >
@@ -1811,7 +1914,7 @@ const Tutors: React.FC = () => {
                   </h4>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.38)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 13,
                       lineHeight: 1.75,
                     }}
@@ -1828,7 +1931,7 @@ const Tutors: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
+              "var(--marketing-cta-bg)",
             padding: "100px 0",
             position: "relative",
             overflow: "hidden",
@@ -1878,7 +1981,7 @@ const Tutors: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(32px,5vw,64px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.1,
                 marginBottom: 24,
               }}
@@ -1895,7 +1998,7 @@ const Tutors: React.FC = () => {
 
             <p
               style={{
-                color: "rgba(255,255,255,.4)",
+                color: "var(--on-surface-muted)",
                 fontSize: 17,
                 lineHeight: 1.85,
                 marginBottom: 44,
@@ -1914,7 +2017,7 @@ const Tutors: React.FC = () => {
                 alignItems: "center",
                 gap: 10,
                 background: "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                color: "#020b06",
+                color: "var(--on-gold)",
                 padding: "18px 48px",
                 borderRadius: 16,
                 fontFamily: "'Cinzel',serif",

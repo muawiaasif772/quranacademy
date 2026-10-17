@@ -1,0 +1,18 @@
+@import "./theme/theme.css";
+
+/* Light theme: phone input */
+html[data-theme="light"] .alm-phone-field {
+  --react-international-phone-background-color: #ffffff;
+  --react-international-phone-text-color: #0f172a;
+  --react-international-phone-border-color: rgba(15, 23, 42, 0.12);
+  --react-international-phone-country-selector-background-color: #ffffff;
+  --react-international-phone-country-selector-background-color-hover: #f1f5f9;
+  --react-international-phone-country-selector-border-color: rgba(15, 23, 42, 0.12);
+  --react-international-phone-country-selector-arrow-color: #64748b;
+  --react-international-phone-dropdown-item-background-color: #ffffff;
+  --react-international-phone-dropdown-item-text-color: #0f172a;
+  --react-international-phone-selected-dropdown-item-background-color: rgba(201, 151, 58, 0.2);
+  --react-international-phone-selected-dropdown-item-text-color: #0f172a;
+  --react-international-phone-dropdown-item-dial-code-color: #64748b;
+  --react-international-phone-dropdown-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+}

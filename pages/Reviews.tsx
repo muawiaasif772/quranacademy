@@ -92,20 +92,6 @@ const COURSE_COLORS: Record<string, { color: string; dim: string }> = {
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-dk:   #0a2e18;
-    --em-md:   #0e4224;
-    --em-vv:   #16a05c;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-    --cream:   #fdfaf3;
-    --ivory:   #f8f3e8;
-  }
-
   /* ── Hex + Diamond BG patterns ── */
   .hex-bg {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
@@ -181,8 +167,8 @@ const pageStyles = `
 
   /* ── Review Card ── */
   .review-card {
-    background: rgba(255,255,255,.03);
-    border: 1px solid rgba(255,255,255,.07);
+    background: var(--page-card-bg);
+    border: 1px solid var(--page-card-border);
     border-radius: 24px;
     padding: 36px;
     position: relative;
@@ -193,24 +179,32 @@ const pageStyles = `
     display: flex;
     flex-direction: column;
     animation: slideInCard .6s cubic-bezier(.16,1,.3,1) both;
+    box-shadow: 0 12px 40px var(--page-shadow);
   }
   .review-card:hover {
     transform: translateY(-10px) scale(1.015);
-    box-shadow: 0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(201,151,58,.25);
-    border-color: rgba(201,151,58,.2);
+    box-shadow: 0 32px 64px var(--page-shadow), 0 0 0 1px rgba(201,151,58,.25);
+    border-color: rgba(201,151,58,.28);
   }
 
-  /* ── Featured card ── */
-  .review-card-featured {
+  /* ── Featured card (grid) ── */
+  html[data-theme="dark"] .review-card-featured,
+  html:not([data-theme="light"]) .review-card-featured {
     background: linear-gradient(145deg, rgba(14,66,36,.5), rgba(5,22,16,.7));
     border: 1px solid rgba(201,151,58,.3);
     animation: borderGlow 4s ease-in-out infinite;
   }
+  html[data-theme="light"] .review-card-featured {
+    background: linear-gradient(145deg, #c8e6d4 0%, #ecf7f0 48%, #ffffff 100%);
+    border: 1px solid rgba(13, 74, 42, 0.22);
+    box-shadow: 0 20px 52px var(--page-shadow);
+    animation: none;
+  }
 
   /* ── Stat card ── */
   .stat-card {
-    background: rgba(255,255,255,.025);
-    border: 1px solid rgba(255,255,255,.07);
+    background: var(--page-card-bg);
+    border: 1px solid var(--page-card-border);
     border-radius: 20px;
     padding: 32px 24px;
     text-align: center;
@@ -218,12 +212,13 @@ const pageStyles = `
     position: relative;
     overflow: hidden;
     animation: countUp .6s cubic-bezier(.16,1,.3,1) both;
+    box-shadow: 0 8px 28px var(--page-shadow);
   }
   .stat-card:hover {
     transform: translateY(-6px);
     border-color: rgba(201,151,58,.3);
-    background: rgba(255,255,255,.05);
-    box-shadow: 0 24px 48px rgba(0,0,0,.4);
+    background: var(--surface-chip-bg);
+    box-shadow: 0 24px 48px var(--page-shadow);
   }
   .stat-card::before {
     content:'';
@@ -234,9 +229,9 @@ const pageStyles = `
   /* ── Slider controls ── */
   .slider-btn {
     width: 48px; height: 48px; border-radius: 50%;
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.1);
-    color: rgba(255,255,255,.5);
+    background: var(--surface-chip-bg);
+    border: 1px solid var(--page-card-border);
+    color: var(--on-surface-muted);
     display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: all .25s;
     flex-shrink: 0;
@@ -244,14 +239,15 @@ const pageStyles = `
   .slider-btn:hover {
     background: rgba(201,151,58,.15);
     border-color: rgba(201,151,58,.4);
-    color: var(--gold-lt);
+    color: var(--gold);
     transform: scale(1.1);
   }
 
   /* ── Dot indicator ── */
   .dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(255,255,255,.18);
+    background: var(--on-surface-subtle);
+    opacity: 0.45;
     cursor: pointer; transition: all .3s;
   }
   .dot-active {
@@ -270,17 +266,62 @@ const pageStyles = `
   .trust-item {
     display: flex; align-items: center; gap: 10px;
     padding: 12px 22px; border-radius: 100px;
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.07);
-    color: rgba(255,255,255,.45);
+    background: var(--page-card-bg);
+    border: 1px solid var(--page-card-border);
+    color: var(--on-surface-muted);
     font-size: 13px; font-family:'Nunito',sans-serif; font-weight:600;
     white-space: nowrap;
     transition: all .25s;
+    box-shadow: 0 2px 10px var(--page-shadow);
+  }
+  html[data-theme="light"] .trust-item {
+    border-color: rgba(13, 74, 42, 0.16);
+    background: linear-gradient(180deg, #ffffff 0%, #f8faf9 100%);
   }
   .trust-item:hover {
     background: rgba(201,151,58,.08);
-    border-color: rgba(201,151,58,.25);
-    color: rgba(255,255,255,.7);
+    border-color: rgba(201,151,58,.35);
+    color: var(--on-surface);
+  }
+
+  .hero-rating-pill-themed {
+    background: var(--page-card-bg);
+    border: 1px solid rgba(201,151,58,.28);
+    box-shadow: 0 4px 20px var(--page-shadow);
+  }
+
+  .review-course-tag {
+    display: inline-block;
+  }
+  html[data-theme="light"] .review-course-tag {
+    box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 35%, transparent);
+  }
+
+  html[data-theme="dark"] .featured-review-carousel,
+  html:not([data-theme="light"]) .featured-review-carousel {
+    background: linear-gradient(145deg, rgba(14,66,36,.5), rgba(5,22,16,.7));
+    box-shadow: 0 32px 80px rgba(0,0,0,.5);
+  }
+  html[data-theme="light"] .featured-review-carousel {
+    background: linear-gradient(145deg, #bfe0ce 0%, #e8f5ef 45%, #ffffff 100%);
+    box-shadow: 0 28px 72px var(--page-shadow);
+  }
+
+  html[data-theme="dark"] .reviews-cta-panel,
+  html:not([data-theme="light"]) .reviews-cta-panel {
+    background: linear-gradient(135deg, rgba(14,66,36,.75), rgba(10,46,24,.85));
+  }
+  html[data-theme="light"] .reviews-cta-panel {
+    background: linear-gradient(135deg, #c5e2d6 0%, #e8f5ef 42%, #fffdf6 100%);
+    border-color: rgba(13, 74, 42, 0.2) !important;
+  }
+  html[data-theme="light"] .reviews-cta-panel .reviews-cta-sub,
+  html[data-theme="light"] .reviews-cta-panel .reviews-cta-mini {
+    color: var(--on-surface-muted) !important;
+  }
+  html[data-theme="light"] .reviews-cta-mini-box {
+    background: rgba(255, 255, 255, 0.75) !important;
+    border: 1px solid rgba(13, 74, 42, 0.12) !important;
   }
 
   /* ── Shim top bar ── */
@@ -384,13 +425,13 @@ export const Reviews: React.FC = () => {
       <style>{pageStyles}</style>
       <div
         className="reviews-page-root"
-        style={{ fontFamily: "'Nunito',sans-serif", background: "var(--deep)" }}
+        style={{ fontFamily: "'Nunito',sans-serif", background: "var(--surface-base)" }}
       >
         {/* ══════════════════════════════════════ HERO BANNER */}
         <section
           style={{
             background:
-              "radial-gradient(ellipse 110% 80% at 10% 0%,#0d4a2a 0%,transparent 55%), radial-gradient(ellipse 80% 100% at 90% 100%,#062418 0%,transparent 50%), #020b06",
+              "var(--page-hero-extended-bg)",
             padding: "90px 24px 80px",
             position: "relative",
             overflow: "hidden",
@@ -509,7 +550,7 @@ export const Reviews: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(38px,5.5vw,72px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.1,
                 marginBottom: 18,
                 animation: "fadeUp .7s .1s cubic-bezier(.16,1,.3,1) both",
@@ -524,7 +565,7 @@ export const Reviews: React.FC = () => {
 
             <p
               style={{
-                color: "rgba(255,255,255,.42)",
+                color: "var(--on-surface-muted)",
                 fontSize: 17,
                 lineHeight: 1.9,
                 maxWidth: 560,
@@ -539,10 +580,8 @@ export const Reviews: React.FC = () => {
 
             {/* Aggregate rating */}
             <div
-              className="hero-rating-pill"
+              className="hero-rating-pill hero-rating-pill-themed"
               style={{
-                background: "rgba(255,255,255,.04)",
-                border: "1px solid rgba(201,151,58,.2)",
                 borderRadius: 100,
                 padding: "14px clamp(16px, 4vw, 28px)",
                 animation: "fadeUp .7s .3s cubic-bezier(.16,1,.3,1) both",
@@ -578,7 +617,7 @@ export const Reviews: React.FC = () => {
                   background: "rgba(255,255,255,.12)",
                 }}
               />
-              <span style={{ color: "rgba(255,255,255,.4)", fontSize: 13 }}>
+              <span style={{ color: "var(--on-surface-muted)", fontSize: 13 }}>
                 Based on 3,200+ Reviews
               </span>
             </div>
@@ -590,7 +629,7 @@ export const Reviews: React.FC = () => {
         <section
           style={{
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--em-dk) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "80px 24px",
             position: "relative",
             overflow: "hidden",
@@ -659,7 +698,7 @@ export const Reviews: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,48px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.2,
                 }}
               >
@@ -681,14 +720,14 @@ export const Reviews: React.FC = () => {
             {/* Featured card */}
             <div
               key={animKey}
+              className="featured-review-carousel"
               style={{
-                background: `linear-gradient(145deg,rgba(14,66,36,.5),rgba(5,22,16,.7))`,
                 border: `1px solid ${acc.color}40`,
                 borderRadius: 28,
                 padding: "clamp(28px,5vw,56px)",
                 position: "relative",
                 overflow: "hidden",
-                boxShadow: `0 32px 80px rgba(0,0,0,.5), 0 0 0 1px ${acc.color}20`,
+                boxShadow: `0 0 0 1px ${acc.color}20`,
                 animation: "slideInCard .5s cubic-bezier(.16,1,.3,1) both",
               }}
             >
@@ -741,6 +780,7 @@ export const Reviews: React.FC = () => {
                 {/* Course tag */}
                 <div style={{ marginBottom: 24 }}>
                   <span
+                    className="review-course-tag"
                     style={{
                       background: acc.dim,
                       border: `1px solid ${acc.color}40`,
@@ -776,7 +816,7 @@ export const Reviews: React.FC = () => {
                     fontFamily: "'Cormorant Garamond',serif",
                     fontSize: "clamp(18px,2.5vw,26px)",
                     fontWeight: 600,
-                    color: "rgba(255,255,255,.88)",
+                    color: "var(--on-surface)",
                     lineHeight: 1.65,
                     marginBottom: 36,
                     fontStyle: "italic",
@@ -813,14 +853,14 @@ export const Reviews: React.FC = () => {
                         fontFamily: "'Cinzel',serif",
                         fontSize: 14,
                         fontWeight: 700,
-                        color: "#fff",
+                        color: "var(--on-surface)",
                         marginBottom: 4,
                       }}
                     >
                       {featured.name}
                     </div>
                     <div
-                      style={{ color: "rgba(255,255,255,.38)", fontSize: 12 }}
+                      style={{ color: "var(--on-surface-faint)", fontSize: 12 }}
                     >
                       {featured.location}
                     </div>
@@ -841,7 +881,7 @@ export const Reviews: React.FC = () => {
                       />
                     </div>
                     <span
-                      style={{ color: "rgba(255,255,255,.3)", fontSize: 12 }}
+                      style={{ color: "var(--on-surface-subtle)", fontSize: 12 }}
                     >
                       Verified Student
                     </span>
@@ -894,7 +934,7 @@ export const Reviews: React.FC = () => {
           style={{
             padding: "80px 24px",
             background:
-              "linear-gradient(180deg,var(--em-dk) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -961,7 +1001,7 @@ export const Reviews: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.2,
                   marginBottom: 16,
                 }}
@@ -974,7 +1014,7 @@ export const Reviews: React.FC = () => {
               </h2>
               <p
                 style={{
-                  color: "rgba(255,255,255,.38)",
+                  color: "var(--on-surface-faint)",
                   fontSize: 15,
                   maxWidth: 480,
                   margin: "0 auto",
@@ -1061,6 +1101,7 @@ export const Reviews: React.FC = () => {
                       {/* Course tag */}
                       <div style={{ marginBottom: 16 }}>
                         <span
+                          className="review-course-tag"
                           style={{
                             background: rAcc.dim,
                             border: `1px solid ${rAcc.color}35`,
@@ -1099,7 +1140,7 @@ export const Reviews: React.FC = () => {
                           fontSize: 17,
                           fontStyle: "italic",
                           fontWeight: 600,
-                          color: "rgba(255,255,255,.75)",
+                          color: "var(--on-surface-muted)",
                           lineHeight: 1.7,
                           flex: 1,
                           marginBottom: 24,
@@ -1151,7 +1192,7 @@ export const Reviews: React.FC = () => {
                               fontFamily: "'Cinzel',serif",
                               fontSize: 12,
                               fontWeight: 700,
-                              color: "#fff",
+                              color: "var(--on-surface)",
                               marginBottom: 2,
                             }}
                           >
@@ -1159,7 +1200,7 @@ export const Reviews: React.FC = () => {
                           </div>
                           <div
                             style={{
-                              color: "rgba(255,255,255,.3)",
+                              color: "var(--on-surface-subtle)",
                               fontSize: 11,
                             }}
                           >
@@ -1199,10 +1240,10 @@ export const Reviews: React.FC = () => {
         <section
           className="reviews-section-clip"
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             padding: "40px 24px",
-            borderTop: "1px solid rgba(255,255,255,.05)",
-            borderBottom: "1px solid rgba(255,255,255,.05)",
+            borderTop: "1px solid var(--sticky-bar-border)",
+            borderBottom: "1px solid var(--sticky-bar-border)",
           }}
         >
           <div style={{ maxWidth: 1320, margin: "0 auto" }}>
@@ -1254,13 +1295,12 @@ export const Reviews: React.FC = () => {
         {/* ══════════════════════════════════════ BOTTOM CTA */}
         <section
           className="reviews-section-clip"
-          style={{ background: "var(--deep)", padding: "80px 24px 100px" }}
+          style={{ background: "var(--surface-base)", padding: "80px 24px 100px" }}
         >
           <div style={{ maxWidth: 1320, margin: "0 auto" }}>
             <div
+              className="reviews-cta-panel"
               style={{
-                background:
-                  "linear-gradient(135deg,rgba(14,66,36,.75),rgba(10,46,24,.85))",
                 border: "1px solid rgba(201,151,58,.22)",
                 borderRadius: 28,
                 padding: "clamp(36px,6vw,64px)",
@@ -1347,7 +1387,7 @@ export const Reviews: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: "clamp(26px,3.5vw,46px)",
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       lineHeight: 1.2,
                       marginBottom: 18,
                     }}
@@ -1367,8 +1407,9 @@ export const Reviews: React.FC = () => {
                     </em>
                   </h2>
                   <p
+                    className="reviews-cta-sub"
                     style={{
-                      color: "rgba(255,255,255,.38)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 15,
                       lineHeight: 1.8,
                     }}
@@ -1395,7 +1436,7 @@ export const Reviews: React.FC = () => {
                       gap: 10,
                       background:
                         "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                      color: "#020b06",
+                      color: "var(--on-gold)",
                       padding: "18px 44px",
                       borderRadius: 16,
                       fontFamily: "'Cinzel',serif",
@@ -1413,14 +1454,14 @@ export const Reviews: React.FC = () => {
 
                   {/* Mini testimonial preview */}
                   <div
+                    className="reviews-cta-mini-box"
                     style={{
                       display: "flex",
                       alignItems: "center",
                       gap: 10,
                       padding: "10px 16px",
-                      background: "rgba(255,255,255,.04)",
                       borderRadius: 12,
-                      border: "1px solid rgba(255,255,255,.07)",
+                      border: "1px solid var(--surface-chip-border)",
                     }}
                   >
                     <div style={{ display: "flex" }}>
@@ -1456,7 +1497,8 @@ export const Reviews: React.FC = () => {
                         ))}
                       </div>
                       <div
-                        style={{ color: "rgba(255,255,255,.35)", fontSize: 11 }}
+                        className="reviews-cta-mini"
+                        style={{ color: "var(--on-surface-faint)", fontSize: 11 }}
                       >
                         Loved by 15,000+ students
                       </div>

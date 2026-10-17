@@ -25,6 +25,7 @@ import CourseDetail from "./pages/Coursedetail";
 import { PrivacyPolicy } from "./pages/Privacypolicy";
 import { TermsOfService } from "./pages/Termsofservice";
 import NotFoundPage from "./pages/NotFound";
+import { ThemeProvider } from "./theme/ThemeProvider";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -36,6 +37,7 @@ const ScrollToTop = () => {
 
 const App: React.FC = () => {
   return (
+    <ThemeProvider>
     <Router>
       <ScrollToTop />
       <RouteSeo />
@@ -58,6 +60,7 @@ const App: React.FC = () => {
         </Routes>
       </Layout>
     </Router>
+    </ThemeProvider>
   );
 };
 

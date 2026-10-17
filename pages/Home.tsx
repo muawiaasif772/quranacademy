@@ -22,25 +22,11 @@ import { homeHeroImage } from "../seo/image-assets";
 const globalStyle = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Amiri:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-  :root {
-    --emerald-900: #022c22;
-    --emerald-800: #064e3b;
-    --emerald-700: #065f46;
-    --emerald-600: #047857;
-    --emerald-400: #34d399;
-    --emerald-300: #6ee7b7;
-    --gold-500:    #c9a84c;
-    --gold-400:    #e2c06b;
-    --gold-300:    #f5dfa0;
-    --cream:       #fdf8f0;
-    --ink:         #0d1f1a;
-  }
-
   * { box-sizing: border-box; }
 
   /* ---- geometric SVG pattern bg ---- */
   .geo-bg {
-    background-color: var(--emerald-900);
+    background-color: var(--band-section-bg);
     background-image:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23ffffff08' stroke-width='1' d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Cpath fill='none' stroke='%23ffffff05' stroke-width='0.5' d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%23ffffff04'/%3E%3C/svg%3E");
   }
@@ -134,9 +120,10 @@ const globalStyle = `
   }
 
   .glass-card {
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(255,255,255,.1);
+    background: var(--page-card-bg);
+    border: 1px solid var(--page-card-border);
     backdrop-filter: blur(12px);
+    box-shadow: 0 8px 24px var(--page-shadow);
   }
 
   .green-glass {
@@ -167,7 +154,7 @@ const globalStyle = `
   .tutor-ring-inner {
     border-radius: 9999px;
     overflow: hidden;
-    background: var(--emerald-900);
+    background: var(--band-section-bg);
   }
 
   .stat-item + .stat-item {
@@ -280,7 +267,14 @@ const Home: React.FC = () => {
   return (
     <>
       <style>{globalStyle}</style>
-      <div style={{ fontFamily: "'DM Sans', sans-serif", color: "var(--ink)" }}>
+      <div
+        className="alm-page"
+        style={{
+          fontFamily: "'DM Sans', sans-serif",
+          background: "var(--surface-base)",
+          color: "var(--on-surface)",
+        }}
+      >
         {/* ═══════════════════════════════════════════════════════ HERO */}
         <section
           className="hero-mesh geo-bg"
@@ -416,7 +410,7 @@ const Home: React.FC = () => {
                       fontFamily: "'Playfair Display', serif",
                       fontSize: "clamp(32px, 5.5vw, 68px)",
                       fontWeight: 900,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       lineHeight: 1.1,
                       margin: 0,
                     }}
@@ -557,7 +551,7 @@ const Home: React.FC = () => {
                       ))}
                       <span
                         style={{
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           fontWeight: 700,
                           marginLeft: 6,
                           fontSize: 14,
@@ -652,7 +646,7 @@ const Home: React.FC = () => {
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div
                         style={{
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           fontWeight: 700,
                           fontSize: "clamp(12px,1.5vw,14px)",
                           whiteSpace: "nowrap",
@@ -722,12 +716,8 @@ const Home: React.FC = () => {
 
         {/* ═══════════════════════════════════════════════════════ COURSES */}
         <section
-          style={{
-            background: "var(--emerald-900)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-          className="section-pad"
+          className="section-pad alm-band-section"
+          style={{ overflow: "hidden" }}
         >
           <div
             className="geo-bg"
@@ -767,7 +757,7 @@ const Home: React.FC = () => {
                     fontFamily: "'Playfair Display', serif",
                     fontSize: "clamp(24px, 4vw, 48px)",
                     fontWeight: 700,
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     margin: 0,
                   }}
                 >
@@ -830,12 +820,11 @@ const Home: React.FC = () => {
                 .map((course: any) => (
                   <div
                     key={course.id}
-                    className="card-lift"
+                    className="card-lift home-surface-card"
                     style={{
                       borderRadius: 22,
                       overflow: "hidden",
-                      border: "1px solid rgba(201,168,76,.2)",
-                      background: "rgba(255,255,255,.04)",
+                      border: "1px solid var(--page-card-border)",
                       backdropFilter: "blur(12px)",
                     }}
                   >
@@ -861,8 +850,7 @@ const Home: React.FC = () => {
                         style={{
                           position: "absolute",
                           inset: 0,
-                          background:
-                            "linear-gradient(to top, rgba(2,44,34,.7) 0%, transparent 60%)",
+                          background: "var(--course-image-scrim)",
                         }}
                       />
                       <span
@@ -894,7 +882,7 @@ const Home: React.FC = () => {
                           fontFamily: "'Playfair Display', serif",
                           fontSize: "clamp(18px, 2.5vw, 21px)",
                           fontWeight: 700,
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           margin: "0 0 10px",
                         }}
                       >
@@ -941,12 +929,8 @@ const Home: React.FC = () => {
 
         {/* ═══════════════════════════════════════════════════════ TUTORS */}
         <section
-          style={{
-            background: "var(--emerald-900)",
-            position: "relative",
-            overflow: "hidden",
-          }}
-          className="section-pad"
+          className="section-pad alm-band-section"
+          style={{ overflow: "hidden" }}
         >
           <div
             className="geo-bg"
@@ -991,7 +975,7 @@ const Home: React.FC = () => {
                   fontFamily: "'Playfair Display', serif",
                   fontSize: "clamp(24px, 4vw, 48px)",
                   fontWeight: 700,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   margin: 0,
                 }}
               >
@@ -1004,11 +988,10 @@ const Home: React.FC = () => {
               {TUTORS.slice(0, 3).map((tutor) => (
                   <div
                     key={tutor.id}
-                    className="card-lift"
+                    className="card-lift home-surface-card"
                     style={{
                       textAlign: "center",
-                      background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(201,168,76,.18)",
+                      border: "1px solid var(--page-card-border)",
                       borderRadius: 24,
                       padding:
                         "clamp(28px, 5vw, 44px) clamp(20px, 4vw, 28px) clamp(24px, 4vw, 36px)",
@@ -1041,7 +1024,7 @@ const Home: React.FC = () => {
                         fontFamily: "'Playfair Display', serif",
                         fontSize: "clamp(16px, 2.5vw, 19px)",
                         fontWeight: 700,
-                        color: "#fff",
+                        color: "var(--on-surface)",
                         margin: "0 0 6px",
                       }}
                     >
@@ -1089,7 +1072,7 @@ const Home: React.FC = () => {
                           fill="var(--gold-400)"
                           color="var(--gold-400)"
                         />
-                        <strong style={{ color: "#fff" }}>
+                        <strong style={{ color: "var(--on-surface)" }}>
                           {tutor.rating}
                         </strong>
                       </span>
@@ -1162,14 +1145,8 @@ const Home: React.FC = () => {
 
         {/* ═══════════════════════════════════════════════════════ FINAL CTA */}
         <section
-          style={{
-            background:
-              "linear-gradient(135deg, #011a12 0%, var(--emerald-800) 40%, #043d2f 70%, #011a12 100%)",
-            position: "relative",
-            overflow: "hidden",
-            textAlign: "center",
-          }}
-          className="section-pad"
+          className="section-pad alm-cta-section"
+          style={{ overflow: "hidden", textAlign: "center" }}
         >
           {/* Big Arabic text bg */}
           <div
@@ -1232,7 +1209,7 @@ const Home: React.FC = () => {
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "clamp(28px, 5vw, 64px)",
                 fontWeight: 900,
-                color: "#fff",
+                color: "var(--on-surface)",
                 margin: "0 0 20px",
                 lineHeight: 1.1,
               }}
@@ -1242,7 +1219,7 @@ const Home: React.FC = () => {
             </h2>
             <p
               style={{
-                color: "#7aaa94",
+                color: "var(--on-surface-muted)",
                 fontSize: "clamp(15px, 2vw, 18px)",
                 margin: "0 0 44px",
                 lineHeight: 1.7,

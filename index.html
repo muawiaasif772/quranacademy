@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      (function () {
+        var k = "alm-theme";
+        var t = null;
+        try { t = localStorage.getItem(k); } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.classList.toggle("dark", t === "dark");
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -149,7 +161,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-[#FFFDF6] dark:bg-[#0D0D0D] text-slate-900 dark:text-slate-100 transition-colors duration-300">
+  <body>
     <noscript>
       <div style="max-width:42rem;margin:1.5rem auto;padding:0 1rem;font-family:system-ui,sans-serif;line-height:1.6">
         <h1 style="font-size:1.35rem;margin:0 0 0.75rem">Alif Laam Meem Academy — Online Quran Classes</h1>

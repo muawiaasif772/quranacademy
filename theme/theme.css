@@ -1,0 +1,561 @@
+/* ── Alif Laam Meem Academy — global theme tokens (single source of truth) ── */
+
+/* Brand palette — constant in both themes (emerald + gold) */
+html {
+  color-scheme: dark light;
+  --deep: #020b06;
+  --forest: #051610;
+  --em-dk: #0a2e18;
+  --em-md: #0e4224;
+  --em-vv: #16a05c;
+  --em-lt: #2fcf87;
+  --gold: #c9973a;
+  --gold-m: #e4b558;
+  --gold-mid: #e4b558;
+  --gold-lt: #f5d98e;
+  --cream: #fdfaf3;
+  --ivory: #f8f3e8;
+  --emerald-900: #022c22;
+  --emerald-800: #064e3b;
+  --emerald-700: #065f46;
+  --emerald-600: #047857;
+  --emerald-400: #34d399;
+  --emerald-300: #6ee7b7;
+  --gold-500: #c9a84c;
+  --gold-400: #e2c06b;
+  --gold-300: #f5dfa0;
+  --ink: #0d1f1a;
+}
+
+/* ── Dark theme surfaces ── */
+html,
+html[data-theme="dark"] {
+  --surface-base: #020b06;
+  --surface-elevated: #051610;
+  --surface-section-from: #051610;
+  --surface-section-to: #020b06;
+  --on-surface: #ffffff;
+  --on-surface-muted: rgba(255, 255, 255, 0.55);
+  --on-surface-faint: rgba(255, 255, 255, 0.35);
+  --on-surface-subtle: rgba(255, 255, 255, 0.3);
+  --surface-chip-bg: rgba(255, 255, 255, 0.03);
+  --surface-chip-border: rgba(255, 255, 255, 0.06);
+  --hero-panel-bg: radial-gradient(
+      ellipse 130% 80% at 20% 0%,
+      #0d4a2a 0%,
+      transparent 55%
+    ),
+    radial-gradient(ellipse 80% 100% at 85% 100%, #062418 0%, transparent 50%),
+    #020b06;
+  --home-hero-mesh: radial-gradient(ellipse 80% 60% at 10% 20%, #0a4f3a 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 90% 80%, #0a3828 0%, transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, #011a12 0%, #022c22 100%);
+  --sticky-bar-bg: rgba(2, 11, 6, 0.97);
+  --sticky-bar-border: rgba(255, 255, 255, 0.05);
+  --page-bg: var(--surface-base);
+  --page-fg: var(--on-surface);
+  --page-fg-muted: var(--on-surface-muted);
+  --page-fg-subtle: var(--on-surface-faint);
+  --page-card-bg: rgba(255, 255, 255, 0.025);
+  --page-card-border: rgba(255, 255, 255, 0.08);
+  --page-input-bg: rgba(255, 255, 255, 0.04);
+  --page-input-border: rgba(255, 255, 255, 0.09);
+  --page-shadow: rgba(0, 0, 0, 0.45);
+  --section-cream-bg: var(--cream);
+  --section-cream-fg: var(--ink);
+  --on-gold: #020b06;
+  --nav-bg: linear-gradient(
+    180deg,
+    rgba(2, 11, 6, 0.98) 0%,
+    rgba(2, 11, 6, 0.92) 100%
+  );
+  --nav-bg-scrolled: rgba(2, 11, 6, 0.96);
+  --nav-border: rgba(201, 151, 58, 0.12);
+  --nav-link-fg: rgba(255, 255, 255, 0.55);
+  --mobile-menu-bg: rgba(2, 11, 6, 0.98);
+  --footer-bg: linear-gradient(180deg, #020b06 0%, #030f07 100%);
+  --footer-fg-muted: rgba(255, 255, 255, 0.55);
+  --footer-banner-bg: linear-gradient(
+    135deg,
+    rgba(14, 66, 36, 0.7),
+    rgba(10, 46, 24, 0.8)
+  );
+  --footer-banner-border: rgba(201, 151, 58, 0.2);
+  --marketing-cta-bg: radial-gradient(
+    ellipse 120% 80% at 50% 50%,
+    #0d4a2a 0%,
+    #020b06 70%
+  );
+  --icon-faint: rgba(255, 255, 255, 0.2);
+  --border-divider: rgba(255, 255, 255, 0.04);
+  --row-hover-bg: rgba(255, 255, 255, 0.02);
+  --band-section-bg: #022c22;
+  --stats-ribbon-bg: linear-gradient(
+    180deg,
+    #040f09 0%,
+    #061c11 50%,
+    #040f09 100%
+  );
+  --hiw-section-bg: radial-gradient(
+      ellipse 100% 80% at 50% 0%,
+      #0a2d1a 0%,
+      #030d08 60%
+    ),
+    #030d08;
+  --cta-section-bg: linear-gradient(
+    135deg,
+    #011a12 0%,
+    #064e3b 40%,
+    #043d2f 70%,
+    #011a12 100%
+  );
+  --page-hero-extended-bg: radial-gradient(
+      ellipse 120% 80% at 20% 0%,
+      #0d4a2a 0%,
+      transparent 55%
+    ),
+    radial-gradient(ellipse 80% 100% at 85% 100%, #062418 0%, transparent 50%),
+    radial-gradient(100% 100% at 50% 50%, #020b06 0%, #030f07 100%);
+  --tutor-spotlight-bg: linear-gradient(
+    135deg,
+    rgba(14, 66, 36, 0.65),
+    rgba(10, 46, 24, 0.8)
+  );
+  --tutor-card-media-bg: linear-gradient(
+    165deg,
+    rgba(10, 46, 24, 0.5) 0%,
+    rgba(2, 11, 6, 0.95) 100%
+  );
+  --tutor-card-image-scrim: linear-gradient(
+    to top,
+    rgba(2, 11, 6, 0.75) 0%,
+    transparent 55%
+  );
+  --course-image-scrim: linear-gradient(
+    to top,
+    rgba(2, 44, 34, 0.7) 0%,
+    transparent 60%
+  );
+  --badge-emerald-bg: linear-gradient(135deg, #064e3b, #043d2f);
+}
+
+/* ── Light theme surfaces (ivory pages, dark readable text) ── */
+html[data-theme="light"] {
+  --surface-base: #fffdf6;
+  --surface-elevated: #f8f3e8;
+  --surface-section-from: #f8f5ef;
+  --surface-section-to: #fffdf6;
+  --on-surface: #0d1f1a;
+  --on-surface-muted: #3d5248;
+  --on-surface-faint: #4a6358;
+  --on-surface-subtle: #5c7268;
+  --surface-chip-bg: rgba(13, 46, 36, 0.05);
+  --surface-chip-border: rgba(13, 46, 36, 0.1);
+  --hero-panel-bg: radial-gradient(
+      ellipse 130% 80% at 20% 0%,
+      rgba(13, 74, 42, 0.14) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 80% 100% at 85% 100%,
+      rgba(6, 36, 24, 0.1) 0%,
+      transparent 50%
+    ),
+    #fffdf6;
+  --home-hero-mesh: radial-gradient(
+      ellipse 80% 60% at 10% 20%,
+      rgba(10, 79, 58, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 80% at 90% 80%,
+      rgba(10, 56, 40, 0.08) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, #f8faf9 0%, #fffdf6 55%, #f3efe6 100%);
+  --sticky-bar-bg: rgba(255, 253, 246, 0.97);
+  --sticky-bar-border: rgba(13, 31, 26, 0.08);
+  --page-bg: var(--surface-base);
+  --page-fg: var(--on-surface);
+  --page-fg-muted: var(--on-surface-muted);
+  --page-fg-subtle: var(--on-surface-faint);
+  --page-card-bg: #ffffff;
+  --page-card-border: rgba(13, 46, 36, 0.12);
+  --page-input-bg: #ffffff;
+  --page-input-border: rgba(13, 46, 36, 0.14);
+  --page-shadow: rgba(13, 31, 26, 0.08);
+  --section-cream-bg: #f8faf9;
+  --section-cream-fg: var(--ink);
+  --on-gold: #1a1208;
+  --nav-bg: linear-gradient(
+    180deg,
+    rgba(255, 253, 246, 0.98) 0%,
+    rgba(248, 243, 232, 0.95) 100%
+  );
+  --nav-bg-scrolled: rgba(255, 253, 246, 0.96);
+  --nav-border: rgba(13, 46, 36, 0.1);
+  --nav-link-fg: #3d5248;
+  --mobile-menu-bg: rgba(255, 253, 246, 0.98);
+  --footer-bg: linear-gradient(180deg, #f8f5ef 0%, #fffdf6 100%);
+  --footer-fg-muted: #3d5248;
+  --footer-banner-bg: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(248, 250, 249, 0.98)
+  );
+  --footer-banner-border: rgba(13, 46, 36, 0.1);
+  --marketing-cta-bg: radial-gradient(
+    ellipse 120% 80% at 50% 50%,
+    rgba(13, 74, 42, 0.12) 0%,
+    #fffdf6 70%
+  );
+  --icon-faint: rgba(13, 46, 36, 0.25);
+  --border-divider: rgba(13, 46, 36, 0.08);
+  --row-hover-bg: rgba(13, 46, 36, 0.03);
+  --emerald-900: #fffdf6;
+  --emerald-800: #e8f2ec;
+  --band-section-bg: #fffdf6;
+  --stats-ribbon-bg: linear-gradient(
+    180deg,
+    #f8f5ef 0%,
+    #fffdf6 50%,
+    #f8f5ef 100%
+  );
+  --hiw-section-bg: radial-gradient(
+      ellipse 100% 80% at 50% 0%,
+      rgba(10, 45, 26, 0.1) 0%,
+      #fffdf6 60%
+    ),
+    #fffdf6;
+  --cta-section-bg: linear-gradient(
+    135deg,
+    #f0faf5 0%,
+    #fffdf6 45%,
+    #f8f3e8 75%,
+    #fffdf6 100%
+  );
+  --page-hero-extended-bg: radial-gradient(
+      ellipse 120% 80% at 20% 0%,
+      rgba(13, 74, 42, 0.12) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 80% 100% at 85% 100%,
+      rgba(6, 36, 24, 0.08) 0%,
+      transparent 50%
+    ),
+    linear-gradient(180deg, #f8faf9 0%, #fffdf6 55%, #f3efe6 100%);
+  --tutor-spotlight-bg: linear-gradient(
+    135deg,
+    #ffffff,
+    #f8faf9
+  );
+  --tutor-card-media-bg: linear-gradient(
+    165deg,
+    #f0faf5 0%,
+    #fffdf6 100%
+  );
+  --tutor-card-image-scrim: linear-gradient(
+    to top,
+    rgba(13, 46, 36, 0.35) 0%,
+    transparent 55%
+  );
+  --course-image-scrim: linear-gradient(
+    to top,
+    rgba(13, 46, 36, 0.25) 0%,
+    transparent 60%
+  );
+  --badge-emerald-bg: linear-gradient(135deg, #d0ebe0, #e8f2ec);
+}
+
+html {
+  background-color: var(--page-bg);
+  color: var(--page-fg);
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--page-fg);
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease;
+}
+
+/* Page shell */
+.alm-page {
+  background: var(--surface-base);
+  color: var(--on-surface);
+  min-height: 100vh;
+}
+
+.alm-band-section {
+  background: var(--band-section-bg);
+  color: var(--on-surface);
+  position: relative;
+}
+
+.alm-cta-section {
+  background: var(--cta-section-bg);
+  color: var(--on-surface);
+  position: relative;
+}
+
+html[data-theme="light"] .hiw-card {
+  background: var(--page-card-bg) !important;
+  border-color: var(--page-card-border) !important;
+  box-shadow: 0 16px 48px var(--page-shadow);
+}
+
+html[data-theme="light"] .hiw-card:hover {
+  box-shadow: 0 28px 56px var(--page-shadow), 0 0 0 1px rgba(201, 151, 58, 0.25);
+}
+
+html[data-theme="light"] .stats-grid .stat-card {
+  border-color: rgba(13, 46, 36, 0.14) !important;
+}
+
+html[data-theme="light"] .home-surface-card {
+  background: var(--page-card-bg) !important;
+  border-color: var(--page-card-border) !important;
+  box-shadow: 0 12px 40px var(--page-shadow);
+}
+
+html[data-theme="light"] .cta-band {
+  border-color: var(--page-card-border) !important;
+  box-shadow: 0 16px 48px var(--page-shadow);
+}
+
+html[data-theme="light"] .cta-band,
+html[data-theme="light"] .cta-band p,
+html[data-theme="light"] .cta-band h2,
+html[data-theme="light"] .cta-band h3 {
+  color: var(--on-surface);
+}
+
+/* Home hero */
+html[data-theme="light"] .hero-mesh {
+  background: var(--home-hero-mesh) !important;
+}
+
+html[data-theme="light"] .geo-bg {
+  background-color: transparent !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%2306473720' stroke-width='1' d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Cpath fill='none' stroke='%2306473715' stroke-width='0.5' d='M40 10 L70 40 L40 70 L10 40 Z'/%3E%3Ccircle cx='40' cy='40' r='4' fill='%2306473710'/%3E%3C/svg%3E") !important;
+  color: var(--on-surface);
+}
+
+html[data-theme="dark"] .geo-bg,
+html[data-theme="dark"] .hero-mesh {
+  color: var(--on-surface);
+}
+
+html[data-theme="light"] .geo-bg .grad-text,
+html[data-theme="light"] .hero-mesh .grad-text {
+  -webkit-text-fill-color: initial;
+  color: var(--gold-500);
+}
+
+html[data-theme="light"] .hex-bg {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%2306473725' stroke-width='.3' opacity='.4' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
+  color: var(--on-surface);
+}
+
+html[data-theme="dark"] .hex-bg {
+  color: var(--on-surface);
+}
+
+/* Panels that stay dark emerald in both themes */
+.alm-brand-panel {
+  background: linear-gradient(
+    165deg,
+    rgba(10, 46, 24, 0.92) 0%,
+    rgba(2, 11, 6, 0.98) 100%
+  ) !important;
+  color: #ffffff !important;
+}
+
+.alm-brand-panel .alm-on-dark-muted {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Shared page component cards (injected pageStyles) */
+html[data-theme="light"] .feat-nav-card {
+  background: var(--page-card-bg);
+  border-color: var(--page-card-border);
+  box-shadow: 0 8px 32px var(--page-shadow);
+  color: var(--on-surface);
+}
+
+html[data-theme="light"] .feat-nav-card:hover {
+  box-shadow: 0 24px 48px var(--page-shadow), 0 0 0 1px rgba(201, 151, 58, 0.25);
+}
+
+html[data-theme="light"] .sc {
+  background: var(--page-card-bg);
+  border-color: var(--page-card-border);
+}
+
+html[data-theme="light"] .sp {
+  border-color: rgba(13, 46, 36, 0.12);
+  color: var(--on-surface-muted);
+  background: rgba(13, 46, 36, 0.04);
+}
+
+html[data-theme="light"] .sp:hover {
+  color: var(--gold);
+  border-color: rgba(201, 151, 58, 0.35);
+  background: rgba(201, 151, 58, 0.08);
+}
+
+html[data-theme="light"] .feat-why {
+  background: var(--page-card-bg) !important;
+  border-color: var(--page-card-border) !important;
+  color: var(--on-surface);
+}
+
+html[data-theme="light"] .feat-why p {
+  color: var(--on-surface-muted) !important;
+}
+
+html[data-theme="light"] .shb::after {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(13, 46, 36, 0.04),
+    transparent
+  );
+}
+
+/* Legal / long-form pages (classes in injected pageStyles) */
+html[data-theme="light"] .toc-link,
+html[data-theme="light"] .bt,
+html[data-theme="light"] .dp,
+html[data-theme="light"] .feat-row {
+  color: var(--on-surface-muted) !important;
+}
+
+html[data-theme="light"] .toc-link:hover {
+  color: var(--gold) !important;
+  background: rgba(201, 151, 58, 0.08) !important;
+}
+
+html[data-theme="light"] .dp {
+  background: var(--surface-chip-bg) !important;
+  border-color: var(--surface-chip-border) !important;
+}
+
+html[data-theme="light"] .glass-card,
+html[data-theme="light"] .green-glass {
+  background: var(--page-card-bg);
+  border-color: var(--page-card-border);
+}
+
+/* Pricing & shared marketing cards — use tokens in pageStyles; reinforce in light */
+.plan-card,
+.inc-card,
+.faq-item {
+  background: var(--page-card-bg);
+  border-color: var(--page-card-border);
+  color: var(--on-surface);
+}
+
+.feat-row {
+  border-bottom-color: var(--border-divider);
+}
+
+.feat-row:hover {
+  background: var(--row-hover-bg);
+}
+
+.feat-row-label {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--on-surface-muted);
+}
+
+.feat-row-label--off {
+  color: var(--on-surface-subtle);
+}
+
+.toggle-wrap {
+  background: var(--surface-chip-bg);
+  border-color: var(--surface-chip-border);
+}
+
+.toggle-btn {
+  color: var(--on-surface-muted);
+}
+
+.toggle-btn-a {
+  color: var(--on-gold) !important;
+}
+
+.faq-item {
+  border: 1px solid var(--page-card-border);
+  background: var(--page-card-bg);
+  box-shadow: 0 4px 20px var(--page-shadow);
+}
+
+html[data-theme="light"] .faq-item:hover,
+html[data-theme="light"] .faq-item.faq-open,
+html[data-theme="light"] .faq-item.open {
+  box-shadow: 0 8px 28px var(--page-shadow);
+}
+
+html[data-theme="light"] .plan-card:hover {
+  box-shadow: 0 24px 48px var(--page-shadow), 0 0 0 1px rgba(201, 151, 58, 0.2);
+}
+
+html[data-theme="light"] .foot-hex {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%2306473718' stroke-width='.25' opacity='.5' d='M40 4 L76 24 L76 56 L40 76 L4 56 L4 24Z'/%3E%3C/svg%3E") !important;
+}
+
+html[data-theme="light"] .nav-link:hover,
+html[data-theme="light"] .nav-link-active {
+  color: var(--gold) !important;
+}
+
+html[data-theme="light"] .mob-link {
+  color: var(--on-surface-muted) !important;
+}
+
+html[data-theme="light"] .mob-link:hover {
+  color: var(--gold) !important;
+  background: rgba(201, 151, 58, 0.08) !important;
+}
+
+/* Cream / ivory content sections */
+.theme-section-cream {
+  background: var(--section-cream-bg) !important;
+  color: var(--section-cream-fg) !important;
+}
+
+/* Theme toggle */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(201, 151, 58, 0.25);
+  background: rgba(201, 151, 58, 0.08);
+  color: var(--gold-lt);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(201, 151, 58, 0.16);
+  border-color: rgba(201, 151, 58, 0.45);
+  transform: translateY(-1px);
+}
+
+.theme-toggle-btn:focus-visible {
+  outline: 2px solid var(--gold-m);
+  outline-offset: 2px;
+}

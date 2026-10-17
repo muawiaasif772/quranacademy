@@ -32,15 +32,6 @@ import { Link } from "react-router-dom";
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-  }
-
   * { box-sizing:border-box; }
   html, body { max-width:100%; overflow-x:hidden; }
   img, svg, video, iframe { max-width:100%; }
@@ -101,45 +92,49 @@ const pageStyles = `
     animation:shimBar 3.5s ease-in-out infinite;
   }
 
-  /* ── form fields ── */
-  .f-input {
-    width:100%;background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.09);border-radius:14px;
-    padding:14px 18px 14px 46px;
-    color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
+  /* ── form fields (theme-aware) ── */
+  .f-input,
+  .f-input-bare,
+  .f-select {
+    width:100%;
+    background:var(--page-input-bg);
+    border:1px solid var(--page-input-border);
+    border-radius:14px;
+    color:var(--on-surface);
+    font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
     outline:none;transition:all .3s;box-sizing:border-box;
   }
-  .f-input::placeholder{color:rgba(255,255,255,.25);}
-  .f-input:focus{
-    border-color:rgba(201,151,58,.5);background:rgba(255,255,255,.06);
-    box-shadow:0 0 0 4px rgba(201,151,58,.08);
+  .f-input {
+    padding:14px 18px 14px 46px;
   }
   .f-input-bare {
-    width:100%;background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.09);border-radius:14px;
     padding:14px 18px;
-    color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
-    outline:none;transition:all .3s;box-sizing:border-box;
-  }
-  .f-input-bare::placeholder{color:rgba(255,255,255,.25);}
-  .f-input-bare:focus{
-    border-color:rgba(201,151,58,.5);background:rgba(255,255,255,.06);
-    box-shadow:0 0 0 4px rgba(201,151,58,.08);
   }
   .f-select {
-    width:100%;background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.09);border-radius:14px;
-    padding:14px 18px;
-    color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:600;
-    outline:none;transition:all .3s;cursor:pointer;
+    padding:14px 44px 14px 18px;
+    cursor:pointer;
     -webkit-appearance:none;appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.3)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23647584' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat:no-repeat;background-position:right 16px center;
-    background-size:16px;padding-right:44px;
-    box-sizing:border-box;
+    background-size:16px;
   }
-  .f-select:focus{border-color:rgba(201,151,58,.5);background-color:rgba(255,255,255,.06);box-shadow:0 0 0 4px rgba(201,151,58,.08);}
-  .f-select option{background:#0a2e18;color:#fff;}
+  html[data-theme="dark"] .f-select {
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,.45)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  }
+  .f-input::placeholder,
+  .f-input-bare::placeholder {
+    color:var(--on-surface-subtle);
+  }
+  .f-input:focus,
+  .f-input-bare:focus,
+  .f-select:focus {
+    border-color:rgba(201,151,58,.55);
+    box-shadow:0 0 0 4px rgba(201,151,58,.12);
+  }
+  .f-select option {
+    background:var(--page-card-bg);
+    color:var(--on-surface);
+  }
 
   /* day checkbox pill */
   .day-pill input[type=checkbox]{display:none;}
@@ -147,8 +142,8 @@ const pageStyles = `
     display:inline-flex;align-items:center;justify-content:center;
     padding:10px 16px;border-radius:100px;cursor:pointer;
     font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.14em;
-    border:1px solid rgba(255,255,255,.1);
-    color:rgba(255,255,255,.45);background:rgba(255,255,255,.03);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);background:var(--surface-chip-bg);
     transition:all .25s;white-space:nowrap;user-select:none;
   }
   .day-pill input[type=checkbox]:checked + label {
@@ -164,8 +159,8 @@ const pageStyles = `
     display:inline-flex;align-items:center;gap:7px;
     padding:11px 22px;border-radius:100px;cursor:pointer;
     font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.14em;
-    border:1px solid rgba(255,255,255,.1);
-    color:rgba(255,255,255,.45);background:rgba(255,255,255,.03);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);background:var(--surface-chip-bg);
     transition:all .25s;user-select:none;
   }
   .pref-pill input[type=radio]:checked + label {
@@ -179,7 +174,7 @@ const pageStyles = `
   .f-section-label {
     font-family:'Cinzel',serif;font-size:9px;font-weight:700;
     letter-spacing:.22em;text-transform:uppercase;
-    color:rgba(255,255,255,.3);margin-bottom:14px;display:block;
+    color:var(--on-surface-muted);margin-bottom:14px;display:block;
   }
 .steps-desktop { display: grid; }
   .steps-mobile  { display: none; }
@@ -198,7 +193,7 @@ const pageStyles = `
   .submit-btn {
     width:100%;padding:18px;border-radius:16px;border:none;cursor:pointer;
     background:linear-gradient(135deg,var(--gold-m),var(--gold));
-    color:#020b06;font-family:'Cinzel',serif;font-weight:700;font-size:13px;
+    color:var(--on-gold);font-family:'Cinzel',serif;font-weight:700;font-size:13px;
     letter-spacing:.12em;text-transform:uppercase;
     box-shadow:0 8px 32px rgba(201,151,58,.4),inset 0 1px 0 rgba(255,255,255,.25);
     transition:transform .25s, box-shadow .25s;
@@ -206,6 +201,24 @@ const pageStyles = `
   }
   .submit-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,151,58,.5);}
   .submit-btn:disabled{opacity:.6;cursor:not-allowed;}
+
+  .btn-outline-secondary {
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--page-card-bg);
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface);
+    padding:13px 28px;border-radius:14px;
+    font-family:'Cinzel',serif;font-weight:700;font-size:11px;
+    letter-spacing:.1em;text-decoration:none;
+    box-shadow:0 2px 8px var(--page-shadow);
+    transition:border-color .25s, background .25s, box-shadow .25s, color .25s;
+  }
+  .btn-outline-secondary:hover {
+    border-color:rgba(201,151,58,.45);
+    background:var(--surface-chip-bg);
+    box-shadow:0 4px 14px var(--page-shadow);
+    color:var(--on-surface);
+  }
 
   /* why card */
   .why-card {
@@ -429,7 +442,7 @@ const useReveal = () => {
 // ─────────────────────────────────────────────────────────────────────────────
 const Field = ({
   icon: Icon,
-  color = "rgba(255,255,255,.25)",
+  color = "var(--on-surface-subtle)",
   children,
 }: {
   icon: React.ElementType;
@@ -460,9 +473,10 @@ const Field = ({
 // ─────────────────────────────────────────────────────────────────────────────
 const SuccessScreen = () => (
   <div
+        className="alm-page"
     style={{
       fontFamily: "'Nunito',sans-serif",
-      background: "var(--deep)",
+      background: "var(--surface-base)",
       minHeight: "100vh",
       display: "flex",
       alignItems: "center",
@@ -552,7 +566,7 @@ const SuccessScreen = () => (
           fontFamily: "'Cormorant Garamond',serif",
           fontSize: "clamp(36px,5vw,56px)",
           fontWeight: 700,
-          color: "#fff",
+          color: "var(--on-surface)",
           lineHeight: 1.1,
           marginBottom: 20,
         }}
@@ -563,7 +577,7 @@ const SuccessScreen = () => (
 
       <p
         style={{
-          color: "rgba(255,255,255,.45)",
+          color: "var(--on-surface-muted)",
           fontSize: 16,
           lineHeight: 1.85,
           marginBottom: 36,
@@ -576,8 +590,8 @@ const SuccessScreen = () => (
 
       <div
         style={{
-          background: "rgba(255,255,255,.03)",
-          border: "1px solid rgba(255,255,255,.07)",
+          background: "var(--surface-chip-bg)",
+          border: "1px solid var(--surface-chip-border)",
           borderRadius: 20,
           padding: "24px 28px",
           marginBottom: 36,
@@ -620,7 +634,7 @@ const SuccessScreen = () => (
             </div>
             <p
               style={{
-                color: "rgba(255,255,255,.55)",
+                color: "var(--on-surface-muted)",
                 fontSize: 14,
                 lineHeight: 1.5,
                 paddingTop: 2,
@@ -639,7 +653,7 @@ const SuccessScreen = () => (
           alignItems: "center",
           gap: 10,
           background: "linear-gradient(135deg,var(--gold-m),var(--gold))",
-          color: "#020b06",
+          color: "var(--on-gold)",
           padding: "16px 40px",
           borderRadius: 14,
           fontFamily: "'Cinzel',serif",
@@ -727,17 +741,16 @@ const BookTrial: React.FC = () => {
       <div
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
-          color: "#fff",
+          color: "var(--on-surface)",
         }}
       >
         {/* ══════════════════════════════ HERO */}
         <section
           className="hero-sec"
           style={{
-            background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
+            background: "var(--hero-panel-bg)",
             padding: "110px 24px 90px",
             position: "relative",
             overflow: "hidden",
@@ -839,7 +852,7 @@ const BookTrial: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(44px,7vw,88px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.08,
                 marginBottom: 20,
               }}
@@ -854,7 +867,7 @@ const BookTrial: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 18,
                 lineHeight: 1.85,
                 maxWidth: 560,
@@ -962,7 +975,7 @@ const BookTrial: React.FC = () => {
                   </p>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.3)",
+                      color: "var(--on-surface-subtle)",
                       fontSize: 11,
                       letterSpacing: ".08em",
                       marginTop: 4,
@@ -981,7 +994,7 @@ const BookTrial: React.FC = () => {
           className="sec-pad"
           style={{
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "80px 24px 100px",
             position: "relative",
           }}
@@ -1038,7 +1051,7 @@ const BookTrial: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                 What You Get with Your{" "}
@@ -1091,7 +1104,7 @@ const BookTrial: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: 18,
                       fontWeight: 700,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       marginBottom: 10,
                     }}
                   >
@@ -1099,7 +1112,7 @@ const BookTrial: React.FC = () => {
                   </h4>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.4)",
+                      color: "var(--on-surface-muted)",
                       fontSize: 13,
                       lineHeight: 1.75,
                     }}
@@ -1116,7 +1129,7 @@ const BookTrial: React.FC = () => {
         <section
           className="sec-pad"
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             padding: "80px 24px 100px",
             position: "relative",
             overflow: "hidden",
@@ -1150,7 +1163,7 @@ const BookTrial: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(26px,3.5vw,48px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                  Form to <span className="gold-text">First Class</span> in 4
@@ -1205,7 +1218,7 @@ const BookTrial: React.FC = () => {
             fontFamily: "'Cinzel',serif",
             fontSize: 13,
             fontWeight: 700,
-            color: "#020b06",
+            color: "var(--on-gold)",
             boxShadow: `0 4px 20px ${s.accent}40`,
           }}
         >
@@ -1216,7 +1229,7 @@ const BookTrial: React.FC = () => {
             fontFamily: "'Cormorant Garamond',serif",
             fontSize: 17,
             fontWeight: 700,
-            color: "#fff",
+            color: "var(--on-surface)",
             marginBottom: 8,
           }}
         >
@@ -1224,7 +1237,7 @@ const BookTrial: React.FC = () => {
         </h4>
         <p
           style={{
-            color: "rgba(255,255,255,.38)",
+            color: "var(--on-surface-faint)",
             fontSize: 12,
             lineHeight: 1.7,
           }}
@@ -1249,7 +1262,7 @@ const BookTrial: React.FC = () => {
         className="step-card shb"
         style={{
           border: `1px solid ${s.accent}22`,
-          background: "rgba(255,255,255,.025)",
+          background: "var(--surface-chip-bg)",
           borderRadius: 22,
           padding: "22px 18px",
           position: "relative",
@@ -1330,7 +1343,7 @@ const BookTrial: React.FC = () => {
                 fontFamily: "'Cinzel',serif",
                 fontSize: 11,
                 fontWeight: 800,
-                color: "#020b06",
+                color: "var(--on-gold)",
                 boxShadow: `0 4px 18px ${s.accent}40`,
               }}
             >
@@ -1362,7 +1375,7 @@ const BookTrial: React.FC = () => {
             fontFamily: "'Cormorant Garamond',serif",
             fontSize: 18,
             fontWeight: 800,
-            color: "#fff",
+            color: "var(--on-surface)",
             marginBottom: 10,
             lineHeight: 1.2,
           }}
@@ -1372,7 +1385,7 @@ const BookTrial: React.FC = () => {
 
         <p
           style={{
-            color: "rgba(255,255,255,.42)",
+            color: "var(--on-surface-muted)",
             fontSize: 13,
             lineHeight: 1.75,
             margin: 0,
@@ -1402,7 +1415,7 @@ const BookTrial: React.FC = () => {
           className="sec-pad"
           style={{
             background:
-              "linear-gradient(180deg,var(--deep) 0%,var(--forest) 100%)",
+              "linear-gradient(180deg,var(--surface-section-to) 0%,var(--surface-section-from) 100%)",
             padding: "72px 24px",
             position: "relative",
           }}
@@ -1431,7 +1444,7 @@ const BookTrial: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(24px,3.2vw,44px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                 }}
               >
                 What Students Say About Their{" "}
@@ -1452,8 +1465,8 @@ const BookTrial: React.FC = () => {
                   key={i}
                   className="why-card shb"
                   style={{
-                    background: "rgba(255,255,255,.025)",
-                    border: "1px solid rgba(255,255,255,.06)",
+                    background: "var(--surface-chip-bg)",
+                    border: "1px solid var(--surface-chip-border)",
                   }}
                 >
                   <div style={{ display: "flex", gap: 2, marginBottom: 14 }}>
@@ -1472,7 +1485,7 @@ const BookTrial: React.FC = () => {
                       fontStyle: "italic",
                       fontSize: 16,
                       fontWeight: 600,
-                      color: "rgba(255,255,255,.75)",
+                      color: "var(--on-surface-muted)",
                       lineHeight: 1.7,
                       marginBottom: 20,
                     }}
@@ -1494,19 +1507,19 @@ const BookTrial: React.FC = () => {
                         fontFamily: "'Cormorant Garamond',serif",
                         fontSize: 16,
                         fontWeight: 700,
-                        color: "#020b06",
+                        color: "var(--on-gold)",
                       }}
                     >
                       {t.name[0]}
                     </div>
                     <div>
                       <p
-                        style={{ color: "#fff", fontWeight: 700, fontSize: 13 }}
+                        style={{ color: "var(--on-surface)", fontWeight: 700, fontSize: 13 }}
                       >
                         {t.name}
                       </p>
                       <p
-                        style={{ color: "rgba(255,255,255,.3)", fontSize: 11 }}
+                        style={{ color: "var(--on-surface-subtle)", fontSize: 11 }}
                       >
                         {t.loc}
                       </p>
@@ -1521,10 +1534,11 @@ const BookTrial: React.FC = () => {
         {/* ══════════════════════════════ FORM */}
         <section
           className="form-pad"
+          className="alm-band-section"
           style={{
-            background: "var(--forest)",
+            background:
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "80px 24px 120px",
-            position: "relative",
           }}
         >
           <div
@@ -1589,7 +1603,7 @@ const BookTrial: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,3.5vw,48px)",
                   fontWeight: 700,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.1,
                   marginBottom: 20,
                 }}
@@ -1601,7 +1615,7 @@ const BookTrial: React.FC = () => {
 
               <p
                 style={{
-                  color: "rgba(255,255,255,.4)",
+                  color: "var(--on-surface-muted)",
                   fontSize: 15,
                   lineHeight: 1.8,
                   marginBottom: 32,
@@ -1647,7 +1661,7 @@ const BookTrial: React.FC = () => {
                     </div>
                     <span
                       style={{
-                        color: "rgba(255,255,255,.6)",
+                        color: "var(--on-surface-muted)",
                         fontSize: 14,
                         fontWeight: 600,
                       }}
@@ -1699,11 +1713,11 @@ const BookTrial: React.FC = () => {
             <div
               className="shb"
               style={{
-                background: "rgba(255,255,255,.025)",
-                border: "1px solid rgba(201,151,58,.2)",
+                background: "var(--page-card-bg)",
+                border: "1px solid var(--page-card-border)",
                 borderRadius: 28,
                 overflow: "hidden",
-                boxShadow: "0 32px 80px rgba(0,0,0,.5)",
+                boxShadow: "0 32px 80px var(--page-shadow)",
               }}
             >
               <div
@@ -1729,7 +1743,7 @@ const BookTrial: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: 22,
                       fontWeight: 700,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                     }}
                   >
                     Trial Registration Form
@@ -1885,7 +1899,7 @@ const BookTrial: React.FC = () => {
                 <div style={{ marginBottom: 20 }}>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.35)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 12,
                       marginBottom: 12,
                     }}
@@ -2014,7 +2028,7 @@ const BookTrial: React.FC = () => {
                 <p
                   style={{
                     textAlign: "center",
-                    color: "rgba(255,255,255,.2)",
+                    color: "var(--on-surface-subtle)",
                     fontSize: 11,
                     marginTop: 16,
                     lineHeight: 1.6,
@@ -2032,7 +2046,7 @@ const BookTrial: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
+              "var(--marketing-cta-bg)",
             padding: "80px 24px",
             position: "relative",
             overflow: "hidden",
@@ -2070,7 +2084,7 @@ const BookTrial: React.FC = () => {
           <div style={{ position: "relative", zIndex: 1 }}>
             <p
               style={{
-                color: "rgba(255,255,255,.3)",
+                color: "var(--on-surface-subtle)",
                 fontSize: 14,
                 marginBottom: 12,
               }}
@@ -2086,45 +2100,11 @@ const BookTrial: React.FC = () => {
                 flexWrap: "wrap",
               }}
             >
-              <Link
-                to="/pricing"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  background: "rgba(255,255,255,.04)",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  color: "rgba(255,255,255,.6)",
-                  padding: "13px 28px",
-                  borderRadius: 14,
-                  fontFamily: "'Cinzel',serif",
-                  fontWeight: 700,
-                  fontSize: 11,
-                  letterSpacing: ".1em",
-                  textDecoration: "none",
-                }}
-              >
+              <Link to="/pricing" className="btn-outline-secondary">
                 View Pricing
               </Link>
 
-              <Link
-                to="/faq"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  background: "rgba(255,255,255,.04)",
-                  border: "1px solid rgba(255,255,255,.1)",
-                  color: "rgba(255,255,255,.6)",
-                  padding: "13px 28px",
-                  borderRadius: 14,
-                  fontFamily: "'Cinzel',serif",
-                  fontWeight: 700,
-                  fontSize: 11,
-                  letterSpacing: ".1em",
-                  textDecoration: "none",
-                }}
-              >
+              <Link to="/faq" className="btn-outline-secondary">
                 Browse FAQ
               </Link>
 
@@ -2137,7 +2117,7 @@ const BookTrial: React.FC = () => {
                   gap: 8,
                   background:
                     "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                  color: "#020b06",
+                  color: "var(--on-gold)",
                   padding: "13px 28px",
                   borderRadius: 14,
                   fontFamily: "'Cinzel',serif",

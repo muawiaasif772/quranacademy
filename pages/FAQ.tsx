@@ -23,15 +23,6 @@ import { CONTACT_EMAIL } from "../seo/seo.config";
 const pageStyles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
 
-  :root {
-    --deep:    #020b06;
-    --forest:  #051610;
-    --em-lt:   #2fcf87;
-    --gold:    #c9973a;
-    --gold-m:  #e4b558;
-    --gold-lt: #f5d98e;
-  }
-
   .hex-bg {
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
   }
@@ -114,10 +105,11 @@ const pageStyles = `
 
   /* faq accordion */
   .faq-item {
-    border:1px solid rgba(255,255,255,.07);
+    border:1px solid var(--page-card-border);
     border-radius:20px;overflow:hidden;
     transition:border-color .3s, box-shadow .3s, transform .3s;
-    background:rgba(255,255,255,.025);
+    background:var(--page-card-bg);
+    box-shadow:0 4px 24px var(--page-shadow);
     position:relative;
   }
   .faq-item::before {
@@ -129,7 +121,7 @@ const pageStyles = `
   .faq-item:hover::before { background:linear-gradient(90deg,transparent,rgba(201,151,58,.4),transparent); }
   .faq-item.faq-open {
     border-color:rgba(201,151,58,.4)!important;
-    box-shadow:0 12px 40px rgba(0,0,0,.35),0 0 0 1px rgba(201,151,58,.15)!important;
+    box-shadow:0 12px 40px var(--page-shadow),0 0 0 1px rgba(201,151,58,.15)!important;
     transform:translateX(0)!important;
   }
   .faq-item.faq-open::before { background:linear-gradient(90deg,transparent,var(--gold),transparent)!important; }
@@ -328,7 +320,7 @@ const FaqItem = ({
           fontFamily: "'Cinzel',serif",
           fontSize: 11,
           fontWeight: 700,
-          color: isOpen ? accent : "rgba(255,255,255,.2)",
+          color: isOpen ? accent : "var(--on-surface-subtle)",
           letterSpacing: ".1em",
           flexShrink: 0,
           minWidth: 28,
@@ -343,7 +335,7 @@ const FaqItem = ({
           fontFamily: "'Cormorant Garamond',serif",
           fontSize: "clamp(16px,2vw,20px)",
           fontWeight: 700,
-          color: isOpen ? "#fff" : "rgba(255,255,255,.8)",
+          color: isOpen ? "var(--on-surface)" : "var(--on-surface)",
           lineHeight: 1.35,
           flex: 1,
           transition: "color .3s",
@@ -361,12 +353,12 @@ const FaqItem = ({
           flexShrink: 0,
           background: isOpen
             ? `linear-gradient(135deg,${accent}cc,${accent}88)`
-            : "rgba(255,255,255,.05)",
-          border: `1px solid ${isOpen ? accent + "60" : "rgba(255,255,255,.1)"}`,
+            : "var(--surface-chip-bg)",
+          border: `1px solid ${isOpen ? accent + "60" : "var(--page-card-border)"}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: isOpen ? "#020b06" : "rgba(255,255,255,.45)",
+          color: isOpen ? "var(--on-surface)" : "var(--on-surface-muted)",
           transition: "all .35s cubic-bezier(.16,1,.3,1)",
           boxShadow: isOpen ? `0 4px 16px ${accent}40` : "none",
         }}
@@ -400,7 +392,7 @@ const FaqItem = ({
         />
         <p
           style={{
-            color: "rgba(255,255,255,.55)",
+            color: "var(--on-surface-muted)",
             fontSize: 15,
             lineHeight: 1.9,
             fontFamily: "'Nunito',sans-serif",
@@ -465,18 +457,18 @@ export const FAQ: React.FC = () => {
     <>
       <style>{pageStyles}</style>
       <div
+        className="alm-page"
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
-          color: "#fff",
+          color: "var(--on-surface)",
         }}
       >
         {/* ══════════════════════ HERO */}
         <section
           style={{
-            background:
-              "radial-gradient(ellipse 130% 80% at 20% 0%,#0d4a2a 0%,transparent 55%),radial-gradient(ellipse 80% 100% at 85% 100%,#062418 0%,transparent 50%),#020b06",
+            background: "var(--hero-panel-bg)",
             padding: "110px 24px 80px",
             position: "relative",
             overflow: "hidden",
@@ -581,7 +573,7 @@ export const FAQ: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(44px,7vw,88px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.08,
                 marginBottom: 20,
               }}
@@ -596,7 +588,7 @@ export const FAQ: React.FC = () => {
             <p
               className="h3"
               style={{
-                color: "rgba(255,255,255,.45)",
+                color: "var(--on-surface-muted)",
                 fontSize: 18,
                 lineHeight: 1.85,
                 maxWidth: 520,
@@ -639,7 +631,7 @@ export const FAQ: React.FC = () => {
                   </p>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.3)",
+                      color: "var(--on-surface-subtle)",
                       fontSize: 11,
                       letterSpacing: ".08em",
                       marginTop: 4,
@@ -661,7 +653,7 @@ export const FAQ: React.FC = () => {
           style={{
             padding: "72px 24px 100px",
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--deep) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             position: "relative",
           }}
         >
@@ -732,7 +724,7 @@ export const FAQ: React.FC = () => {
                   >
                     {category}
                   </p>
-                  <p style={{ color: "rgba(255,255,255,.3)", fontSize: 12 }}>
+                  <p style={{ color: "var(--on-surface-subtle)", fontSize: 12 }}>
                     {filtered.length} question{filtered.length !== 1 ? "s" : ""}
                   </p>
                 </div>
@@ -754,7 +746,7 @@ export const FAQ: React.FC = () => {
                   style={{
                     fontFamily: "'Cormorant Garamond',serif",
                     fontSize: 28,
-                    color: "rgba(255,255,255,.4)",
+                    color: "var(--on-surface-muted)",
                     marginBottom: 8,
                   }}
                 >
@@ -814,7 +806,7 @@ export const FAQ: React.FC = () => {
         <section
           ref={contactReveal.ref}
           style={{
-            background: "var(--deep)",
+            background: "var(--surface-base)",
             padding: "80px 24px 100px",
             position: "relative",
             overflow: "hidden",
@@ -886,7 +878,7 @@ export const FAQ: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   marginBottom: 14,
                 }}
               >
@@ -894,7 +886,7 @@ export const FAQ: React.FC = () => {
               </h2>
               <p
                 style={{
-                  color: "rgba(255,255,255,.35)",
+                  color: "var(--on-surface-faint)",
                   fontSize: 16,
                   maxWidth: 480,
                   margin: "0 auto",
@@ -950,7 +942,7 @@ export const FAQ: React.FC = () => {
                     fontFamily: "'Cormorant Garamond',serif",
                     fontSize: 20,
                     fontWeight: 700,
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     marginBottom: 10,
                   }}
                 >
@@ -958,7 +950,7 @@ export const FAQ: React.FC = () => {
                 </h3>
                 <p
                   style={{
-                    color: "rgba(255,255,255,.35)",
+                    color: "var(--on-surface-faint)",
                     fontSize: 13,
                     lineHeight: 1.7,
                     marginBottom: 24,
@@ -975,7 +967,7 @@ export const FAQ: React.FC = () => {
                     gap: 8,
                     background:
                       "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                    color: "#020b06",
+                    color: "var(--on-gold)",
                     padding: "11px 24px",
                     borderRadius: 12,
                     fontFamily: "'Cinzel',serif",
@@ -1028,7 +1020,7 @@ export const FAQ: React.FC = () => {
                     fontFamily: "'Cormorant Garamond',serif",
                     fontSize: 20,
                     fontWeight: 700,
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     marginBottom: 10,
                   }}
                 >
@@ -1036,7 +1028,7 @@ export const FAQ: React.FC = () => {
                 </h3>
                 <p
                   style={{
-                    color: "rgba(255,255,255,.35)",
+                    color: "var(--on-surface-faint)",
                     fontSize: 13,
                     lineHeight: 1.7,
                     marginBottom: 24,
@@ -1107,7 +1099,7 @@ export const FAQ: React.FC = () => {
                     fontFamily: "'Cormorant Garamond',serif",
                     fontSize: 20,
                     fontWeight: 700,
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     marginBottom: 10,
                   }}
                 >
@@ -1115,7 +1107,7 @@ export const FAQ: React.FC = () => {
                 </h3>
                 <p
                   style={{
-                    color: "rgba(255,255,255,.35)",
+                    color: "var(--on-surface-faint)",
                     fontSize: 13,
                     lineHeight: 1.7,
                     marginBottom: 24,
@@ -1153,7 +1145,7 @@ export const FAQ: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 50% 50%,#0d4a2a 0%,#020b06 70%)",
+              "var(--marketing-cta-bg)",
             padding: "100px 24px",
             position: "relative",
             overflow: "hidden",
@@ -1208,7 +1200,7 @@ export const FAQ: React.FC = () => {
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "clamp(32px,5vw,68px)",
                 fontWeight: 300,
-                color: "#fff",
+                color: "var(--on-surface)",
                 lineHeight: 1.1,
                 marginBottom: 24,
               }}
@@ -1224,7 +1216,7 @@ export const FAQ: React.FC = () => {
             </h2>
             <p
               style={{
-                color: "rgba(255,255,255,.4)",
+                color: "var(--on-surface-muted)",
                 fontSize: 17,
                 lineHeight: 1.85,
                 maxWidth: 500,
@@ -1250,7 +1242,7 @@ export const FAQ: React.FC = () => {
                   gap: 10,
                   background:
                     "linear-gradient(135deg,var(--gold-m),var(--gold))",
-                  color: "#020b06",
+                  color: "var(--on-gold)",
                   padding: "18px 48px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",
@@ -1273,7 +1265,7 @@ export const FAQ: React.FC = () => {
                   gap: 10,
                   background: "rgba(255,255,255,.04)",
                   border: "1px solid rgba(255,255,255,.12)",
-                  color: "rgba(255,255,255,.7)",
+                  color: "var(--on-surface-muted)",
                   padding: "18px 36px",
                   borderRadius: 16,
                   fontFamily: "'Cinzel',serif",

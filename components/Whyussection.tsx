@@ -32,7 +32,7 @@ const whyUsStyles = `
     position: absolute;
     bottom: 28px;
     left: -24px;
-    background: linear-gradient(135deg, #064e3b, #043d2f);
+    background: var(--badge-emerald-bg);
     border: 1px solid rgba(201,168,76,.35);
     border-radius: 18px;
     padding: clamp(12px, 2.5vw, 20px) clamp(14px, 2.5vw, 28px);
@@ -166,7 +166,7 @@ export default function WhyUsSection() {
                 <div
                   style={{
                     fontFamily: "'Playfair Display', serif",
-                    color: "#fff",
+                    color: "var(--on-surface)",
                     fontSize: "clamp(16px, 2.5vw, 20px)",
                     fontWeight: 700,
                     marginTop: 6,
@@ -259,7 +259,7 @@ export default function WhyUsSection() {
                         height: 48,
                         borderRadius: 14,
                         flexShrink: 0,
-                        background: "linear-gradient(135deg, #064e3b, #043d2f)",
+                        background: "var(--badge-emerald-bg)",
                         border: "1px solid rgba(201,168,76,.2)",
                         display: "flex",
                         alignItems: "center",

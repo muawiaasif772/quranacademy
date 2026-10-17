@@ -13,15 +13,17 @@ const NotFoundPage: React.FC = () => (
       padding: "48px 24px",
       textAlign: "center",
       fontFamily: "'Outfit', sans-serif",
+      background: "var(--page-bg)",
+      color: "var(--page-fg)",
     }}
   >
-    <p style={{ fontSize: 14, letterSpacing: "0.2em", color: "#64748b", margin: "0 0 8px" }}>
+    <p style={{ fontSize: 14, letterSpacing: "0.2em", color: "var(--page-fg-subtle)", margin: "0 0 8px" }}>
       404
     </p>
-    <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", margin: "0 0 12px", color: "#0f172a" }}>
+    <h1 style={{ fontSize: "clamp(1.5rem, 4vw, 2.25rem)", margin: "0 0 12px", color: "var(--page-fg)" }}>
       Page not found
     </h1>
-    <p style={{ maxWidth: 420, color: "#475569", lineHeight: 1.6, margin: "0 0 28px" }}>
+    <p style={{ maxWidth: 420, color: "var(--page-fg-muted)", lineHeight: 1.6, margin: "0 0 28px" }}>
       The page you requested does not exist. Browse our online Quran courses or book a free trial
       to get started.
     </p>

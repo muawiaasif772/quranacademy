@@ -157,8 +157,6 @@ const TESTIMONIALS = [
 // ── Styles ─────────────────────────────────────────────────────────────────────
 const S = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
-  :root{--deep:#020b06;--forest:#051610;--em-dk:#0a2e18;--em-lt:#2fcf87;--gold:#c9973a;--gold-m:#e4b558;--gold-lt:#f5d98e;}
-
   .hex-bg{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");}
   .dia-bg{background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 2L58 30L30 58L2 30Z' fill='none' stroke='%23c9973a' stroke-width='.4' opacity='.09'/%3E%3C/svg%3E");}
 
@@ -324,7 +322,7 @@ const NotFound = () => (
     <style>{S}</style>
     <div
       style={{
-        background: "var(--deep)",
+        background: "var(--surface-base)",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -335,6 +333,7 @@ const NotFound = () => (
       }}
     >
       <div
+        className="alm-page"
         style={{
           fontFamily: "'Cormorant Garamond',serif",
           fontSize: "clamp(60px,12vw,120px)",
@@ -351,13 +350,13 @@ const NotFound = () => (
           fontFamily: "'Cormorant Garamond',serif",
           fontSize: "clamp(28px,4vw,48px)",
           fontWeight: 600,
-          color: "#fff",
+          color: "var(--on-surface)",
           marginBottom: 12,
         }}
       >
         Course Not Found
       </h1>
-      <p style={{ color: "rgba(255,255,255,.38)", marginBottom: 32 }}>
+      <p style={{ color: "var(--on-surface-faint)", marginBottom: 32 }}>
         That course doesn't exist or has been moved.
       </p>
       <Link to="/courses" className="cta-btn">
@@ -384,7 +383,7 @@ const CourseDetail: React.FC = () => {
       <div
         style={{
           fontFamily: "'Nunito',sans-serif",
-          background: "var(--deep)",
+          background: "var(--surface-base)",
           minHeight: "100vh",
         }}
       >
@@ -392,7 +391,7 @@ const CourseDetail: React.FC = () => {
         <section
           style={{
             background:
-              "radial-gradient(ellipse 120% 80% at 15% 0%,#0d4a2a 0%,transparent 55%), radial-gradient(ellipse 80% 100% at 90% 100%,#062418 0%,transparent 50%), #020b06",
+              "var(--page-hero-extended-bg)",
             padding: "100px 24px 80px",
             position: "relative",
             overflow: "hidden",
@@ -491,7 +490,7 @@ const CourseDetail: React.FC = () => {
                 <Link
                   to="/courses"
                   style={{
-                    color: "rgba(255,255,255,.3)",
+                    color: "var(--on-surface-subtle)",
                     fontSize: 12,
                     fontFamily: "'Cinzel',serif",
                     letterSpacing: ".12em",
@@ -511,7 +510,7 @@ const CourseDetail: React.FC = () => {
                 <ChevronRight size={12} color="rgba(255,255,255,.2)" />
                 <span
                   style={{
-                    color: "rgba(255,255,255,.45)",
+                    color: "var(--on-surface-muted)",
                     fontSize: 12,
                     fontFamily: "'Cinzel',serif",
                     letterSpacing: ".1em",
@@ -562,7 +561,7 @@ const CourseDetail: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(40px,5.5vw,72px)",
                   fontWeight: 700,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.08,
                   marginBottom: 24,
                   animation: "fadeUp .6s .1s cubic-bezier(.16,1,.3,1) both",
@@ -577,7 +576,7 @@ const CourseDetail: React.FC = () => {
               {/* Description */}
               <p
                 style={{
-                  color: "rgba(255,255,255,.5)",
+                  color: "var(--on-surface-muted)",
                   fontSize: "clamp(15px,1.5vw,18px)",
                   lineHeight: 1.85,
                   marginBottom: 36,
@@ -611,7 +610,7 @@ const CourseDetail: React.FC = () => {
                       alignItems: "center",
                       gap: 7,
                       background: "rgba(255,255,255,.04)",
-                      border: "1px solid rgba(255,255,255,.07)",
+                      border: "1px solid var(--surface-chip-border)",
                       borderRadius: 100,
                       padding: "8px 16px",
                     }}
@@ -619,7 +618,7 @@ const CourseDetail: React.FC = () => {
                     <MI size={13} color={a.color} strokeWidth={1.5} />
                     <span
                       style={{
-                        color: "rgba(255,255,255,.5)",
+                        color: "var(--on-surface-muted)",
                         fontSize: 12,
                         fontWeight: 600,
                         whiteSpace: "nowrap",
@@ -671,7 +670,7 @@ const CourseDetail: React.FC = () => {
                     background: "rgba(255,255,255,.12)",
                   }}
                 />
-                <span style={{ color: "rgba(255,255,255,.35)", fontSize: 12 }}>
+                <span style={{ color: "var(--on-surface-faint)", fontSize: 12 }}>
                   1,200+ students enrolled
                 </span>
               </div>
@@ -760,7 +759,7 @@ const CourseDetail: React.FC = () => {
                       position: "absolute",
                       inset: 0,
                       background:
-                        "linear-gradient(to top,rgba(2,11,6,.92) 0%,rgba(2,11,6,.2) 55%,transparent 100%)",
+                        "var(--course-image-scrim)",
                     }}
                   />
 
@@ -803,7 +802,7 @@ const CourseDetail: React.FC = () => {
                       top: 20,
                       left: 20,
                       background: a.color,
-                      color: "#020b06",
+                      color: "var(--on-gold)",
                       fontSize: 9,
                       fontWeight: 800,
                       letterSpacing: ".16em",
@@ -864,7 +863,7 @@ const CourseDetail: React.FC = () => {
                             <MI size={11} color={a.color} strokeWidth={1.5} />
                             <span
                               style={{
-                                color: "rgba(255,255,255,.6)",
+                                color: "var(--on-surface-muted)",
                                 fontSize: 10,
                                 fontWeight: 700,
                               }}
@@ -889,7 +888,7 @@ const CourseDetail: React.FC = () => {
                       <p
                         style={{
                           textAlign: "center",
-                          color: "rgba(255,255,255,.25)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 11,
                           marginTop: 10,
                         }}
@@ -907,7 +906,7 @@ const CourseDetail: React.FC = () => {
         {/* ══ WHAT YOU'LL MASTER ════════════════════════════════════════════════ */}
         <section
           style={{
-            background: "linear-gradient(180deg,#020b06 0%,var(--forest) 100%)",
+            background: "linear-gradient(180deg,var(--surface-section-to) 0%,var(--surface-section-from) 100%)",
             padding: "80px 24px",
             position: "relative",
             overflow: "hidden",
@@ -975,7 +974,7 @@ const CourseDetail: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.2,
                   marginBottom: 14,
                 }}
@@ -987,7 +986,7 @@ const CourseDetail: React.FC = () => {
               </h2>
               <p
                 style={{
-                  color: "rgba(255,255,255,.38)",
+                  color: "var(--on-surface-faint)",
                   fontSize: 15,
                   maxWidth: 460,
                   margin: "0 auto",
@@ -1102,7 +1101,7 @@ const CourseDetail: React.FC = () => {
         <section
           style={{
             background:
-              "linear-gradient(180deg,var(--forest) 0%,var(--em-dk) 100%)",
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "80px 24px",
             position: "relative",
             overflow: "hidden",
@@ -1170,7 +1169,7 @@ const CourseDetail: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.2,
                   marginBottom: 14,
                 }}
@@ -1182,7 +1181,7 @@ const CourseDetail: React.FC = () => {
               </h2>
               <p
                 style={{
-                  color: "rgba(255,255,255,.38)",
+                  color: "var(--on-surface-faint)",
                   fontSize: 15,
                   maxWidth: 480,
                   margin: "0 auto",
@@ -1202,7 +1201,7 @@ const CourseDetail: React.FC = () => {
                 gap: 0,
                 borderRadius: 28,
                 overflow: "hidden",
-                border: "1px solid rgba(255,255,255,.06)",
+                border: "1px solid var(--surface-chip-border)",
               }}
             >
               {WHY.map((w, i) => {
@@ -1309,7 +1308,7 @@ const CourseDetail: React.FC = () => {
                           fontFamily: "'Cinzel',serif",
                           fontSize: "clamp(11px,1.4vw,13px)",
                           fontWeight: 700,
-                          color: "#fff",
+                          color: "var(--on-surface)",
                           letterSpacing: ".06em",
                           marginBottom: 10,
                           textAlign: "center",
@@ -1319,7 +1318,7 @@ const CourseDetail: React.FC = () => {
                       </div>
                       <p
                         style={{
-                          color: "rgba(255,255,255,.38)",
+                          color: "var(--on-surface-faint)",
                           fontSize: "clamp(12px,1.1vw,13px)",
                           lineHeight: 1.7,
                           textAlign: "center",
@@ -1350,7 +1349,8 @@ const CourseDetail: React.FC = () => {
         {/* ══ STUDENT TESTIMONIALS ══════════════════════════════════════════════ */}
         <section
           style={{
-            background: "linear-gradient(180deg,var(--em-dk) 0%,#020b06 100%)",
+            background:
+              "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",
             padding: "80px 24px",
             position: "relative",
             overflow: "hidden",
@@ -1418,7 +1418,7 @@ const CourseDetail: React.FC = () => {
                   fontFamily: "'Cormorant Garamond',serif",
                   fontSize: "clamp(28px,4vw,52px)",
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "var(--on-surface)",
                   lineHeight: 1.2,
                 }}
               >
@@ -1509,7 +1509,7 @@ const CourseDetail: React.FC = () => {
                         fontSize: "clamp(15px,1.4vw,17px)",
                         fontStyle: "italic",
                         fontWeight: 600,
-                        color: "rgba(255,255,255,.75)",
+                        color: "var(--on-surface-muted)",
                         lineHeight: 1.75,
                         marginBottom: 24,
                       }}
@@ -1544,7 +1544,7 @@ const CourseDetail: React.FC = () => {
                             fontFamily: "'Cinzel',serif",
                             fontSize: 11,
                             fontWeight: 700,
-                            color: "#fff",
+                            color: "var(--on-surface)",
                             marginBottom: 2,
                           }}
                         >
@@ -1552,7 +1552,7 @@ const CourseDetail: React.FC = () => {
                         </div>
                         <div
                           style={{
-                            color: "rgba(255,255,255,.3)",
+                            color: "var(--on-surface-subtle)",
                             fontSize: 10,
                           }}
                         >
@@ -1574,7 +1574,7 @@ const CourseDetail: React.FC = () => {
                         />
                         <span
                           style={{
-                            color: "rgba(255,255,255,.25)",
+                            color: "var(--on-surface-subtle)",
                             fontSize: 10,
                           }}
                         >
@@ -1590,7 +1590,10 @@ const CourseDetail: React.FC = () => {
         </section>
 
         {/* ══ BOTTOM CTA ═══════════════════════════════════════════════════════ */}
-        <section style={{ background: "#020b06", padding: "80px 24px 100px" }}>
+        <section
+          className="alm-band-section"
+          style={{ padding: "80px 24px 100px" }}
+        >
           <div style={{ maxWidth: 1320, margin: "0 auto" }}>
             <div
               style={{
@@ -1680,7 +1683,7 @@ const CourseDetail: React.FC = () => {
                       fontFamily: "'Cormorant Garamond',serif",
                       fontSize: "clamp(26px,3.5vw,46px)",
                       fontWeight: 600,
-                      color: "#fff",
+                      color: "var(--on-surface)",
                       lineHeight: 1.2,
                       marginBottom: 18,
                     }}
@@ -1701,7 +1704,7 @@ const CourseDetail: React.FC = () => {
                   </h2>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.38)",
+                      color: "var(--on-surface-faint)",
                       fontSize: 15,
                       lineHeight: 1.8,
                     }}
@@ -1737,7 +1740,7 @@ const CourseDetail: React.FC = () => {
                           display: "flex",
                           alignItems: "center",
                           gap: 6,
-                          color: "rgba(255,255,255,.3)",
+                          color: "var(--on-surface-subtle)",
                           fontSize: 12,
                         }}
                       >
