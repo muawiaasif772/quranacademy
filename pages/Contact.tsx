@@ -19,7 +19,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { submitLead } from "../services/api";
-import { CONTACT_EMAIL } from "../seo/seo.config";
+import { CONTACT_EMAIL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 import {
   PhoneCountryFields,
   buildPhonePayload,
@@ -1334,7 +1334,7 @@ export const Contact: React.FC = () => {
                 <ArrowRight size={16} />
               </a>
               <a
-                href="https://wa.me/1234567890"
+                href={WHATSAPP_CHAT_URL}
                 target="_blank"
                 rel="noreferrer"
                 style={{

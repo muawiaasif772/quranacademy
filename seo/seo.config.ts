@@ -13,6 +13,14 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}${SITE_OG_IMAGE_PATH}`;
 export const CONTACT_PHONE = "+92 300 6873200";
 export const CONTACT_EMAIL = "infoaliflaameem@gmail.com";
 
+/** E.164 digits only (no +), for https://wa.me/ links */
+export const WHATSAPP_NUMBER_DIGITS = CONTACT_PHONE.replace(/\D/g, "");
+
+const DEFAULT_WHATSAPP_MESSAGE =
+  "Assalamu Alaikum! I would like to inquire about Quran classes at Alif Laam Meem Academy.";
+
+export const WHATSAPP_CHAT_URL = `https://wa.me/${WHATSAPP_NUMBER_DIGITS}?text=${encodeURIComponent(DEFAULT_WHATSAPP_MESSAGE)}`;
+
 export interface PageSeo {
   /** Full <title>. Keep ≤ 60 chars where possible. */
   title: string;
@@ -105,7 +113,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
   "/pricing": {
     title: "Pricing & Plans | Affordable Online Quran Classes",
     description:
-      "Simple, transparent pricing for online Quran classes. Choose the number of classes per week that fits your family, with family discounts and a 30-day money-back guarantee.",
+      "Simple, transparent pricing: $44/month ($36/month annual) for one student, five 30-minute lessons per week. Family plan for two students: $75/month or $65/month annual. No separate subject fees.",
   },
   "/book-free-trial": {
     title: "Book a Free Trial Quran Class | No Credit Card Required",

@@ -15,7 +15,7 @@ import {
   Mail,
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { CONTACT_EMAIL } from "../seo/seo.config";
+import { CONTACT_EMAIL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STYLES — same palette as HowItWorks / Tutors / Pricing
@@ -191,28 +191,28 @@ const FALLBACK_FAQS = [
     category: "Tutors",
     question: "Can I choose my own tutor?",
     answer:
-      "On Family and Elite plans you can browse our roster and request a specific tutor. On Starter, we match you based on gender, language, and age-group preferences to ensure the best learning environment.",
+      "On Standard and Family plans you can browse our roster and request a specific tutor. On Lite, we match you based on gender, language, and age-group preferences to ensure the best learning environment.",
   },
   {
     id: "f5",
     category: "Classes",
     question: "What subjects can I learn?",
     answer:
-      "We offer Noorani Qaida, Quran Recitation, Tajweed, Quran Memorization (Hifz), Arabic Language, and Islamic Studies. Each subject is available from beginner to advanced level.",
+      "Plans are priced by lesson time, not by subject. In each 30-minute class your tutor can work on Noorani Qaida, Quran reading, Tajweed, memorization (Hifz), revision, or related Islamic studies—whatever fits your child’s level and goals that day. You do not pick separate subjects on the plan.",
   },
   {
     id: "f6",
     category: "Classes",
     question: "How long is each session?",
     answer:
-      "Standard sessions are 45 minutes. On Elite plans you can request extended 60-minute sessions. The free trial is 30 minutes and gives a genuine taste of the full experience.",
+      "Every paid class is a 30-minute 1-on-1 live lesson. The free trial is also 30 minutes so you see exactly how a regular class works.",
   },
   {
     id: "f7",
     category: "Classes",
     question: "Can I reschedule or cancel a class?",
     answer:
-      "You may reschedule any session up to 2 hours before the start time with no penalty. Cancellations with less notice count against your monthly allowance on Starter plans, but Elite students have unlimited flexibility.",
+      "You may reschedule any session up to 2 hours before the start time with no penalty when possible. Contact support if you need help with a last-minute change.",
   },
   {
     id: "f8",
@@ -247,7 +247,7 @@ const FALLBACK_FAQS = [
     category: "Family",
     question: "Can multiple children share one account?",
     answer:
-      "On Family and Elite plans, siblings can each have their own tutor, schedule, and progress tracking under one family account. Sibling discounts of 20% apply from the second student onwards.",
+      "Standard is $44/month for one student (five 30-minute classes per week), or $36/month billed annually. Family is $75/month for two students, or $65/month billed annually. Each child can have their own tutor and schedule under one family account.",
   },
 ];
 
@@ -1038,7 +1038,7 @@ export const FAQ: React.FC = () => {
                   team.
                 </p>
                 <a
-                  href="https://wa.me/1234567890"
+                  href={WHATSAPP_CHAT_URL}
                   target="_blank"
                   rel="noreferrer"
                   style={{

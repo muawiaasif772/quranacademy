@@ -18,7 +18,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
-import { CONTACT_EMAIL } from "../seo/seo.config";
+import { CONTACT_EMAIL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 import { ThemeToggle } from "./ThemeToggle";
 
 const layoutStyles = `
@@ -180,6 +180,30 @@ const layoutStyles = `
   }
   .wa-btn { animation: waPulse 2.5s ease-in-out infinite; }
   .wa-btn:hover { animation: none !important; transform: scale(1.1) !important; }
+  .wa-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0d1f1a;
+    border: 1px solid rgba(201, 151, 58, 0.35);
+    border-radius: 10px;
+    padding: 8px 14px;
+    white-space: nowrap;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f8faf9;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s;
+    box-shadow: 0 8px 28px rgba(13, 31, 26, 0.25);
+    z-index: 1;
+  }
+  .wa-btn:hover .wa-tooltip { opacity: 1 !important; }
+  @media (max-width: 520px) {
+    .wa-tooltip { display: none; }
+  }
 
   /* footer hex bg */
   .foot-hex {
@@ -1076,7 +1100,7 @@ export const Footer: React.FC = () => {
 
       {/* ── WhatsApp FAB ── */}
       <a
-        href="https://wa.me/03006873200"
+        href={WHATSAPP_CHAT_URL}
         target="_blank"
         rel="noopener noreferrer"
         className="wa-btn"
@@ -1085,7 +1109,7 @@ export const Footer: React.FC = () => {
           position: "fixed",
           bottom: "clamp(16px, 5vw, 32px)",
           right: "clamp(16px, 5vw, 32px)",
-          zIndex: 40,
+          zIndex: 60,
           width: "clamp(50px, 10vw, 60px)",
           height: "clamp(50px, 10vw, 60px)",
           minWidth: 50,
@@ -1095,43 +1119,17 @@ export const Footer: React.FC = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "var(--on-surface)",
+          color: "#ffffff",
           textDecoration: "none",
           boxShadow: "0 8px 32px rgba(37,211,102,.4)",
           transition: "transform .25s, box-shadow .25s",
         }}
       >
-        <MessageCircle size={26} aria-hidden="true" />
-        {/* tooltip */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            right: 70,
-            top: "50%",
-            transform: "translateY(-50%)",
-            background: "rgba(2,11,6,.95)",
-            border: "1px solid rgba(201,151,58,.2)",
-            borderRadius: 10,
-            padding: "8px 14px",
-            whiteSpace: "nowrap",
-            fontFamily: "'Nunito',sans-serif",
-            fontSize: 12,
-            fontWeight: 600,
-            color: "var(--on-surface)",
-            pointerEvents: "none",
-            opacity: 0,
-            transition: "opacity .25s",
-          }}
-          id="wa-tooltip"
-        >
-          Chat on WhatsApp
-        </div>
+        <MessageCircle size={26} aria-hidden="true" color="#ffffff" />
+        <span className="wa-tooltip" aria-hidden="true">Chat on WhatsApp</span>
       </a>
 
-      {/* tooltip hover via style tag */}
       <style>{`
-        .wa-btn:hover #wa-tooltip { opacity: 1 !important; }
         @media (max-width: 1024px) {
           footer .grid-4 { grid-template-columns: repeat(2,1fr) !important; }
         }

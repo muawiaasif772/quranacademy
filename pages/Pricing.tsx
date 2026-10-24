@@ -270,70 +270,98 @@ const pageStyles = `
 // ─────────────────────────────────────────────────────────────────────────────
 // DATA
 // ─────────────────────────────────────────────────────────────────────────────
+/** Standard rate: $44/mo for 1 student, 5 classes per week (Mon–Fri). */
+const STANDARD_MONTHLY = 44;
+const STANDARD_ANNUAL_MONTHLY = 36;
+const STANDARD_CLASSES_PER_WEEK = 5;
+const FAMILY_MONTHLY = 75;
+const FAMILY_ANNUAL_MONTHLY = 65;
+const SIBLING_DISCOUNT = 0.2;
+
+const monthlyListForStudents = (
+  sessionsPerWeek: number,
+  students: number,
+) =>
+  (sessionsPerWeek / STANDARD_CLASSES_PER_WEEK) * STANDARD_MONTHLY * students;
+
+const monthlyAfterSiblingDiscount = (
+  sessionsPerWeek: number,
+  students: number,
+) => {
+  const scale = sessionsPerWeek / STANDARD_CLASSES_PER_WEEK;
+  if (students === 1) return scale * STANDARD_MONTHLY;
+  if (students === 2) return scale * FAMILY_MONTHLY;
+  const list = monthlyListForStudents(sessionsPerWeek, students);
+  return list * (1 - SIBLING_DISCOUNT);
+};
+
+const LITE_MONTHLY = Math.round(monthlyListForStudents(3, 1));
+const LITE_ANNUAL_MONTHLY = 22;
+
 const plans = [
   {
-    id: "starter",
-    name: "Starter",
+    id: "lite",
+    name: "Lite",
     icon: BookOpen,
     accent: "#2fcf87",
-    monthlyPrice: 29,
-    yearlyPrice: 23,
-    subtitle: "Perfect for beginners",
+    monthlyPrice: LITE_MONTHLY,
+    yearlyPrice: LITE_ANNUAL_MONTHLY,
+    subtitle: "Light weekly schedule",
     badge: null as null | string,
     features: [
-      { text: "2 Classes per week", included: true },
-      { text: "1 Subject of choice", included: true },
+      { text: "3 Classes per week", included: true },
+      { text: "1 Student", included: true },
+      { text: "30-minute live lesson each class", included: true },
       { text: "Certified tutor matching", included: true },
       { text: "30-min free trial", included: true },
       { text: "Progress reports (monthly)", included: true },
       { text: "Parent dashboard access", included: true },
       { text: "Priority tutor selection", included: false },
       { text: "Sibling discount", included: false },
-      { text: "Dedicated academic advisor", included: false },
       { text: "Certificate of completion", included: false },
     ],
   },
   {
-    id: "family",
-    name: "Family",
+    id: "standard",
+    name: "Standard",
     icon: Crown,
     accent: "#c9973a",
-    monthlyPrice: 59,
-    yearlyPrice: 47,
-    subtitle: "Most popular for families",
+    monthlyPrice: STANDARD_MONTHLY,
+    yearlyPrice: STANDARD_ANNUAL_MONTHLY,
+    subtitle: "5 days a week · 1 student · $44/mo",
     badge: "Most Popular",
     features: [
-      { text: "5 Classes per week", included: true },
-      { text: "2 Subjects of choice", included: true },
+      { text: "5 Classes per week (Mon–Fri)", included: true },
+      { text: "1 Student", included: true },
+      { text: "30-minute live lesson each class", included: true },
       { text: "Certified tutor matching", included: true },
       { text: "30-min free trial", included: true },
       { text: "Progress reports (weekly)", included: true },
       { text: "Parent dashboard access", included: true },
       { text: "Priority tutor selection", included: true },
-      { text: "Sibling discount (up to 3)", included: true },
-      { text: "Dedicated academic advisor", included: false },
+      { text: "Family plan: 2 students at $75/mo", included: true },
       { text: "Certificate of completion", included: true },
     ],
   },
   {
-    id: "elite",
-    name: "Elite",
+    id: "family",
+    name: "Family",
     icon: Gem,
     accent: "#b58cff",
-    monthlyPrice: 99,
-    yearlyPrice: 79,
-    subtitle: "For serious learners",
+    monthlyPrice: FAMILY_MONTHLY,
+    yearlyPrice: FAMILY_ANNUAL_MONTHLY,
+    subtitle: "5 days/week · 2 students · $75/mo",
     badge: "Best Value",
     features: [
-      { text: "Unlimited classes", included: true },
-      { text: "All subjects unlocked", included: true },
+      { text: "5 Classes per week per child", included: true },
+      { text: "2 Students included", included: true },
+      { text: "30-minute live lesson per class", included: true },
       { text: "Certified tutor matching", included: true },
       { text: "30-min free trial", included: true },
-      { text: "Progress reports (real-time)", included: true },
+      { text: "Progress reports (weekly)", included: true },
       { text: "Parent dashboard access", included: true },
       { text: "Priority tutor selection", included: true },
-      { text: "Sibling discount (unlimited)", included: true },
-      { text: "Dedicated academic advisor", included: true },
+      { text: "$75/mo monthly · $65/mo billed annually", included: true },
       { text: "Certificate of completion", included: true },
     ],
   },
@@ -392,8 +420,12 @@ const faqs = [
     a: "None whatsoever. The price you see is the price you pay. No registration fee, no material fee, no hidden charges of any kind.",
   },
   {
+    q: "What happens in a 30-minute class?",
+    a: "You pay for lesson time—not a fixed list of subjects. Each class is a full 30-minute 1-on-1 live session with your tutor. In that time your child works on what they need: Noorani Qaida, Quran reading, Tajweed, memorization (Hifz), or revision—at their own pace. The tutor guides the lesson; you are not locked into choosing separate subjects on the plan.",
+  },
+  {
     q: "How do sibling discounts work?",
-    a: "On Family and Elite plans, each additional sibling receives a 20% discount automatically applied at checkout. You can add up to 3 siblings on Family, and unlimited on Elite.",
+    a: "Standard is $44/month for one student (five 30-minute classes per week), or $36/month when you pay annually. The Family plan covers two students at five classes per week each: $75/month, or $65/month on annual billing.",
   },
   {
     q: "What is your refund policy?",
@@ -401,7 +433,7 @@ const faqs = [
   },
   {
     q: "Can I request a specific tutor?",
-    a: "On the Family and Elite plans, you can browse our verified tutor roster and request a specific teacher. On Starter, we match you based on your preferences.",
+    a: "On Standard and Family plans, you can browse our verified tutor roster and request a specific teacher. On Lite, we match you based on your preferences.",
   },
   {
     q: "Is my payment information secure?",
@@ -460,19 +492,19 @@ const testimonials = [
     name: "Ahmed K.",
     location: "UK",
     stars: 5,
-    text: "The Family plan is incredible value. My 3 children all have lessons and the sibling discount made it very affordable for us.",
+    text: "The Standard plan at $44 for five days a week is exactly what we needed. My daughter's Tajweed improved within the first month.",
   },
   {
     name: "Fatima S.",
     location: "USA",
     stars: 5,
-    text: "Switched from Starter to Elite and the difference is night and day. Having a dedicated advisor changed everything.",
+    text: "We started on Lite and moved to Standard for the full week. Transparent pricing with no surprises — highly recommend.",
   },
   {
     name: "Omar R.",
     location: "Australia",
     stars: 5,
-    text: "30-day money back guarantee gave me the confidence to try. We've now been on the Family plan for 8 months straight.",
+    text: "The 30-day money-back guarantee gave me confidence to try. Our family plan keeps both kids on a steady Mon–Fri schedule.",
   },
 ];
 
@@ -581,15 +613,12 @@ const FaqItem = ({ item, idx }: { item: (typeof faqs)[0]; idx: number }) => {
 // PLAN CALCULATOR
 // ─────────────────────────────────────────────────────────────────────────────
 const PlanCalc = () => {
-  const [sessions, setSessions] = useState(3);
+  const [sessions, setSessions] = useState(STANDARD_CLASSES_PER_WEEK);
   const [siblings, setSiblings] = useState(1);
 
-  const perSession = 18;
-  const siblingDiscount = siblings > 1 ? 0.2 : 0;
-
-  const weekly = sessions * perSession * siblings * (1 - siblingDiscount);
-  const monthly = weekly * 4.33;
-  const saved = sessions * perSession * siblings * 4.33 - monthly;
+  const listMonthly = monthlyListForStudents(sessions, siblings);
+  const monthly = monthlyAfterSiblingDiscount(sessions, siblings);
+  const saved = listMonthly - monthly;
 
   const pct1 = ((sessions - 1) / 6) * 100;
   const pct2 = ((siblings - 1) / 3) * 100;
@@ -646,7 +675,7 @@ const PlanCalc = () => {
             Plan Calculator
           </p>
           <p style={{ color: "var(--on-surface-subtle)", fontSize: 12 }}>
-            Estimate your monthly cost
+            Based on 30-minute lessons per class
           </p>
         </div>
       </div>
@@ -849,8 +878,18 @@ const PlanCalc = () => {
           }}
         >
           {sessions} class{sessions > 1 ? "es" : ""}/week · {siblings} student
+<<<<<<< Updated upstream
           {siblings > 1 ? "s" : ""} · Pay-per-session estimate at $18/session.
           This is separate from the Starter, Family and Elite plans above.
+=======
+          {siblings > 1 ? "s" : ""}
+          {siblings === 2
+            ? " · Family rate ($75/mo at 5 days/week)"
+            : siblings > 2
+              ? " · 20% sibling discount applied"
+              : ""}{" "}
+          · Annual from $36/mo (1 student) or $65/mo (2 students)
+>>>>>>> Stashed changes
         </p>
       </div>
     </div>
@@ -1020,8 +1059,14 @@ const PricingPage: React.FC = () => {
                 margin: "0 auto 30px",
               }}
             >
-              World-class Quranic education at a price that makes it accessible
-              to every family. No hidden fees. Ever.
+              World-class Quranic education from{" "}
+              <strong style={{ color: "var(--gold-m)", fontWeight: 700 }}>
+                ${STANDARD_MONTHLY}/month
+              </strong>{" "}
+              for one student—five{" "}
+              <strong style={{ fontWeight: 700 }}>30-minute</strong> live lessons
+              per week. No subject add-ons; just lesson time. No hidden fees.
+              Ever.
             </p>
 
             {/* billing toggle */}
@@ -1058,7 +1103,7 @@ const PricingPage: React.FC = () => {
                   color: "#2fcf87",
                 }}
               >
-                <Sparkles size={10} /> Save up to 20% with annual billing
+                <Sparkles size={10} /> From $36/mo (Standard) · $65/mo (Family)
               </span>
             )}
           </div>
