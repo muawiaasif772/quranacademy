@@ -1533,8 +1533,7 @@ const BookTrial: React.FC = () => {
 
         {/* ══════════════════════════════ FORM */}
         <section
-          className="form-pad"
-          className="alm-band-section"
+          className="form-pad alm-band-section"
           style={{
             background:
               "linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%)",

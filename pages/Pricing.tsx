@@ -849,7 +849,8 @@ const PlanCalc = () => {
           }}
         >
           {sessions} class{sessions > 1 ? "es" : ""}/week · {siblings} student
-          {siblings > 1 ? "s" : ""} · 20% annual discount available
+          {siblings > 1 ? "s" : ""} · Pay-per-session estimate at $18/session.
+          This is separate from the Starter, Family and Elite plans above.
         </p>
       </div>
     </div>
