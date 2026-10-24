@@ -15,7 +15,6 @@ import Courses from "./pages/Courses";
 import Pricing from "./pages/Pricing";
 import BookTrial from "./pages/BookTrial";
 import Tutors from "./pages/Tutors";
-import Dashboard from "./pages/Dashboard";
 import HowItWorks from "./pages/HowItWorks";
 import { FAQ } from "./pages/FAQ";
 import { Contact } from "./pages/Contact";
@@ -50,7 +49,6 @@ const App: React.FC = () => {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/book-free-trial" element={<BookTrial />} />
           <Route path="/tutors" element={<Tutors />} />
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />

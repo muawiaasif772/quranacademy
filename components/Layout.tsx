@@ -267,7 +267,6 @@ const navLinks = [
   { name: "Home", path: "/" },
   { name: "Courses", path: "/courses" },
   { name: "Tutors", path: "/tutors" },
-  { name: "Dashboard", path: "/dashboard" },
   { name: "How It Works", path: "/how-it-works" },
   { name: "Pricing", path: "/pricing" },
   { name: "FAQ", path: "/faq" },

@@ -132,12 +132,6 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     description:
       "Meet our certified Quran tutors with Ijazah and years of teaching experience. Choose a male or female teacher who speaks your language and fits your schedule.",
   },
-  "/dashboard": {
-    title: "Academy Dashboard | Alif Laam Meem Academy",
-    description:
-      "Private academy dashboard for classes, progress, fees, teachers, students and live sessions. Not a public page.",
-    noindex: true,
-  },
   "/how-it-works": {
     title: "How Online Quran Classes Work | Alif Laam Meem Academy",
     description:
