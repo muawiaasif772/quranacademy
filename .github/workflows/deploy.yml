@@ -17,6 +17,7 @@ jobs:
   deploy:
     name: Build and deploy website
     runs-on: ubuntu-latest
+    environment: CPANEL_HOST
 
     steps:
       - name: Checkout repository
@@ -54,24 +55,23 @@ jobs:
           CPANEL_USER: ${{ secrets.CPANEL_USER }}
           CPANEL_SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
           CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
-          CPANEL_SSH_HOST_KEY: ${{ secrets.CPANEL_SSH_HOST_KEY }}
         run: |
           set -euo pipefail
           test -n "$CPANEL_HOST" || { echo "Missing secret: CPANEL_HOST"; exit 1; }
           test -n "$CPANEL_USER" || { echo "Missing secret: CPANEL_USER"; exit 1; }
           test -n "$CPANEL_SSH_PORT" || { echo "Missing secret: CPANEL_SSH_PORT"; exit 1; }
           test -n "$CPANEL_SSH_KEY" || { echo "Missing secret: CPANEL_SSH_KEY"; exit 1; }
-          test -n "$CPANEL_SSH_HOST_KEY" || { echo "Missing secret: CPANEL_SSH_HOST_KEY (verified ssh-keyscan line for CPANEL_HOST)"; exit 1; }
 
-      - name: Configure SSH host key
+      - name: Configure SSH host key via ssh-keyscan
         shell: bash
         env:
-          CPANEL_SSH_HOST_KEY: ${{ secrets.CPANEL_SSH_HOST_KEY }}
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$CPANEL_SSH_HOST_KEY" >> ~/.ssh/known_hosts
+          ssh-keyscan -p "$CPANEL_SSH_PORT" "$CPANEL_HOST" >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Load SSH private key
