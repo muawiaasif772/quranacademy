@@ -1,3 +1,4 @@
+
 name: Deploy Quran Academy to cPanel
 
 on:
@@ -16,8 +17,7 @@ concurrency:
 jobs:
   deploy:
     name: Build and deploy website
-    runs-on: ubuntu-latest
-    environment: CPANEL_HOST
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout repository
@@ -36,17 +36,21 @@ jobs:
         run: yarn build
 
       - name: Verify static build output
+        shell: bash
         run: |
           set -euo pipefail
+
           if [ ! -f dist/index.html ]; then
             echo "ERROR: dist/index.html is missing after build."
             exit 1
           fi
+
           if [ ! -d dist/assets ]; then
             echo "ERROR: dist/assets is missing after build."
             exit 1
           fi
-          echo "Static build verified (Vite output in dist/)."
+
+          echo "Static Vite build verified."
 
       - name: Verify deployment secrets
         shell: bash
@@ -57,22 +61,38 @@ jobs:
           CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
         run: |
           set -euo pipefail
-          test -n "$CPANEL_HOST" || { echo "Missing secret: CPANEL_HOST"; exit 1; }
-          test -n "$CPANEL_USER" || { echo "Missing secret: CPANEL_USER"; exit 1; }
-          test -n "$CPANEL_SSH_PORT" || { echo "Missing secret: CPANEL_SSH_PORT"; exit 1; }
-          test -n "$CPANEL_SSH_KEY" || { echo "Missing secret: CPANEL_SSH_KEY"; exit 1; }
 
-      - name: Configure SSH host key via ssh-keyscan
+          for name in CPANEL_HOST CPANEL_USER CPANEL_SSH_PORT CPANEL_SSH_KEY; do
+            if [ -z "${!name:-}" ]; then
+              echo "::error::Required repository secret is missing or empty: $name"
+              exit 1
+            fi
+          done
+
+          if ! [[ "$CPANEL_SSH_PORT" =~ ^[0-9]+$ ]] ||
+             [ "$CPANEL_SSH_PORT" -lt 1 ] ||
+             [ "$CPANEL_SSH_PORT" -gt 65535 ]; then
+            echo "::error::CPANEL_SSH_PORT must be a valid port number."
+            exit 1
+          fi
+
+          echo "Required deployment secrets are available."
+
+      - name: Configure SSH
         shell: bash
         env:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
           CPANEL_SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
         run: |
           set -euo pipefail
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          ssh-keyscan -p "$CPANEL_SSH_PORT" "$CPANEL_HOST" >> ~/.ssh/known_hosts
-          chmod 644 ~/.ssh/known_hosts
+
+          mkdir -p "$HOME/.ssh"
+          chmod 700 "$HOME/.ssh"
+
+          ssh-keyscan -p "$CPANEL_SSH_PORT" "$CPANEL_HOST" \
+            >> "$HOME/.ssh/known_hosts"
+
+          chmod 600 "$HOME/.ssh/known_hosts"
 
       - name: Load SSH private key
         uses: webfactory/ssh-agent@v0.9.0
@@ -80,7 +100,7 @@ jobs:
           ssh-private-key: ${{ secrets.CPANEL_SSH_KEY }}
           passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
 
-      - name: Verify remote document root
+      - name: Verify SSH connection and document root
         shell: bash
         env:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
@@ -89,9 +109,15 @@ jobs:
           CPANEL_DEPLOY_PATH: /home/alifazwr/public_html
         run: |
           set -euo pipefail
-          ssh -p "$CPANEL_SSH_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+
+          ssh \
+            -p "$CPANEL_SSH_PORT" \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
             "${CPANEL_USER}@${CPANEL_HOST}" \
             "test -d '${CPANEL_DEPLOY_PATH}' && test -w '${CPANEL_DEPLOY_PATH}'"
+
+          echo "SSH connection and document root verified."
 
       - name: Deploy static files to cPanel
         shell: bash
@@ -102,7 +128,14 @@ jobs:
           CPANEL_DEPLOY_PATH: /home/alifazwr/public_html
         run: |
           set -euo pipefail
-          # Sync without --delete: overwrite site files but do not remove unrelated paths on the server.
-          rsync -az --omit-dir-times --no-perms --no-group --no-owner \
+
+          rsync -az \
+            --omit-dir-times \
+            --no-perms \
+            --no-group \
+            --no-owner \
             -e "ssh -p ${CPANEL_SSH_PORT} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
-            dist/ "${CPANEL_USER}@${CPANEL_HOST}:${CPANEL_DEPLOY_PATH}/"
+            dist/ \
+            "${CPANEL_USER}@${CPANEL_HOST}:${CPANEL_DEPLOY_PATH}/"
+
+          echo "Deployment files transferred successfully."
