@@ -45,6 +45,13 @@ function patchHead(html: string, seo: PageSeo, pathname: string): string {
   let out = html;
   out = out.replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(seo.title)}</title>`);
   out = patchMeta(out, "name", "description", seo.description);
+  if (seo.keywords) {
+    if (/<meta name="keywords"/i.test(out)) {
+      out = patchMeta(out, "name", "keywords", seo.keywords);
+    } else {
+      out = out.replace("</head>", `  <meta name="keywords" content="${escapeAttr(seo.keywords)}" />\n  </head>`);
+    }
+  }
   out = patchMeta(out, "name", "robots", robots);
   out = out.replace(
     /<link rel="canonical" href="[^"]*"\s*\/?>/i,

@@ -153,6 +153,10 @@ for (const p of expected) {
     console.error("[validate-seo] Weak description:", p);
     failed++;
   }
+  if (!seo.keywords) {
+    console.error("[validate-seo] Missing keywords meta for:", p);
+    failed++;
+  }
 }
 
 const indexHtml = readFileSync(path.join(ROOT, "index.html"), "utf8");

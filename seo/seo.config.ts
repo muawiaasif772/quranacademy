@@ -3,6 +3,7 @@ import type { Course } from "../types";
 import { brandLogoAbsolute } from "./brand-assets";
 import { coursePageMeta } from "./course-meta";
 import { SITE_OG_IMAGE_PATH } from "./image-assets";
+import { PAGE_KEYWORD_THEMES } from "./keyword-map";
 
 export const SITE_URL = "https://aliflaammeeminstitute.online";
 export const SITE_NAME = "Alif Laam Meem Academy";
@@ -26,6 +27,11 @@ export interface PageSeo {
   title: string;
   /** Meta description. Aim for 120–160 chars. */
   description: string;
+  /** Comma-separated keywords for <meta name="keywords">, from seo/keyword-map.ts.
+   *  Note: Google does not use the keywords meta tag for ranking. It is
+   *  included because the user asked for it and some smaller engines still
+   *  read it; real keyword ranking comes from titles, headings and content. */
+  keywords?: string;
   /** Canonical path (no domain). Defaults to the current pathname. */
   canonicalPath?: string;
   /** Absolute URL for og:image / twitter:image. */
@@ -99,13 +105,13 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
   "/": {
     title: "Alif Laam Meem Academy | Online Quran Classes for Kids & Adults",
     description:
-      "Alif Laam Meem Academy (Alif Laam Meem Islamic Institute) — live 1-on-1 online Quran classes for kids and adults. Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies. Book a free trial.",
+      "Live 1-on-1 online Quran classes for kids and adults: Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies. Book a free trial.",
     canonicalPath: "/",
   },
   "/courses": {
     title: "Online Quran Courses | Noorani Qaida, Tajweed, Hifz & Arabic",
     description:
-      "Browse online Quran courses at Alif Laam Meem: Noorani Qaida, Tajweed, Hifz memorization, Arabic, Islamic Studies for kids, and Tafsir. Every program is taught live, one student per tutor.",
+      "Browse online Quran courses: Noorani Qaida, Tajweed, Hifz, Arabic, Islamic Studies for kids, and Tafsir. All taught live, one student per tutor.",
     jsonLd: [
       {
         "@context": "https://schema.org",
@@ -123,17 +129,17 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
   "/pricing": {
     title: "Pricing & Plans | Affordable Online Quran Classes",
     description:
-      "Simple, transparent pricing: $44/month ($36/month annual) for one student, five 30-minute lessons per week. Family plan for two students: $75/month or $65/month annual. No separate subject fees.",
+      "Simple pricing: Lite $26/mo, Standard $44/mo (Most Popular), Family $75/mo for 2 students. All 30-minute live lessons, 3 or 5 classes per week.",
   },
   "/book-free-trial": {
     title: "Book a Free Trial Quran Class | No Credit Card Required",
     description:
-      "Book your free 30-minute 1-on-1 online Quran trial class. Choose your course, preferred days and a male or female tutor. We match you with a certified teacher within 24 hours.",
+      "Book a free 30-minute 1-on-1 online Quran trial. Choose your course, days and a male or female tutor. Matched within 24 hours.",
   },
   "/register": {
     title: "Book a Free Trial Quran Class | No Credit Card Required",
     description:
-      "Book your free 30-minute 1-on-1 online Quran trial class. Choose your course, preferred days and a male or female tutor. We match you with a certified teacher within 24 hours.",
+      "Book a free 30-minute 1-on-1 online Quran trial. Choose your course, days and a male or female tutor. Matched within 24 hours.",
     canonicalPath: "/book-free-trial/",
     noindex: true,
   },
@@ -145,7 +151,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
   "/how-it-works": {
     title: "How Online Quran Classes Work | Alif Laam Meem Academy",
     description:
-      "From free trial to first lesson in 4 simple steps. See how our live 1-on-1 online Quran classes work, what you need to get started and how we match you with a tutor.",
+      "From free trial to first lesson in 4 simple steps. See how live 1-on-1 online Quran classes work and how we match you with a tutor.",
   },
   "/faq": {
     title: "Frequently Asked Questions | Online Quran Classes",
@@ -191,10 +197,12 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
 export function courseSeo(course: Course): PageSeo {
   const path = `/course/${course.slug}`;
   const meta = coursePageMeta(course);
+  const theme = PAGE_KEYWORD_THEMES[path];
   return {
     title: meta.title,
     description: meta.description,
     canonicalPath: `${path}/`,
+    keywords: theme ? [theme.primary, ...theme.secondary].join(", ") : undefined,
     image: absolute(course.image),
     type: "article",
     jsonLd: [
@@ -236,10 +244,12 @@ export function resolveSeo(pathname: string): PageSeo {
 
   const page = STATIC_PAGES[path];
   if (!page) return NOT_FOUND_SEO;
+  const theme = PAGE_KEYWORD_THEMES[path];
   // Canonical always uses the trailing-slash form (see canonicalPathFor),
   // unless the page already sets its own canonical (e.g. /register).
   return {
     ...page,
+    keywords: theme ? [theme.primary, ...theme.secondary].join(", ") : undefined,
     canonicalPath: page.canonicalPath
       ? canonicalPathFor(page.canonicalPath)
       : canonicalPathFor(path),

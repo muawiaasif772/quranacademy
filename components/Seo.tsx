@@ -79,6 +79,8 @@ export function applySeo(seo: PageSeo, pathname: string): void {
 
   document.title = seo.title;
   upsertMeta("name", "description", seo.description);
+  if (seo.keywords) upsertMeta("name", "keywords", seo.keywords);
+  upsertMeta("name", "author", SITE_NAME);
   upsertMeta("name", "robots", seo.noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
   upsertMeta("name", "application-name", SITE_NAME);
   upsertMeta("name", "apple-mobile-web-app-title", SITE_NAME);

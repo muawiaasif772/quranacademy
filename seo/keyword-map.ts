@@ -80,4 +80,12 @@ export const PAGE_KEYWORD_THEMES: Record<string, KeywordTheme> = {
     primary: "Quran Tafsir classes online",
     secondary: ["understand Quran meaning", "Tafsir course online"],
   },
+  "/privacy-policy": {
+    primary: "Alif Laam Meem Academy privacy policy",
+    secondary: ["online Quran academy privacy", "student data protection"],
+  },
+  "/terms-of-service": {
+    primary: "Alif Laam Meem Academy terms of service",
+    secondary: ["online Quran classes terms", "Quran academy enrolment terms"],
+  },
 };
