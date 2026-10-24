@@ -5,6 +5,12 @@ RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Form APIs on shared hosting: Netlify Functions and the Express server do
+# not run here, so /api/trial and /api/contact are handled by PHP files.
+# These rules must come BEFORE the SPA fallback, or POSTs would get HTML.
+RewriteRule ^api/trial/?$ api/trial.php [L]
+RewriteRule ^api/contact/?$ api/contact.php [L]
+
 # SPA fallback: serve real files/directories as-is, everything else -> index.html
 # (dist/ already contains route shells like /course/noorani-qaida/index.html)
 RewriteCond %{REQUEST_FILENAME} !-f

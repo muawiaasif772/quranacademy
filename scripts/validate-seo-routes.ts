@@ -62,6 +62,10 @@ function validateSitemapXml(filePath: string, label: string): number {
       console.error(`[validate-seo] ${label}: loc must be HTTPS: ${loc}`);
       failed++;
     }
+    if (loc !== `${SITE_URL}/` && !loc.endsWith("/")) {
+      console.error(`[validate-seo] ${label}: loc must use trailing slash (Apache serves route shells at /path/): ${loc}`);
+      failed++;
+    }
     const p = pathnameFromLoc(loc);
     if (pathSet.has(p)) {
       console.error(`[validate-seo] ${label}: duplicate path in sitemap: ${p}`);
@@ -192,8 +196,8 @@ if (!existsSync(coursesShell)) {
     console.error("[validate-seo] courses/index.html must have a unique <title> vs homepage");
     failed++;
   }
-  if (!coursesHtml.includes('rel="canonical" href="https://aliflaammeeminstitute.online/courses"')) {
-    console.error("[validate-seo] courses/index.html canonical must point to /courses");
+  if (!coursesHtml.includes('rel="canonical" href="https://aliflaammeeminstitute.online/courses/"')) {
+    console.error("[validate-seo] courses/index.html canonical must point to /courses/");
     failed++;
   }
 }

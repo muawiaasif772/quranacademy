@@ -67,7 +67,7 @@ function escapeXml(value: string): string {
 
 function locForPath(routePath: string): string {
   if (routePath === "/") return `${SITE_URL}/`;
-  return `${SITE_URL}${routePath}`;
+  return `${SITE_URL}${routePath}/`;
 }
 
 const paths = getIndexablePaths();

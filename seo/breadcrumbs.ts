@@ -24,10 +24,10 @@ export function buildBreadcrumbJsonLd(pathname: string): Record<string, unknown>
 
   if (segments[0] === "course" && segments[1]) {
     const course = COURSES.find((c) => c.slug === segments[1]);
-    items.push({ name: "Courses", item: `${SITE_URL}/courses` });
+    items.push({ name: "Courses", item: `${SITE_URL}/courses/` });
     items.push({
       name: course?.title ?? "Course",
-      item: `${SITE_URL}/course/${segments[1]}`,
+      item: `${SITE_URL}/course/${segments[1]}/`,
     });
   } else {
     let acc = "";
@@ -36,7 +36,7 @@ export function buildBreadcrumbJsonLd(pathname: string): Record<string, unknown>
       const name = LABELS[seg] ?? seg.replace(/-/g, " ");
       items.push({
         name: name.charAt(0).toUpperCase() + name.slice(1),
-        item: `${SITE_URL}${acc}`,
+        item: `${SITE_URL}${acc}/`,
       });
     }
   }

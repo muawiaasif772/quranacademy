@@ -41,6 +41,16 @@ export interface PageSeo {
 const absolute = (pathOrUrl: string) =>
   /^https?:\/\//i.test(pathOrUrl) ? pathOrUrl : `${SITE_URL}${pathOrUrl.startsWith("/") ? "" : "/"}${pathOrUrl}`;
 
+/** Canonical path for a route, matching how Apache serves route shells.
+ *  Apache redirects /pricing -> /pricing/ (directory with index.html), so
+ *  canonicals and sitemap URLs must use the trailing-slash form, or Google
+ *  sees a sitemap URL that 301s to a page whose canonical points back to
+ *  the redirecting URL. Homepage stays "/". */
+export function canonicalPathFor(pathname: string): string {
+  if (pathname === "/") return "/";
+  return `/${pathname.replace(/^\/+|\/+$/g, "")}/`;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Site-wide structured data (Organization + WebSite). Rendered on every page.
 // ─────────────────────────────────────────────────────────────────────────────
@@ -104,7 +114,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
         itemListElement: COURSES.map((c, i) => ({
           "@type": "ListItem",
           position: i + 1,
-          url: `${SITE_URL}/course/${c.slug}`,
+          url: `${SITE_URL}/course/${c.slug}/`,
           name: c.title,
         })),
       },
@@ -124,7 +134,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     title: "Book a Free Trial Quran Class | No Credit Card Required",
     description:
       "Book your free 30-minute 1-on-1 online Quran trial class. Choose your course, preferred days and a male or female tutor. We match you with a certified teacher within 24 hours.",
-    canonicalPath: "/book-free-trial",
+    canonicalPath: "/book-free-trial/",
     noindex: true,
   },
   "/tutors": {
@@ -184,7 +194,7 @@ export function courseSeo(course: Course): PageSeo {
   return {
     title: meta.title,
     description: meta.description,
-    canonicalPath: path,
+    canonicalPath: `${path}/`,
     image: absolute(course.image),
     type: "article",
     jsonLd: [
@@ -193,7 +203,7 @@ export function courseSeo(course: Course): PageSeo {
         "@type": "Course",
         name: course.title,
         description: course.description,
-        url: `${SITE_URL}${path}`,
+        url: `${SITE_URL}${path}/`,
         image: absolute(course.image),
         provider: { "@id": `${SITE_URL}/#organization` },
         educationalLevel: course.level,
@@ -224,5 +234,14 @@ export function resolveSeo(pathname: string): PageSeo {
     return course ? courseSeo(course) : NOT_FOUND_SEO;
   }
 
-  return STATIC_PAGES[path] ?? NOT_FOUND_SEO;
+  const page = STATIC_PAGES[path];
+  if (!page) return NOT_FOUND_SEO;
+  // Canonical always uses the trailing-slash form (see canonicalPathFor),
+  // unless the page already sets its own canonical (e.g. /register).
+  return {
+    ...page,
+    canonicalPath: page.canonicalPath
+      ? canonicalPathFor(page.canonicalPath)
+      : canonicalPathFor(path),
+  };
 }

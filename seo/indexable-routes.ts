@@ -12,7 +12,8 @@ export function isIndexablePath(pathname: string): boolean {
   if (seo.noindex) return false;
 
   const canonical = seo.canonicalPath ?? path;
-  if (canonical !== path) return false;
+  const canonicalStripped = canonical === "/" ? "/" : canonical.replace(/\/+$/, "");
+  if (canonicalStripped !== path) return false;
 
   if (path.startsWith("/course/")) {
     const slug = path.slice("/course/".length);
