@@ -6,28 +6,28 @@ Contact: +92 300 6873200, infoaliflaameem@gmail.com. WhatsApp: https://wa.me/930
 
 ## Key pages
 
-- [Home](https://alif-laam-meem-islamic-insitute.netlify.app/): Academy overview and main call-to-action
-- [Courses](https://alif-laam-meem-islamic-insitute.netlify.app/courses): Full program catalog
-- [Book a free trial](https://alif-laam-meem-islamic-insitute.netlify.app/book-free-trial): Trial registration form
-- [Pricing](https://alif-laam-meem-islamic-insitute.netlify.app/pricing): Plans and family discounts
-- [Tutors](https://alif-laam-meem-islamic-insitute.netlify.app/tutors): Male and female teachers
-- [How it works](https://alif-laam-meem-islamic-insitute.netlify.app/how-it-works): Online lesson process
-- [FAQ](https://alif-laam-meem-islamic-insitute.netlify.app/faq): Common questions about classes
-- [Contact](https://alif-laam-meem-islamic-insitute.netlify.app/contact): Reach the support team
-- [Reviews](https://alif-laam-meem-islamic-insitute.netlify.app/reviews): Student testimonials
+- [Home](https://aliflaammeeminstitute.online/): Academy overview and main call-to-action
+- [Courses](https://aliflaammeeminstitute.online/courses): Full program catalog
+- [Book a free trial](https://aliflaammeeminstitute.online/book-free-trial): Trial registration form
+- [Pricing](https://aliflaammeeminstitute.online/pricing): Plans and family discounts
+- [Tutors](https://aliflaammeeminstitute.online/tutors): Male and female teachers
+- [How it works](https://aliflaammeeminstitute.online/how-it-works): Online lesson process
+- [FAQ](https://aliflaammeeminstitute.online/faq): Common questions about classes
+- [Contact](https://aliflaammeeminstitute.online/contact): Reach the support team
+- [Reviews](https://aliflaammeeminstitute.online/reviews): Student testimonials
 
 ## Courses
 
-- [Noorani Qaida for Beginners](https://alif-laam-meem-islamic-insitute.netlify.app/course/noorani-qaida): The foundation of Quran reading. Perfect for children and adults starting from scratch.
-- [Quran with Tajweed](https://alif-laam-meem-islamic-insitute.netlify.app/course/quran-tajweed): Learn to recite the Quran with beautiful melody and perfect grammatical accuracy.
-- [Hifz (Quran Memorization)](https://alif-laam-meem-islamic-insitute.netlify.app/course/hifz-memorization): Structured program to help you memorize the Holy Quran with proper revision techniques.
-- [Arabic for Communication](https://alif-laam-meem-islamic-insitute.netlify.app/course/arabic-communication): Master Modern Standard Arabic (MSA) for daily conversation and understanding Quranic text.
-- [Islamic Studies for Kids](https://alif-laam-meem-islamic-insitute.netlify.app/course/islamic-studies-kids): Comprehensive curriculum covering Seerah, Akhlaq, Fiqh, and Islamic History for children.
-- [Tafsir & Quranic Meaning](https://alif-laam-meem-islamic-insitute.netlify.app/course/tafsir-meaning): Deep dive into the context, history, and spiritual depth of the Quranic verses.
+- [Noorani Qaida for Beginners](https://aliflaammeeminstitute.online/course/noorani-qaida): The foundation of Quran reading. Perfect for children and adults starting from scratch.
+- [Quran with Tajweed](https://aliflaammeeminstitute.online/course/quran-tajweed): Learn to recite the Quran with beautiful melody and perfect grammatical accuracy.
+- [Hifz (Quran Memorization)](https://aliflaammeeminstitute.online/course/hifz-memorization): Structured program to help you memorize the Holy Quran with proper revision techniques.
+- [Arabic for Communication](https://aliflaammeeminstitute.online/course/arabic-communication): Master Modern Standard Arabic (MSA) for daily conversation and understanding Quranic text.
+- [Islamic Studies for Kids](https://aliflaammeeminstitute.online/course/islamic-studies-kids): Comprehensive curriculum covering Seerah, Akhlaq, Fiqh, and Islamic History for children.
+- [Tafsir & Quranic Meaning](https://aliflaammeeminstitute.online/course/tafsir-meaning): Deep dive into the context, history, and spiritual depth of the Quranic verses.
 
 ## Optional
 
-- [Privacy policy](https://alif-laam-meem-islamic-insitute.netlify.app/privacy-policy)
-- [Terms of service](https://alif-laam-meem-islamic-insitute.netlify.app/terms-of-service)
-- [Sitemap](https://alif-laam-meem-islamic-insitute.netlify.app/sitemap.xml)
-- [AI catalog manifest](https://alif-laam-meem-islamic-insitute.netlify.app/.well-known/ai-catalog.json)
+- [Privacy policy](https://aliflaammeeminstitute.online/privacy-policy)
+- [Terms of service](https://aliflaammeeminstitute.online/terms-of-service)
+- [Sitemap](https://aliflaammeeminstitute.online/sitemap.xml)
+- [AI catalog manifest](https://aliflaammeeminstitute.online/.well-known/ai-catalog.json)

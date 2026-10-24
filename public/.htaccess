@@ -1,0 +1,12 @@
+# Alif Laam Meem Institute - Apache shared hosting
+RewriteEngine On
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# SPA fallback: serve real files/directories as-is, everything else -> index.html
+# (dist/ already contains route shells like /course/noorani-qaida/index.html)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]

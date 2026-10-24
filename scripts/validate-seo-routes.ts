@@ -192,7 +192,7 @@ if (!existsSync(coursesShell)) {
     console.error("[validate-seo] courses/index.html must have a unique <title> vs homepage");
     failed++;
   }
-  if (!coursesHtml.includes('rel="canonical" href="https://alif-laam-meem-islamic-insitute.netlify.app/courses"')) {
+  if (!coursesHtml.includes('rel="canonical" href="https://aliflaammeeminstitute.online/courses"')) {
     console.error("[validate-seo] courses/index.html canonical must point to /courses");
     failed++;
   }

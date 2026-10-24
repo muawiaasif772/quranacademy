@@ -2,16 +2,16 @@
   "specVersion": "1.0",
   "host": {
     "displayName": "Alif Laam Meem Islamic Institute",
-    "identifier": "https://alif-laam-meem-islamic-insitute.netlify.app",
-    "documentationUrl": "https://alif-laam-meem-islamic-insitute.netlify.app/llms.txt",
-    "logoUrl": "https://alif-laam-meem-islamic-insitute.netlify.app/assets/images/alif-laam-meem-islamic-institute-logo.png"
+    "identifier": "https://aliflaammeeminstitute.online",
+    "documentationUrl": "https://aliflaammeeminstitute.online/llms.txt",
+    "logoUrl": "https://aliflaammeeminstitute.online/assets/images/alif-laam-meem-islamic-institute-logo.png"
   },
   "entries": [
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:resource:llms-txt",
+      "identifier": "urn:air:aliflaammeeminstitute.online:resource:llms-txt",
       "displayName": "LLM site guide (llms.txt)",
       "type": "text/plain",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/llms.txt",
+      "url": "https://aliflaammeeminstitute.online/llms.txt",
       "description": "Curated overview of Alif Laam Meem Islamic Institute for language models and agents.",
       "representativeQueries": [
         "What online Quran courses does Alif Laam Meem offer?",
@@ -19,10 +19,10 @@
       ]
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:home",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:home",
       "displayName": "Homepage",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/",
+      "url": "https://aliflaammeeminstitute.online/",
       "description": "Overview of online 1-on-1 Quran, Tajweed, Hifz, Arabic, and Islamic Studies programs.",
       "representativeQueries": [
         "Alif Laam Meem online Quran academy for kids and adults",
@@ -30,17 +30,17 @@
       ]
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:courses",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:courses",
       "displayName": "Course catalog",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/courses",
+      "url": "https://aliflaammeeminstitute.online/courses",
       "description": "List of all Quran and Islamic study programs."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:book-free-trial",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:book-free-trial",
       "displayName": "Book a free trial",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/book-free-trial",
+      "url": "https://aliflaammeeminstitute.online/book-free-trial",
       "description": "Free trial registration form; academy responds within about 24 hours.",
       "representativeQueries": [
         "Register for a free online Quran trial lesson",
@@ -48,87 +48,87 @@
       ]
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:faq",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:faq",
       "displayName": "FAQ",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/faq",
+      "url": "https://aliflaammeeminstitute.online/faq",
       "description": "Answers about classes, tutors, scheduling, and pricing."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:contact",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:contact",
       "displayName": "Contact",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/contact",
+      "url": "https://aliflaammeeminstitute.online/contact",
       "description": "Contact form and academy contact details."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:pricing",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:pricing",
       "displayName": "Pricing",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/pricing",
+      "url": "https://aliflaammeeminstitute.online/pricing",
       "description": "Tuition plans and family discounts."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:tutors",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:tutors",
       "displayName": "Tutors",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/tutors",
+      "url": "https://aliflaammeeminstitute.online/tutors",
       "description": "Certified male and female Quran tutors."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:page:how-it-works",
+      "identifier": "urn:air:aliflaammeeminstitute.online:page:how-it-works",
       "displayName": "How it works",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/how-it-works",
+      "url": "https://aliflaammeeminstitute.online/how-it-works",
       "description": "How online lessons are delivered."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:course:noorani-qaida",
+      "identifier": "urn:air:aliflaammeeminstitute.online:course:noorani-qaida",
       "displayName": "Noorani Qaida for Beginners",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/course/noorani-qaida",
+      "url": "https://aliflaammeeminstitute.online/course/noorani-qaida",
       "description": "The foundation of Quran reading. Perfect for children and adults starting from scratch."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:course:quran-tajweed",
+      "identifier": "urn:air:aliflaammeeminstitute.online:course:quran-tajweed",
       "displayName": "Quran with Tajweed",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/course/quran-tajweed",
+      "url": "https://aliflaammeeminstitute.online/course/quran-tajweed",
       "description": "Learn to recite the Quran with beautiful melody and perfect grammatical accuracy."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:course:hifz-memorization",
+      "identifier": "urn:air:aliflaammeeminstitute.online:course:hifz-memorization",
       "displayName": "Hifz (Quran Memorization)",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/course/hifz-memorization",
+      "url": "https://aliflaammeeminstitute.online/course/hifz-memorization",
       "description": "Structured program to help you memorize the Holy Quran with proper revision techniques."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:course:arabic-communication",
+      "identifier": "urn:air:aliflaammeeminstitute.online:course:arabic-communication",
       "displayName": "Arabic for Communication",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/course/arabic-communication",
+      "url": "https://aliflaammeeminstitute.online/course/arabic-communication",
       "description": "Master Modern Standard Arabic (MSA) for daily conversation and understanding Quranic text."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:course:islamic-studies-kids",
+      "identifier": "urn:air:aliflaammeeminstitute.online:course:islamic-studies-kids",
       "displayName": "Islamic Studies for Kids",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/course/islamic-studies-kids",
+      "url": "https://aliflaammeeminstitute.online/course/islamic-studies-kids",
       "description": "Comprehensive curriculum covering Seerah, Akhlaq, Fiqh, and Islamic History for children."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:course:tafsir-meaning",
+      "identifier": "urn:air:aliflaammeeminstitute.online:course:tafsir-meaning",
       "displayName": "Tafsir & Quranic Meaning",
       "type": "text/html",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/course/tafsir-meaning",
+      "url": "https://aliflaammeeminstitute.online/course/tafsir-meaning",
       "description": "Deep dive into the context, history, and spiritual depth of the Quranic verses."
     },
     {
-      "identifier": "urn:air:alif-laam-meem-islamic-insitute.netlify.app:resource:sitemap",
+      "identifier": "urn:air:aliflaammeeminstitute.online:resource:sitemap",
       "displayName": "XML sitemap",
       "type": "application/xml",
-      "url": "https://alif-laam-meem-islamic-insitute.netlify.app/sitemap.xml",
+      "url": "https://aliflaammeeminstitute.online/sitemap.xml",
       "description": "Indexable public URLs for this website."
     }
   ]
