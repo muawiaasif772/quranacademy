@@ -23,7 +23,7 @@ import {
  */
 
 type Role = "admin" | "teacher" | "student";
-type Tab = "overview" | "classes" | "progress" | "fees" | "teachers" | "students" | "live" | "activities";
+type Tab = "overview" | "classes" | "progress" | "fees" | "teachers" | "students" | "live" | "activities" | "services";
 
 const TABS: { id: Tab; label: string; roles: Role[] }[] = [
   { id: "overview", label: "Overview", roles: ["admin", "teacher", "student"] },
@@ -33,6 +33,7 @@ const TABS: { id: Tab; label: string; roles: Role[] }[] = [
   { id: "teachers", label: "Teachers", roles: ["admin"] },
   { id: "students", label: "Students", roles: ["admin", "teacher"] },
   { id: "live", label: "Live Session", roles: ["admin", "teacher", "student"] },
+  { id: "services", label: "Services", roles: ["admin", "teacher", "student"] },
   { id: "activities", label: "Activities", roles: ["admin", "teacher", "student"] },
 ];
 
@@ -355,7 +356,7 @@ const Dashboard: React.FC = () => {
             {tab === "live" && (
               <div className="dash-panel" style={{ background: "#17251d", color: "#eef4ee", borderColor: "#17251d" }}>
                 <h3 style={{ margin: "0 0 6px" }}>🎥 Live Session Room — FREE (Jitsi Meet)</h3>
-                <p style={{ color: "#b9c9bd", lineHeight: 1.6 }}>Teacher generates a free link, sends it inside the dashboard, student joins — video, screen sharing and whiteboard in one room. No paid video service is needed to start. Screen sharing is a built-in button in the Jitsi toolbar.</p>
+                <p style={{ color: "#b9c9bd", lineHeight: 1.6 }}>Teacher generates a free link, sends it inside the dashboard, student joins — video, screen sharing and whiteboard in one room. No paid video service is needed to start. Screen sharing is a built-in button in the Jitsi toolbar. How a class works: 1) Teacher clicks Generate Link → 2) Link is sent inside the dashboard → 3) Student clicks Join → 4) Video + screen share + whiteboard start → 5) Attendance and progress are marked after class → 6) If a student misses class, it is highlighted in red in Progress. See the Classes tab for today's full list (Done, Live now, upcoming).</p>
                 <div style={{ display: "flex", gap: 10, flexWrap: "wrap", margin: "12px 0" }}>
                   <button onClick={generateRoom} style={{ padding: "11px 18px", borderRadius: 999, background: "#c9973a", fontWeight: 700, cursor: "pointer", border: 0 }}>+ Generate FREE Live Link</button>
                   <button onClick={() => { if (!room) generateRoom(); }} style={{ padding: "11px 18px", borderRadius: 999, background: "#2fcf87", fontWeight: 700, cursor: "pointer", border: 0 }}>▶ Join Live Class</button>
@@ -401,6 +402,30 @@ const Dashboard: React.FC = () => {
                   </div>
                 </div>
               </div>
+            )}
+
+            {tab === "services" && (
+              <>
+                <p style={{ color: "#5a6a5e" }}>All services your academy offers, in one place — the same services already on your site, now also visible from the dashboard.</p>
+                <div className="dash-grid dash-grid2">
+                  {[
+                    ["📖 Noorani Qaida", "First letters to first words, for kids and beginners. 1-on-1 live, with a free trial level check."],
+                    ["📗 Quran with Tajweed", "Live recitation with on-the-spot correction, for teens and adults who read Arabic."],
+                    ["🌙 Hifz Memorization", "Realistic daily target, revision checked every lesson, parent updates, Ijazah possible."],
+                    ["🗣️ Arabic Communication", "Speaking, listening, reading and writing, with Quranic examples and words from Salah."],
+                    ["👧 Islamic Studies for Kids", "Short, visual and interactive lessons. Parents can sit in the trial. Male or female tutor."],
+                    ["📚 Tafsir & Meaning", "Context, language and practical lessons, for students who already read Arabic."],
+                    ["🎥 Live 1-on-1 Classes", "30-minute live lessons, 3 or 5 classes per week, on your schedule."],
+                    ["🎁 Free Trial Class", "Book a free trial, meet the tutor, check the level — no credit card."],
+                    ["📈 Progress Reports", "Daily progress, attendance, Hifz by Juz, and missed-class alerts for parents."],
+                    ["👩‍🏫 Male & Female Tutors", "Certified tutors, choose male or female, choose your language."],
+                    ["👨‍👩‍👧 Family Plans", "Lite $26/mo • Standard $44/mo • Family $75/mo for 2 students, annual discounts available."],
+                    ["🛡 Safe Platform", "No personal phone or email sharing in live sessions — teaching stays inside your platform."],
+                  ].map(([t, d]) => (
+                    <div key={t} className="dash-card"><b style={{ fontSize: 19 }}>{t}</b><p style={{ color: "#5a6a5e", fontSize: 14, lineHeight: 1.6 }}>{d}</p></div>
+                  ))}
+                </div>
+              </>
             )}
 
             {tab === "activities" && (
