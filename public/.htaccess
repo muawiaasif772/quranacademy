@@ -4,6 +4,11 @@
   RewriteEngine On
   RewriteBase /
 
+  # Force HTTPS (restored: cPanel Force HTTPS Redirect is Off, and the
+  # 2026-10-24 deploy.yml push removed this rule, so http would no longer redirect)
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
   # Form APIs on shared hosting: Netlify Functions and the Express server do
   # not run here, so /api/trial and /api/contact are handled by PHP files.
   # These rules must come BEFORE the SPA fallback, or POSTs would get HTML.
