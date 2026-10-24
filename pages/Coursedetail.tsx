@@ -135,21 +135,18 @@ const TESTIMONIALS = [
     name: "Aisha Rahman",
     loc: "London, UK",
     text: "Transformed my recitation in just 3 months. The 1-on-1 attention is unmatched.",
-    avatar: "https://i.pravatar.cc/150?img=47",
     rating: 5,
   },
   {
     name: "Omar Al-Farsi",
     loc: "Dubai, UAE",
     text: "My son memorised his first Juz in 2 months. The Hafiz tutors are extraordinary.",
-    avatar: "https://i.pravatar.cc/150?img=12",
     rating: 5,
   },
   {
     name: "Fatima Malik",
     loc: "Toronto, Canada",
     text: "I finally understand what I recite in salah. Life-changing curriculum.",
-    avatar: "https://i.pravatar.cc/150?img=32",
     rating: 5,
   },
 ];
@@ -1526,18 +1523,27 @@ const CourseDetail: React.FC = () => {
                     <div
                       style={{ display: "flex", alignItems: "center", gap: 12 }}
                     >
-                      <img
-                        src={t.avatar}
-                        alt={t.name}
+                      <div
+                        aria-hidden="true"
                         style={{
                           width: 44,
                           height: 44,
                           borderRadius: "50%",
                           border: `1.5px solid ${a.color}50`,
-                          objectFit: "cover",
+                          background: a.dim,
+                          color: a.color,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontFamily: "'Cinzel',serif",
+                          fontSize: 18,
+                          fontWeight: 700,
+                          flexShrink: 0,
                           boxShadow: `0 0 12px ${a.glow}`,
                         }}
-                      />
+                      >
+                        {t.name.charAt(0)}
+                      </div>
                       <div>
                         <div
                           style={{
@@ -1586,6 +1592,108 @@ const CourseDetail: React.FC = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ══ RELATED COURSES ═══════════════════════════════════════════════ */}
+        <section
+          style={{
+            background:
+              "linear-gradient(180deg,var(--surface-section-to) 0%,var(--surface-section-from) 100%)",
+            padding: "80px 24px",
+          }}
+        >
+          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond',serif",
+                fontSize: "clamp(26px,3.5vw,44px)",
+                fontWeight: 600,
+                color: "var(--on-surface)",
+                marginBottom: 12,
+              }}
+            >
+              Continue Learning
+            </h2>
+            <p
+              style={{
+                color: "var(--on-surface-faint)",
+                fontSize: 15,
+                lineHeight: 1.7,
+                marginBottom: 28,
+                maxWidth: 640,
+              }}
+            >
+              Not sure this is the right starting point? Explore the other
+              courses, compare pricing, or book a free trial and let a tutor
+              recommend the best next step for you.
+            </p>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))",
+                gap: 16,
+                marginBottom: 24,
+              }}
+            >
+              {COURSES.filter((c) => c.slug !== course.slug).map((c) => (
+                <Link
+                  key={c.slug}
+                  to={`/course/${c.slug}`}
+                  style={{
+                    display: "block",
+                    background: "rgba(255,255,255,.03)",
+                    border: "1px solid rgba(255,255,255,.07)",
+                    borderRadius: 20,
+                    padding: 22,
+                    textDecoration: "none",
+                  }}
+                >
+                  <div
+                    style={{
+                      color: "var(--on-surface)",
+                      fontFamily: "'Cinzel',serif",
+                      fontSize: 13,
+                      fontWeight: 700,
+                      marginBottom: 8,
+                    }}
+                  >
+                    {c.title}
+                  </div>
+                  <div
+                    style={{
+                      color: "var(--gold-lt)",
+                      fontSize: 12,
+                      marginBottom: 8,
+                    }}
+                  >
+                    {c.level} · {c.duration}
+                  </div>
+                  <div
+                    style={{
+                      color: "var(--on-surface-faint)",
+                      fontSize: 13,
+                      lineHeight: 1.6,
+                    }}
+                  >
+                    {c.description}
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <p style={{ color: "var(--on-surface-subtle)", fontSize: 13 }}>
+              <Link to="/pricing" style={{ color: "var(--gold-lt)" }}>
+                Compare pricing
+              </Link>
+              {" · "}
+              <Link to="/book-free-trial" style={{ color: "var(--gold-lt)" }}>
+                Book a free trial
+              </Link>
+              {" · "}
+              <Link to="/courses" style={{ color: "var(--gold-lt)" }}>
+                All courses
+              </Link>
+            </p>
           </div>
         </section>
 
