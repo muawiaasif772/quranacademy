@@ -130,6 +130,7 @@ jobs:
 
           test -f dist/index.html
           test -d dist/assets
+          test -f dist/.htaccess
 
           sftp \
             -P "$CPANEL_SSH_PORT" \
@@ -139,6 +140,7 @@ jobs:
             "${CPANEL_USER}@${CPANEL_HOST}" <<SFTP
           cd ${CPANEL_DEPLOY_PATH}
           put -r dist/* .
+          put dist/.htaccess .htaccess
           SFTP
 
           echo "SFTP deployment completed successfully."
