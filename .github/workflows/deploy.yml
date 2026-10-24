@@ -39,15 +39,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ ! -f dist/index.html ]; then
-            echo "::error::dist/index.html is missing after build."
+          test -f dist/index.html || {
+            echo "::error::dist/index.html is missing."
             exit 1
-          fi
+          }
 
-          if [ ! -d dist/assets ]; then
-            echo "::error::dist/assets is missing after build."
+          test -d dist/assets || {
+            echo "::error::dist/assets is missing."
             exit 1
-          fi
+          }
 
           echo "Static Vite build verified."
 
@@ -63,7 +63,7 @@ jobs:
 
           for name in CPANEL_HOST CPANEL_USER CPANEL_SSH_PORT CPANEL_SSH_KEY; do
             if [ -z "${!name:-}" ]; then
-              echo "::error::Required repository secret is missing or empty: $name"
+              echo "::error::Required secret is missing or empty: $name"
               exit 1
             fi
           done
@@ -75,9 +75,9 @@ jobs:
             exit 1
           fi
 
-          echo "Required deployment secrets are available."
+          echo "Deployment secrets verified."
 
-      - name: Configure SSH
+      - name: Configure SSH host verification
         shell: bash
         env:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
@@ -98,7 +98,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.CPANEL_SSH_KEY }}
 
-      - name: Verify SSH connection and document root
+      - name: Verify SSH and document root
         shell: bash
         env:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
@@ -116,9 +116,9 @@ jobs:
             "${CPANEL_USER}@${CPANEL_HOST}" \
             "test -d '${CPANEL_DEPLOY_PATH}' && test -w '${CPANEL_DEPLOY_PATH}'"
 
-          echo "SSH connection and document root verified."
+          echo "SSH access and document root verified."
 
-      - name: Deploy static files to cPanel
+      - name: Deploy website files using SFTP
         shell: bash
         env:
           CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
@@ -128,13 +128,17 @@ jobs:
         run: |
           set -euo pipefail
 
-          rsync -az \
-            --omit-dir-times \
-            --no-perms \
-            --no-group \
-            --no-owner \
-            -e "ssh -p ${CPANEL_SSH_PORT} -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=15" \
-            dist/ \
-            "${CPANEL_USER}@${CPANEL_HOST}:${CPANEL_DEPLOY_PATH}/"
+          test -f dist/index.html
+          test -d dist/assets
 
-          echo "Deployment files transferred successfully."
+          sftp \
+            -P "$CPANEL_SSH_PORT" \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=yes \
+            -o ConnectTimeout=15 \
+            "${CPANEL_USER}@${CPANEL_HOST}" <<SFTP
+          cd ${CPANEL_DEPLOY_PATH}
+          put -r dist/* .
+          SFTP
+
+          echo "SFTP deployment completed successfully."
