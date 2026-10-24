@@ -1,0 +1,108 @@
+name: Deploy Quran Academy to cPanel
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cpanel-deployment
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Build and deploy website
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build website
+        run: yarn build
+
+      - name: Verify static build output
+        run: |
+          set -euo pipefail
+          if [ ! -f dist/index.html ]; then
+            echo "ERROR: dist/index.html is missing after build."
+            exit 1
+          fi
+          if [ ! -d dist/assets ]; then
+            echo "ERROR: dist/assets is missing after build."
+            exit 1
+          fi
+          echo "Static build verified (Vite output in dist/)."
+
+      - name: Verify deployment secrets
+        shell: bash
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
+          CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
+          CPANEL_SSH_HOST_KEY: ${{ secrets.CPANEL_SSH_HOST_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "$CPANEL_HOST" || { echo "Missing secret: CPANEL_HOST"; exit 1; }
+          test -n "$CPANEL_USER" || { echo "Missing secret: CPANEL_USER"; exit 1; }
+          test -n "$CPANEL_SSH_PORT" || { echo "Missing secret: CPANEL_SSH_PORT"; exit 1; }
+          test -n "$CPANEL_SSH_KEY" || { echo "Missing secret: CPANEL_SSH_KEY"; exit 1; }
+          test -n "$CPANEL_SSH_HOST_KEY" || { echo "Missing secret: CPANEL_SSH_HOST_KEY (verified ssh-keyscan line for CPANEL_HOST)"; exit 1; }
+
+      - name: Configure SSH host key
+        shell: bash
+        env:
+          CPANEL_SSH_HOST_KEY: ${{ secrets.CPANEL_SSH_HOST_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          printf '%s\n' "$CPANEL_SSH_HOST_KEY" >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Load SSH private key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.CPANEL_SSH_KEY }}
+          passphrase: ${{ secrets.CPANEL_SSH_PASSPHRASE }}
+
+      - name: Verify remote document root
+        shell: bash
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
+          CPANEL_DEPLOY_PATH: /home/alifazwr/public_html
+        run: |
+          set -euo pipefail
+          ssh -p "$CPANEL_SSH_PORT" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "${CPANEL_USER}@${CPANEL_HOST}" \
+            "test -d '${CPANEL_DEPLOY_PATH}' && test -w '${CPANEL_DEPLOY_PATH}'"
+
+      - name: Deploy static files to cPanel
+        shell: bash
+        env:
+          CPANEL_HOST: ${{ secrets.CPANEL_HOST }}
+          CPANEL_USER: ${{ secrets.CPANEL_USER }}
+          CPANEL_SSH_PORT: ${{ secrets.CPANEL_SSH_PORT }}
+          CPANEL_DEPLOY_PATH: /home/alifazwr/public_html
+        run: |
+          set -euo pipefail
+          # Sync without --delete: overwrite site files but do not remove unrelated paths on the server.
+          rsync -az --omit-dir-times --no-perms --no-group --no-owner \
+            -e "ssh -p ${CPANEL_SSH_PORT} -o BatchMode=yes -o StrictHostKeyChecking=yes" \
+            dist/ "${CPANEL_USER}@${CPANEL_HOST}:${CPANEL_DEPLOY_PATH}/"
