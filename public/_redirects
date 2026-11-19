@@ -1,3 +1,8 @@
+# Old Netlify address -> official domain (permanent). Must stay FIRST.
+# Stops the netlify.app copy competing with aliflaammeeminstitute.online in Google.
+https://alif-laam-meem-islamic-insitute.netlify.app/*  https://aliflaammeeminstitute.online/:splat  301!
+http://alif-laam-meem-islamic-insitute.netlify.app/*   https://aliflaammeeminstitute.online/:splat  301!
+
 # API routes → Netlify Functions (must be above the SPA fallback).
 /api/trial    /.netlify/functions/trial    200
 /api/contact  /.netlify/functions/contact  200
