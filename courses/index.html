@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        var k = "alm-theme";
+        var t = null;
+        try { t = localStorage.getItem(k); } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.classList.toggle("dark", t === "dark");
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO (per-route values are updated at runtime by components/Seo.tsx) -->
+    <title>Online Quran Courses | Noorani Qaida, Tajweed, Hifz &amp; Arabic</title>
+    <meta name="description" content="Browse online Quran courses: Noorani Qaida, Tajweed, Hifz, Arabic, Islamic Studies for kids, and Tafsir. All taught live, one student per tutor." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Alif Laam Meem Academy" />
+    <meta name="application-name" content="Alif Laam Meem Academy" />
+    <meta name="apple-mobile-web-app-title" content="Alif Laam Meem Academy" />
+    <meta name="theme-color" content="#062b1b" />
+    <link rel="canonical" href="https://aliflaammeeminstitute.online/courses/" />
+    <link rel="describedby" href="/llms.txt" type="text/plain" title="LLM site guide" />
+    <link rel="icon" href="https://aliflaammeeminstitute.online/assets/images/alif-laam-meem-favicon-48x48.png" type="image/png" sizes="48x48" />
+    <link rel="icon" href="https://aliflaammeeminstitute.online/assets/images/alif-laam-meem-favicon.png" type="image/png" sizes="512x512" />
+    <link rel="apple-touch-icon" href="https://aliflaammeeminstitute.online/assets/images/alif-laam-meem-favicon-192x192.png" sizes="192x192" />
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Alif Laam Meem Academy" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="Online Quran Courses | Noorani Qaida, Tajweed, Hifz &amp; Arabic" />
+    <meta property="og:description" content="Browse online Quran courses: Noorani Qaida, Tajweed, Hifz, Arabic, Islamic Studies for kids, and Tafsir. All taught live, one student per tutor." />
+    <meta property="og:url" content="https://aliflaammeeminstitute.online/courses/" />
+    <meta property="og:image" content="https://aliflaammeeminstitute.online/assets/images/muslim-children-learning-quran-online-alif-laam-meem-academy.jpg" />
+    <meta property="og:image:alt" content="Children reciting the Quran in an online class" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Online Quran Courses | Noorani Qaida, Tajweed, Hifz &amp; Arabic" />
+    <meta name="twitter:description" content="Browse online Quran courses: Noorani Qaida, Tajweed, Hifz, Arabic, Islamic Studies for kids, and Tafsir. All taught live, one student per tutor." />
+    <meta name="twitter:image" content="https://aliflaammeeminstitute.online/assets/images/muslim-children-learning-quran-online-alif-laam-meem-academy.jpg" />
+
+    <!-- Structured data (site-wide; per-page JSON-LD is injected at runtime) -->
+    <script type="application/ld+json" id="ld-organization">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "@id": "https://aliflaammeeminstitute.online/#organization",
+      "name": "Alif Laam Meem Academy",
+      "alternateName": "Alif Laam Meem Islamic Institute",
+      "url": "https://aliflaammeeminstitute.online/",
+      "logo": "https://aliflaammeeminstitute.online/assets/images/alif-laam-meem-islamic-institute-logo.png",
+      "image": "https://aliflaammeeminstitute.online/assets/images/muslim-children-learning-quran-online-alif-laam-meem-academy.jpg",
+      "description": "Online Quran academy offering personalised 1-on-1 Quran, Tajweed, Hifz, Arabic and Islamic Studies classes for kids and adults with certified male and female tutors.",
+      "telephone": "+92 300 6873200",
+      "email": "infoaliflaameem@gmail.com",
+      "areaServed": "Worldwide"
+    }
+    </script>
+
+    <script type="application/ld+json" id="ld-website">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://aliflaammeeminstitute.online/#website",
+      "url": "https://aliflaammeeminstitute.online/",
+      "name": "Alif Laam Meem Academy",
+      "alternateName": "Alif Laam Meem Islamic Institute",
+      "description": "Official website of Alif Laam Meem Academy — live 1-on-1 online Quran, Tajweed, Hifz, Arabic and Islamic Studies classes.",
+      "publisher": { "@id": "https://aliflaammeeminstitute.online/#organization" },
+      "inLanguage": "en"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Outfit', sans-serif;
+      }
+      .arabic-font {
+        font-family: 'Amiri', serif;
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+      }
+      .animate-shimmer {
+        background-size: 200% auto;
+        animation: shimmer 6s linear infinite;
+      }
+      @keyframes glow {
+        0%, 100% { opacity: 0.5; filter: blur(20px); }
+        50% { opacity: 0.8; filter: blur(30px); }
+      }
+      .animate-glow {
+        animation: glow 4s ease-in-out infinite;
+      }
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* ─────────────────────────────────────────── RESPONSIVE UTILITIES ───────── */
+      @media (max-width: 640px) {
+        body { font-size: 14px; }
+        h1 { font-size: clamp(24px, 6vw, 40px) !important; }
+        h2 { font-size: clamp(20px, 5vw, 32px) !important; }
+        h3 { font-size: clamp(16px, 4vw, 24px) !important; }
+      }
+      
+      @media (max-width: 768px) {
+        * { box-sizing: border-box; }
+        img { max-width: 100%; height: auto; }
+      }
+
+      /* Prevent horizontal overflow on mobile */
+      @media (max-width: 480px) {
+        body { overflow-x: hidden; }
+        .max-w-any { max-width: 100vw; padding: 0 12px; }
+      }
+
+      /* Touch-friendly buttons on mobile */
+      @media (hover: none) and (pointer: coarse) {
+        button, a[role="button"] {
+          min-height: 44px;
+          min-width: 44px;
+        }
+      }
+
+      /* Improve text readability */
+      @media (max-width: 640px) {
+        p { line-height: 1.6; }
+        li { line-height: 1.6; }
+      }
+    </style>
+  <script type="module" crossorigin src="/assets/index-BT8nAm9T.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CjPJ8UK9.css">
+  <meta name="keywords" content="online Quran courses, Quran academy programs, Islamic education online" />
+      <script type="application/ld+json" id="ld-prerender-0">{"@context":"https://schema.org","@type":"WebPage","@id":"https://aliflaammeeminstitute.online/courses/#webpage","url":"https://aliflaammeeminstitute.online/courses/","name":"Online Quran Courses | Noorani Qaida, Tajweed, Hifz & Arabic","description":"Browse online Quran courses: Noorani Qaida, Tajweed, Hifz, Arabic, Islamic Studies for kids, and Tafsir. All taught live, one student per tutor.","isPartOf":{"@id":"https://aliflaammeeminstitute.online/#website"},"about":{"@id":"https://aliflaammeeminstitute.online/#organization"},"inLanguage":"en"}</script>
+    <script type="application/ld+json" id="ld-prerender-1">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aliflaammeeminstitute.online/"},{"@type":"ListItem","position":2,"name":"Courses","item":"https://aliflaammeeminstitute.online/courses/"}]}</script>
+    <script type="application/ld+json" id="ld-prerender-2">{"@context":"https://schema.org","@type":"ItemList","name":"Online Quran Courses","itemListElement":[{"@type":"ListItem","position":1,"url":"https://aliflaammeeminstitute.online/course/noorani-qaida/","name":"Noorani Qaida for Beginners"},{"@type":"ListItem","position":2,"url":"https://aliflaammeeminstitute.online/course/quran-tajweed/","name":"Quran with Tajweed"},{"@type":"ListItem","position":3,"url":"https://aliflaammeeminstitute.online/course/hifz-memorization/","name":"Hifz (Quran Memorization)"},{"@type":"ListItem","position":4,"url":"https://aliflaammeeminstitute.online/course/arabic-communication/","name":"Arabic for Communication"},{"@type":"ListItem","position":5,"url":"https://aliflaammeeminstitute.online/course/islamic-studies-kids/","name":"Islamic Studies for Kids"},{"@type":"ListItem","position":6,"url":"https://aliflaammeeminstitute.online/course/tafsir-meaning/","name":"Tafsir & Quranic Meaning"}]}</script>
+  </head>
+  <body>
+    <div id="root"><link rel="preload" as="image" href="/assets/images/alif-laam-meem-islamic-institute-logo-header.png" fetchPriority="high"/><link rel="preload" as="image" href="/assets/images/noorani-qaida-online-quran-course-alif-laam-meem.jpg"/><link rel="preload" as="image" href="/assets/images/online-quran-tajweed-classes-alif-laam-meem.jpg"/><link rel="preload" as="image" href="/assets/images/online-quran-hifz-memorization-course.jpg"/><link rel="preload" as="image" href="/assets/images/learn-arabic-online-for-quran-alif-laam-meem.jpg"/><link rel="preload" as="image" href="/assets/images/islamic-studies-for-kids-online-quran-classes.jpg"/><link rel="preload" as="image" href="/assets/images/online-quran-tafsir-meaning-course.jpg"/><div style="min-height:100vh;display:flex;flex-direction:column"><style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
+
+  /* ── navbar scroll shrink ── */
+  .nav-root {
+    transition: all .4s cubic-bezier(.16,1,.3,1);
+    font-family: 'Nunito', sans-serif;
+  }
+  .nav-scrolled {
+    box-shadow: 0 4px 40px rgba(0,0,0,.45) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .nav-scrolled .nav-inner { height: 72px !important; }
+
+  /* ── nav link underline slide ── */
+  .nav-link {
+    position: relative;
+    transition: color .25s;
+    font-family: 'Cinzel', serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--nav-link-fg);
+    padding-bottom: 4px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 50%; right: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transition: left .3s, right .3s;
+  }
+  .nav-link:hover,
+  .nav-link-active {
+    color: var(--gold-lt) !important;
+  }
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    left: 0; right: 0;
+  }
+  .nav-link-active { color: var(--gold-lt) !important; }
+
+  /* ── logo shimmer ── */
+  @keyframes shimmerText {
+    0%   { background-position: -400px 0; }
+    100% { background-position:  400px 0; }
+  }
+  .brand-logo-shell {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 0;
+    flex-shrink: 0;
+  }
+  .brand-logo {
+    height: clamp(48px, 6.2vw, 62px);
+    width: auto;
+    max-width: min(360px, 78vw);
+    min-width: 200px;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.55));
+  }
+  .nav-scrolled .brand-logo {
+    height: clamp(44px, 5.5vw, 54px);
+    min-width: 180px;
+  }
+  @media (max-width: 720px) {
+    .brand-logo {
+      height: clamp(44px, 12vw, 52px);
+      min-width: 160px;
+      max-width: min(280px, 62vw);
+    }
+  }
+
+  .logo-shimmer {
+    background: linear-gradient(90deg, #fff 0%, var(--gold-lt) 35%, #fff 60%, var(--gold-lt) 80%, #fff 100%);
+    background-size: 400px 100%;
+    animation: shimmerText 5s linear infinite;
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  /* ── mobile menu slide ── */
+  @keyframes menuSlideDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .mobile-menu { animation: menuSlideDown .35s cubic-bezier(.16,1,.3,1) both; }
+
+  /* ── mobile link hover ── */
+  .mob-link {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Cinzel', serif; font-size: 13px; font-weight: 700;
+    letter-spacing: .15em; text-transform: uppercase;
+    color: var(--on-surface-muted); text-decoration: none;
+    padding: 14px 20px; border-radius: 14px;
+    border: 1px solid transparent;
+    transition: all .25s;
+  }
+  .mob-link:hover, .mob-link-active {
+    color: var(--gold-lt);
+    background: rgba(201,151,58,.06);
+    border-color: rgba(201,151,58,.15);
+  }
+
+  /* ── footer link hover ── */
+  .foot-link {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--on-surface-muted); text-decoration: none;
+    font-size: 13px; font-weight: 600;
+    transition: all .25s;
+    padding: 3px 0;
+  }
+  .foot-link::before {
+    content: '✦';
+    font-size: 7px;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: all .25s;
+  }
+  .foot-link:hover { color: var(--gold-lt); padding-left: 4px; }
+  .foot-link:hover::before { opacity: 1; transform: translateX(0); }
+
+  .foot-bar-link:hover {
+    color: var(--gold-lt);
+  }
+
+  /* ── social icon ── */
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 12px;
+    border: 1px solid rgba(201,151,58,.2);
+    background: rgba(201,151,58,.05);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--on-surface-muted);
+    text-decoration: none;
+    transition: all .3s;
+  }
+  .social-btn:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--on-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(201,151,58,.35);
+  }
+
+  /* ── whatsapp pulse ── */
+  @keyframes waPulse {
+    0%   { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,.5); }
+    70%  { transform: scale(1.05); box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+    100% { transform: scale(1); }
+  }
+  .wa-btn { animation: waPulse 2.5s ease-in-out infinite; }
+  .wa-btn:hover { animation: none !important; transform: scale(1.1) !important; }
+  .wa-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0d1f1a;
+    border: 1px solid rgba(201, 151, 58, 0.35);
+    border-radius: 10px;
+    padding: 8px 14px;
+    white-space: nowrap;
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #f8faf9;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s;
+    box-shadow: 0 8px 28px rgba(13, 31, 26, 0.25);
+    z-index: 1;
+  }
+  .wa-btn:hover .wa-tooltip { opacity: 1 !important; }
+  @media (max-width: 520px) {
+    .wa-tooltip { display: none; }
+  }
+
+  /* footer hex bg */
+  .foot-hex {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.25' opacity='.04' d='M40 4 L76 24 L76 56 L40 76 L4 56 L4 24Z'/%3E%3C/svg%3E");
+  }
+
+  @keyframes rotateSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  /* nav CTA shimmer */
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--gold-mid) 0%, var(--gold) 50%, #a36c18 100%);
+    color: var(--on-gold); padding: 10px 24px; border-radius: 12px;
+    font-family: 'Cinzel', serif; font-weight: 700; font-size: 10px; letter-spacing: .12em;
+    text-decoration: none; text-transform: uppercase;
+    box-shadow: 0 4px 20px rgba(201,151,58,.35), inset 0 1px 0 rgba(255,255,255,.25);
+    transition: all .3s; position: relative; overflow: hidden;
+  }
+  .nav-cta::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+    transition: left .45s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,151,58,.5); }
+  .nav-cta:hover::before { left: 100%; }
+
+  /* footer newsletter input */
+  .news-input {
+    flex: 1; background: var(--page-input-bg); border: 1px solid var(--page-input-border);
+    border-radius: 12px 0 0 12px; padding: 12px 18px; color: var(--on-surface);
+    font-family: 'Nunito', sans-serif; font-size: 13px; outline: none;
+    transition: border-color .25s;
+  }
+  .news-input::placeholder { color: var(--on-surface-subtle); }
+  .news-input:focus { border-color: rgba(201,151,58,.55); }
+  .news-btn {
+    background: linear-gradient(135deg, var(--gold-mid), var(--gold));
+    color: var(--on-gold); border: none; padding: 12px 20px;
+    border-radius: 0 12px 12px 0; cursor: pointer;
+    font-family: 'Cinzel', serif; font-weight: 700; font-size: 11px; letter-spacing: .1em;
+    transition: all .25s;
+  }
+  .news-btn:hover { filter: brightness(1.1); }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style><nav aria-label="Primary" class="nav-root" style="position:sticky;top:0;z-index:50;background:var(--nav-bg);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--nav-border)"><div style="height:2px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.7),rgba(245,217,142,.9),rgba(201,151,58,.7),transparent)"></div><div style="max-width:1320px;margin:0 auto;padding:0 24px"><div class="nav-inner" style="display:flex;align-items:center;justify-content:space-between;height:84px;transition:height .4s"><a aria-label="Alif Laam Meem Academy home" style="display:flex;align-items:center;gap:12px;text-decoration:none;flex-shrink:0" href="/" data-discover="true"><span class="brand-logo-shell"><img src="/assets/images/alif-laam-meem-islamic-institute-logo-header.png" alt="Alif Laam Meem Islamic Institute" class="brand-logo" width="360" height="62" fetchPriority="high" decoding="async"/></span></a><div style="display:flex;align-items:center;gap:36px" class="hidden-mobile"><a class="nav-link" href="/" data-discover="true">Home</a><a class="nav-link nav-link-active" href="/courses/" data-discover="true">Courses</a><a class="nav-link" href="/tutors/" data-discover="true">Tutors</a><a class="nav-link" href="/how-it-works/" data-discover="true">How It Works</a><a class="nav-link" href="/pricing/" data-discover="true">Pricing</a><a class="nav-link" href="/faq/" data-discover="true">FAQ</a></div><div style="display:flex;align-items:center;gap:12px"><button type="button" class="theme-toggle-btn" aria-label="Switch to light mode" title="Switch to light mode"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></button><a class="nav-cta desktop-cta" href="/book-free-trial/" data-discover="true">✦ Free Trial</a><button type="button" aria-expanded="false" aria-controls="mobile-nav-panel" aria-label="Open menu" style="display:none;width:42px;height:42px;border-radius:12px;background:rgba(201,151,58,.08);border:1px solid rgba(201,151,58,.2);cursor:pointer;align-items:center;justify-content:center;color:var(--gold-lt);transition:all .25s" id="mobile-burger"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></div></div></nav><style>
+        @media (min-width: 768px) {
+          #mobile-burger { display: none !important; }
+          .hidden-mobile { display: flex !important; }
+          .desktop-cta { display: inline-flex !important; }
+        }
+        @media (max-width: 767px) {
+          .hidden-mobile { display: none !important; }
+          .desktop-cta { display: none !important; }
+          #mobile-burger { display: flex !important; }
+          .footer-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 640px) {
+          .nav-inner { height: auto !important; }
+          .footer-grid { gap: 24px !important; margin-bottom: 40px !important; }
+        }
+      </style><main id="main-content" aria-label="Main content" style="flex:1"><style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,600&family=Cinzel:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap');
+
+  /* ✅ GLOBAL RESPONSIVE + FIX HORIZONTAL SCROLL */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  img, svg { max-width: 100%; height: auto; }
+
+  .page-wrap { width: 100%; max-width: 100%; overflow-x: clip; } /* clip prevents x-scroll */
+  .container { width: 100%; max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 640px) { .container { padding: 0 16px; } }
+
+  /* hex bg */
+  .hex-bg {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cpath fill='none' stroke='%23fff' stroke-width='.3' opacity='.055' d='M40 4L76 24L76 56L40 76L4 56L4 24Z'/%3E%3C/svg%3E");
+  }
+  .diamond-bg {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 2L58 30L30 58L2 30Z' fill='none' stroke='%23c9973a' stroke-width='.4' opacity='.09'/%3E%3C/svg%3E");
+  }
+
+  /* animations */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(32px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes shimmerText {
+    0%   { background-position:-500px 0; }
+    100% { background-position: 500px 0; }
+  }
+  @keyframes glowPulse {
+    0%,100% { opacity:.4; transform:scale(1); }
+    50%      { opacity:.8; transform:scale(1.05); }
+  }
+  @keyframes orbitSpin    { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  @keyframes iconFloat {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}
+  }
+  @keyframes shimBar {
+    0%{left:-100%} 100%{left:200%}
+  }
+  @keyframes cardIn {
+    from{opacity:0;transform:translateY(28px) scale(.97)}
+    to{opacity:1;transform:translateY(0) scale(1)}
+  }
+
+  .gold-shimmer {
+    background: linear-gradient(90deg,var(--gold) 0%,var(--gold-lt) 35%,#fff8e0 50%,var(--gold-lt) 65%,var(--gold) 100%);
+    background-size: 500px 100%;
+    animation: shimmerText 4s linear infinite;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .gold-text {
+    background: linear-gradient(135deg,var(--gold-lt) 0%,var(--gold-m) 50%,var(--gold) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  }
+  .glow-pulse { animation:glowPulse 4s ease-in-out infinite; }
+
+  /* hero fade animations */
+  .h1{animation:fadeUp .7s cubic-bezier(.16,1,.3,1) both}
+  .h2{animation:fadeUp .7s .1s cubic-bezier(.16,1,.3,1) both}
+  .h3{animation:fadeUp .7s .2s cubic-bezier(.16,1,.3,1) both}
+  .h4{animation:fadeUp .7s .3s cubic-bezier(.16,1,.3,1) both}
+
+  /* card */
+  .course-card {
+    animation:cardIn .6s cubic-bezier(.16,1,.3,1) both;
+    transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s ease;
+    will-change:transform;
+    min-width: 0; /* ✅ important for grid/flex overflow */
+  }
+  .course-card:hover {
+    transform:translateY(-12px) scale(1.015);
+    box-shadow:0 48px 96px rgba(0,0,0,.45), 0 0 0 1px rgba(201,151,58,.3) !important;
+  }
+  .course-card:hover .c-img { transform:scale(1.07); }
+  .c-img { transition:transform .7s ease; }
+  .course-card:hover .c-btn {
+    background:linear-gradient(135deg,var(--gold-m),var(--gold)) !important;
+    color:var(--deep) !important;
+    border-color:transparent !important;
+  }
+
+  /* filter pill */
+  .filter-pill {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:9px 20px; border-radius:100px;
+    font-family:'Cinzel',serif; font-size:10px; font-weight:700; letter-spacing:.18em;
+    text-transform:uppercase; cursor:pointer;
+    border:1px solid var(--page-card-border);
+    color:var(--on-surface-muted);
+    background:var(--surface-chip-bg);
+    transition:all .25s; white-space:nowrap;
+  }
+  .filter-pill:hover {
+    color:var(--gold);
+    border-color:rgba(201,151,58,.35);
+    background:rgba(201,151,58,.08);
+  }
+  .filter-pill-active {
+    background:linear-gradient(135deg,rgba(201,151,58,.2),rgba(201,151,58,.08)) !important;
+    border-color:rgba(201,151,58,.5) !important;
+    color:var(--gold) !important;
+    box-shadow:0 4px 16px rgba(201,151,58,.15) !important;
+  }
+
+  /* ✅ search bar responsive (no fixed width growth on focus) */
+  .search-bar {
+    background:var(--page-input-bg);
+    border:1px solid var(--page-input-border);
+    border-radius:14px; padding:12px 18px 12px 46px;
+    color:var(--on-surface);
+    font-family:'Nunito',sans-serif; font-size:14px;
+    outline:none; transition:all .3s;
+
+    width: 100%;
+    max-width: 360px;  /* desktop */
+    min-width: 0;      /* ✅ prevents flex overflow */
+  }
+  .search-bar::placeholder { color:var(--on-surface-subtle); }
+  .search-bar:focus {
+    border-color:rgba(201,151,58,.5);
+    box-shadow:0 0 0 4px rgba(201,151,58,.12);
+  }
+  @media (max-width: 640px) { .search-bar { max-width: 100%; } }
+
+  /* sec-label */
+  .sec-label { font-family:'Cinzel',serif; font-size:11px; font-weight:700; letter-spacing:.28em; text-transform:uppercase; color:var(--gold); }
+
+  /* feature check row */
+  .feat-row { display:flex; align-items:center; gap:10px; font-size:13px; color:var(--on-surface-muted); min-width:0; }
+
+  /* shimmer bar on card top */
+  .shim-top { position:relative; overflow:hidden; }
+  .shim-top::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);
+    animation:shimBar 3s ease-in-out infinite;
+  }
+
+  /* orbit icon */
+  .icon-f   { animation:iconFloat 3s ease-in-out infinite; }
+
+  /* CTA band */
+  .cta-band {
+    background:var(--tutor-spotlight-bg);
+    border:1px solid rgba(201,151,58,.22);
+    border-radius:28px; padding:60px 64px;
+    position:relative; overflow:hidden;
+  }
+  @media (max-width: 768px) { .cta-band { padding: 44px 24px; border-radius: 22px; } }
+
+  @keyframes rotateSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  /* ✅ watermark responsiveness */
+  @media (max-width: 640px) {
+    .arabic-watermark {
+      right: -25% !important;
+      font-size: clamp(120px, 40vw, 220px) !important;
+    }
+  }
+</style><div class="page-wrap" style="font-family:&#x27;Nunito&#x27;,sans-serif;background:var(--surface-base);min-height:100vh"><section style="background:var(--page-hero-extended-bg);padding:100px 0 80px;position:relative;overflow:hidden"><div class="hex-bg" style="position:absolute;inset:0;opacity:0.65"></div><div class="arabic-watermark" style="position:absolute;top:50%;right:-5%;transform:translateY(-50%);font-family:&#x27;Amiri&#x27;,serif;font-size:clamp(180px,25vw,360px);color:rgba(255,255,255,.018);font-weight:700;user-select:none;pointer-events:none;line-height:1;white-space:nowrap">علم</div><div class="glow-pulse" style="position:absolute;top:-10%;left:10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(22,160,92,.1) 0%,transparent 70%);pointer-events:none"></div><div class="glow-pulse" style="animation-delay:-2s;position:absolute;bottom:-10%;right:20%;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,58,.07) 0%,transparent 70%);pointer-events:none"></div><div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold-lt),var(--gold),transparent)"></div><div class="container" style="position:relative;z-index:1;text-align:center"><div class="h1" style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:20px;flex-wrap:wrap"><div style="height:1px;width:60px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.6))"></div><span style="color:var(--gold);font-size:10px">✦</span><span class="sec-label">Sacred Knowledge</span><span style="color:var(--gold);font-size:10px">✦</span><div style="height:1px;width:60px;background:linear-gradient(90deg,rgba(201,151,58,.6),transparent)"></div></div><h1 class="h2" style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:clamp(42px,6vw,80px);font-weight:300;color:var(--on-surface);line-height:1.08;margin-bottom:20px">Our Online<br/><span class="gold-shimmer" style="font-weight:700">Courses &amp; Programs</span></h1><p class="h3" style="color:var(--on-surface-muted);font-size:18px;line-height:1.85;max-width:580px;margin:0 auto 44px">From foundational Arabic to advanced Hifz, every programme is led by certified Al-Azhar scholars with personalised 1-on-1 attention.</p><div class="h4" style="display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:8px;color:var(--on-surface-muted);font-size:13px;font-weight:600"><span style="color:var(--gold);opacity:0.7"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg></span>6 Courses</div><div style="display:flex;align-items:center;gap:8px;color:var(--on-surface-muted);font-size:13px;font-weight:600"><span style="color:var(--gold);opacity:0.7"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg></span>100+ Tutors</div><div style="display:flex;align-items:center;gap:8px;color:var(--on-surface-muted);font-size:13px;font-weight:600"><span style="color:var(--gold);opacity:0.7"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></span>50+ Countries</div><div style="display:flex;align-items:center;gap:8px;color:var(--on-surface-muted);font-size:13px;font-weight:600"><span style="color:var(--gold);opacity:0.7"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></span>4.9 Rating</div></div></div></section><section style="background:var(--sticky-bar-bg);border-bottom:1px solid var(--sticky-bar-border);padding:20px 0;position:sticky;top:76px;z-index:40;backdrop-filter:blur(20px)"><div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;min-width:0"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-subtle)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-funnel" aria-hidden="true" style="flex-shrink:0"><path d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z"></path></svg><button class="filter-pill filter-pill-active" style="cursor:pointer"><span style="font-size:9px">✦</span>All</button><button class="filter-pill" style="cursor:pointer">Beginner</button><button class="filter-pill" style="cursor:pointer">Intermediate</button><button class="filter-pill" style="cursor:pointer">Advanced</button><button class="filter-pill" style="cursor:pointer">All Levels</button></div><div style="position:relative;flex:1 1 320px;min-width:0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--on-surface-subtle)"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><input class="search-bar" type="text" placeholder="Search courses..." value=""/></div></div></section><section style="padding:80px 0 120px;background:linear-gradient(180deg,var(--surface-section-from) 0%,var(--surface-section-to) 100%);position:relative"><div class="hex-bg" style="position:absolute;inset:0;opacity:0.4"></div><div class="glow-pulse" style="position:absolute;top:30%;right:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(22,160,92,.06) 0%,transparent 70%);pointer-events:none"></div><div class="container" style="position:relative;z-index:1"><div style="margin-bottom:48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px"><p style="font-family:&#x27;Cinzel&#x27;,serif;font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--on-surface-muted);text-transform:uppercase">Showing <!-- -->6<!-- --> <!-- -->Courses</p><div style="height:1px;flex:1;max-width:200px;background:linear-gradient(90deg,rgba(201,151,58,.2),transparent)"></div></div><div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:clamp(16px, 4vw, 28px);align-items:stretch"><div class="course-card" style="border-radius:24px;overflow:hidden;border:1px solid var(--surface-chip-border);background:var(--surface-chip-bg);backdrop-filter:blur(16px);display:flex;flex-direction:column;animation-delay:0s;box-shadow:0 8px 32px rgba(0,0,0,.3)"><div style="position:relative;height:180px;overflow:hidden;flex-shrink:0"><img src="/assets/images/noorani-qaida-online-quran-course-alif-laam-meem.jpg" alt="Noorani Qaida for Beginners" class="c-img" style="width:100%;height:100%;object-fit:cover;display:block"/><div style="position:absolute;inset:0;background:var(--course-image-scrim)"></div><div class="shim-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#c9973a,transparent)"></div><span style="position:absolute;top:18px;left:18px;background:#c9973a;color:var(--on-gold);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:&#x27;Cinzel&#x27;,serif;max-width:calc(100% - 36px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Beginner</span><div style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(201,151,58,.12);border:1px solid #c9973a50;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)"><div class="icon-f"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#c9973a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mic-vocal" aria-hidden="true"><path d="m11 7.601-5.994 8.19a1 1 0 0 0 .1 1.298l.817.818a1 1 0 0 0 1.314.087L15.09 12"></path><path d="M16.5 21.174C15.5 20.5 14.372 20 13 20c-2.058 0-3.928 2.356-6 2-2.072-.356-2.775-3.369-1.5-4.5"></path><circle cx="16" cy="7" r="5"></circle></svg></div></div><div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(2,11,6,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:5px 12px;color:var(--on-surface-muted);font-size:11px;font-weight:600;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#c9973a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>3-6 Months</div></div><div style="padding:12px;display:flex;flex-direction:column;flex:1;position:relative;min-width:0"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,58,.12) 0%,transparent 70%);pointer-events:none"></div><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px;line-height:1.2">Noorani Qaida for Beginners</h3><p style="color:var(--on-surface-faint);line-height:1.75;font-size:13.5px;margin-bottom:4px;flex:1">The foundation of Quran reading. Perfect for children and adults starting from scratch.</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;min-width:0"><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c9973a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Letter recognition</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c9973a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Makharij (Pronunciation)</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#c9973a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Vowels &amp; Symbols</span></div></div><div style="height:1px;background:linear-gradient(90deg,transparent,#c9973a30,transparent);margin-bottom:22px"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c9973a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span>1-on-1 Sessions</span></div><div style="display:flex;gap:2px;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface-muted);font-size:11px;margin-left:5px;font-weight:700">4.9</span></div></div><a class="c-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #c9973a40;color:var(--gold-lt);padding:13px 0;border-radius:14px;font-weight:700;font-size:12px;text-decoration:none;font-family:&#x27;Cinzel&#x27;,serif;letter-spacing:.08em;background:#c9973a08;transition:all .3s cubic-bezier(.16,1,.3,1)" href="/course/noorani-qaida/" data-discover="true">View Curriculum <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div><div class="course-card" style="border-radius:24px;overflow:hidden;border:1px solid var(--surface-chip-border);background:var(--surface-chip-bg);backdrop-filter:blur(16px);display:flex;flex-direction:column;animation-delay:0.1s;box-shadow:0 8px 32px rgba(0,0,0,.3)"><div style="position:relative;height:180px;overflow:hidden;flex-shrink:0"><img src="/assets/images/online-quran-tajweed-classes-alif-laam-meem.jpg" alt="Quran with Tajweed" class="c-img" style="width:100%;height:100%;object-fit:cover;display:block"/><div style="position:absolute;inset:0;background:var(--course-image-scrim)"></div><div class="shim-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#2fcf87,transparent)"></div><span style="position:absolute;top:18px;left:18px;background:#2fcf87;color:var(--on-gold);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:&#x27;Cinzel&#x27;,serif;max-width:calc(100% - 36px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Intermediate</span><div style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(47,207,135,.1);border:1px solid #2fcf8750;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)"><div class="icon-f"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#2fcf87" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-marked" aria-hidden="true"><path d="M10 2v8l3-3 3 3V2"></path><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"></path></svg></div></div><div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(2,11,6,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:5px 12px;color:var(--on-surface-muted);font-size:11px;font-weight:600;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#2fcf87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>12 Months</div></div><div style="padding:12px;display:flex;flex-direction:column;flex:1;position:relative;min-width:0"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(47,207,135,.1) 0%,transparent 70%);pointer-events:none"></div><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px;line-height:1.2">Quran with Tajweed</h3><p style="color:var(--on-surface-faint);line-height:1.75;font-size:13.5px;margin-bottom:4px;flex:1">Learn to recite the Quran with beautiful melody and perfect grammatical accuracy.</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;min-width:0"><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2fcf87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Advanced Tajweed rules</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2fcf87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Melodious recitation</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#2fcf87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Rhythmical breathing</span></div></div><div style="height:1px;background:linear-gradient(90deg,transparent,#2fcf8730,transparent);margin-bottom:22px"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2fcf87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span>1-on-1 Sessions</span></div><div style="display:flex;gap:2px;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface-muted);font-size:11px;margin-left:5px;font-weight:700">4.9</span></div></div><a class="c-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #2fcf8740;color:var(--gold-lt);padding:13px 0;border-radius:14px;font-weight:700;font-size:12px;text-decoration:none;font-family:&#x27;Cinzel&#x27;,serif;letter-spacing:.08em;background:#2fcf8708;transition:all .3s cubic-bezier(.16,1,.3,1)" href="/course/quran-tajweed/" data-discover="true">View Curriculum <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div><div class="course-card" style="border-radius:24px;overflow:hidden;border:1px solid var(--surface-chip-border);background:var(--surface-chip-bg);backdrop-filter:blur(16px);display:flex;flex-direction:column;animation-delay:0.2s;box-shadow:0 8px 32px rgba(0,0,0,.3)"><div style="position:relative;height:180px;overflow:hidden;flex-shrink:0"><img src="/assets/images/online-quran-hifz-memorization-course.jpg" alt="Hifz (Quran Memorization)" class="c-img" style="width:100%;height:100%;object-fit:cover;display:block"/><div style="position:absolute;inset:0;background:var(--course-image-scrim)"></div><div class="shim-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#7eb8ff,transparent)"></div><span style="position:absolute;top:18px;left:18px;background:#7eb8ff;color:var(--on-gold);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:&#x27;Cinzel&#x27;,serif;max-width:calc(100% - 36px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Advanced</span><div style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(126,184,255,.1);border:1px solid #7eb8ff50;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)"><div class="icon-f"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#7eb8ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-languages" aria-hidden="true"><path d="m5 8 6 6"></path><path d="m4 14 6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="m22 22-5-10-5 10"></path><path d="M14 18h6"></path></svg></div></div><div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(2,11,6,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:5px 12px;color:var(--on-surface-muted);font-size:11px;font-weight:600;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#7eb8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>Variable</div></div><div style="padding:12px;display:flex;flex-direction:column;flex:1;position:relative;min-width:0"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(126,184,255,.1) 0%,transparent 70%);pointer-events:none"></div><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px;line-height:1.2">Hifz (Quran Memorization)</h3><p style="color:var(--on-surface-faint);line-height:1.75;font-size:13.5px;margin-bottom:4px;flex:1">Structured program to help you memorize the Holy Quran with proper revision techniques.</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;min-width:0"><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7eb8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Personalized pace</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7eb8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Revision strategies</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7eb8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Dua for memory</span></div></div><div style="height:1px;background:linear-gradient(90deg,transparent,#7eb8ff30,transparent);margin-bottom:22px"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7eb8ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span>1-on-1 Sessions</span></div><div style="display:flex;gap:2px;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface-muted);font-size:11px;margin-left:5px;font-weight:700">4.9</span></div></div><a class="c-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #7eb8ff40;color:var(--gold-lt);padding:13px 0;border-radius:14px;font-weight:700;font-size:12px;text-decoration:none;font-family:&#x27;Cinzel&#x27;,serif;letter-spacing:.08em;background:#7eb8ff08;transition:all .3s cubic-bezier(.16,1,.3,1)" href="/course/hifz-memorization/" data-discover="true">View Curriculum <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div><div class="course-card" style="border-radius:24px;overflow:hidden;border:1px solid var(--surface-chip-border);background:var(--surface-chip-bg);backdrop-filter:blur(16px);display:flex;flex-direction:column;animation-delay:0s;box-shadow:0 8px 32px rgba(0,0,0,.3)"><div style="position:relative;height:180px;overflow:hidden;flex-shrink:0"><img src="/assets/images/learn-arabic-online-for-quran-alif-laam-meem.jpg" alt="Arabic for Communication" class="c-img" style="width:100%;height:100%;object-fit:cover;display:block"/><div style="position:absolute;inset:0;background:var(--course-image-scrim)"></div><div class="shim-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#ff8fa3,transparent)"></div><span style="position:absolute;top:18px;left:18px;background:#ff8fa3;color:var(--on-gold);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:&#x27;Cinzel&#x27;,serif;max-width:calc(100% - 36px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Intermediate</span><div style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,143,163,.1);border:1px solid #ff8fa350;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)"><div class="icon-f"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg></div></div><div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(2,11,6,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:5px 12px;color:var(--on-surface-muted);font-size:11px;font-weight:600;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>6-9 Months</div></div><div style="padding:12px;display:flex;flex-direction:column;flex:1;position:relative;min-width:0"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,143,163,.1) 0%,transparent 70%);pointer-events:none"></div><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px;line-height:1.2">Arabic for Communication</h3><p style="color:var(--on-surface-faint);line-height:1.75;font-size:13.5px;margin-bottom:4px;flex:1">Master Modern Standard Arabic (MSA) for daily conversation and understanding Quranic text.</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;min-width:0"><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Daily conversation</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Grammar essentials</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Vocabulary building</span></div></div><div style="height:1px;background:linear-gradient(90deg,transparent,#ff8fa330,transparent);margin-bottom:22px"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff8fa3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span>1-on-1 Sessions</span></div><div style="display:flex;gap:2px;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface-muted);font-size:11px;margin-left:5px;font-weight:700">4.9</span></div></div><a class="c-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #ff8fa340;color:var(--gold-lt);padding:13px 0;border-radius:14px;font-weight:700;font-size:12px;text-decoration:none;font-family:&#x27;Cinzel&#x27;,serif;letter-spacing:.08em;background:#ff8fa308;transition:all .3s cubic-bezier(.16,1,.3,1)" href="/course/arabic-communication/" data-discover="true">View Curriculum <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div><div class="course-card" style="border-radius:24px;overflow:hidden;border:1px solid var(--surface-chip-border);background:var(--surface-chip-bg);backdrop-filter:blur(16px);display:flex;flex-direction:column;animation-delay:0.1s;box-shadow:0 8px 32px rgba(0,0,0,.3)"><div style="position:relative;height:180px;overflow:hidden;flex-shrink:0"><img src="/assets/images/islamic-studies-for-kids-online-quran-classes.jpg" alt="Islamic Studies for Kids" class="c-img" style="width:100%;height:100%;object-fit:cover;display:block"/><div style="position:absolute;inset:0;background:var(--course-image-scrim)"></div><div class="shim-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#b58cff,transparent)"></div><span style="position:absolute;top:18px;left:18px;background:#b58cff;color:var(--on-gold);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:&#x27;Cinzel&#x27;,serif;max-width:calc(100% - 36px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Beginner</span><div style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(181,140,255,.1);border:1px solid #b58cff50;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)"><div class="icon-f"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#b58cff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path><path d="M22 10v6"></path><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path></svg></div></div><div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(2,11,6,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:5px 12px;color:var(--on-surface-muted);font-size:11px;font-weight:600;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#b58cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>Continuous</div></div><div style="padding:12px;display:flex;flex-direction:column;flex:1;position:relative;min-width:0"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(181,140,255,.1) 0%,transparent 70%);pointer-events:none"></div><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px;line-height:1.2">Islamic Studies for Kids</h3><p style="color:var(--on-surface-faint);line-height:1.75;font-size:13.5px;margin-bottom:4px;flex:1">Comprehensive curriculum covering Seerah, Akhlaq, Fiqh, and Islamic History for children.</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;min-width:0"><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b58cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Prophetic Stories</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b58cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Daily Duas</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b58cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">5 Pillars of Islam</span></div></div><div style="height:1px;background:linear-gradient(90deg,transparent,#b58cff30,transparent);margin-bottom:22px"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#b58cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span>1-on-1 Sessions</span></div><div style="display:flex;gap:2px;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface-muted);font-size:11px;margin-left:5px;font-weight:700">4.9</span></div></div><a class="c-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #b58cff40;color:var(--gold-lt);padding:13px 0;border-radius:14px;font-weight:700;font-size:12px;text-decoration:none;font-family:&#x27;Cinzel&#x27;,serif;letter-spacing:.08em;background:#b58cff08;transition:all .3s cubic-bezier(.16,1,.3,1)" href="/course/islamic-studies-kids/" data-discover="true">View Curriculum <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div><div class="course-card" style="border-radius:24px;overflow:hidden;border:1px solid var(--surface-chip-border);background:var(--surface-chip-bg);backdrop-filter:blur(16px);display:flex;flex-direction:column;animation-delay:0.2s;box-shadow:0 8px 32px rgba(0,0,0,.3)"><div style="position:relative;height:180px;overflow:hidden;flex-shrink:0"><img src="/assets/images/online-quran-tafsir-meaning-course.jpg" alt="Tafsir &amp; Quranic Meaning" class="c-img" style="width:100%;height:100%;object-fit:cover;display:block"/><div style="position:absolute;inset:0;background:var(--course-image-scrim)"></div><div class="shim-top" style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#ffd166,transparent)"></div><span style="position:absolute;top:18px;left:18px;background:#ffd166;color:var(--on-gold);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:5px 13px;border-radius:100px;font-family:&#x27;Cinzel&#x27;,serif;max-width:calc(100% - 36px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Advanced</span><div style="position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;background:rgba(255,209,102,.1);border:1px solid #ffd16650;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)"><div class="icon-f"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg></div></div><div style="position:absolute;bottom:16px;left:16px;display:flex;align-items:center;gap:6px;background:rgba(2,11,6,.75);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:5px 12px;color:var(--on-surface-muted);font-size:11px;font-weight:600;max-width:calc(100% - 32px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>12-18 Months</div></div><div style="padding:12px;display:flex;flex-direction:column;flex:1;position:relative;min-width:0"><div style="position:absolute;top:-30px;right:-20px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,rgba(255,209,102,.1) 0%,transparent 70%);pointer-events:none"></div><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--on-surface);margin-bottom:4px;line-height:1.2">Tafsir &amp; Quranic Meaning</h3><p style="color:var(--on-surface-faint);line-height:1.75;font-size:13.5px;margin-bottom:4px;flex:1">Deep dive into the context, history, and spiritual depth of the Quranic verses.</p><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:4px;min-width:0"><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Historical context</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Linguistic miracles</span></div><div class="feat-row"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true" style="flex-shrink:0"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg><span style="min-width:0;overflow-wrap:anywhere">Practical application</span></div></div><div style="height:1px;background:linear-gradient(90deg,transparent,#ffd16630,transparent);margin-bottom:22px"></div><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;gap:10px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd166" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><path d="M16 3.128a4 4 0 0 1 0 7.744"></path><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><circle cx="9" cy="7" r="4"></circle></svg><span>1-on-1 Sessions</span></div><div style="display:flex;gap:2px;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="var(--gold-m)" stroke="var(--gold-m)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface-muted);font-size:11px;margin-left:5px;font-weight:700">4.9</span></div></div><a class="c-btn" style="display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #ffd16640;color:var(--gold-lt);padding:13px 0;border-radius:14px;font-weight:700;font-size:12px;text-decoration:none;font-family:&#x27;Cinzel&#x27;,serif;letter-spacing:.08em;background:#ffd16608;transition:all .3s cubic-bezier(.16,1,.3,1)" href="/course/tafsir-meaning/" data-discover="true">View Curriculum <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></div></div></div></section><section style="background:var(--surface-base);padding:0 0 100px"><div class="container"><div class="cta-band"><div style="position:absolute;left:-60px;top:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,58,.08) 0%,transparent 70%);pointer-events:none"></div><div class="glow-pulse" style="position:absolute;right:15%;top:50%;transform:translateY(-50%);width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(22,160,92,.07) 0%,transparent 70%);pointer-events:none"></div><div style="position:absolute;right:60px;top:50%;transform:translateY(-50%);width:160px;height:160px;border-radius:50%;border:1px dashed rgba(201,151,58,.2);animation:rotateSlow 20s linear infinite;pointer-events:none"></div><div style="position:absolute;right:60px;top:50%;transform:translateY(-50%);width:120px;height:120px;border-radius:50%;border:1px solid rgba(201,151,58,.1);animation:rotateSlow 14s linear infinite reverse;pointer-events:none"></div><div style="position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:36px"><div style="max-width:540px"><p class="sec-label" style="margin-bottom:16px">Not Sure Where to Start?</p><h2 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:clamp(26px,3.5vw,46px);font-weight:600;color:var(--on-surface);line-height:1.2;margin-bottom:18px">Book a Free Trial &amp; Let Us<br/><em style="background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Find Your Perfect Course</em></h2><p style="color:var(--on-surface-faint);font-size:15px;line-height:1.8">Our scholars will evaluate your current level and recommend the ideal learning path — completely free, no commitment.</p></div><div style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;min-width:0"><a style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--gold-m),var(--gold));color:var(--on-gold);padding:18px 44px;border-radius:16px;font-family:&#x27;Cinzel&#x27;,serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-decoration:none;box-shadow:0 8px 32px rgba(201,151,58,.4),inset 0 1px 0 rgba(255,255,255,.25);transition:all .3s;max-width:100%" href="/book-free-trial/" data-discover="true">✦ Book Free Trial <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><div style="display:flex;gap:20px;flex-wrap:wrap"><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><span style="color:var(--gold);opacity:0.7"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></span>No credit card</div><div style="display:flex;align-items:center;gap:6px;color:var(--on-surface-subtle);font-size:12px"><span style="color:var(--gold);opacity:0.7"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-check-big" aria-hidden="true"><path d="M21.801 10A10 10 0 1 1 17 3.335"></path><path d="m9 11 3 3L22 4"></path></svg></span>No commitment</div></div></div></div></div></div></section></div></main><footer style="background:var(--footer-bg);color:var(--footer-fg-muted);position:relative;overflow:hidden;font-family:&#x27;Nunito&#x27;,sans-serif"><div class="foot-hex" style="position:absolute;inset:0"></div><div style="position:absolute;top:0;left:20%;width:400px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(22,160,92,.06) 0%,transparent 70%);pointer-events:none;filter:blur(20px)"></div><div style="position:absolute;top:0;right:15%;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,58,.04) 0%,transparent 70%);pointer-events:none;filter:blur(20px)"></div><div style="height:2px;background:linear-gradient(90deg,transparent,rgba(201,151,58,.5),rgba(245,217,142,.8),rgba(201,151,58,.5),transparent)"></div><div style="max-width:1320px;margin:0 auto;padding:80px 24px 0;position:relative;z-index:1"><div style="background:var(--footer-banner-bg);border:1px solid var(--footer-banner-border);border-radius:clamp(16px, 3vw, 24px);padding:clamp(24px, 5vw, 52px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:clamp(16px, 4vw, 28px);margin-bottom:clamp(40px, 10vw, 80px);backdrop-filter:blur(12px);position:relative;overflow:hidden"><div style="position:absolute;left:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(201,151,58,.08) 0%,transparent 70%);pointer-events:none"></div><div><p style="font-family:&#x27;Cinzel&#x27;,serif;font-size:10px;font-weight:700;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:10px">Start Your Journey</p><h3 style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:clamp(22px,3vw,34px);font-weight:600;color:var(--on-surface);line-height:1.2">Ready to Begin Your<!-- --> <em style="background:linear-gradient(135deg,var(--gold-lt),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Quranic Journey?</em></h3></div><a style="display:inline-flex;align-items:center;gap:clamp(6px, 2vw, 10px);background:linear-gradient(135deg,var(--gold-mid),var(--gold));color:var(--deep);padding:clamp(12px, 3vw, 16px) clamp(20px, 4vw, 36px);border-radius:14px;font-family:&#x27;Cinzel&#x27;,serif;font-weight:700;font-size:clamp(11px, 2.5vw, 12px);letter-spacing:.1em;text-decoration:none;box-shadow:0 8px 28px rgba(201,151,58,.4);flex-shrink:0;white-space:nowrap" href="/book-free-trial/" data-discover="true">✦ Free Trial <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div><div class="footer-grid" style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:clamp(32px, 5vw, 56px);margin-bottom:clamp(48px, 8vw, 72px)"><div style="grid-column:span 1;min-width:0"><span class="brand-logo-shell" style="margin-bottom:24px;align-self:flex-start"><img src="/assets/images/alif-laam-meem-islamic-institute-logo-header.png" alt="Alif Laam Meem Islamic Institute" class="brand-logo" style="max-width:320px;min-width:220px" width="320" height="58" loading="lazy"/></span><p style="font-size:13px;line-height:1.85;color:var(--on-surface-faint);margin-bottom:28px">Leading the global community in authentic, accessible Quranic education since 2015. 1-on-1 focus that transforms lives.</p><div style="display:flex;gap:20px;margin-bottom:28px"><div style="text-align:center"><div style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--gold-mid);line-height:1">5K+</div><div style="font-size:10px;color:var(--on-surface-subtle);letter-spacing:.08em;margin-top:2px">Students</div></div><div style="text-align:center"><div style="font-family:&#x27;Cormorant Garamond&#x27;,serif;font-size:22px;font-weight:700;color:var(--gold-mid);line-height:1">50+</div><div style="font-size:10px;color:var(--on-surface-subtle);letter-spacing:.08em;margin-top:2px">Countries</div></div><div style="width:1px;background:var(--surface-chip-border)"></div><div style="display:flex;align-items:center;gap:4px"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="var(--gold-mid)" stroke="var(--gold-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="var(--gold-mid)" stroke="var(--gold-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="var(--gold-mid)" stroke="var(--gold-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="var(--gold-mid)" stroke="var(--gold-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="var(--gold-mid)" stroke="var(--gold-mid)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg><span style="color:var(--on-surface);font-size:12px;font-weight:700;margin-left:4px">4.9</span></div></div><div style="display:flex;gap:10px"><a href="#" class="social-btn" aria-label="Facebook"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a><a href="#" class="social-btn" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a href="#" class="social-btn" aria-label="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter" aria-hidden="true"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a></div></div><div><h4 style="font-family:&#x27;Cinzel&#x27;,serif;font-size:10px;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:28px">Learning Path</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:6px"><li><a class="foot-link" href="/courses/" data-discover="true">Course Catalog</a></li><li><a class="foot-link" href="/tutors/" data-discover="true">Our Scholars</a></li><li><a class="foot-link" href="/how-it-works/" data-discover="true">The Process</a></li><li><a class="foot-link" href="/pricing/" data-discover="true">Tuition Fees</a></li><li><a class="foot-link" href="/book-free-trial/" data-discover="true">Free Trial</a></li></ul></div><div><h4 style="font-family:&#x27;Cinzel&#x27;,serif;font-size:10px;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:28px">Student Support</h4><ul style="list-style:none;display:flex;flex-direction:column;gap:6px"><li><a class="foot-link" href="/reviews/" data-discover="true">Testimonials</a></li><li><a class="foot-link" href="/faq/" data-discover="true">Help Center</a></li><li><a class="foot-link" href="/contact/" data-discover="true">Contact Us</a></li><li><a class="foot-link" href="/book-free-trial/" data-discover="true">Register Now</a></li><li><a class="foot-link" href="/privacy-policy/" data-discover="true">Privacy Policy</a></li></ul></div><div><h4 style="font-family:&#x27;Cinzel&#x27;,serif;font-size:10px;font-weight:700;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:28px">Get In Touch</h4><div style="display:flex;flex-direction:column;gap:14px;margin-bottom:32px"><div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:var(--surface-chip-bg);border:1px solid var(--surface-chip-border);transition:border-color .25s"><div style="width:36px;height:36px;border-radius:10px;background:#c9973a18;border:1px solid #c9973a30;display:flex;align-items:center;justify-content:center;color:#c9973a;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg></div><div><div style="font-family:&#x27;Cinzel&#x27;,serif;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--on-surface-subtle);text-transform:uppercase;margin-bottom:2px">Call Us</div><div style="color:var(--on-surface);font-size:13px;font-weight:600">+9203006873200</div></div></div><div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-radius:14px;background:var(--surface-chip-bg);border:1px solid var(--surface-chip-border);transition:border-color .25s"><div style="width:36px;height:36px;border-radius:10px;background:#2fcf8718;border:1px solid #2fcf8730;display:flex;align-items:center;justify-content:center;color:#2fcf87;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></div><div><div style="font-family:&#x27;Cinzel&#x27;,serif;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--on-surface-subtle);text-transform:uppercase;margin-bottom:2px">Email</div><div style="color:var(--on-surface);font-size:13px;font-weight:600">infoaliflaameem@gmail.com</div></div></div></div><div><p style="font-family:&#x27;Cinzel&#x27;,serif;font-size:9px;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:12px">Newsletter</p><p style="font-size:12px;color:var(--on-surface-subtle);margin-bottom:12px;line-height:1.6">Get updates on new courses and free Islamic resources.</p><div style="display:flex"><label for="footer-newsletter-email" class="sr-only">Email for newsletter</label><input id="footer-newsletter-email" class="news-input" type="email" autoComplete="email" placeholder="your@email.com" name="email"/><button type="button" class="news-btn" aria-label="Subscribe to newsletter">✦</button></div></div></div></div><div style="border-top:1px solid var(--sticky-bar-border);padding:28px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px"><p class="foot-bar-copy" style="font-family:&#x27;Cinzel&#x27;,serif;font-size:9px;font-weight:700;letter-spacing:.18em;color:var(--footer-fg-muted);text-transform:uppercase;margin:0">© <!-- -->2026<!-- --> Alif Laam Meem Islamic Insitute</p><div style="display:flex;gap:24px;align-items:center"><a href="/privacy-policy/" class="foot-bar-link" style="font-family:&#x27;Cinzel&#x27;,serif;font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--footer-fg-muted);text-transform:uppercase;text-decoration:none;transition:color .25s">Privacy Policy</a><a href="/terms-of-service/" class="foot-bar-link" style="font-family:&#x27;Cinzel&#x27;,serif;font-size:9px;font-weight:700;letter-spacing:.16em;color:var(--footer-fg-muted);text-transform:uppercase;text-decoration:none;transition:color .25s">Terms of Service</a></div></div></div><a href="https://wa.me/923006873200?text=Assalamu%20Alaikum!%20I%20would%20like%20to%20inquire%20about%20Quran%20classes%20at%20Alif%20Laam%20Meem%20Academy." target="_blank" rel="noopener noreferrer" class="wa-btn" aria-label="Chat on WhatsApp" style="position:fixed;bottom:clamp(16px, 5vw, 32px);right:clamp(16px, 5vw, 32px);z-index:60;width:clamp(50px, 10vw, 60px);height:clamp(50px, 10vw, 60px);min-width:50px;min-height:50px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:flex;align-items:center;justify-content:center;color:#ffffff;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.4);transition:transform .25s, box-shadow .25s"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-message-circle" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"></path></svg><span class="wa-tooltip" aria-hidden="true">Chat on WhatsApp</span></a><style>
+        @media (max-width: 1024px) {
+          footer .grid-4 { grid-template-columns: repeat(2,1fr) !important; }
+        }
+        @media (max-width: 640px) {
+          footer .grid-4 { grid-template-columns: 1fr !important; }
+        }
+      </style></footer></div></div>
+</body>
+</html>
