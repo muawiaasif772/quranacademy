@@ -96,9 +96,24 @@ jobs:
           chmod 600 "$HOME/.ssh/known_hosts"
 
       - name: Load SSH private key
-        uses: webfactory/ssh-agent@v0.10.0
-        with:
-          ssh-private-key: ${{ secrets.CPANEL_SSH_KEY }}
+        shell: bash
+        env:
+          CPANEL_SSH_KEY: ${{ secrets.CPANEL_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          # Normalise the key: strip Windows CRLF / stray spaces and make sure it
+          # ends with a newline (keys copied on Windows often break ssh-add).
+          printf '%s\n' "$CPANEL_SSH_KEY" | tr -d '\r' | sed -e 's/[[:space:]]*$//' > "$HOME/.ssh/deploy_key"
+          chmod 600 "$HOME/.ssh/deploy_key"
+          if ! ssh-keygen -y -f "$HOME/.ssh/deploy_key" > /dev/null; then
+            echo "::error::CPANEL_SSH_KEY is not a valid private key. Paste the whole file, including the BEGIN and END lines."
+            head -c 40 "$HOME/.ssh/deploy_key" | sed 's/[A-Za-z0-9+\/=]\{8,\}/<redacted>/g'
+            exit 1
+          fi
+          eval "$(ssh-agent -s)"
+          ssh-add "$HOME/.ssh/deploy_key"
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
 
       - name: Verify SSH and document root
         shell: bash
