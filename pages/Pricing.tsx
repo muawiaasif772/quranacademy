@@ -1166,7 +1166,7 @@ const PricingPage: React.FC = () => {
                         background: isPopular
                           ? "linear-gradient(135deg,var(--gold-m),var(--gold))"
                           : `linear-gradient(135deg,${plan.accent}cc,${plan.accent}88)`,
-                        color: "var(--on-gold)",
+                        color: "#1a1208", // dark text: badge sits on a fixed light accent colour
                         textAlign: "center",
                         padding: "7px 0",
                         fontFamily: "'Cinzel',serif",

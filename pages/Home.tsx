@@ -674,7 +674,7 @@ const Home: React.FC = () => {
                     <div
                       style={{
                         background: "var(--gold-500)",
-                        color: "var(--ink)",
+                        color: "var(--on-gold)",
                         borderRadius: 8,
                         padding: "6px 12px",
                         fontSize: 12,
@@ -870,7 +870,7 @@ const Home: React.FC = () => {
                           top: 16,
                           left: 16,
                           background: "var(--gold-500)",
-                          color: "var(--ink)",
+                          color: "var(--on-gold)",
                           fontSize: 11,
                           fontWeight: 800,
                           letterSpacing: "0.1em",
@@ -1258,7 +1258,7 @@ const Home: React.FC = () => {
             >
               ✦ Book My Free Trial Now
             </Link>
-            <p style={{ color: "#4a7a68", fontSize: 13, marginTop: 20 }}>
+            <p style={{ color: "var(--page-fg-muted)", fontSize: 13, marginTop: 20 }}>
               Join 5,000+ students from 50+ countries ✦ No commitment required
             </p>
           </div>

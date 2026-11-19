@@ -35,9 +35,10 @@ html[data-theme="dark"] {
   --surface-section-from: #051610;
   --surface-section-to: #020b06;
   --on-surface: #ffffff;
-  --on-surface-muted: rgba(255, 255, 255, 0.55);
-  --on-surface-faint: rgba(255, 255, 255, 0.35);
-  --on-surface-subtle: rgba(255, 255, 255, 0.3);
+  /* raised from .55/.35/.30 — the old values were 2.5–2.8:1 on the dark green (WCAG AA needs 4.5:1) */
+  --on-surface-muted: rgba(255, 255, 255, 0.72);
+  --on-surface-faint: rgba(255, 255, 255, 0.62);
+  --on-surface-subtle: rgba(255, 255, 255, 0.58);
   --surface-chip-bg: rgba(255, 255, 255, 0.03);
   --surface-chip-border: rgba(255, 255, 255, 0.06);
   --hero-panel-bg: radial-gradient(
@@ -558,4 +559,192 @@ html[data-theme="light"] .mob-link:hover {
 .theme-toggle-btn:focus-visible {
   outline: 2px solid var(--gold-m);
   outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   LIGHT THEME CONTRAST FIX (WCAG AA ≥ 4.5:1 on the cream page background)
+   The brand gold/emerald and the pastel accents were tuned for the dark theme;
+   on cream they dropped to 1.1–2.5:1. Darker shades are used for light mode.
+   ───────────────────────────────────────────────────────────────────────────── */
+html[data-theme="light"] {
+  --gold: #8a6212;
+  --gold-m: #9a6d14;
+  --gold-mid: #9a6d14;
+  --gold-lt: #7a560f;
+  --gold-500: #8a6212;
+  --gold-400: #8a6212;
+  --gold-300: #7a560f;
+  --em-lt: #0e7a4a;
+  --em-vv: #0e7a4a;
+  /* text on gold buttons: white reads better on the deeper light-mode gold */
+  --on-gold: #ffffff;
+}
+
+/* Inline accent colours set in components (e.g. step/plan accents). Matches
+   both the prerendered markup (color:#hex) and React's runtime style
+   serialisation (color: rgb(r, g, b)); only the text `color` property. */
+html[data-theme="light"] [style^="color:#7eb8ff"],
+html[data-theme="light"] [style*=";color:#7eb8ff"],
+html[data-theme="light"] [style^="color: rgb(126, 184, 255)"],
+html[data-theme="light"] [style*=" color: rgb(126, 184, 255)"] {
+  color: #1f63c4 !important;
+}
+html[data-theme="light"] [style^="color:#ff8fa3"],
+html[data-theme="light"] [style*=";color:#ff8fa3"],
+html[data-theme="light"] [style^="color: rgb(255, 143, 163)"],
+html[data-theme="light"] [style*=" color: rgb(255, 143, 163)"] {
+  color: #c2334f !important;
+}
+html[data-theme="light"] [style^="color:#b58cff"],
+html[data-theme="light"] [style*=";color:#b58cff"],
+html[data-theme="light"] [style^="color: rgb(181, 140, 255)"],
+html[data-theme="light"] [style*=" color: rgb(181, 140, 255)"] {
+  color: #7041c9 !important;
+}
+html[data-theme="light"] [style^="color:#ffd166"],
+html[data-theme="light"] [style*=";color:#ffd166"],
+html[data-theme="light"] [style^="color: rgb(255, 209, 102)"],
+html[data-theme="light"] [style*=" color: rgb(255, 209, 102)"] {
+  color: #946200 !important;
+}
+html[data-theme="light"] [style^="color:#2fcf87"],
+html[data-theme="light"] [style*=";color:#2fcf87"],
+html[data-theme="light"] [style^="color: rgb(47, 207, 135)"],
+html[data-theme="light"] [style*=" color: rgb(47, 207, 135)"] {
+  color: #0e7a4a !important;
+}
+html[data-theme="light"] [style^="color:#6ee7b7"],
+html[data-theme="light"] [style*=";color:#6ee7b7"],
+html[data-theme="light"] [style^="color: rgb(110, 231, 183)"],
+html[data-theme="light"] [style*=" color: rgb(110, 231, 183)"] {
+  color: #0e7a4a !important;
+}
+html[data-theme="light"] [style^="color:#7aaa94"],
+html[data-theme="light"] [style*=";color:#7aaa94"],
+html[data-theme="light"] [style^="color: rgb(122, 170, 148)"],
+html[data-theme="light"] [style*=" color: rgb(122, 170, 148)"] {
+  color: #3d6b58 !important;
+}
+html[data-theme="light"] [style^="color:#a7c4b5"],
+html[data-theme="light"] [style*=";color:#a7c4b5"],
+html[data-theme="light"] [style^="color: rgb(167, 196, 181)"],
+html[data-theme="light"] [style*=" color: rgb(167, 196, 181)"] {
+  color: #3d6b58 !important;
+}
+html[data-theme="light"] [style^="color:#5a8a78"],
+html[data-theme="light"] [style*=";color:#5a8a78"],
+html[data-theme="light"] [style^="color: rgb(90, 138, 120)"],
+html[data-theme="light"] [style*=" color: rgb(90, 138, 120)"] {
+  color: #3d6b58 !important;
+}
+html[data-theme="light"] [style^="color:#e2c06b"],
+html[data-theme="light"] [style*=";color:#e2c06b"],
+html[data-theme="light"] [style^="color: rgb(226, 192, 107)"],
+html[data-theme="light"] [style*=" color: rgb(226, 192, 107)"] {
+  color: #8a6212 !important;
+}
+html[data-theme="light"] [style^="color:#f5dfa0"],
+html[data-theme="light"] [style*=";color:#f5dfa0"],
+html[data-theme="light"] [style^="color: rgb(245, 223, 160)"],
+html[data-theme="light"] [style*=" color: rgb(245, 223, 160)"] {
+  color: #7a560f !important;
+}
+html[data-theme="light"] [style^="color:#f5d98e"],
+html[data-theme="light"] [style*=";color:#f5d98e"],
+html[data-theme="light"] [style^="color: rgb(245, 217, 142)"],
+html[data-theme="light"] [style*=" color: rgb(245, 217, 142)"] {
+  color: #7a560f !important;
+}
+html[data-theme="light"] [style^="color:#e4b558"],
+html[data-theme="light"] [style*=";color:#e4b558"],
+html[data-theme="light"] [style^="color: rgb(228, 181, 88)"],
+html[data-theme="light"] [style*=" color: rgb(228, 181, 88)"] {
+  color: #8a6212 !important;
+}
+html[data-theme="light"] [style^="color:#c9a84c"],
+html[data-theme="light"] [style*=";color:#c9a84c"],
+html[data-theme="light"] [style^="color: rgb(201, 168, 76)"],
+html[data-theme="light"] [style*=" color: rgb(201, 168, 76)"] {
+  color: #8a6212 !important;
+}
+html[data-theme="light"] [style^="color:#c9973a"],
+html[data-theme="light"] [style*=";color:#c9973a"],
+html[data-theme="light"] [style^="color: rgb(201, 151, 58)"],
+html[data-theme="light"] [style*=" color: rgb(201, 151, 58)"] {
+  color: #8a6212 !important;
+}
+html[data-theme="light"] {
+  --emerald-300: #0e7a4a;
+}
+
+/* Gold slightly deeper for small text (gold-m was 3.9:1 on beige). */
+html[data-theme="light"] {
+  --gold-m: #8a6212;
+  --gold-mid: #8a6212;
+  --gold: #7d5810;
+}
+/* Surfaces that stay dark in BOTH themes keep the original bright palette. */
+html[data-theme="light"] .alm-brand-panel {
+  --gold: #c9973a;
+  --gold-m: #e4b558;
+  --gold-mid: #e4b558;
+  --gold-lt: #f5d98e;
+  --em-lt: #2fcf87;
+  --emerald-300: #6ee7b7;
+  --on-gold: #020b06;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#7eb8ff"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#7eb8ff"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(126, 184, 255)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(126, 184, 255)"] {
+  color: #7eb8ff !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#ff8fa3"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#ff8fa3"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(255, 143, 163)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(255, 143, 163)"] {
+  color: #ff8fa3 !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#b58cff"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#b58cff"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(181, 140, 255)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(181, 140, 255)"] {
+  color: #b58cff !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#ffd166"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#ffd166"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(255, 209, 102)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(255, 209, 102)"] {
+  color: #ffd166 !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#2fcf87"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#2fcf87"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(47, 207, 135)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(47, 207, 135)"] {
+  color: #2fcf87 !important;
+}
+
+html[data-theme="light"] .alm-brand-panel [style^="color:#c9973a"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#c9973a"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(201, 151, 58)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(201, 151, 58)"] {
+  color: #c9973a !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#e4b558"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#e4b558"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(228, 181, 88)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(228, 181, 88)"] {
+  color: #e4b558 !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#f5d98e"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#f5d98e"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(245, 217, 142)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(245, 217, 142)"] {
+  color: #f5d98e !important;
+}
+html[data-theme="light"] .alm-brand-panel [style^="color:#e2c06b"],
+html[data-theme="light"] .alm-brand-panel [style*=";color:#e2c06b"],
+html[data-theme="light"] .alm-brand-panel [style^="color: rgb(226, 192, 107)"],
+html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(226, 192, 107)"] {
+  color: #e2c06b !important;
 }

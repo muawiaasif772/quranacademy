@@ -213,7 +213,7 @@ const S = `
   .cta-btn{
     display:inline-flex;align-items:center;justify-content:center;gap:10px;
     background:linear-gradient(135deg,var(--gold-m),var(--gold));
-    color:#020b06;padding:18px 44px;border-radius:16px;
+    color:var(--on-gold);padding:18px 44px;border-radius:16px;
     font-family:'Cinzel',serif;font-weight:700;font-size:13px;letter-spacing:.1em;
     text-decoration:none;
     box-shadow:0 8px 32px rgba(201,151,58,.4),inset 0 1px 0 rgba(255,255,255,.25);
@@ -334,7 +334,7 @@ const NotFound = () => (
         style={{
           fontFamily: "'Cormorant Garamond',serif",
           fontSize: "clamp(60px,12vw,120px)",
-          color: "rgba(255,255,255,.04)",
+          color: "var(--page-fg-subtle)",
           fontWeight: 700,
           lineHeight: 1,
           marginBottom: -20,
@@ -449,7 +449,7 @@ const CourseDetail: React.FC = () => {
               transform: "translateY(-50%)",
               fontFamily: "'Amiri',serif",
               fontSize: "clamp(120px,18vw,280px)",
-              color: "rgba(255,255,255,.015)",
+              color: "var(--page-fg-subtle)",
               fontWeight: 700,
               userSelect: "none",
               pointerEvents: "none",
@@ -799,7 +799,7 @@ const CourseDetail: React.FC = () => {
                       top: 20,
                       left: 20,
                       background: a.color,
-                      color: "var(--on-gold)",
+                      color: "#1a1208", // dark text: badge sits on a fixed light accent colour
                       fontSize: 9,
                       fontWeight: 800,
                       letterSpacing: ".16em",
@@ -860,7 +860,7 @@ const CourseDetail: React.FC = () => {
                             <MI size={11} color={a.color} strokeWidth={1.5} />
                             <span
                               style={{
-                                color: "var(--on-surface-muted)",
+                                color: "rgba(255,255,255,.78)", // on dark card in both themes
                                 fontSize: 10,
                                 fontWeight: 700,
                               }}
@@ -885,7 +885,7 @@ const CourseDetail: React.FC = () => {
                       <p
                         style={{
                           textAlign: "center",
-                          color: "var(--on-surface-subtle)",
+                          color: "rgba(255,255,255,.6)", // on dark card in both themes
                           fontSize: 11,
                           marginTop: 10,
                         }}
@@ -1068,7 +1068,7 @@ const CourseDetail: React.FC = () => {
                     </div>
                     <span
                       style={{
-                        color: "rgba(255,255,255,.78)",
+                        color: "var(--page-fg)",
                         fontSize: 14,
                         fontWeight: 600,
                         lineHeight: 1.45,

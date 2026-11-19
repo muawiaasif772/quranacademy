@@ -826,7 +826,7 @@ const Courses: React.FC = () => {
                             top: 18,
                             left: 18,
                             background: acc.color,
-                            color: "var(--on-gold)",
+                            color: "#1a1208", // dark text: badge sits on a fixed light accent colour
                             fontSize: 9,
                             fontWeight: 800,
                             letterSpacing: ".16em",
@@ -883,7 +883,7 @@ const Courses: React.FC = () => {
                             border: "1px solid rgba(255,255,255,.08)",
                             borderRadius: 100,
                             padding: "5px 12px",
-                            color: "var(--on-surface-muted)",
+                            color: "rgba(255,255,255,.78)", // on dark image overlay in both themes
                             fontSize: 11,
                             fontWeight: 600,
                             maxWidth: "calc(100% - 32px)",

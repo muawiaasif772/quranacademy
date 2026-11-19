@@ -47,6 +47,231 @@ const AUTHOR = "Alif Laam Meem Academy";
 export const BLOG_POSTS: BlogPost[] = [
   // ───────────────────────────────────────────────────────────────────────────
   {
+    slug: "arabic-grammar-for-understanding-the-quran",
+    title: "How to Learn Arabic Grammar for the Quran (Nahw & Sarf): A Step-by-Step Guide",
+    metaTitle: "Arabic Grammar for the Quran: Step-by-Step Guide",
+    description:
+      "Learn Quranic Arabic grammar step by step: word types, the three case endings, root letters and verb patterns, with Quran examples and a study plan.",
+    published: "2026-11-20",
+    updated: "2026-11-20",
+    author: AUTHOR,
+    readMinutes: 9,
+    image: "/assets/images/learn-arabic-online-for-quran-alif-laam-meem.jpg",
+    imageAlt: "Student learning Quranic Arabic grammar online",
+    excerpt:
+      "Nahw, Sarf, case endings and root letters explained simply, with examples from Al-Fatiha and a realistic plan to start understanding the Quran in Arabic.",
+    keyword: "arabic grammar for quran",
+    relatedCourse: "arabic-communication",
+    body: [
+      {
+        type: "p",
+        text: "Many Muslims read the Quran fluently but cannot follow its meaning without a translation. Arabic grammar is the bridge. You do not need to become a linguist: a solid grasp of a few core ideas lets you see how each ayah is built and recognise words you already know in new forms.",
+      },
+      {
+        type: "tip",
+        text: "Arabic grammar has two halves. Nahw (نحو) studies how words relate to each other in a sentence and why their endings change. Sarf (صرف) studies how a single word changes shape from its root. You need both, and they are learned side by side.",
+      },
+      { type: "h2", text: "Step 1: Know the three types of words", id: "word-types" },
+      {
+        type: "p",
+        text: "Every Arabic word is one of three types. Being able to label a word as one of these is the very first grammar skill:",
+      },
+      {
+        type: "table",
+        head: ["Type", "Arabic", "What it is", "Example"],
+        rows: [
+          ["Ism (noun)", "اسم", "a person, place, thing or idea, including adjectives and pronouns", "كِتَاب (book)"],
+          ["Fi'l (verb)", "فعل", "an action tied to a time (past, present, command)", "خَلَقَ (he created)"],
+          ["Harf (particle)", "حرف", "a small word with no meaning alone: in, on, to, from", "فِي (in)"],
+        ],
+      },
+      { type: "h2", text: "Step 2: Learn the three case endings (I'rab)", id: "irab" },
+      {
+        type: "p",
+        text: "The last vowel of most nouns changes depending on the noun's job in the sentence. These are the three main cases, and they explain most of the endings you hear in recitation:",
+      },
+      {
+        type: "table",
+        head: ["Case", "Arabic", "Usual ending", "Typical job"],
+        rows: [
+          ["Raf' (nominative)", "رفع", "Damma ـُ", "the subject, or the start of a sentence"],
+          ["Nasb (accusative)", "نصب", "Fatha ـَ", "the object of a verb, and after certain particles"],
+          ["Jarr (genitive)", "جر", "Kasra ـِ", "after a preposition, or the second noun in a possession"],
+        ],
+      },
+      {
+        type: "p",
+        text: "Look at the opening of Al-Fatiha: الْحَمْدُ لِلَّهِ (al-hamdu lillah). Al-hamdu ends in Damma because it is the subject of the sentence (raf'). Allah ends in Kasra because it comes after the preposition li (jarr). Once you see this pattern, endings stop being random sounds and start carrying meaning.",
+      },
+      { type: "h2", text: "Step 3: Understand root letters", id: "roots" },
+      {
+        type: "p",
+        text: "Most Arabic words grow from a root of three letters. The root carries the core meaning, and patterns of vowels and extra letters build related words around it. This is the single biggest shortcut in learning Quranic vocabulary:",
+      },
+      {
+        type: "table",
+        caption: "Words from the root ك ت ب (k-t-b), meaning “to write”",
+        head: ["Word", "Pattern", "Meaning"],
+        rows: [
+          ["كَتَبَ", "fa'ala", "he wrote"],
+          ["يَكْتُبُ", "yaf'ulu", "he writes"],
+          ["كَاتِب", "fā'il", "a writer"],
+          ["كِتَاب", "fi'āl", "a book"],
+          ["مَكْتُوب", "maf'ūl", "written"],
+        ],
+      },
+      { type: "h2", text: "Step 4: Learn the most common verb patterns (Sarf)", id: "sarf" },
+      {
+        type: "p",
+        text: "Sarf teaches the fixed patterns that verbs follow. Grammarians use the root ف ع ل (f-'-l) as a template, so فَعَلَ stands for any past-tense verb and يَفْعَلُ for its present tense. Learning the past, present and command forms of a handful of patterns lets you recognise thousands of verbs in the Quran.",
+      },
+      { type: "h2", text: "A realistic study plan", id: "plan" },
+      {
+        type: "ol",
+        items: [
+          "Weeks 1–4: the three word types, pronouns, and the definite article ال. Practise labelling words in Al-Fatiha.",
+          "Weeks 5–10: the three cases, prepositions, and simple nominal sentences (subject + description).",
+          "Weeks 11–16: past and present verbs, root letters and the first verb patterns.",
+          "After that: read short Surahs from Juz Amma word by word with a teacher, applying everything you have learned.",
+        ],
+      },
+      {
+        type: "p",
+        text: "Many teachers use the Madinah Arabic course (Durus al-Lughah al-Arabiyyah) for the language basics and the classic primer Al-Ajurrumiyyah for Nahw. Whatever book you choose, 30 focused minutes a day, applied directly to ayahs you recite in Salah, works better than long weekly sessions.",
+      },
+      { type: "h2", text: "Common mistakes to avoid", id: "mistakes" },
+      {
+        type: "ul",
+        items: [
+          "Memorising grammar tables without applying them to real ayahs.",
+          "Skipping Sarf. Without root letters, every new word feels like a new word to memorise.",
+          "Learning only from translations. Grammar shows you why a translation chose its words.",
+          "Studying alone with nobody to correct you. A teacher spots misunderstandings early.",
+        ],
+      },
+      {
+        type: "cta",
+        text: "Our Arabic course teaches grammar, vocabulary and reading in live one-to-one lessons, always connected back to the Quran.",
+        href: "/course/arabic-communication/",
+        label: "See the online Arabic course",
+      },
+    ],
+    faqs: [
+      {
+        q: "How long does it take to learn Arabic grammar for the Quran?",
+        a: "With 30 minutes a day, most students understand the core grammar (word types, case endings, roots and main verb patterns) in about 4–6 months, and keep improving as they read more of the Quran.",
+      },
+      {
+        q: "What is the difference between Nahw and Sarf?",
+        a: "Nahw is sentence grammar: how words relate to each other and why their endings change. Sarf is word grammar: how a word is built from its root letters and patterns.",
+      },
+      {
+        q: "Do I need to know Arabic grammar to understand the Quran?",
+        a: "You can learn the meaning from translations and Tafsir, but grammar lets you understand the Arabic directly, notice details translations lose, and connect with your Salah.",
+      },
+      {
+        q: "Which book is best for Quranic Arabic grammar?",
+        a: "The Madinah Arabic course (Durus al-Lughah al-Arabiyyah) and Al-Ajurrumiyyah are widely used starting points. The best results come from studying them with a teacher who applies each lesson to Quranic ayahs.",
+      },
+    ],
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: "how-to-learn-tafseer-of-the-quran",
+    title: "How to Learn Tafseer of the Quran: A Beginner's Guide",
+    metaTitle: "How to Learn Tafseer of the Quran: Beginner's Guide",
+    description:
+      "What Tafseer is, how it differs from translation, which Tafseer books to start with, and a step-by-step plan for beginners to understand the Quran.",
+    published: "2026-11-20",
+    updated: "2026-11-20",
+    author: AUTHOR,
+    readMinutes: 8,
+    image: "/assets/images/online-quran-tafsir-meaning-course.jpg",
+    imageAlt: "Open Quran with Tafseer notes for studying the meaning of the Quran",
+    excerpt:
+      "Tafseer explains what the Quran means, why each ayah was revealed and how to apply it. Here is how to start, step by step.",
+    keyword: "how to learn tafseer of quran",
+    relatedCourse: "tafsir-meaning",
+    body: [
+      {
+        type: "p",
+        text: "Tafseer (also spelled Tafsir, تفسير) is the explanation of the Quran: what each ayah means, the context in which it was revealed, how it connects to other ayahs and Hadith, and how scholars have understood it. Reading Tafseer turns recitation into understanding, and it is something every Muslim can begin, whatever their level of Arabic.",
+      },
+      { type: "h2", text: "Tafseer vs translation: what is the difference?", id: "vs-translation" },
+      {
+        type: "p",
+        text: "A translation tells you roughly what the words say in another language. Tafseer tells you what they mean. For example, a translation of a short Surah may take a few lines, while a Tafseer of the same Surah explains the occasion of revelation, the meaning of key Arabic words, related Hadith and the lessons scholars drew from it.",
+      },
+      {
+        type: "tip",
+        text: "Start with a reliable translation to get the overall message, then read Tafseer for the Surahs you recite most. Do not try to read a large Tafseer cover to cover as a beginner.",
+      },
+      { type: "h2", text: "The main approaches to Tafseer", id: "types" },
+      {
+        type: "ul",
+        items: [
+          "Tafseer bil-Ma'thur (by narration): explains the Quran using the Quran itself, the Hadith of the Prophet ﷺ and the statements of the Companions. Tafseer Ibn Kathir is the best-known example.",
+          "Tafseer bil-Ra'y (by sound scholarly reasoning): uses Arabic language, grammar and principles of interpretation, always within the limits set by the Quran and Sunnah.",
+          "Thematic Tafseer: gathers all the ayahs on one topic, such as patience or the stories of the Prophets, and studies them together.",
+        ],
+      },
+      { type: "h2", text: "Well-known Tafseer books for beginners", id: "books" },
+      {
+        type: "table",
+        head: ["Tafseer", "Why it is useful"],
+        rows: [
+          ["Tafseer Ibn Kathir", "Classic, narration-based, widely translated into English and Urdu; ideal for serious study"],
+          ["Tafseer al-Jalalayn", "Very concise; good for a quick, ayah-by-ayah overview"],
+          ["Tafseer as-Sa'di", "Clear and practical, focused on lessons and guidance"],
+          ["Ma'ariful Qur'an", "Detailed Tafseer available in Urdu and English, popular in South Asia"],
+        ],
+      },
+      { type: "h2", text: "A step-by-step plan for beginners", id: "plan" },
+      {
+        type: "ol",
+        items: [
+          "Make sure you can read the Quran with basic Tajweed, so you can follow the Arabic alongside the explanation.",
+          "Begin with Surah Al-Fatiha, then the short Surahs of Juz Amma that you recite in Salah.",
+          "For each Surah: read the translation, then the Tafseer, then note 2–3 lessons in your own words.",
+          "Learn the key Arabic words of each Surah. Even a small vocabulary deepens your understanding quickly.",
+          "Study with a qualified teacher who can answer questions and keep you within reliable explanations.",
+        ],
+      },
+      { type: "h2", text: "Adab: how to approach Tafseer", id: "adab" },
+      {
+        type: "p",
+        text: "Tafseer is a serious science. Scholars stress approaching it with sincerity, humility and reliable sources, and not explaining the Quran by personal opinion alone. That is why learning with a teacher, and from established Tafseer works rather than random online posts, matters so much for beginners.",
+      },
+      {
+        type: "cta",
+        text: "Our Tafseer classes are taught one-to-one by qualified scholars, Surah by Surah, at your pace, in English or Urdu.",
+        href: "/course/tafsir-meaning/",
+        label: "See the online Tafseer course",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is Tafseer of the Quran?",
+        a: "Tafseer is the explanation of the Quran: the meaning of its ayahs, the context of revelation, related Hadith and the lessons scholars have drawn from it.",
+      },
+      {
+        q: "Which Tafseer is best for beginners?",
+        a: "Many beginners start with a concise Tafseer such as al-Jalalayn or as-Sa'di, and move on to Tafseer Ibn Kathir for deeper study, ideally with a teacher.",
+      },
+      {
+        q: "Can I learn Tafseer without knowing Arabic?",
+        a: "Yes. Reliable Tafseer works are available in English and Urdu. Learning basic Quranic Arabic alongside them makes your understanding much deeper.",
+      },
+      {
+        q: "How long does it take to study the Tafseer of the whole Quran?",
+        a: "It depends on depth. A concise Tafseer with weekly classes can take 1–2 years; a detailed Tafseer such as Ibn Kathir often takes several years of regular study.",
+      },
+    ],
+  },
+
+  // ───────────────────────────────────────────────────────────────────────────
+  {
     slug: "how-many-letters-in-arabic-alphabet",
     title: "How Many Letters Are in the Arabic Alphabet? Full List in Order",
     metaTitle: "How Many Letters Are in the Arabic Alphabet? (28 Letters)",
@@ -56,7 +281,7 @@ export const BLOG_POSTS: BlogPost[] = [
     updated: "2026-11-20",
     author: AUTHOR,
     readMinutes: 6,
-    image: "/assets/images/learn-arabic-online-for-quran-alif-laam-meem.jpg",
+    image: "/assets/images/noorani-qaida-online-quran-course-alif-laam-meem.jpg",
     imageAlt: "Arabic alphabet letters for beginners learning to read the Quran",
     excerpt:
       "The Arabic alphabet has 28 letters, written right to left. Here is the complete list in order, with each letter's name and sound.",

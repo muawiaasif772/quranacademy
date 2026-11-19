@@ -38,7 +38,7 @@ const pageStyles = `
   .shb::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);animation:shimBar 3.5s ease-in-out infinite;}
 
   /* TOC */
-  .toc-link{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:rgba(255,255,255,.32);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;border:none;background:none;text-align:left;width:100%;}
+  .toc-link{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;color:var(--page-fg-subtle);font-family:'Nunito',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .22s;border:none;background:none;text-align:left;width:100%;}
   .toc-link:hover{color:var(--gold-lt);background:rgba(201,151,58,.06);}
   .toc-link.active{color:var(--gold-m);background:rgba(201,151,58,.1);border-left:2px solid var(--gold);}
   .toc-num{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--gold);opacity:.55;min-width:16px;transition:opacity .22s;}
@@ -66,12 +66,12 @@ const pageStyles = `
   .mc:hover{border-color:rgba(201,151,58,.18);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.3);}
 
   /* Data pill */
-  .dp{display:inline-flex;align-items:center;padding:5px 12px;border-radius:100px;font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:rgba(255,255,255,.38);margin:3px;transition:all .22s;}
+  .dp{display:inline-flex;align-items:center;padding:5px 12px;border-radius:100px;font-family:'Cinzel',serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:var(--page-fg-subtle);margin:3px;transition:all .22s;}
   .dp:hover{border-color:rgba(201,151,58,.3);color:var(--gold-lt);background:rgba(201,151,58,.06);}
 
-  .updated-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:100px;background:rgba(47,207,135,.08);border:1px solid rgba(47,207,135,.2);color:#2fcf87;font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;}
-  .bt{color:rgba(255,255,255,.48);font-family:'Nunito',sans-serif;font-size:14px;line-height:1.85;}
-  .sub-label{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
+  .updated-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:100px;background:rgba(47,207,135,.08);border:1px solid rgba(47,207,135,.2);color:var(--em-lt);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;}
+  .bt{color:var(--page-fg-muted);font-family:'Nunito',sans-serif;font-size:14px;line-height:1.85;}
+  .sub-label{font-family:'Cinzel',serif;font-size:9px;font-weight:700;color:var(--page-fg-subtle);letter-spacing:.14em;text-transform:uppercase;margin:0 0 8px;}
 
   @media(max-width:1024px){.pp-layout{grid-template-columns:1fr!important;}.toc-sticky{position:static!important;max-height:none!important;}.toc-wrap{margin-bottom:28px;}.rg{grid-template-columns:1fr 1fr!important;}}
   @media(max-width:600px){.rg{grid-template-columns:1fr!important;}.qs{grid-template-columns:1fr 1fr!important;}.two-col{grid-template-columns:1fr!important;}}
@@ -280,7 +280,7 @@ export const PrivacyPolicy: React.FC = () => {
               transform: "translateY(-50%)",
               fontFamily: "serif",
               fontSize: "clamp(110px,17vw,250px)",
-              color: "rgba(255,255,255,.016)",
+              color: "var(--page-fg-subtle)",
               fontWeight: 700,
               userSelect: "none",
               pointerEvents: "none",
@@ -462,7 +462,7 @@ export const PrivacyPolicy: React.FC = () => {
                   </p>
                   <p
                     style={{
-                      color: "rgba(255,255,255,.28)",
+                      color: "var(--page-fg-subtle)",
                       fontSize: 10,
                       fontFamily: "'Cinzel',serif",
                       letterSpacing: ".07em",
@@ -1135,7 +1135,7 @@ export const PrivacyPolicy: React.FC = () => {
                       <div style={{ flex: "1 1 160px" }}>
                         <p
                           style={{
-                            color: "rgba(255,255,255,.72)",
+                            color: "var(--page-fg)",
                             fontWeight: 700,
                             fontSize: 13,
                             fontFamily: "'Nunito',sans-serif",
@@ -1231,7 +1231,7 @@ export const PrivacyPolicy: React.FC = () => {
                             style={{
                               fontFamily: "'Cinzel',serif",
                               fontSize: 9,
-                              color: "rgba(255,255,255,.28)",
+                              color: "var(--page-fg-subtle)",
                               letterSpacing: ".12em",
                               textTransform: "uppercase",
                               marginBottom: 2,
@@ -1392,7 +1392,7 @@ export const PrivacyPolicy: React.FC = () => {
                   gap: 8,
                   background: "rgba(255,255,255,.04)",
                   border: "1px solid rgba(255,255,255,.1)",
-                  color: "rgba(255,255,255,.65)",
+                  color: "var(--page-fg-muted)",
                   padding: "15px 24px",
                   borderRadius: 13,
                   fontFamily: "'Cinzel',serif",

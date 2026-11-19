@@ -223,7 +223,7 @@ const pageStyles = `
   }
   html[data-theme="dark"] .tutor-spotlight-premium-body .spotlight-muted,
   html:not([data-theme="light"]) .tutor-spotlight-premium-body .spotlight-muted {
-    color: rgba(255, 255, 255, 0.42);
+    color: rgba(255, 255, 255, 0.68);
   }
   html[data-theme="dark"] .tutor-spotlight-premium .btn-spotlight-ghost,
   html:not([data-theme="light"]) .tutor-spotlight-premium .btn-spotlight-ghost {
@@ -694,7 +694,7 @@ const Tutors: React.FC = () => {
                         fontFamily: "'Cinzel',serif",
                         fontSize: 9,
                         fontWeight: 700,
-                        color: "#2fcf87",
+                        color: "#30cf88", // on a dark photo in both themes (kept bright on purpose)
                         letterSpacing: ".16em",
                       }}
                     >

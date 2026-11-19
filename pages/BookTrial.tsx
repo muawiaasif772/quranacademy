@@ -1218,7 +1218,7 @@ const BookTrial: React.FC = () => {
             fontFamily: "'Cinzel',serif",
             fontSize: 13,
             fontWeight: 700,
-            color: "var(--on-gold)",
+            color: "#1a1208", // step number sits on a fixed light accent colour
             boxShadow: `0 4px 20px ${s.accent}40`,
           }}
         >
@@ -1343,7 +1343,7 @@ const BookTrial: React.FC = () => {
                 fontFamily: "'Cinzel',serif",
                 fontSize: 11,
                 fontWeight: 800,
-                color: "var(--on-gold)",
+                color: "#1a1208", // mobile step number on a fixed light accent colour
                 boxShadow: `0 4px 18px ${s.accent}40`,
               }}
             >
