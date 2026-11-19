@@ -356,7 +356,7 @@ const NotFound = () => (
       <p style={{ color: "var(--on-surface-faint)", marginBottom: 32 }}>
         That course doesn't exist or has been moved.
       </p>
-      <Link to="/courses" className="cta-btn">
+      <Link to="/courses/" className="cta-btn">
         ← Return to Courses
       </Link>
     </div>
@@ -485,7 +485,7 @@ const CourseDetail: React.FC = () => {
                 }}
               >
                 <Link
-                  to="/courses"
+                  to="/courses/"
                   style={{
                     color: "var(--on-surface-subtle)",
                     fontSize: 12,
@@ -682,10 +682,10 @@ const CourseDetail: React.FC = () => {
                   animation: "fadeUp .6s .3s cubic-bezier(.16,1,.3,1) both",
                 }}
               >
-                <Link to="/book-free-trial" className="cta-btn">
+                <Link to="/book-free-trial/" className="cta-btn">
                   ✦ Start Free Trial <ArrowRight size={16} />
                 </Link>
-                <Link to="/courses" className="outline-btn">
+                <Link to="/courses/" className="outline-btn">
                   <BookOpen size={14} /> All Courses
                 </Link>
               </div>
@@ -871,7 +871,7 @@ const CourseDetail: React.FC = () => {
                         ))}
                       </div>
                       <Link
-                        to="/book-free-trial"
+                        to="/book-free-trial/"
                         className="cta-btn"
                         style={{
                           width: "100%",
@@ -1639,7 +1639,7 @@ const CourseDetail: React.FC = () => {
               {COURSES.filter((c) => c.slug !== course.slug).map((c) => (
                 <Link
                   key={c.slug}
-                  to={`/course/${c.slug}`}
+                  to={`/course/${c.slug}/`}
                   style={{
                     display: "block",
                     background: "rgba(255,255,255,.03)",
@@ -1682,15 +1682,15 @@ const CourseDetail: React.FC = () => {
               ))}
             </div>
             <p style={{ color: "var(--on-surface-subtle)", fontSize: 13 }}>
-              <Link to="/pricing" style={{ color: "var(--gold-lt)" }}>
+              <Link to="/pricing/" style={{ color: "var(--gold-lt)" }}>
                 Compare pricing
               </Link>
               {" · "}
-              <Link to="/book-free-trial" style={{ color: "var(--gold-lt)" }}>
+              <Link to="/book-free-trial/" style={{ color: "var(--gold-lt)" }}>
                 Book a free trial
               </Link>
               {" · "}
-              <Link to="/courses" style={{ color: "var(--gold-lt)" }}>
+              <Link to="/courses/" style={{ color: "var(--gold-lt)" }}>
                 All courses
               </Link>
             </p>
@@ -1831,7 +1831,7 @@ const CourseDetail: React.FC = () => {
                   }}
                 >
                   <Link
-                    to="/book-free-trial"
+                    to="/book-free-trial/"
                     className="cta-btn"
                     style={{ fontSize: 13, padding: "18px 44px" }}
                   >

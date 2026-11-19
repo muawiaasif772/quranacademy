@@ -2099,16 +2099,16 @@ const BookTrial: React.FC = () => {
                 flexWrap: "wrap",
               }}
             >
-              <Link to="/pricing" className="btn-outline-secondary">
+              <Link to="/pricing/" className="btn-outline-secondary">
                 View Pricing
               </Link>
 
-              <Link to="/faq" className="btn-outline-secondary">
+              <Link to="/faq/" className="btn-outline-secondary">
                 Browse FAQ
               </Link>
 
               <Link
-                to="/contact"
+                to="/contact/"
                 className="hover-icon"
                 style={{
                   display: "inline-flex",

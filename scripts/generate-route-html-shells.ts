@@ -5,7 +5,7 @@
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { COURSES } from "../data";
 import { buildBreadcrumbJsonLd } from "../seo/breadcrumbs";
 import { getIndexablePaths } from "../seo/indexable-routes";
@@ -159,12 +159,20 @@ function injectPageJsonLd(html: string, seo: PageSeo, pathname: string): string 
   return out.replace("</head>", `    ${scriptTags}\n  </head>`);
 }
 
-function writeRouteHtml(pathname: string, template: string): void {
+type RenderFn = (url: string) => string;
+
+function injectAppHtml(html: string, appHtml: string): string {
+  return html.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+}
+
+function writeRouteHtml(pathname: string, template: string, render: RenderFn): void {
   const seo = resolveSeo(pathname);
   const canonicalPath = seo.canonicalPath ?? pathname;
   let html = patchHead(template, seo, pathname);
-  html = replaceNoscript(html, buildNoscript(seo, pathname));
+  // Full page content is now prerendered into #root, so the noscript fallback is dropped.
+  html = html.replace(/\s*<noscript[\s\S]*?<\/noscript>/i, "");
   html = injectPageJsonLd(html, seo, pathname);
+  html = injectAppHtml(html, render(pathname));
 
   const outFile =
     canonicalPath === "/"
@@ -177,18 +185,34 @@ function writeRouteHtml(pathname: string, template: string): void {
   writeFileSync(outFile, html, "utf8");
 }
 
-function main(): void {
+async function main(): Promise<void> {
   if (!existsSync(TEMPLATE_PATH)) {
     throw new Error("Run after vite build — dist/index.html missing");
   }
   const template = readFileSync(TEMPLATE_PATH, "utf8");
+  const ssrEntry = path.join(ROOT, "dist-ssr", "entry-server.js");
+  if (!existsSync(ssrEntry)) {
+    throw new Error("Run `vite build --ssr entry-server.tsx --outDir dist-ssr` first");
+  }
+  const { render } = (await import(pathToFileURL(ssrEntry).href)) as { render: RenderFn };
   const paths = getIndexablePaths();
 
   for (const p of paths) {
-    writeRouteHtml(p, template);
+    writeRouteHtml(p, template, render);
   }
+
+  // Real 404 page (served by Apache ErrorDocument with a 404 status, noindex).
+  const nfPath = "/404-not-found";
+  let nf = patchHead(template, resolveSeo(nfPath), nfPath);
+  nf = nf.replace(/\s*<noscript[\s\S]*?<\/noscript>/i, "");
+  nf = nf.replace(/\s*<link rel="canonical"[^>]*>/i, "");
+  nf = injectAppHtml(nf, render(nfPath));
+  writeFileSync(path.join(DIST, "404.html"), nf, "utf8");
 
   console.log(`[route-html] Wrote ${paths.length} route-specific HTML shells under dist/`);
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

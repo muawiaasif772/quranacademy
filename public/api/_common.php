@@ -1,5 +1,5 @@
 <?php
-// Shared helpers for the Namecheap shared-hosting form handlers.
+// Shared helpers for the shared-hosting (Hostinger) form handlers.
 // These handlers replace Netlify Functions / the Express server on Apache
 // hosting, where /api/trial and /api/contact do not run. The frontend
 // (services/api.ts) still POSTs JSON to /api/trial and /api/contact;

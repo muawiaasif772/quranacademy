@@ -18,7 +18,7 @@ export const PricingCta: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/book-free-trial" className="bg-[#074E3C] hover:bg-slate-900 text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl shadow-[#074E3C33] hover:shadow-black/20 transition-all transform hover:-translate-y-2 flex items-center justify-center space-x-4 group/btn">
+              <Link to="/book-free-trial/" className="bg-[#074E3C] hover:bg-slate-900 text-white px-12 py-6 rounded-3xl font-black text-2xl shadow-2xl shadow-[#074E3C33] hover:shadow-black/20 transition-all transform hover:-translate-y-2 flex items-center justify-center space-x-4 group/btn">
                 <span>Register Now</span>
                 <ArrowRight size={28} className="group-hover/btn:translate-x-2 transition-transform" />
               </Link>

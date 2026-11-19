@@ -960,7 +960,7 @@ export const FAQ: React.FC = () => {
                   questions.
                 </p>
                 <Link
-                  to="/contact"
+                  to="/contact/"
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -1235,7 +1235,7 @@ export const FAQ: React.FC = () => {
               }}
             >
               <Link
-                to="/book-free-trial"
+                to="/book-free-trial/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1258,7 +1258,7 @@ export const FAQ: React.FC = () => {
                 <ArrowRight size={16} />
               </Link>
               <Link
-                to="/contact"
+                to="/contact/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

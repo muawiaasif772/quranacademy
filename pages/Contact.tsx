@@ -1311,7 +1311,7 @@ export const Contact: React.FC = () => {
               }}
             >
               <a
-                href="/book-free-trial"
+                href="/book-free-trial/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

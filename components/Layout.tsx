@@ -19,6 +19,10 @@ import {
 } from "lucide-react";
 import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
 import { CONTACT_EMAIL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
+
+/** Compare routes ignoring a trailing slash (links use "/pricing/", users may land on "/pricing"). */
+const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
+const isActivePath = (current: string, target: string) => stripSlash(current) === stripSlash(target);
 import { ThemeToggle } from "./ThemeToggle";
 
 const layoutStyles = `
@@ -265,11 +269,11 @@ const layoutStyles = `
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "Courses", path: "/courses" },
-  { name: "Tutors", path: "/tutors" },
-  { name: "How It Works", path: "/how-it-works" },
-  { name: "Pricing", path: "/pricing" },
-  { name: "FAQ", path: "/faq" },
+  { name: "Courses", path: "/courses/" },
+  { name: "Tutors", path: "/tutors/" },
+  { name: "How It Works", path: "/how-it-works/" },
+  { name: "Pricing", path: "/pricing/" },
+  { name: "FAQ", path: "/faq/" },
 ];
 
 // ── NAVBAR ────────────────────────────────────────────────────────────────────
@@ -357,7 +361,7 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`nav-link${location.pathname === link.path ? " nav-link-active" : ""}`}
+                  className={`nav-link${isActivePath(location.pathname, link.path) ? " nav-link-active" : ""}`}
                 >
                   {link.name}
                 </Link>
@@ -367,7 +371,7 @@ export const Navbar: React.FC = () => {
             {/* ── CTA + Hamburger ── */}
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <ThemeToggle />
-              <Link to="/book-free-trial" className="nav-cta desktop-cta">
+              <Link to="/book-free-trial/" className="nav-cta desktop-cta">
                 ✦ Free Trial
               </Link>
 
@@ -416,7 +420,7 @@ export const Navbar: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`mob-link${location.pathname === link.path ? " mob-link-active" : ""}`}
+                  className={`mob-link${isActivePath(location.pathname, link.path) ? " mob-link-active" : ""}`}
                   onClick={() => setIsOpen(false)}
                 >
                   <span
@@ -426,7 +430,7 @@ export const Navbar: React.FC = () => {
                       borderRadius: "50%",
                       background: "var(--gold)",
                       flexShrink: 0,
-                      opacity: location.pathname === link.path ? 1 : 0.3,
+                      opacity: isActivePath(location.pathname, link.path) ? 1 : 0.3,
                     }}
                   />
                   {link.name}
@@ -463,7 +467,7 @@ export const Navbar: React.FC = () => {
               }}
             />
             <Link
-              to="/book-free-trial"
+              to="/book-free-trial/"
               onClick={() => setIsOpen(false)}
               style={{
                 display: "flex",
@@ -689,7 +693,7 @@ export const Footer: React.FC = () => {
             </h3>
           </div>
           <Link
-            to="/book-free-trial"
+            to="/book-free-trial/"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -850,11 +854,11 @@ export const Footer: React.FC = () => {
               }}
             >
               {[
-                { label: "Course Catalog", path: "/courses" },
-                { label: "Our Scholars", path: "/tutors" },
-                { label: "The Process", path: "/how-it-works" },
-                { label: "Tuition Fees", path: "/pricing" },
-                { label: "Free Trial", path: "/book-free-trial" },
+                { label: "Course Catalog", path: "/courses/" },
+                { label: "Our Scholars", path: "/tutors/" },
+                { label: "The Process", path: "/how-it-works/" },
+                { label: "Tuition Fees", path: "/pricing/" },
+                { label: "Free Trial", path: "/book-free-trial/" },
               ].map((l) => (
                 <li key={l.path}>
                   <Link to={l.path} className="foot-link">
@@ -889,11 +893,11 @@ export const Footer: React.FC = () => {
               }}
             >
               {[
-                { label: "Testimonials", path: "/reviews" },
-                { label: "Help Center", path: "/faq" },
-                { label: "Contact Us", path: "/contact" },
-                { label: "Register Now", path: "/book-free-trial" },
-                { label: "Privacy Policy", path: "/privacy-policy" },
+                { label: "Testimonials", path: "/reviews/" },
+                { label: "Help Center", path: "/faq/" },
+                { label: "Contact Us", path: "/contact/" },
+                { label: "Register Now", path: "/book-free-trial/" },
+                { label: "Privacy Policy", path: "/privacy-policy/" },
               ].map((l) => (
                 <li key={l.path}>
                   <Link to={l.path} className="foot-link">
@@ -1073,8 +1077,8 @@ export const Footer: React.FC = () => {
           </p>
           <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
             {[
-              { label: "Privacy Policy", href: "/privacy-policy" },
-              { label: "Terms of Service", href: "/terms-of-service" },
+              { label: "Privacy Policy", href: "/privacy-policy/" },
+              { label: "Terms of Service", href: "/terms-of-service/" },
             ].map((l, i) => (
               <a
                 key={i}

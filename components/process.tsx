@@ -760,7 +760,7 @@ export default function HowItWorksSection() {
               }}
             />
             <Link
-              to="/book-free-trial"
+              to="/book-free-trial/"
               className="hiw-cta-btn"
               style={{
                 display: "inline-flex",

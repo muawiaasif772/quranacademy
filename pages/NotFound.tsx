@@ -29,9 +29,9 @@ const NotFoundPage: React.FC = () => (
     </p>
     <nav style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
       <Link to="/" style={{ color: "#047857", fontWeight: 600 }}>Home</Link>
-      <Link to="/courses" style={{ color: "#047857", fontWeight: 600 }}>Courses</Link>
-      <Link to="/book-free-trial" style={{ color: "#047857", fontWeight: 600 }}>Free trial</Link>
-      <Link to="/contact" style={{ color: "#047857", fontWeight: 600 }}>Contact</Link>
+      <Link to="/courses/" style={{ color: "#047857", fontWeight: 600 }}>Courses</Link>
+      <Link to="/book-free-trial/" style={{ color: "#047857", fontWeight: 600 }}>Free trial</Link>
+      <Link to="/contact/" style={{ color: "#047857", fontWeight: 600 }}>Contact</Link>
     </nav>
   </div>
 );

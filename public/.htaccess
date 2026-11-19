@@ -1,23 +1,49 @@
-# Apache (cPanel): PHP handlers for forms, then SPA fallback for client routes.
+# Apache / LiteSpeed (Hostinger, cPanel). Every indexable route is a prerendered
+# directory (e.g. /pricing/index.html), so there is no SPA catch-all: unknown
+# URLs get a real 404 instead of the homepage with status 200 (soft 404).
+
+ErrorDocument 404 /404.html
+DirectoryIndex index.html
+DirectorySlash On
+Options -Indexes
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Force HTTPS (restored: cPanel Force HTTPS Redirect is Off, and the
-  # 2026-10-24 deploy.yml push removed this rule, so http would no longer redirect)
+  # 1. One host, one protocol: https://aliflaammeeminstitute.online (no www).
+  RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
   RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [L,R=301]
 
-  # Form APIs on shared hosting: Netlify Functions and the Express server do
-  # not run here, so /api/trial and /api/contact are handled by PHP files.
-  # These rules must come BEFORE the SPA fallback, or POSTs would get HTML.
+  # 2. Form APIs (PHP handlers) must come before any other rewrite.
   RewriteRule ^api/trial/?$ api/trial.php [L]
   RewriteRule ^api/contact/?$ api/contact.php [L]
 
-  # SPA fallback: serve real files/directories as-is, everything else -> index.html
-  # (dist/ already contains route shells like /course/noorani-qaida/index.html)
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ index.html [L]
+  # 3. Old alias -> canonical page.
+  RewriteRule ^register/?$ /book-free-trial/ [L,R=301]
+
+  # 4. Drop index.html from URLs (/pricing/index.html -> /pricing/).
+  RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+  RewriteRule ^ /%1 [L,R=301]
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType application/xml .xml
+  AddType text/plain .txt
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|png|jpe?g|jfif|webp|svg|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json application/xml text/plain image/svg+xml
 </IfModule>

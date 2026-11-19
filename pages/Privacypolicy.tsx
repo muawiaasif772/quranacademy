@@ -601,7 +601,7 @@ export const PrivacyPolicy: React.FC = () => {
                       }}
                     >
                       <Link
-                        to="/contact"
+                        to="/contact/"
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -1363,7 +1363,7 @@ export const PrivacyPolicy: React.FC = () => {
               }}
             >
               <Link
-                to="/contact"
+                to="/contact/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1385,7 +1385,7 @@ export const PrivacyPolicy: React.FC = () => {
                 <span>✦</span> Contact Privacy Team <ArrowRight size={14} />
               </Link>
               <Link
-                to="/faq"
+                to="/faq/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

@@ -1041,7 +1041,7 @@ const Courses: React.FC = () => {
 
                         {/* CTA */}
                         <Link
-                          to={`/course/${course.slug}`}
+                          to={`/course/${course.slug}/`}
                           className="c-btn"
                           style={{
                             display: "flex",
@@ -1197,7 +1197,7 @@ const Courses: React.FC = () => {
                   }}
                 >
                   <Link
-                    to="/book-free-trial"
+                    to="/book-free-trial/"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",

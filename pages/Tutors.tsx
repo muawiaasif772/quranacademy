@@ -912,7 +912,7 @@ const Tutors: React.FC = () => {
                 {/* CTAs */}
                 <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                   <Link
-                    to="/book-free-trial"
+                    to="/book-free-trial/"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",
@@ -1287,7 +1287,7 @@ const Tutors: React.FC = () => {
                           }}
                         >
                           <Link
-                            to="/book-free-trial"
+                            to="/book-free-trial/"
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -1500,7 +1500,7 @@ const Tutors: React.FC = () => {
                         />
 
                         <Link
-                          to="/book-free-trial"
+                          to="/book-free-trial/"
                           className="t-cta"
                           style={{
                             display: "flex",
@@ -1737,7 +1737,7 @@ const Tutors: React.FC = () => {
                       {/* CTA */}
                       <div className="list-cta-wrap">
                         <Link
-                          to="/book-free-trial"
+                          to="/book-free-trial/"
                           className="t-list-cta"
                           style={{
                             display: "inline-flex",
@@ -2011,7 +2011,7 @@ const Tutors: React.FC = () => {
             </p>
 
             <Link
-              to="/book-free-trial"
+              to="/book-free-trial/"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

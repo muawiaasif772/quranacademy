@@ -88,7 +88,7 @@ export const TutorCard: React.FC<{ tutor: Tutor }> = ({ tutor }) => {
 
         <div className="flex flex-col space-y-2">
           <Link
-            to="/book-free-trial"
+            to="/book-free-trial/"
             className="w-full bg-[#074E3C] text-white text-center py-3 rounded-xl font-bold hover:bg-[#053a2d] transition-all active:scale-95 shadow-md shadow-[#074E3C11]"
           >
             Book Free Trial

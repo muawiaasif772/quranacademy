@@ -1429,7 +1429,7 @@ export const Reviews: React.FC = () => {
                   }}
                 >
                   <Link
-                    to="/book-free-trial"
+                    to="/book-free-trial/"
                     style={{
                       display: "inline-flex",
                       alignItems: "center",

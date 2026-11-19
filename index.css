@@ -1,5 +1,9 @@
 @import "./theme/theme.css";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Light theme: phone input */
 html[data-theme="light"] .alm-phone-field {
   --react-international-phone-background-color: #ffffff;

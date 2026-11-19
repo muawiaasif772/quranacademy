@@ -75,7 +75,7 @@ export const PlansAndFeatures: React.FC = () => {
 
                 <div className="space-y-4">
                   <Link 
-                    to="/book-free-trial" 
+                    to="/book-free-trial/" 
                     className={`w-full block text-center py-5 rounded-2xl font-black text-lg transition-all transform active:scale-95 shadow-xl ${plan.popular ? 'bg-[#074E3C] text-white hover:bg-slate-900 shadow-[#074E3C33]' : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white border-2 border-slate-100 dark:border-white/5 hover:border-[#074E3C]'}`}
                   >
                     Book Free Trial

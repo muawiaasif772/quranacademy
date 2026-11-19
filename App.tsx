@@ -35,10 +35,10 @@ const ScrollToTop = () => {
   return null;
 };
 
-const App: React.FC = () => {
+/** Routes + layout without a router, so the server prerender can wrap it in StaticRouter. */
+export const AppShell: React.FC = () => {
   return (
-    <ThemeProvider>
-    <Router>
+    <>
       <ScrollToTop />
       <RouteSeo />
       <Layout>
@@ -59,7 +59,16 @@ const App: React.FC = () => {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Layout>
-    </Router>
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider>
+      <Router>
+        <AppShell />
+      </Router>
     </ThemeProvider>
   );
 };

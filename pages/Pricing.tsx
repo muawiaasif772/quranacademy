@@ -1321,7 +1321,7 @@ const PricingPage: React.FC = () => {
                     </div>
 
                     <Link
-                      to="/book-free-trial"
+                      to="/book-free-trial/"
                       style={{
                         display: "flex",
                         alignItems: "center",
@@ -1991,7 +1991,7 @@ const PricingPage: React.FC = () => {
               }}
             >
               <Link
-                to="/book-free-trial"
+                to="/book-free-trial/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -2015,7 +2015,7 @@ const PricingPage: React.FC = () => {
               </Link>
 
               <Link
-                to="/courses"
+                to="/courses/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",

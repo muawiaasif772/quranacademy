@@ -600,7 +600,7 @@ export const TermsOfService: React.FC = () => {
                       }}
                     >
                       <Link
-                        to="/contact"
+                        to="/contact/"
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -1279,7 +1279,7 @@ export const TermsOfService: React.FC = () => {
               }}
             >
               <Link
-                to="/book-free-trial"
+                to="/book-free-trial/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1301,7 +1301,7 @@ export const TermsOfService: React.FC = () => {
                 <span>✦</span> Book Free Trial <ArrowRight size={14} />
               </Link>
               <Link
-                to="/privacy-policy"
+                to="/privacy-policy/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -1321,7 +1321,7 @@ export const TermsOfService: React.FC = () => {
                 Privacy Policy
               </Link>
               <Link
-                to="/contact"
+                to="/contact/"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
