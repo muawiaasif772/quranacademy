@@ -8,6 +8,10 @@ import { PAGE_KEYWORD_THEMES } from "./keyword-map";
 
 export const SITE_URL = "https://aliflaammeeminstitute.online";
 
+/** Public Trustpilot profile + direct "write a review" link. */
+export const TRUSTPILOT_PROFILE_URL = "https://www.trustpilot.com/review/aliflaammeeminstitute.online";
+export const TRUSTPILOT_REVIEW_URL = "https://www.trustpilot.com/evaluate/aliflaammeeminstitute.online";
+
 /** Official social profiles. Add Instagram / YouTube here when they exist:
  *  they then appear in the footer and in the Organization `sameAs` schema. */
 export const SOCIAL_PROFILES: { network: "Facebook" | "Instagram" | "YouTube" | "TikTok"; url: string }[] = [
@@ -81,7 +85,7 @@ export const ORGANIZATION_JSON_LD = {
   telephone: CONTACT_PHONE,
   email: CONTACT_EMAIL,
   areaServed: "Worldwide",
-  sameAs: SOCIAL_PROFILES.map((p) => p.url),
+  sameAs: [...SOCIAL_PROFILES.map((p) => p.url), TRUSTPILOT_PROFILE_URL],
   contactPoint: [
     {
       "@type": "ContactPoint",

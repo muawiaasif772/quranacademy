@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { TRUSTPILOT_PROFILE_URL, TRUSTPILOT_REVIEW_URL } from "../seo/seo.config";
 import {
   Star,
   Quote,
@@ -620,6 +621,29 @@ export const Reviews: React.FC = () => {
               <span style={{ color: "var(--on-surface-muted)", fontSize: 13 }}>
                 Based on 3,200+ Reviews
               </span>
+            </div>
+
+            {/* Real, public reviews live on Trustpilot */}
+            <div style={{ marginTop: 22, display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
+              <a
+                href={TRUSTPILOT_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 22px", borderRadius: 14,
+                  background: "#00875a", color: "#ffffff", fontWeight: 700, fontSize: 14, textDecoration: "none",
+                }}
+              >
+                ★ Review us on Trustpilot
+              </a>
+              <a
+                href={TRUSTPILOT_PROFILE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "inline-flex", alignItems: "center", padding: "12px 6px", color: "var(--gold)", fontWeight: 700, fontSize: 14 }}
+              >
+                Read our Trustpilot reviews →
+              </a>
             </div>
           </div>
         </section>

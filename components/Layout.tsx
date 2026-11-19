@@ -20,7 +20,7 @@ import {
   Music2,
 } from "lucide-react";
 import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
-import { CONTACT_EMAIL, SOCIAL_PROFILES, WHATSAPP_CHAT_URL } from "../seo/seo.config";
+import { CONTACT_EMAIL, SOCIAL_PROFILES, TRUSTPILOT_PROFILE_URL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 
 /** Compare routes ignoring a trailing slash (links use "/pricing/", users may land on "/pricing"). */
 const SOCIAL_ICONS = { Facebook, Instagram, YouTube: Youtube, TikTok: Music2 } as const;
@@ -907,6 +907,11 @@ export const Footer: React.FC = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a href={TRUSTPILOT_PROFILE_URL} target="_blank" rel="noopener noreferrer" className="foot-link">
+                  Our reviews on Trustpilot
+                </a>
+              </li>
             </ul>
           </div>
 
