@@ -7,7 +7,7 @@ import {
   Mail,
   Instagram,
   Facebook,
-  Twitter,
+
   MessageCircle,
   ArrowRight,
   Star,
@@ -16,11 +16,15 @@ import {
   BookOpen,
   ChevronDown,
   Sparkles,
+  Youtube,
+  Music2,
 } from "lucide-react";
 import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
-import { CONTACT_EMAIL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
+import { CONTACT_EMAIL, SOCIAL_PROFILES, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 
 /** Compare routes ignoring a trailing slash (links use "/pricing/", users may land on "/pricing"). */
+const SOCIAL_ICONS = { Facebook, Instagram, YouTube: Youtube, TikTok: Music2 } as const;
+
 const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/+$/, "") : p);
 const isActivePath = (current: string, target: string) => stripSlash(current) === stripSlash(target);
 import { ThemeToggle } from "./ThemeToggle";
@@ -501,23 +505,22 @@ export const Navbar: React.FC = () => {
                 marginTop: 20,
               }}
             >
-              {(
-                [
-                  { Icon: Instagram, label: "Instagram" },
-                  { Icon: Facebook, label: "Facebook" },
-                  { Icon: Twitter, label: "Twitter" },
-                ] as const
-              ).map(({ Icon, label }) => (
-                <a
-                  key={label}
-                  href="#"
-                  className="social-btn"
-                  aria-label={label}
-                  style={{ width: 36, height: 36, borderRadius: 10 }}
-                >
-                  <Icon size={16} aria-hidden="true" />
-                </a>
-              ))}
+              {SOCIAL_PROFILES.map(({ network, url }) => {
+                const Icon = SOCIAL_ICONS[network];
+                return (
+                  <a
+                    key={network}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-btn"
+                    aria-label={`Alif Laam Meem on ${network}`}
+                    style={{ width: 36, height: 36, borderRadius: 10 }}
+                  >
+                    <Icon size={16} aria-hidden="true" />
+                  </a>
+                );
+              })}
               <div
                 style={{
                   height: 24,
@@ -817,17 +820,14 @@ export const Footer: React.FC = () => {
 
             {/* socials */}
             <div style={{ display: "flex", gap: 10 }}>
-              {(
-                [
-                  { Icon: Facebook, label: "Facebook" },
-                  { Icon: Instagram, label: "Instagram" },
-                  { Icon: Twitter, label: "Twitter" },
-                ] as const
-              ).map(({ Icon, label }) => (
-                <a key={label} href="#" className="social-btn" aria-label={label}>
-                  <Icon size={16} aria-hidden="true" />
-                </a>
-              ))}
+              {SOCIAL_PROFILES.map(({ network, url }) => {
+                const Icon = SOCIAL_ICONS[network];
+                return (
+                  <a key={network} href={url} target="_blank" rel="noopener noreferrer" className="social-btn" aria-label={`Alif Laam Meem on ${network}`}>
+                    <Icon size={16} aria-hidden="true" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 

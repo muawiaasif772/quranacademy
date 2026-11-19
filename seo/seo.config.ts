@@ -7,6 +7,12 @@ import { SITE_OG_IMAGE_PATH } from "./image-assets";
 import { PAGE_KEYWORD_THEMES } from "./keyword-map";
 
 export const SITE_URL = "https://aliflaammeeminstitute.online";
+
+/** Official social profiles. Add Instagram / YouTube here when they exist:
+ *  they then appear in the footer and in the Organization `sameAs` schema. */
+export const SOCIAL_PROFILES: { network: "Facebook" | "Instagram" | "YouTube" | "TikTok"; url: string }[] = [
+  { network: "Facebook", url: "https://www.facebook.com/muawia772" },
+];
 export const SITE_NAME = "Alif Laam Meem Academy";
 export const SITE_ALTERNATE_NAME = "Alif Laam Meem Islamic Institute";
 /** Canonical homepage (trailing slash). */
@@ -75,7 +81,7 @@ export const ORGANIZATION_JSON_LD = {
   telephone: CONTACT_PHONE,
   email: CONTACT_EMAIL,
   areaServed: "Worldwide",
-  sameAs: [] as string[],
+  sameAs: SOCIAL_PROFILES.map((p) => p.url),
   contactPoint: [
     {
       "@type": "ContactPoint",
