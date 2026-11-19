@@ -825,10 +825,10 @@ const HowItWorks: React.FC = () => {
                 marginBottom: 18,
               }}
             >
-              Designed for
+              How Online Quran
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
-                Quranic Excellence
+                Classes Work
               </span>
             </h1>
 

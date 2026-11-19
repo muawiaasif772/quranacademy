@@ -11,12 +11,12 @@ export const courseImages = {
 } as const;
 
 export const tutorImages = {
-  maleTutor: `${base}/certified-male-quran-tutor-online-alif-laam-meem.jpeg`,
-  femaleTutor: `${base}/certified-female-quran-tutor-online-alif-laam-meem.jpeg`,
-  scholar: `${base}/online-quran-scholar-teacher-alif-laam-meem.png`,
+  maleTutor: `${base}/certified-male-quran-tutor-online-alif-laam-meem.webp`,
+  femaleTutor: `${base}/certified-female-quran-tutor-online-alif-laam-meem.webp`,
+  scholar: `${base}/online-quran-scholar-teacher-alif-laam-meem.webp`,
 } as const;
 
 /** Default social / OG share image */
 export const SITE_OG_IMAGE_PATH = `${base}/muslim-children-learning-quran-online-alif-laam-meem-academy.jpg`;
 
-export const homeHeroImage = `${base}/online-quran-academy-hero-alif-laam-meem.png`;
+export const homeHeroImage = `${base}/online-quran-academy-hero-alif-laam-meem.webp`;

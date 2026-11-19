@@ -1037,10 +1037,10 @@ const PricingPage: React.FC = () => {
                 marginBottom: 16,
               }}
             >
-              Invest in Your
+              Online Quran Class
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
-                Spiritual Future
+                Fees & Plans
               </span>
             </h1>
 

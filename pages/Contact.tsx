@@ -552,12 +552,12 @@ export const Contact: React.FC = () => {
                 color: "var(--on-surface)",
               }}
             >
-              Get in{" "}
+              Contact{" "}
               <span
                 className="gold-shimmer"
                 style={{ fontWeight: 700, fontStyle: "italic" }}
               >
-                Touch
+                Our Quran Academy
               </span>
             </h1>
 

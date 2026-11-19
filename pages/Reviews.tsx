@@ -556,10 +556,10 @@ export const Reviews: React.FC = () => {
                 animation: "fadeUp .7s .1s cubic-bezier(.16,1,.3,1) both",
               }}
             >
-              Real Stories of
+              Student Reviews of
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
-                Sacred Transformation
+                Our Quran Classes
               </span>
             </h1>
 

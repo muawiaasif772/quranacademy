@@ -415,9 +415,9 @@ const Home: React.FC = () => {
                       margin: 0,
                     }}
                   >
-                    Master the Holy Quran
+                    Online Quran Classes
                     <br />
-                    <span className="gold-shimmer">&amp; Arabic Online</span>
+                    <span className="gold-shimmer">for Kids &amp; Adults</span>
                   </h1>
                   <div
                     style={{
@@ -521,20 +521,27 @@ const Home: React.FC = () => {
                 {/* Social proof */}
                 <div className="social-proof-row">
                   <div style={{ display: "flex" }}>
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <img
-                        key={i}
-                        src={`https://picsum.photos/seed/user${i}/100/100`}
+                    {["A", "M", "S", "F", "Y"].map((letter, i) => (
+                      <span
+                        key={letter}
+                        aria-hidden="true"
                         style={{
                           width: 38,
                           height: 38,
                           borderRadius: "50%",
                           border: "2px solid var(--emerald-800)",
-                          marginLeft: i === 1 ? 0 : -10,
-                          objectFit: "cover",
+                          marginLeft: i === 0 ? 0 : -10,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: 700,
+                          fontSize: 14,
+                          color: "#062b1b",
+                          background: ["#e9c46a", "#c9a84c", "#d4b373", "#b8913a", "#f0d58a"][i],
                         }}
-                        alt="Student"
-                      />
+                      >
+                        {letter}
+                      </span>
                     ))}
                   </div>
                   <div>
@@ -597,6 +604,10 @@ const Home: React.FC = () => {
                   <img
                     src={homeHeroImage}
                     alt="Online Quran academy — student learning Quran with Alif Laam Meem tutor"
+                    width={900}
+                    height={900}
+                    fetchPriority="high"
+                    decoding="async"
                     style={{
                       width: "100%",
                       height: "clamp(260px, 50vw, 480px)",

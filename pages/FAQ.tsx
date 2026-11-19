@@ -578,10 +578,10 @@ export const FAQ: React.FC = () => {
                 marginBottom: 20,
               }}
             >
-              Common
+              Online Quran Classes
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
-                Questions
+                FAQs
               </span>
             </h1>
 

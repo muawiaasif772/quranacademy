@@ -103,9 +103,9 @@ export const WEBSITE_JSON_LD = {
 // ─────────────────────────────────────────────────────────────────────────────
 export const STATIC_PAGES: Record<string, PageSeo> = {
   "/": {
-    title: "Alif Laam Meem Academy | Online Quran Classes for Kids & Adults",
+    title: "Online Quran Classes for Kids & Adults | Alif Laam Meem",
     description:
-      "Live 1-on-1 online Quran classes for kids and adults: Noorani Qaida, Tajweed, Hifz, Arabic and Islamic Studies. Book a free trial.",
+      "Learn Quran online with certified male & female tutors. Live 1-on-1 Noorani Qaida, Tajweed, Hifz, Arabic & Islamic Studies classes. Book a free trial.",
     canonicalPath: "/",
   },
   "/courses": {
@@ -127,12 +127,12 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     ],
   },
   "/pricing": {
-    title: "Pricing & Plans | Affordable Online Quran Classes",
+    title: "Online Quran Classes Fees & Pricing Plans | Alif Laam Meem",
     description:
       "Simple pricing: Lite $26/mo, Standard $44/mo (Most Popular), Family $75/mo for 2 students. All 30-minute live lessons, 3 or 5 classes per week.",
   },
   "/book-free-trial": {
-    title: "Book a Free Trial Quran Class | No Credit Card Required",
+    title: "Free Online Quran Trial Class | Alif Laam Meem Academy",
     description:
       "Book a free 30-minute 1-on-1 online Quran trial. Choose your course, days and a male or female tutor. Matched within 24 hours.",
   },
@@ -144,7 +144,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     noindex: true,
   },
   "/tutors": {
-    title: "Our Quran Tutors | Certified Male & Female Teachers",
+    title: "Online Quran Tutors | Certified Male & Female Teachers",
     description:
       "Meet our certified Quran tutors with Ijazah and years of teaching experience. Choose a male or female teacher who speaks your language and fits your schedule.",
   },
@@ -154,7 +154,7 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
       "From free trial to first lesson in 4 simple steps. See how live 1-on-1 online Quran classes work and how we match you with a tutor.",
   },
   "/faq": {
-    title: "Frequently Asked Questions | Online Quran Classes",
+    title: "Online Quran Classes FAQs | Alif Laam Meem Academy",
     description:
       "Answers to common questions about our online Quran classes: how lessons work, teacher choice, timings, equipment, family discounts, refunds and age limits.",
     jsonLd: [
@@ -170,12 +170,12 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     ],
   },
   "/contact": {
-    title: "Contact Us | Alif Laam Meem Academy",
+    title: "Contact Us | Online Quran Academy | Alif Laam Meem",
     description:
       "Get in touch with Alif Laam Meem Academy by WhatsApp, phone or email. We reply within hours and are available 24/7 to help you start online Quran classes.",
   },
   "/reviews": {
-    title: "Student Reviews & Testimonials | Alif Laam Meem Academy",
+    title: "Online Quran Classes Reviews | Alif Laam Meem Academy",
     description:
       "Read reviews from students and parents around the world who learn Quran, Tajweed and Arabic online with Alif Laam Meem Academy's certified tutors.",
   },
@@ -194,6 +194,14 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
 // ─────────────────────────────────────────────────────────────────────────────
 // Dynamic course pages: /course/:slug
 // ─────────────────────────────────────────────────────────────────────────────
+/** "12 Months" -> "P12M", "6 Months" -> "P6M", "2 Years" -> "P2Y" (schema.org needs ISO 8601). */
+function isoDuration(text: string): string | undefined {
+  const m = text.match(/(\d+)\s*(month|year|week)/i);
+  if (!m) return undefined;
+  const unit = m[2].toLowerCase().startsWith("y") ? "Y" : m[2].toLowerCase().startsWith("w") ? "W" : "M";
+  return `P${m[1]}${unit}`;
+}
+
 export function courseSeo(course: Course): PageSeo {
   const path = `/course/${course.slug}`;
   const meta = coursePageMeta(course);
@@ -210,16 +218,35 @@ export function courseSeo(course: Course): PageSeo {
         "@context": "https://schema.org",
         "@type": "Course",
         name: course.title,
-        description: course.description,
+        description: meta.description,
         url: `${SITE_URL}${path}/`,
         image: absolute(course.image),
-        provider: { "@id": `${SITE_URL}/#organization` },
+        inLanguage: "en",
+        provider: {
+          "@type": "EducationalOrganization",
+          "@id": `${SITE_URL}/#organization`,
+          name: SITE_NAME,
+          sameAs: SITE_URL,
+        },
         educationalLevel: course.level,
-        timeRequired: course.duration,
+        timeRequired: isoDuration(course.duration),
+        offers: {
+          "@type": "Offer",
+          category: "Paid",
+          url: `${SITE_URL}/pricing/`,
+          priceCurrency: "USD",
+          price: "26",
+          availability: "https://schema.org/InStock",
+        },
         hasCourseInstance: {
           "@type": "CourseInstance",
-          courseMode: "online",
-          courseWorkload: course.duration,
+          courseMode: "Online",
+          // Live 30-minute lessons, booked weekly (3 or 5 per week depending on plan).
+          courseSchedule: {
+            "@type": "Schedule",
+            duration: "PT30M",
+            repeatFrequency: "Weekly",
+          },
         },
       },
     ],

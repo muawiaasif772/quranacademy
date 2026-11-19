@@ -501,7 +501,7 @@ const Courses: React.FC = () => {
                 marginBottom: 20,
               }}
             >
-              Our Online
+              Online Quran
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Courses & Programs

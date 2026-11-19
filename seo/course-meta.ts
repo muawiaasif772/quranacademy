@@ -8,34 +8,34 @@ export const COURSE_PAGE_META: Record<
   { title: string; description: string }
 > = {
   "noorani-qaida": {
-    title: `Noorani Qaida Online for Beginners | ${BRAND}`,
+    title: `Noorani Qaida Online Classes for Kids & Beginners`,
     description:
-      "Live 1-on-1 Noorani Qaida classes for kids and adults. Learn Arabic letters, pronunciation, and Quran reading foundations with a private online tutor. Book a free trial.",
+      "Learn Noorani Qaida online with a private tutor. Live 1-on-1 classes teach Arabic letters, pronunciation and Quran reading for kids and adults. Free trial.",
   },
   "quran-tajweed": {
-    title: `Quran Tajweed Classes Online | ${BRAND}`,
+    title: `Online Quran Tajweed Classes | Alif Laam Meem Academy`,
     description:
-      "Improve Quran recitation with online Tajweed lessons. Private tutor guides you through rules, melody, and correction in live 1-on-1 sessions. Suitable for teens and adults.",
+      "Learn Quran with Tajweed online. Live 1-on-1 lessons on Ikhfa, Idgham, Madd and fluent recitation with instant correction. Book your free trial class.",
   },
   "hifz-memorization": {
-    title: `Online Hifz & Quran Memorization Program | ${BRAND}`,
+    title: `Online Hifz Classes | Quran Memorization Course`,
     description:
-      "Structured Hifz (Quran memorization) with a dedicated online tutor. Personalized pace, revision plans, and spiritual support for serious memorization students.",
+      "Memorize the Quran online with a dedicated Hafiz tutor. Personal Hifz plan, daily revision (Sabaq, Sabqi, Manzil) and 1-on-1 live classes. Try it free.",
   },
   "arabic-communication": {
-    title: `Online Arabic Classes for Quran & Conversation | ${BRAND}`,
+    title: `Online Arabic Classes for Quran & Speaking | Alif Laam Meem`,
     description:
-      "Learn Modern Standard Arabic online with 1-on-1 lessons focused on vocabulary, grammar, and understanding the Quran. Ideal for students who want to move beyond translation.",
+      "Learn Arabic online in live 1-on-1 lessons: vocabulary, grammar and speaking skills to understand the Quran directly. Kids and adults. Free trial class.",
   },
   "islamic-studies-kids": {
-    title: `Islamic Studies for Kids Online | ${BRAND}`,
+    title: `Online Islamic Studies for Kids | Live Classes`,
     description:
-      "Engaging online Islamic Studies for children: Seerah, duas, pillars of Islam, and good character — taught live by caring tutors in one-to-one classes.",
+      "Fun online Islamic Studies for kids: Seerah, duas, pillars of Islam and good manners, taught live 1-on-1 by caring tutors. Book a free trial class.",
   },
   "tafsir-meaning": {
-    title: `Quran Tafsir & Meaning Online | ${BRAND}`,
+    title: `Online Quran Tafsir Classes | Learn Quran Meaning`,
     description:
-      "Study Quranic meaning and context with qualified tutors. Advanced 1-on-1 Tafsir lessons for students who already read Arabic and want deeper understanding.",
+      "Understand the Quran with live 1-on-1 Tafsir classes. Qualified scholars explain meaning, context and lessons of each Surah. Book your free trial.",
   },
 };
 

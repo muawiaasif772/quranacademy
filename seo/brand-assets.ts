@@ -1,6 +1,6 @@
 /** Public paths (from site root). SEO-friendly filenames, lowercase, hyphens. */
 export const BRAND_LOGO_PATH =
-  "/assets/images/alif-laam-meem-islamic-institute-logo-header.png";
+  "/assets/images/alif-laam-meem-islamic-institute-logo-header.webp";
 export const BRAND_LOGO_SOURCE_PATH =
   "/assets/images/alif-laam-meem-islamic-institute-logo.png";
 export const BRAND_FAVICON_PATH = "/assets/images/alif-laam-meem-favicon.png";

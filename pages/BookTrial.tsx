@@ -857,10 +857,10 @@ const BookTrial: React.FC = () => {
                 marginBottom: 20,
               }}
             >
-              Book Your
+              Book a Free
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
-                Free Trial
+                Quran Trial Class
               </span>
             </h1>
 

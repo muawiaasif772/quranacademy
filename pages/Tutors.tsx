@@ -510,10 +510,10 @@ const Tutors: React.FC = () => {
                 marginBottom: 20,
               }}
             >
-              Learn From
+              Certified Online
               <br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
-                Expert Tutors
+                Quran Tutors
               </span>
             </h1>
 
