@@ -7,6 +7,7 @@ import { existsSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { COURSES } from "../data";
+import { BLOG_POSTS } from "../data/blog";
 import { getIndexablePaths } from "../seo/indexable-routes";
 import { SITE_URL } from "../seo/seo.config";
 
@@ -51,6 +52,12 @@ function gitLastMod(relativePaths: string[]): string | undefined {
 }
 
 function lastModForPath(routePath: string): string | undefined {
+  if (routePath.startsWith("/blog/")) {
+    return BLOG_POSTS.find((p) => `/blog/${p.slug}` === routePath)?.updated;
+  }
+  if (routePath === "/blog") {
+    return BLOG_POSTS.map((p) => p.updated).sort().at(-1);
+  }
   if (routePath.startsWith("/course/")) return gitLastMod(COURSE_LASTMOD_FILES);
   const files = LASTMOD_SOURCES[routePath];
   return files ? gitLastMod(files) : gitLastMod(["index.html", "App.tsx", "components/Seo.tsx"]);

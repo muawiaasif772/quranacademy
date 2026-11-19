@@ -25,6 +25,7 @@ import CourseDetail from "./pages/Coursedetail";
 import { PrivacyPolicy } from "./pages/Privacypolicy";
 import { TermsOfService } from "./pages/Termsofservice";
 import NotFoundPage from "./pages/NotFound";
+import { BlogIndex, BlogArticle } from "./pages/Blog";
 import { ThemeProvider } from "./theme/ThemeProvider";
 
 const ScrollToTop = () => {
@@ -53,6 +54,8 @@ export const AppShell: React.FC = () => {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/reviews" element={<Reviews />} />
+          <Route path="/blog" element={<BlogIndex />} />
+          <Route path="/blog/:slug" element={<BlogArticle />} />
           <Route path="/register" element={<BookTrial />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />

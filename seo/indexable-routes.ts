@@ -1,4 +1,5 @@
 import { COURSES } from "../data";
+import { BLOG_POSTS } from "../data/blog";
 import { resolveSeo, STATIC_PAGES } from "./seo.config";
 
 /**
@@ -15,6 +16,11 @@ export function isIndexablePath(pathname: string): boolean {
   const canonicalStripped = canonical === "/" ? "/" : canonical.replace(/\/+$/, "");
   if (canonicalStripped !== path) return false;
 
+  if (path.startsWith("/blog/")) {
+    const slug = path.slice("/blog/".length);
+    return BLOG_POSTS.some((p) => p.slug === slug);
+  }
+
   if (path.startsWith("/course/")) {
     const slug = path.slice("/course/".length);
     return COURSES.some((c) => c.slug === slug);
@@ -26,5 +32,6 @@ export function isIndexablePath(pathname: string): boolean {
 export function getIndexablePaths(): string[] {
   const staticPaths = Object.keys(STATIC_PAGES).filter(isIndexablePath);
   const coursePaths = COURSES.map((c) => `/course/${c.slug}`);
-  return [...staticPaths, ...coursePaths].sort((a, b) => a.localeCompare(b));
+  const blogPaths = BLOG_POSTS.map((p) => `/blog/${p.slug}`);
+  return [...staticPaths, ...coursePaths, ...blogPaths].sort((a, b) => a.localeCompare(b));
 }

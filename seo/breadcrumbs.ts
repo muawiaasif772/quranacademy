@@ -1,4 +1,5 @@
 import { COURSES } from "../data";
+import { getBlogPost } from "../data/blog";
 import { SITE_URL } from "./seo.config";
 
 const LABELS: Record<string, string> = {
@@ -13,6 +14,7 @@ const LABELS: Record<string, string> = {
   "privacy-policy": "Privacy policy",
   "terms-of-service": "Terms of service",
   course: "Courses",
+  blog: "Blog",
 };
 
 export function buildBreadcrumbJsonLd(pathname: string): Record<string, unknown> | null {
@@ -28,6 +30,12 @@ export function buildBreadcrumbJsonLd(pathname: string): Record<string, unknown>
     items.push({
       name: course?.title ?? "Course",
       item: `${SITE_URL}/course/${segments[1]}/`,
+    });
+  } else if (segments[0] === "blog" && segments[1]) {
+    items.push({ name: "Blog", item: `${SITE_URL}/blog/` });
+    items.push({
+      name: getBlogPost(segments[1])?.title ?? "Article",
+      item: `${SITE_URL}/blog/${segments[1]}/`,
     });
   } else {
     let acc = "";

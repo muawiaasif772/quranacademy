@@ -273,6 +273,7 @@ const navLinks = [
   { name: "Tutors", path: "/tutors/" },
   { name: "How It Works", path: "/how-it-works/" },
   { name: "Pricing", path: "/pricing/" },
+  { name: "Blog", path: "/blog/" },
   { name: "FAQ", path: "/faq/" },
 ];
 
@@ -894,6 +895,7 @@ export const Footer: React.FC = () => {
             >
               {[
                 { label: "Testimonials", path: "/reviews/" },
+                { label: "Quran Learning Blog", path: "/blog/" },
                 { label: "Help Center", path: "/faq/" },
                 { label: "Contact Us", path: "/contact/" },
                 { label: "Register Now", path: "/book-free-trial/" },

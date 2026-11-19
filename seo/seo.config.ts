@@ -1,4 +1,5 @@
 import { COURSES, FAQS } from "../data";
+import { BLOG_POSTS, getBlogPost, type BlogPost } from "../data/blog";
 import type { Course } from "../types";
 import { brandLogoAbsolute } from "./brand-assets";
 import { coursePageMeta } from "./course-meta";
@@ -179,6 +180,28 @@ export const STATIC_PAGES: Record<string, PageSeo> = {
     description:
       "Read reviews from students and parents around the world who learn Quran, Tajweed and Arabic online with Alif Laam Meem Academy's certified tutors.",
   },
+  "/blog": {
+    title: "Quran Learning Blog | Guides for Parents & Students",
+    keywords: "learn Quran online blog, Quran for kids, Noorani Qaida, Tajweed, Hifz tips",
+    description:
+      "Teacher-written guides on learning the Arabic alphabet, Noorani Qaida, Tajweed, Hifz and teaching Quran to kids at home. New articles every month.",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: "Alif Laam Meem Academy Quran Learning Blog",
+        url: `${SITE_URL}/blog/`,
+        publisher: { "@id": `${SITE_URL}/#organization` },
+        blogPost: BLOG_POSTS.map((p) => ({
+          "@type": "BlogPosting",
+          headline: p.title,
+          url: `${SITE_URL}/blog/${p.slug}/`,
+          datePublished: p.published,
+          dateModified: p.updated,
+        })),
+      },
+    ],
+  },
   "/privacy-policy": {
     title: "Privacy Policy | Alif Laam Meem Academy",
     description:
@@ -259,9 +282,57 @@ export const NOT_FOUND_SEO: PageSeo = {
   noindex: true,
 };
 
+export function blogPostSeo(post: BlogPost): PageSeo {
+  const path = `/blog/${post.slug}`;
+  const url = `${SITE_URL}${path}/`;
+  const jsonLd: Record<string, unknown>[] = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "@id": `${url}#article`,
+      headline: post.title,
+      description: post.description,
+      image: absolute(post.image),
+      datePublished: post.published,
+      dateModified: post.updated,
+      inLanguage: "en",
+      mainEntityOfPage: url,
+      author: { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: SITE_NAME, url: `${SITE_URL}/` },
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      keywords: post.keyword,
+    },
+  ];
+  if (post.faqs?.length) {
+    jsonLd.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: post.faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    });
+  }
+  return {
+    title: post.metaTitle,
+    description: post.description,
+    keywords: post.keyword,
+    canonicalPath: `${path}/`,
+    image: absolute(post.image),
+    type: "article",
+    jsonLd,
+  };
+}
+
 /** Resolve SEO config for a pathname. */
 export function resolveSeo(pathname: string): PageSeo {
   const path = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+
+  const blogMatch = path.match(/^\/blog\/([^/]+)$/);
+  if (blogMatch) {
+    const post = getBlogPost(blogMatch[1]);
+    return post ? blogPostSeo(post) : NOT_FOUND_SEO;
+  }
 
   const courseMatch = path.match(/^\/course\/([^/]+)$/);
   if (courseMatch) {
@@ -276,7 +347,7 @@ export function resolveSeo(pathname: string): PageSeo {
   // unless the page already sets its own canonical (e.g. /register).
   return {
     ...page,
-    keywords: theme ? [theme.primary, ...theme.secondary].join(", ") : undefined,
+    keywords: theme ? [theme.primary, ...theme.secondary].join(", ") : page.keywords,
     canonicalPath: page.canonicalPath
       ? canonicalPathFor(page.canonicalPath)
       : canonicalPathFor(path),
