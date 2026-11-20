@@ -21,7 +21,7 @@ import {
   Music2,
 } from "lucide-react";
 import { BRAND_LOGO_ALT, BRAND_LOGO_PATH } from "../seo/brand-assets";
-import { CONTACT_EMAIL, SOCIAL_PROFILES, TRUSTPILOT_PROFILE_URL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
+import { CONTACT_PHONE, CONTACT_EMAIL, SOCIAL_PROFILES, TRUSTPILOT_PROFILE_URL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 
 /** Compare routes ignoring a trailing slash (links use "/pricing/", users may land on "/pricing"). */
 const SOCIAL_ICONS = { Facebook, Instagram, YouTube: Youtube, TikTok: Music2 } as const;
@@ -536,7 +536,7 @@ export const Navbar: React.FC = () => {
                   fontFamily: "'Nunito',sans-serif",
                 }}
               >
-                +92 300 6873200
+                {CONTACT_PHONE}
               </span>
             </div>
           </div>
@@ -945,7 +945,7 @@ export const Footer: React.FC = () => {
                 {
                   icon: <Phone size={15} />,
                   label: "Call Us",
-                  val: "+92 300 6873200",
+                  val: CONTACT_PHONE,
                   color: "#c9973a",
                 },
                 {

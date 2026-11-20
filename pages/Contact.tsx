@@ -19,7 +19,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { submitLead } from "../services/api";
-import { CONTACT_EMAIL, WHATSAPP_CHAT_URL } from "../seo/seo.config";
+import { CONTACT_EMAIL, CONTACT_PHONE, WHATSAPP_CHAT_URL } from "../seo/seo.config";
 import {
   PhoneCountryFields,
   buildPhonePayload,
@@ -346,7 +346,7 @@ export const Contact: React.FC = () => {
     {
       icon: Phone,
       title: "Call / WhatsApp",
-      value: "+92 300 6873200",
+      value: CONTACT_PHONE,
       sub: "Available 24 hours a day",
       color: "#2fcf87",
       bg: "rgba(47,207,135,.12)",
