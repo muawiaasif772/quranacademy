@@ -32,6 +32,8 @@ export interface BlogPost {
   readMinutes: number;
   image: string;
   imageAlt: string;
+  /** Portrait 2:3 image for Pinterest (shown at the end of the article). */
+  pinImage?: string;
   /** Short summary for the blog list card. */
   excerpt: string;
   /** Main search phrase this article targets (for internal planning). */
@@ -57,6 +59,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: AUTHOR,
     readMinutes: 9,
     image: "/assets/images/learn-arabic-online-for-quran-alif-laam-meem.jpg",
+    pinImage: "/assets/images/pins/arabic-grammar-for-understanding-the-quran-pin.jpg",
     imageAlt: "Student learning Quranic Arabic grammar online",
     excerpt:
       "Nahw, Sarf, case endings and root letters explained simply, with examples from Al-Fatiha and a realistic plan to start understanding the Quran in Arabic.",
@@ -188,6 +191,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: AUTHOR,
     readMinutes: 8,
     image: "/assets/images/online-quran-tafsir-meaning-course.jpg",
+    pinImage: "/assets/images/pins/how-to-learn-tafseer-of-the-quran-pin.jpg",
     imageAlt: "Open Quran with Tafseer notes for studying the meaning of the Quran",
     excerpt:
       "Tafseer explains what the Quran means, why each ayah was revealed and how to apply it. Here is how to start, step by step.",
@@ -282,6 +286,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: AUTHOR,
     readMinutes: 6,
     image: "/assets/images/noorani-qaida-online-quran-course-alif-laam-meem.jpg",
+    pinImage: "/assets/images/pins/how-many-letters-in-arabic-alphabet-pin.jpg",
     imageAlt: "Arabic alphabet letters for beginners learning to read the Quran",
     excerpt:
       "The Arabic alphabet has 28 letters, written right to left. Here is the complete list in order, with each letter's name and sound.",
@@ -406,6 +411,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: AUTHOR,
     readMinutes: 7,
     image: "/assets/images/online-quran-hifz-memorization-course.jpg",
+    pinImage: "/assets/images/pins/how-long-does-it-take-to-memorize-the-quran-pin.jpg",
     imageAlt: "Student memorizing the Quran during an online Hifz class",
     excerpt:
       "Full-time students often finish in 1–3 years, part-time students in 3–5. Here is how to estimate your own Hifz timeline.",
@@ -513,6 +519,7 @@ export const BLOG_POSTS: BlogPost[] = [
     author: AUTHOR,
     readMinutes: 8,
     image: "/assets/images/muslim-children-learning-quran-online-alif-laam-meem-academy.jpg",
+    pinImage: "/assets/images/pins/how-to-teach-quran-to-kids-at-home-pin.jpg",
     imageAlt: "Muslim children learning Quran at home with their parent",
     excerpt:
       "When to start, what to teach first, and a simple daily routine that keeps children learning Quran happily at home.",

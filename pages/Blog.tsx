@@ -351,6 +351,21 @@ export function BlogArticle() {
             <div className="post-body">
               {post.body.map((block, i) => <Block key={i} block={block} />)}
 
+              {post.pinImage && (
+                <figure style={{ margin: "40px auto", maxWidth: 340, textAlign: "center" }}>
+                  <img
+                    src={post.pinImage}
+                    alt={`${post.title} – save this guide on Pinterest`}
+                    width={1000}
+                    height={1500}
+                    loading="lazy"
+                    decoding="async"
+                    style={{ width: "100%", height: "auto", borderRadius: 16, border: "1px solid var(--page-card-border)" }}
+                  />
+                  <figcaption style={{ fontSize: 14, marginTop: 10, color: "var(--on-surface-muted)" }}>Save this guide to read later</figcaption>
+                </figure>
+              )}
+
               {post.faqs && post.faqs.length > 0 && (
                 <section aria-labelledby="faq-heading">
                   <h2 id="faq-heading">Frequently asked questions</h2>
