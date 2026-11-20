@@ -83,18 +83,6 @@ $body .= "Notes: " . $notes . "\n";
 
 $mailed = send_admin_email('New free trial request - ' . $name, $body, $email);
 
-$wa  = "New FREE TRIAL request\n";
-$wa .= "Name: " . $name . "\n";
-$wa .= "WhatsApp: " . $phone . "\n";
-$wa .= "Email: " . $email . "\n";
-$wa .= "Country: " . $country . "\n";
-$wa .= "Course: " . $course . "\n";
-$wa .= "Age: " . $age . "\n";
-$wa .= "Days: " . implode(', ', $days) . " | Time: " . $time . "\n";
-if ($teacher !== '') { $wa .= "Teacher: " . $teacher . "\n"; }
-if ($notes !== '') { $wa .= "Notes: " . $notes . "\n"; }
-$wa .= "Reply: https://wa.me/" . phone_digits($phone);
-send_whatsapp_alert($wa);
 
 json_response(200, array(
     'success' => true,

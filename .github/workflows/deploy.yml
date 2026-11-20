@@ -139,23 +139,6 @@ jobs:
         continue-on-error: true
         run: node scripts/indexnow.mjs detect
 
-      - name: Write WhatsApp alert config
-        env:
-          WHATSAPP_PHONE: ${{ secrets.WHATSAPP_PHONE }}
-          WHATSAPP_APIKEY: ${{ secrets.WHATSAPP_APIKEY }}
-        run: |
-          python3 - <<'PY'
-          import os, re
-          phone = re.sub(r'[^0-9+]', '', os.environ.get('WHATSAPP_PHONE', ''))
-          key = re.sub(r'[^0-9A-Za-z]', '', os.environ.get('WHATSAPP_APIKEY', ''))
-          if phone and key:
-              open('dist/api/_wa_config.php', 'w').write(
-                  "<?php return array('phone' => '%s', 'apikey' => '%s');\n" % (phone, key))
-              print('WhatsApp alerts enabled for', phone[:5] + '...')
-          else:
-              print('WhatsApp secrets not set - alerts disabled (email still works).')
-          PY
-
       - name: Deploy website files using SFTP
         shell: bash
         env:

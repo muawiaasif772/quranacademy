@@ -748,3 +748,13 @@ html[data-theme="light"] .alm-brand-panel [style^="color: rgb(226, 192, 107)"],
 html[data-theme="light"] .alm-brand-panel [style*=" color: rgb(226, 192, 107)"] {
   color: #e2c06b !important;
 }
+
+/* Light theme: the gold shimmer highlight was near-white (#fff8e0), which made
+   part of gradient headings ("Service", "Corner") unreadable on cream. */
+html:not(.dark) .gold-shimmer {
+  background: linear-gradient(90deg, #7d5810 0%, #93670f 35%, #b0832a 50%, #93670f 65%, #7d5810 100%) !important;
+  background-size: 500px 100% !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}

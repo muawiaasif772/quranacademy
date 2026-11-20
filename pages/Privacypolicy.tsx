@@ -273,24 +273,6 @@ export const PrivacyPolicy: React.FC = () => {
             }}
           />
           <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "-3%",
-              transform: "translateY(-50%)",
-              fontFamily: "serif",
-              fontSize: "clamp(110px,17vw,250px)",
-              color: "var(--gold)",
-              opacity: 0.06,
-              fontWeight: 700,
-              userSelect: "none",
-              pointerEvents: "none",
-              lineHeight: 1,
-            }}
-          >
-            خصوصية
-          </div>
-          <div
             className="glow-pulse"
             style={{
               position: "absolute",
@@ -408,7 +390,7 @@ export const PrivacyPolicy: React.FC = () => {
               }}
             >
               <span className="updated-badge">
-                <RefreshCw size={12} /> Updated: Jan 15, 2025
+                <RefreshCw size={12} /> Updated: Nov 20, 2026
               </span>
               <span
                 style={{

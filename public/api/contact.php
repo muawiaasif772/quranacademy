@@ -73,14 +73,6 @@ $body .= "Message:\n" . $message . "\n";
 
 send_admin_email('New contact message - ' . $subject . ' - ' . $name, $body, $email);
 
-$wa  = "New CONTACT message\n";
-$wa .= "Name: " . $name . "\n";
-$wa .= "Phone: " . $phone . "\n";
-$wa .= "Email: " . $email . "\n";
-$wa .= "Subject: " . $subject . "\n";
-$wa .= "Message: " . $message . "\n";
-if (phone_digits($phone) !== '') { $wa .= "Reply: https://wa.me/" . phone_digits($phone); }
-send_whatsapp_alert($wa);
 
 json_response(200, array(
     'success' => true,

@@ -858,7 +858,7 @@ const BookTrial: React.FC = () => {
               }}
             >
               Book a Free
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Quran Trial Class
               </span>

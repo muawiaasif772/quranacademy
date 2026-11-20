@@ -417,7 +417,7 @@ const Home: React.FC = () => {
                     }}
                   >
                     Online Quran Classes
-                    <br />
+                    {" "}<br />
                     <span className="gold-shimmer">for Kids &amp; Adults</span>
                   </h1>
                   <div

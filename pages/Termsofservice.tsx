@@ -271,24 +271,6 @@ export const TermsOfService: React.FC = () => {
             }}
           />
           <div
-            style={{
-              position: "absolute",
-              top: "50%",
-              right: "-2%",
-              transform: "translateY(-50%)",
-              fontFamily: "serif",
-              fontSize: "clamp(100px,16vw,230px)",
-              color: "var(--gold)",
-              opacity: 0.06,
-              fontWeight: 700,
-              userSelect: "none",
-              pointerEvents: "none",
-              lineHeight: 1,
-            }}
-          >
-            شروط
-          </div>
-          <div
             className="glow-pulse"
             style={{
               position: "absolute",
@@ -407,7 +389,7 @@ export const TermsOfService: React.FC = () => {
               }}
             >
               <span className="updated-badge">
-                <RefreshCw size={12} /> Updated: Jan 15, 2025
+                <RefreshCw size={12} /> Updated: Nov 20, 2026
               </span>
               <span
                 style={{

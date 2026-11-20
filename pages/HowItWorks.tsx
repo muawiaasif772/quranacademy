@@ -826,7 +826,7 @@ const HowItWorks: React.FC = () => {
               }}
             >
               How Online Quran
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Classes Work
               </span>

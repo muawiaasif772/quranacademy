@@ -16,6 +16,28 @@ import {
 import { Link } from "react-router-dom";
 import StatsRibbon from "@/components/stateRibon";
 
+const initialsOf = (name: string) =>
+  name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join("").toUpperCase();
+const Initials: React.FC<{ name: string; color: string; fontSize: number }> = ({ name, color, fontSize }) => (
+  <span
+    aria-hidden="true"
+    style={{
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: `${color}22`,
+      color,
+      fontFamily: "'Cinzel',serif",
+      fontWeight: 700,
+      fontSize,
+    }}
+  >
+    {initialsOf(name)}
+  </span>
+);
+
 // ── Fallback testimonials ──────────────────────────────────────────────────────
 const FALLBACK_TESTIMONIALS = [
   {
@@ -24,7 +46,6 @@ const FALLBACK_TESTIMONIALS = [
     location: "London, UK",
     text: "SubhanAllah, within 3 months I went from struggling with basic letters to reciting full surahs with proper Tajweed. My tutor's patience and expertise transformed my relationship with the Quran completely.",
     course: "Quran Recitation",
-    avatar: "https://i.pravatar.cc/150?img=47",
     rating: 5,
   },
   {
@@ -33,7 +54,6 @@ const FALLBACK_TESTIMONIALS = [
     location: "Dubai, UAE",
     text: "The 1-on-1 sessions made all the difference. I've tried group classes before but never progressed this fast. My son completed his first Juz in just 2 months – the Hafiz tutors are truly exceptional.",
     course: "Quran Memorization",
-    avatar: "https://i.pravatar.cc/150?img=12",
     rating: 5,
   },
   {
@@ -42,7 +62,6 @@ const FALLBACK_TESTIMONIALS = [
     location: "Toronto, Canada",
     text: "I finally understand the words I recite in salah. The Arabic Language course opened an entirely new world for me. The curriculum is perfectly structured and the tutors are incredibly knowledgeable.",
     course: "Arabic Language",
-    avatar: "https://i.pravatar.cc/150?img=32",
     rating: 5,
   },
   {
@@ -51,7 +70,6 @@ const FALLBACK_TESTIMONIALS = [
     location: "New York, USA",
     text: "As a busy professional, I needed flexible scheduling. This academy accommodated my schedule perfectly. The quality of teaching rivals anything I've encountered in person. Truly blessed to have found this.",
     course: "Tajweed Mastery",
-    avatar: "https://i.pravatar.cc/150?img=68",
     rating: 5,
   },
   {
@@ -60,7 +78,6 @@ const FALLBACK_TESTIMONIALS = [
     location: "Melbourne, Australia",
     text: "My children aged 6 and 9 absolutely love their sessions. The tutors have a beautiful way of making Quran learning exciting and fun. As a parent I couldn't be more grateful for this program.",
     course: "Kids Quran Program",
-    avatar: "https://i.pravatar.cc/150?img=45",
     rating: 5,
   },
   {
@@ -69,7 +86,6 @@ const FALLBACK_TESTIMONIALS = [
     location: "Karachi, Pakistan",
     text: "The Ijazah pathway is extraordinary. I'm now connected to an unbroken chain of transmission going back to the Prophet ﷺ himself. This is not just education — it is a sacred inheritance.",
     course: "Quran Memorization",
-    avatar: "https://i.pravatar.cc/150?img=15",
     rating: 5,
   },
 ];
@@ -558,7 +574,7 @@ export const Reviews: React.FC = () => {
               }}
             >
               Student Reviews of
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Our Quran Classes
               </span>
@@ -861,15 +877,7 @@ export const Reviews: React.FC = () => {
                       flexShrink: 0,
                     }}
                   >
-                    <img
-                      src={featured.avatar}
-                      alt={featured.name}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
+                    <Initials name={featured.name} color={acc.color} fontSize={18} />
                   </div>
                   <div>
                     <div
@@ -1200,15 +1208,7 @@ export const Reviews: React.FC = () => {
                             flexShrink: 0,
                           }}
                         >
-                          <img
-                            src={review.avatar}
-                            alt={review.name}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
+                          <Initials name={review.name} color={rAcc.color} fontSize={14} />
                         </div>
                         <div>
                           <div
@@ -1489,24 +1489,27 @@ export const Reviews: React.FC = () => {
                     }}
                   >
                     <div style={{ display: "flex" }}>
-                      {[
-                        "https://i.pravatar.cc/150?img=47",
-                        "https://i.pravatar.cc/150?img=12",
-                        "https://i.pravatar.cc/150?img=32",
-                      ].map((src, i) => (
-                        <img
-                          key={i}
-                          src={src}
-                          alt=""
+                      {["AR", "OF", "FM"].map((ini, i) => (
+                        <span
+                          key={ini}
+                          aria-hidden="true"
                           style={{
                             width: 28,
                             height: 28,
                             borderRadius: "50%",
                             border: "2px solid var(--deep)",
                             marginLeft: i ? -8 : 0,
-                            objectFit: "cover",
+                            background: "#c9973a",
+                            color: "#fff",
+                            fontSize: 10,
+                            fontWeight: 700,
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
                           }}
-                        />
+                        >
+                          {ini}
+                        </span>
                       ))}
                     </div>
                     <div>

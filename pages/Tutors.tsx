@@ -511,7 +511,7 @@ const Tutors: React.FC = () => {
               }}
             >
               Certified Online
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Quran Tutors
               </span>

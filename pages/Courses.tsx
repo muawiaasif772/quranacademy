@@ -502,7 +502,7 @@ const Courses: React.FC = () => {
               }}
             >
               Online Quran
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Courses & Programs
               </span>

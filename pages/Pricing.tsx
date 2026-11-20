@@ -1038,7 +1038,7 @@ const PricingPage: React.FC = () => {
               }}
             >
               Online Quran Class
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 Fees & Plans
               </span>

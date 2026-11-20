@@ -165,7 +165,7 @@ export function BlogIndex() {
       >
         <h1 className="blog-h blog-a2" style={{ fontSize: "clamp(38px,5.6vw,72px)", fontWeight: 300, lineHeight: 1.08, margin: "0 0 20px" }}>
           Quran Learning Guides
-          <br />
+          {" "}<br />
           <span className="blog-gold" style={{ fontWeight: 700 }}>for Parents &amp; Students</span>
         </h1>
       </Hero>

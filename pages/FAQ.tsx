@@ -579,7 +579,7 @@ export const FAQ: React.FC = () => {
               }}
             >
               Online Quran Classes
-              <br />
+              {" "}<br />
               <span className="gold-shimmer" style={{ fontWeight: 700 }}>
                 FAQs
               </span>
