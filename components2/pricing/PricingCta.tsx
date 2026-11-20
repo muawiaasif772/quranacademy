@@ -22,7 +22,7 @@ export const PricingCta: React.FC = () => {
                 <span>Register Now</span>
                 <ArrowRight size={28} className="group-hover/btn:translate-x-2 transition-transform" />
               </Link>
-              <a href="https://wa.me/1234567890" className="bg-white dark:bg-white/5 text-slate-900 dark:text-white border-4 border-slate-100 dark:border-white/10 px-12 py-6 rounded-3xl font-black text-2xl hover:bg-slate-50 dark:hover:bg-white/10 transition-all transform hover:-translate-y-2 flex items-center justify-center space-x-4">
+              <a href="https://wa.me/923006873200" className="bg-white dark:bg-white/5 text-slate-900 dark:text-white border-4 border-slate-100 dark:border-white/10 px-12 py-6 rounded-3xl font-black text-2xl hover:bg-slate-50 dark:hover:bg-white/10 transition-all transform hover:-translate-y-2 flex items-center justify-center space-x-4">
                 <MessageCircle size={28} />
                 <span>Quick WhatsApp</span>
               </a>

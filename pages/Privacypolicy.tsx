@@ -280,7 +280,8 @@ export const PrivacyPolicy: React.FC = () => {
               transform: "translateY(-50%)",
               fontFamily: "serif",
               fontSize: "clamp(110px,17vw,250px)",
-              color: "var(--page-fg-subtle)",
+              color: "var(--gold)",
+              opacity: 0.06,
               fontWeight: 700,
               userSelect: "none",
               pointerEvents: "none",
@@ -365,7 +366,7 @@ export const PrivacyPolicy: React.FC = () => {
               className="h2"
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(46px,9vw,100px)",
+                fontSize: "clamp(38px,5.6vw,72px)",
                 fontWeight: 300,
                 lineHeight: 1.0,
                 marginBottom: 18,

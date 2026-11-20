@@ -120,7 +120,7 @@ const llmsLines = [
   "",
   `> Online Quran academy (Alif Laam Meem Islamic Institute) offering live 1-on-1 classes for children and adults worldwide: Noorani Qaida, Tajweed, Hifz memorization, Arabic, Islamic Studies for kids, and Tafsir. Certified male and female tutors. Flexible scheduling. Book a free trial on the website; no credit card required.`,
   "",
-  `Contact: ${CONTACT_PHONE}, ${CONTACT_EMAIL}. WhatsApp: https://wa.me/93006873200`,
+  `Contact: ${CONTACT_PHONE}, ${CONTACT_EMAIL}. WhatsApp: https://wa.me/923006873200`,
   "",
   "## Key pages",
   "",

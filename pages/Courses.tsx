@@ -494,7 +494,7 @@ const Courses: React.FC = () => {
               className="h2"
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(42px,6vw,80px)",
+                fontSize: "clamp(38px,5.6vw,72px)",
                 fontWeight: 300,
                 color: "var(--on-surface)",
                 lineHeight: 1.08,

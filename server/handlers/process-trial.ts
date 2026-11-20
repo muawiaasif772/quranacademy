@@ -28,7 +28,7 @@ function studentPlainText(data: TrialSubmission): string {
     `Thank you for registering for a free trial with Alif Laam Meem Academy.`,
     `We have received your request and our team will contact you within 24 hours.`,
     ``,
-    `Need help sooner? WhatsApp: +92 0300 6873200`,
+    `Need help sooner? WhatsApp: +92 300 6873200`,
     ``,
     `JazakAllahu Khairan,`,
     `Alif Laam Meem Academy Team`,

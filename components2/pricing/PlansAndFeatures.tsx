@@ -81,7 +81,7 @@ export const PlansAndFeatures: React.FC = () => {
                     Book Free Trial
                   </Link>
                   <a 
-                    href="https://wa.me/1234567890" 
+                    href="https://wa.me/923006873200" 
                     className="w-full flex items-center justify-center space-x-2 text-slate-500 dark:text-slate-400 hover:text-[#074E3C] font-black text-sm uppercase tracking-widest transition-colors"
                   >
                     <MessageCircle size={18} />

@@ -163,7 +163,7 @@ export function BlogIndex() {
           </p>
         }
       >
-        <h1 className="blog-h blog-a2" style={{ fontSize: "clamp(44px,7vw,84px)", fontWeight: 300, lineHeight: 1.08, margin: "0 0 20px" }}>
+        <h1 className="blog-h blog-a2" style={{ fontSize: "clamp(38px,5.6vw,72px)", fontWeight: 300, lineHeight: 1.08, margin: "0 0 20px" }}>
           Quran Learning Guides
           <br />
           <span className="blog-gold" style={{ fontWeight: 700 }}>for Parents &amp; Students</span>
@@ -313,7 +313,9 @@ export function BlogArticle() {
 
   const course = courseFor(post);
   const toc = post.body.filter((b): b is Extract<BlogBlock, { type: "h2" }> => b.type === "h2" && Boolean(b.id));
-  const more = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const idx = BLOG_POSTS.findIndex((p) => p.slug === post.slug);
+  // Rotate through the other posts so every article gets links from the others.
+  const more = [1, 2, 3].map((k) => BLOG_POSTS[(idx + k) % BLOG_POSTS.length]).filter((p) => p.slug !== post.slug);
 
   return (
     <div className="blog-root">

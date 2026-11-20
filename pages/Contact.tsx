@@ -346,7 +346,7 @@ export const Contact: React.FC = () => {
     {
       icon: Phone,
       title: "Call / WhatsApp",
-      value: "+9203006873200",
+      value: "+92 300 6873200",
       sub: "Available 24 hours a day",
       color: "#2fcf87",
       bg: "rgba(47,207,135,.12)",
@@ -545,7 +545,7 @@ export const Contact: React.FC = () => {
               className="h2"
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(52px,9vw,110px)",
+                fontSize: "clamp(38px,5.6vw,72px)",
                 fontWeight: 300,
                 lineHeight: 1.0,
                 marginBottom: 24,

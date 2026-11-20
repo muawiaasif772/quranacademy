@@ -21,6 +21,7 @@ import {
   Shield,
 } from "lucide-react";
 import { COURSES } from "../data";
+import { BLOG_POSTS } from "../data/blog";
 
 // ── Course accent map ──────────────────────────────────────────────────────────
 const CC: Record<
@@ -376,7 +377,7 @@ const CourseDetail: React.FC = () => {
 
   return (
     <>
-      <style>{S}</style>
+      <style>{S + ".cd-guides{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media(max-width:900px){.cd-guides{grid-template-columns:1fr}}"}</style>
       <div
         style={{
           fontFamily: "'Nunito',sans-serif",
@@ -1693,6 +1694,63 @@ const CourseDetail: React.FC = () => {
               <Link to="/courses/" style={{ color: "var(--gold-lt)" }}>
                 All courses
               </Link>
+            </p>
+          </div>
+        </section>
+
+        {/* ══ GUIDES & HELPFUL LINKS (internal linking) ═══════════════════════ */}
+        <section style={{ padding: "72px 24px", background: "var(--surface-base)" }}>
+          <div style={{ maxWidth: 1320, margin: "0 auto" }}>
+            <h2
+              style={{
+                fontFamily: "'Cormorant Garamond',serif",
+                fontSize: "clamp(26px,3.5vw,44px)",
+                fontWeight: 600,
+                color: "var(--on-surface)",
+                marginBottom: 12,
+              }}
+            >
+              Free Guides for Students &amp; Parents
+            </h2>
+            <p style={{ color: "var(--on-surface-faint)", fontSize: 15, lineHeight: 1.7, marginBottom: 28, maxWidth: 640 }}>
+              Read these before your first class to know what to expect.
+            </p>
+            <div className="cd-guides">
+              {[...BLOG_POSTS.filter((p) => p.relatedCourse === course.slug), ...BLOG_POSTS.filter((p) => p.relatedCourse !== course.slug)]
+                .slice(0, 3)
+                .map((p) => (
+                  <Link
+                    key={p.slug}
+                    to={`/blog/${p.slug}/`}
+                    style={{
+                      display: "block",
+                      background: "var(--page-card-bg)",
+                      border: "1px solid var(--page-card-border)",
+                      borderRadius: 18,
+                      padding: "22px 24px",
+                      textDecoration: "none",
+                    }}
+                  >
+                    <span style={{ display: "block", fontSize: 12, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--gold)", fontWeight: 700, marginBottom: 8 }}>
+                      Guide · {p.readMinutes} min read
+                    </span>
+                    <span style={{ display: "block", fontFamily: "'Cormorant Garamond',serif", fontSize: 22, fontWeight: 700, lineHeight: 1.25, color: "var(--on-surface)" }}>
+                      {p.title}
+                    </span>
+                  </Link>
+                ))}
+            </div>
+            <p style={{ marginTop: 28, fontSize: 15, color: "var(--on-surface-muted)", lineHeight: 1.9 }}>
+              Next steps:{" "}
+              <Link to="/how-it-works/" style={{ color: "var(--gold)", fontWeight: 700 }}>How our online classes work</Link>
+              {" · "}
+              <Link to="/tutors/" style={{ color: "var(--gold)", fontWeight: 700 }}>Meet our Quran tutors</Link>
+              {" · "}
+              <Link to="/reviews/" style={{ color: "var(--gold)", fontWeight: 700 }}>Student reviews</Link>
+              {" · "}
+              <Link to="/pricing/" style={{ color: "var(--gold)", fontWeight: 700 }}>Fees &amp; plans</Link>
+              {" · "}
+              <Link to="/faq/" style={{ color: "var(--gold)", fontWeight: 700 }}>FAQ</Link>
             </p>
           </div>
         </section>

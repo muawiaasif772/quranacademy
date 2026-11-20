@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { RelatedLinks } from "./RelatedLinks";
 import {
   Menu,
   X,
@@ -535,7 +536,7 @@ export const Navbar: React.FC = () => {
                   fontFamily: "'Nunito',sans-serif",
                 }}
               >
-                +923006873200
+                +92 300 6873200
               </span>
             </div>
           </div>
@@ -944,7 +945,7 @@ export const Footer: React.FC = () => {
                 {
                   icon: <Phone size={15} />,
                   label: "Call Us",
-                  val: "+9203006873200",
+                  val: "+92 300 6873200",
                   color: "#c9973a",
                 },
                 {
@@ -1156,6 +1157,7 @@ export const Footer: React.FC = () => {
 export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const location = useLocation();
   return (
     <div
       style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}
@@ -1163,6 +1165,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       <Navbar />
       <main id="main-content" aria-label="Main content" style={{ flex: 1 }}>
         {children}
+        <RelatedLinks pathname={location.pathname} />
       </main>
       <Footer />
     </div>

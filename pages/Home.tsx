@@ -12,6 +12,7 @@ import {
   Moon,
 } from "lucide-react";
 import { COURSES, TUTORS, FAQS } from "../data";
+import { BLOG_POSTS } from "../data/blog";
 import HowItWorksSection from "@/components/process";
 import StatsRibbon from "@/components/stateRibon";
 import WhyUsSection from "@/components/Whyussection";
@@ -1151,6 +1152,30 @@ const Home: React.FC = () => {
               WhatsApp — we reply quickly and can match you with a tutor within 24 hours after your{" "}
               <Link to="/book-free-trial/" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>free trial</Link> request.
             </p>
+            <p style={{ fontSize: 16, lineHeight: 1.7, margin: "16px 0 0", color: "#475569" }}>
+              Want to know who will teach you?{" "}
+              <Link to="/tutors/" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>Meet our Quran tutors</Link> or read{" "}
+              <Link to="/reviews/" style={{ color: "var(--emerald-700)", fontWeight: 600 }}>reviews from students and parents</Link>.
+            </p>
+            <h3
+              style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: "clamp(20px, 3vw, 26px)",
+                margin: "32px 0 12px",
+              }}
+            >
+              Free guides from our{" "}
+              <Link to="/blog/" style={{ color: "var(--emerald-700)" }}>Quran learning blog</Link>
+            </h3>
+            <ul style={{ margin: 0, paddingLeft: 20, fontSize: 16, lineHeight: 1.9, color: "#334155" }}>
+              {BLOG_POSTS.map((p) => (
+                <li key={p.slug}>
+                  <Link to={`/blog/${p.slug}/`} style={{ color: "var(--emerald-700)", fontWeight: 600 }}>
+                    {p.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

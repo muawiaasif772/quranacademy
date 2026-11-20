@@ -278,7 +278,8 @@ export const TermsOfService: React.FC = () => {
               transform: "translateY(-50%)",
               fontFamily: "serif",
               fontSize: "clamp(100px,16vw,230px)",
-              color: "var(--page-fg-subtle)",
+              color: "var(--gold)",
+              opacity: 0.06,
               fontWeight: 700,
               userSelect: "none",
               pointerEvents: "none",
@@ -364,7 +365,7 @@ export const TermsOfService: React.FC = () => {
               className="h2"
               style={{
                 fontFamily: "'Cormorant Garamond',serif",
-                fontSize: "clamp(44px,9vw,98px)",
+                fontSize: "clamp(38px,5.6vw,72px)",
                 fontWeight: 300,
                 lineHeight: 1.0,
                 marginBottom: 18,
@@ -390,7 +391,7 @@ export const TermsOfService: React.FC = () => {
                 margin: "0 auto 30px",
               }}
             >
-              The key rules for using Noor Al-Quran Academy — written clearly,
+              The key rules for using Alif Laam Meem Academy — written clearly,
               without the legalese.
             </p>
 

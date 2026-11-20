@@ -78,3 +78,40 @@ function send_admin_email($subject, $body, $reply_to) {
     // the most likely to be accepted; check Spam/Junk if a mail is missing.
     return @mail(ADMIN_EMAIL, $subject, $body, $headers);
 }
+
+/**
+ * Send a WhatsApp alert to the academy owner through the CallMeBot API.
+ * The phone number and API key live in _wa_config.php, which the deploy
+ * workflow writes from GitHub secrets (WHATSAPP_PHONE, WHATSAPP_APIKEY).
+ * If the file or key is missing, this silently does nothing, so forms
+ * keep working by email only.
+ */
+function send_whatsapp_alert($text) {
+    $cfg_file = __DIR__ . '/_wa_config.php';
+    if (!file_exists($cfg_file)) {
+        return false;
+    }
+    $cfg = include $cfg_file;
+    if (!is_array($cfg) || empty($cfg['phone']) || empty($cfg['apikey'])) {
+        return false;
+    }
+    // CallMeBot has a message length limit; keep alerts short.
+    $text = mb_substr($text, 0, 900);
+    $url = 'https://api.callmebot.com/whatsapp.php?source=php'
+        . '&phone=' . rawurlencode($cfg['phone'])
+        . '&text=' . rawurlencode($text)
+        . '&apikey=' . rawurlencode($cfg['apikey']);
+    if (function_exists('curl_init')) {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 8);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        $out = curl_exec($ch);
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return $out !== false && $code >= 200 && $code < 300;
+    }
+    $ctx = stream_context_create(array('http' => array('timeout' => 8)));
+    return @file_get_contents($url, false, $ctx) !== false;
+}
+
