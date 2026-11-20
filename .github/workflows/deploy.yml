@@ -135,6 +135,10 @@ jobs:
 
           echo "SSH access and document root verified."
 
+      - name: Detect changed pages for IndexNow
+        continue-on-error: true
+        run: node scripts/indexnow.mjs detect
+
       - name: Deploy website files using SFTP
         shell: bash
         env:
@@ -162,3 +166,8 @@ jobs:
           SFTP
 
           echo "SFTP deployment completed successfully."
+
+      - name: Notify Bing via IndexNow
+        if: success()
+        continue-on-error: true
+        run: node scripts/indexnow.mjs submit
